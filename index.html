@@ -3,7 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thu Nhiên Education - Phát Triển Tâm Trí Con</title>
+    <meta name="description" content="Thu Nhiên Education - Giáo dục tâm lý giúp con tự tin, vượt qua lo âu, phát triển bản thân. Khóa học NLP, coaching tâm lý cho bố mẹ và teen.">
+    <meta name="keywords" content="giáo dục tâm lý, NLP cho trẻ, coaching teen, giảm lo âu học tập, phát triển bản thân, tâm lý trẻ em">
+    <meta name="author" content="Thu Nhiên Education">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Vietnamese">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thu Nhiên Education - Phát Triển Tâm Trí Con">
+    <meta property="og:description" content="Khóa học giáo dục tâm lý online giúp con tự tin học tập, giảm lo âu, phát triển cá nhân.">
+    <meta property="og:image" content="https://thunhienedu.vercel.app/og-image.png">
+    <meta property="og:url" content="https://thunhienedu.vercel.app">
+    <meta property="og:site_name" content="Thu Nhiên Education">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Thu Nhiên Education - Phát Triển Tâm Trí Con">
+    <meta name="twitter:description" content="Khóa học giáo dục tâm lý giúp con tự tin và phát triển bản thân.">
+    <meta name="twitter:image" content="https://thunhienedu.vercel.app/og-image.png">
+    
+    <!-- Structured Data - Organization Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Thu Nhiên Education",
+        "url": "https://thunhienedu.vercel.app",
+        "logo": "https://thunhienedu.vercel.app/logo.png",
+        "description": "Giáo dục tâm lý - khóa học giúp con tự tin, vượt qua lo âu, phát triển bản thân",
+        "sameAs": ["https://facebook.com/thunhienedu", "https://instagram.com/thunhienedu"],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+84-xxx-xxx-xxx",
+            "contactType": "Customer Support",
+            "email": "dangky@thunhienedu.vn"
+        }
+    }
+    </script>
+    
+    <!-- Structured Data - Course Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "Hiểu Con Hơn - Khóa Học Giáo Dục Tâm Lý",
+        "description": "Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn",
+        "provider": {
+            "@type": "Organization",
+            "name": "Thu Nhiên Education"
+        },
+        "instructor": {
+            "@type": "Person",
+            "name": "Coach Thu Nhiên"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "4500000",
+            "priceCurrency": "VND",
+            "availability": "InStock"
+        }
+    }
+    </script>
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://thunhienedu.vercel.app">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🔱</text></svg>">
+    
+    <!-- Preload critical assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://script.google.com">
+    
+    <title>Thu Nhiên Education - Phát Triển Tâm Trí Con | Khóa Học NLP</title>
+    
     <style>
         * {
             margin: 0;
@@ -35,7 +109,7 @@
             background: var(--white);
         }
 
-        /* Header */
+        /* Performance: critical CSS only */
         header {
             background: var(--white);
             border-bottom: 1px solid var(--border);
@@ -115,7 +189,6 @@
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
         }
 
-        /* Pages */
         .page {
             display: none;
             animation: fadeIn 0.3s ease-out;
@@ -136,7 +209,6 @@
             }
         }
 
-        /* Hero Section */
         .hero {
             max-width: 1200px;
             margin: 0 auto;
@@ -193,7 +265,6 @@
             padding: 1rem 2rem;
             border: 2px solid var(--primary);
             border-radius: 6px;
-            text-decoration: none;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -218,7 +289,6 @@
             margin: 0 auto;
         }
 
-        /* Section Titles */
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -234,7 +304,6 @@
             font-size: 1.1rem;
         }
 
-        /* Cards Grid */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -310,7 +379,6 @@
             transform: translateY(-2px);
         }
 
-        /* Blog Section */
         .blog-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -372,7 +440,6 @@
             margin-bottom: 1rem;
         }
 
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -512,7 +579,6 @@
             font-weight: 500;
         }
 
-        /* Footer */
         footer {
             background: var(--text-dark);
             color: var(--white);
@@ -539,7 +605,6 @@
             color: var(--primary-light);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             nav {
                 display: none;
@@ -568,21 +633,47 @@
                 opacity: 1;
             }
         }
+
+        /* Accessibility */
+        a:focus,
+        button:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: var(--white);
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
     </style>
 </head>
 <body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Bỏ qua đến nội dung chính</a>
+
     <!-- Header -->
-    <header>
+    <header role="banner">
         <div class="header-content">
-            <a href="#" class="logo" onclick="goPage('home')">
-                <div class="logo-icon">🔱</div>
+            <a href="#" class="logo" onclick="goPage('home')" aria-label="Thu Nhiên Education - Trang chủ">
+                <div class="logo-icon" aria-hidden="true">🔱</div>
                 <div>
                     <div style="font-size: 0.9rem;">Thu Nhiên</div>
                     <div style="font-size: 0.65rem; color: var(--text-light); font-weight: 400;">Education</div>
                 </div>
             </a>
-            <nav>
-                <button onclick="goPage('home')">Trang Chủ</button>
+            <nav role="navigation" aria-label="Menu chính">
+                <button onclick="goPage('home')" aria-current="page">Trang Chủ</button>
                 <button onclick="goPage('courses')">Khóa Học</button>
                 <button onclick="goPage('blog')">Blog</button>
                 <button onclick="goPage('contact')">Liên Hệ</button>
@@ -592,167 +683,175 @@
     </header>
 
     <!-- HOME PAGE -->
-    <div id="home" class="page active">
-        <section class="hero">
-            <h1>Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
-            <p class="subtitle">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
-            <div class="hero-cta">
-                <button class="btn-primary" onclick="openModal()">Đăng Ký Ngay</button>
-                <button class="btn-secondary" onclick="goPage('courses')">Xem Khóa Học</button>
-            </div>
-            <div class="hero-image">🌱</div>
-        </section>
+    <main id="main-content">
+        <div id="home" class="page active">
+            <section class="hero" itemscope itemtype="https://schema.org/LocalBusiness">
+                <meta itemprop="name" content="Thu Nhiên Education">
+                <meta itemprop="description" content="Giáo dục tâm lý giúp con tự tin, vượt qua lo âu, phát triển bản thân">
+                
+                <h1 itemprop="headline">Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
+                <p class="subtitle" itemprop="description">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
+                <div class="hero-cta">
+                    <button class="btn-primary" onclick="openModal()">Đăng Ký Ngay</button>
+                    <button class="btn-secondary" onclick="goPage('courses')">Xem Khóa Học</button>
+                </div>
+                <div class="hero-image" aria-hidden="true">🌱</div>
+            </section>
 
-        <section style="background: var(--bg-light); padding: 5rem 2rem;">
-            <div style="max-width: 1200px; margin: 0 auto;">
-                <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
-                <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
+            <section style="background: var(--bg-light); padding: 5rem 2rem;" itemscope itemtype="https://schema.org/Thing">
+                <div style="max-width: 1200px; margin: 0 auto;">
+                    <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
+                    <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
+                    
+                    <div class="cards-grid">
+                        <div class="card" itemscope itemtype="https://schema.org/Thing">
+                            <div class="card-header">
+                                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" aria-hidden="true">🧠</div>
+                                <div class="card-title" itemprop="name">Thay Đổi Niềm Tin</div>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-description" itemprop="description">Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card" itemscope itemtype="https://schema.org/Thing">
+                            <div class="card-header">
+                                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" aria-hidden="true">💆</div>
+                                <div class="card-title" itemprop="name">Giảm Lo Âu</div>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-description" itemprop="description">Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card" itemscope itemtype="https://schema.org/Thing">
+                            <div class="card-header">
+                                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" aria-hidden="true">🧘</div>
+                                <div class="card-title" itemprop="name">Cắt Cơn Hoảng Loạn</div>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-description" itemprop="description">Cắt Cơn Hoảng Loạn Bằng Chánh Niệm (Mindfulness) - kỹ năng tự điều chỉnh cảm xúc</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- COURSES PAGE -->
+        <div id="courses" class="page">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;">
+                <h2 class="section-title">Các Khóa Học</h2>
+                <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
                 
                 <div class="cards-grid">
-                    <div class="card">
+                    <div class="card" itemscope itemtype="https://schema.org/Course">
                         <div class="card-header">
-                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧠</div>
-                            <div class="card-title">Thay Đổi Niềm Tin</div>
+                            <div class="card-title" itemprop="name">Hiểu Con Hơn</div>
+                            <div class="card-price" itemprop="price">4.5M</div>
+                            <meta itemprop="priceCurrency" content="VND">
                         </div>
                         <div class="card-body">
-                            <p class="card-description">Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
+                            <p class="card-description" itemprop="description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
+                            <button class="card-btn" onclick="openModal('Hiểu Con Hơn', '4.5M')">Chi Tiết</button>
                         </div>
                     </div>
-                    
-                    <div class="card">
+
+                    <div class="card" itemscope itemtype="https://schema.org/Course">
                         <div class="card-header">
-                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💆</div>
-                            <div class="card-title">Giảm Lo Âu</div>
+                            <div class="card-title" itemprop="name">Đồng Hành Tâm Trí Teen</div>
+                            <div class="card-price" itemprop="price">2.5M/giờ</div>
+                            <meta itemprop="priceCurrency" content="VND">
                         </div>
                         <div class="card-body">
-                            <p class="card-description">Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
+                            <p class="card-description" itemprop="description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin và sức khỏe tinh thần</p>
+                            <button class="card-btn" onclick="openModal('Đồng Hành Tâm Trí Teen', '2.5M/giờ')">Chi Tiết</button>
                         </div>
                     </div>
-                    
-                    <div class="card">
+
+                    <div class="card" itemscope itemtype="https://schema.org/Course">
                         <div class="card-header">
-                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧘</div>
-                            <div class="card-title">Cắt Cơn Hoảng Loạn</div>
+                            <div class="card-title" itemprop="name">Trải Nghiệm với Coach</div>
+                            <div class="card-price" itemprop="price">99K/30p</div>
+                            <meta itemprop="priceCurrency" content="VND">
                         </div>
                         <div class="card-body">
-                            <p class="card-description">Cắt Cơn Hoảng Loạn Bằng Chánh Niệm (Mindfulness) - kỹ năng tự điều chỉnh cảm xúc</p>
+                            <p class="card-description" itemprop="description">Buổi coaching một-một để giải quyết vấn đề cụ thể, linh hoạt thời gian</p>
+                            <button class="card-btn" onclick="openModal('Trải Nghiệm với Coach', '99K/30p')">Chi Tiết</button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-    </div>
 
-    <!-- COURSES PAGE -->
-    <div id="courses" class="page">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;">
-            <h2 class="section-title">Các Khóa Học</h2>
-            <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
-            
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Hiểu Con Hơn</div>
-                        <div class="card-price">4.5M</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
-                        <button class="card-btn" onclick="openModal('Hiểu Con Hơn', '4.5M')">Chi Tiết</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Đồng Hành Tâm Trí Teen</div>
-                        <div class="card-price">2.5M/giờ</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin và sức khỏe tinh thần</p>
-                        <button class="card-btn" onclick="openModal('Đồng Hành Tâm Trí Teen', '2.5M/giờ')">Chi Tiết</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Trải Nghiệm với Coach</div>
-                        <div class="card-price">99K/30p</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-description">Buổi coaching một-một để giải quyết vấn đề cụ thể, linh hoạt thời gian</p>
-                        <button class="card-btn" onclick="openModal('Trải Nghiệm với Coach', '99K/30p')">Chi Tiết</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Khám Phá & Phát Triển Cá Nhân</div>
-                        <div class="card-price">Khóa Hè</div>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
-                        <button class="card-btn" onclick="openModal('Khám Phá & Phát Triển Cá Nhân', 'Khóa Hè')">Chi Tiết</button>
+                    <div class="card" itemscope itemtype="https://schema.org/Course">
+                        <div class="card-header">
+                            <div class="card-title" itemprop="name">Khám Phá & Phát Triển Cá Nhân</div>
+                            <div class="card-price" itemprop="price">Khóa Hè</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description" itemprop="description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
+                            <button class="card-btn" onclick="openModal('Khám Phá & Phát Triển Cá Nhân', 'Khóa Hè')">Chi Tiết</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- BLOG PAGE -->
-    <div id="blog" class="page">
-        <div class="blog-container">
-            <h2 class="section-title">Blog - Chia Sẻ Kiến Thức</h2>
-            <p class="section-subtitle">Các bài viết về tâm lý, giáo dục và phát triển cá nhân</p>
-            
-            <div id="blogGrid" class="blog-grid">
-                <!-- Blog posts will be loaded here -->
+        <!-- BLOG PAGE -->
+        <div id="blog" class="page">
+            <div class="blog-container">
+                <h2 class="section-title">Blog - Chia Sẻ Kiến Thức</h2>
+                <p class="section-subtitle">Các bài viết về tâm lý, giáo dục và phát triển cá nhân</p>
+                
+                <div id="blogGrid" class="blog-grid" role="region" aria-label="Danh sách bài viết blog">
+                    <!-- Blog posts will be loaded here -->
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- CONTACT PAGE -->
-    <div id="contact" class="page">
-        <div style="max-width: 600px; margin: 3rem auto; padding: 2rem;">
-            <h2 class="section-title">Liên Hệ Chúng Tôi</h2>
-            <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px; text-align: center;">
-                <p style="margin-bottom: 1rem; font-size: 1.1rem;">📧 Email: <strong>dangky@thunhienedu.vn</strong></p>
-                <p style="margin-bottom: 1rem; font-size: 1.1rem;">💬 Messenger: <a href="#" style="color: var(--primary);">Thu Nhiên Education</a></p>
-                <p style="font-size: 1.1rem;">📱 Hotline: <strong>0xxx.xxx.xxx</strong></p>
-                <p style="margin-top: 2rem; color: var(--text-light);">Hoặc điền form dưới để chúng tôi liên hệ lại bạn</p>
-                <button class="btn-primary" onclick="openModal()" style="margin-top: 1rem;">Gửi Thông Tin Liên Hệ</button>
+        <!-- CONTACT PAGE -->
+        <div id="contact" class="page">
+            <div style="max-width: 600px; margin: 3rem auto; padding: 2rem;">
+                <h2 class="section-title">Liên Hệ Chúng Tôi</h2>
+                <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px; text-align: center;">
+                    <p style="margin-bottom: 1rem; font-size: 1.1rem;">📧 Email: <strong><a href="mailto:dangky@thunhienedu.vn" style="color: var(--primary);">dangky@thunhienedu.vn</a></strong></p>
+                    <p style="margin-bottom: 1rem; font-size: 1.1rem;">💬 Messenger: <a href="#" style="color: var(--primary);">Thu Nhiên Education</a></p>
+                    <p style="font-size: 1.1rem;">📱 Hotline: <strong>0xxx.xxx.xxx</strong></p>
+                    <p style="margin-top: 2rem; color: var(--text-light);">Hoặc điền form dưới để chúng tôi liên hệ lại bạn</p>
+                    <button class="btn-primary" onclick="openModal()" style="margin-top: 1rem;">Gửi Thông Tin Liên Hệ</button>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Registration Modal -->
-    <div class="modal" id="registerModal">
+    <div class="modal" id="registerModal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Đăng Ký Khóa Học</h2>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h2 id="modalTitle">Đăng Ký Khóa Học</h2>
+                <button class="modal-close" onclick="closeModal()" aria-label="Đóng form đăng ký">&times;</button>
             </div>
             
-            <div id="successMessage" class="success-message" style="display: none;">
+            <div id="successMessage" class="success-message" style="display: none;" role="alert">
                 ✅ Đăng ký thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.
             </div>
             
             <form id="registerForm" onsubmit="submitForm(event)">
                 <div class="form-group">
-                    <label>Tên của bạn *</label>
+                    <label for="name">Tên của bạn *</label>
                     <input type="text" id="name" required placeholder="Nguyễn Văn A">
                 </div>
 
                 <div class="form-group">
-                    <label>Email *</label>
+                    <label for="email">Email *</label>
                     <input type="email" id="email" required placeholder="abc@example.com">
                 </div>
 
                 <div class="form-group">
-                    <label>Số Điện Thoại *</label>
+                    <label for="phone">Số Điện Thoại *</label>
                     <input type="tel" id="phone" required placeholder="0912345678">
                 </div>
 
                 <div class="form-group">
-                    <label>Tuổi của con</label>
+                    <label for="child-age">Tuổi của con</label>
                     <select id="child-age">
                         <option value="">-- Chọn --</option>
                         <option value="3-6">3-6 tuổi</option>
@@ -786,7 +885,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Khóa Học Quan Tâm *</label>
+                    <label for="course">Khóa Học Quan Tâm *</label>
                     <select id="course" required>
                         <option value="">-- Chọn khóa học --</option>
                         <option value="Hiểu Con Hơn - 4.5M">Hiểu Con Hơn - 4.5M</option>
@@ -797,7 +896,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Lời Nhắn</label>
+                    <label for="message">Lời Nhắn</label>
                     <textarea id="message" placeholder="Câu hỏi hoặc yêu cầu của bạn..."></textarea>
                 </div>
 
@@ -814,7 +913,7 @@
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo">
         <div class="footer-links">
             <a href="#" onclick="goPage('home')">Trang Chủ</a>
             <a href="#" onclick="goPage('courses')">Khóa Học</a>
@@ -905,14 +1004,15 @@
             }
 
             grid.innerHTML = blogPosts.map(post => `
-                <div class="blog-card">
-                    <div class="blog-image">${post.icon}</div>
+                <article class="blog-card" itemscope itemtype="https://schema.org/BlogPosting">
+                    <div class="blog-image" aria-hidden="true">${post.icon}</div>
                     <div class="blog-content">
-                        <div class="blog-date">${post.date}</div>
-                        <h3 class="blog-title">${post.title}</h3>
-                        <p class="blog-excerpt">${post.excerpt}</p>
+                        <time class="blog-date" itemprop="datePublished">${post.date}</time>
+                        <h3 class="blog-title" itemprop="headline">${post.title}</h3>
+                        <p class="blog-excerpt" itemprop="description">${post.excerpt}</p>
+                        <meta itemprop="author" content="Thu Nhiên Education">
                     </div>
-                </div>
+                </article>
             `).join('');
         }
 
@@ -925,6 +1025,9 @@
         document.getElementById('registerModal').addEventListener('click', (e) => {
             if (e.target.id === 'registerModal') closeModal();
         });
+
+        // Render blog posts on load
+        renderBlogPosts();
     </script>
 </body>
 </html>
