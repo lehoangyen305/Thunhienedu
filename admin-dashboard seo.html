@@ -23,6 +23,7 @@
             --border: #e5e7eb;
             --success: #10b981;
             --danger: #dc2626;
+            --warning: #f59e0b;
         }
 
         html {
@@ -124,7 +125,6 @@
         .admin-layout {
             display: none;
             min-height: 100vh;
-            display: grid;
             grid-template-columns: 260px 1fr;
             grid-template-rows: auto 1fr;
         }
@@ -316,13 +316,67 @@
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
         }
 
-        .form-submit.secondary {
-            background: var(--text-light);
-            margin-left: 0.5rem;
+        /* SEO Suggestion Box */
+        .seo-suggestion {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        .form-submit.secondary:hover {
-            background: var(--text-dark);
+        .seo-suggestion h4 {
+            color: #92400e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .seo-suggestion ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .seo-suggestion li {
+            padding: 0.5rem 0;
+            color: #78350f;
+            font-size: 0.9rem;
+        }
+
+        .seo-suggestion li:before {
+            content: "✓ ";
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .seo-score {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .score-item {
+            flex: 1;
+            min-width: 150px;
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .score-item .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .score-item .label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
         }
 
         /* Tables */
@@ -381,39 +435,6 @@
 
         .action-btn.delete:hover {
             background: #fee2e2;
-        }
-
-        .action-btn.edit {
-            color: var(--primary);
-            border-color: #bfdbfe;
-        }
-
-        .action-btn.edit:hover {
-            background: #eff6ff;
-        }
-
-        /* Status Badge */
-        .status-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .status-new {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-contacted {
-            background: #dbeafe;
-            color: #0c4a6e;
-        }
-
-        .status-purchased {
-            background: #dcfce7;
-            color: #166534;
         }
 
         /* Stats */
@@ -525,6 +546,7 @@
             <ul class="sidebar-menu">
                 <li><a onclick="switchSection('dashboard')" class="menu-item active">📊 Dashboard</a></li>
                 <li><a onclick="switchSection('posts')" class="menu-item">📝 Quản Lý Bài Viết</a></li>
+                <li><a onclick="switchSection('seo-tool')" class="menu-item">🚀 Công Cụ SEO</a></li>
                 <li><a onclick="switchSection('leads')" class="menu-item">👥 Quản Lý Khách Hàng</a></li>
             </ul>
         </div>
@@ -613,6 +635,45 @@
                 </div>
             </div>
 
+            <!-- SEO Tool Section -->
+            <div id="seo-tool" class="content-section">
+                <div class="content-header">
+                    <h2>🚀 Công Cụ Gợi Ý Bài Viết SEO</h2>
+                    <p>Gợi ý bài viết chuẩn SEO dựa vào từ khóa của bạn</p>
+                </div>
+
+                <div class="admin-form">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">Nhập Từ Khóa & Chủ Đề</h3>
+                    <form onsubmit="generateSEOSuggestion(event)">
+                        <div class="form-group">
+                            <label>Từ Khóa Chính *</label>
+                            <input type="text" id="seo-keyword" required placeholder="VD: giảm lo âu, tâm lý trẻ em, coaching teen...">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Chủ Đề / Danh Mục *</label>
+                            <select id="seo-category" required>
+                                <option value="">-- Chọn --</option>
+                                <option value="Tâm Lý Trẻ Em">Tâm Lý Trẻ Em</option>
+                                <option value="NLP & Kỹ Năng">NLP & Kỹ Năng</option>
+                                <option value="Coaching & Tư Vấn">Coaching & Tư Vấn</option>
+                                <option value="Giáo Dục Cha Mẹ">Giáo Dục Cha Mẹ</option>
+                                <option value="Phát Triển Bản Thân">Phát Triển Bản Thân</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="form-submit">🎯 Gợi Ý Bài Viết SEO</button>
+                    </form>
+                </div>
+
+                <div id="seoResults" style="display: none;">
+                    <div class="seo-suggestion">
+                        <h4>📊 Gợi Ý Bài Viết SEO Chuẩn</h4>
+                        <div id="seoSuggestionContent"></div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Leads Management Section -->
             <div id="leads" class="content-section">
                 <div class="content-header">
@@ -649,7 +710,7 @@
 
     <script>
         // Config
-        const ADMIN_PASSWORD = '123456'; // Thay đổi password này!
+        const ADMIN_PASSWORD = '123456';
         
         // Data
         let blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
@@ -719,7 +780,6 @@
             blogPosts.unshift(post);
             localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
             
-            // Show success
             const msgEl = document.getElementById('postSuccessMsg');
             msgEl.textContent = '✅ Bài viết đã được đăng thành công!';
             msgEl.classList.add('show');
@@ -744,7 +804,6 @@
                     <td><strong>${post.title}</strong></td>
                     <td>${post.date}</td>
                     <td>
-                        <button class="action-btn edit" onclick="editBlogPost(${post.id})">✏️ Sửa</button>
                         <button class="action-btn delete" onclick="deleteBlogPost(${post.id})">🗑️ Xóa</button>
                     </td>
                 </tr>
@@ -760,20 +819,73 @@
             }
         }
 
-        function editBlogPost(id) {
-            const post = blogPosts.find(p => p.id === id);
-            if (post) {
-                document.getElementById('post-title').value = post.title;
-                document.getElementById('post-excerpt').value = post.excerpt;
-                document.getElementById('post-content').value = post.content;
-                document.getElementById('post-icon').value = post.icon;
-                
-                document.querySelector('input[type="submit"]').textContent = '✏️ Cập Nhật Bài Viết';
-                document.getElementById('posts').scrollIntoView({ behavior: 'smooth' });
-                
-                // Delete old and add new when saved
-                blogPosts = blogPosts.filter(p => p.id !== id);
-            }
+        // SEO Tool
+        function generateSEOSuggestion(e) {
+            e.preventDefault();
+            
+            const keyword = document.getElementById('seo-keyword').value;
+            const category = document.getElementById('seo-category').value;
+
+            const suggestions = {
+                title: `${keyword} - Hướng dẫn Toàn Diện 2024 | Thu Nhiên Education`,
+                metaDescription: `Tìm hiểu chi tiết về ${keyword}. Hướng dẫn từ các chuyên gia NLP và Coaching tại Thu Nhiên Education.`,
+                slug: keyword.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+                headings: {
+                    h1: `${keyword}: Hướng Dẫn Chi Tiết Cho Bố Mẹ Và Giáo Viên`,
+                    h2: [
+                        `Hiểu Rõ Về ${keyword}`,
+                        `Tại Sao ${keyword} Lại Quan Trọng?`,
+                        `Các Phương Pháp ${keyword} Hiệu Quả`,
+                        `Mẹo & Chiến Lược ${keyword}`,
+                        `Câu Hỏi Thường Gặp Về ${keyword}`
+                    ]
+                },
+                wordCount: 1500,
+                readingTime: 8,
+                keywords: [keyword, `${keyword} cho trẻ em`, `hướng dẫn ${keyword}`, `cách ${keyword}`],
+                internalLinks: [
+                    { text: 'Khóa Học NLP', url: '/courses' },
+                    { text: 'Blog', url: '/blog' },
+                    { text: 'Coaching 1-1', url: '/' }
+                ],
+                checklist: [
+                    '✓ Tiêu đề có từ khóa chính',
+                    '✓ Meta description dưới 160 ký tự',
+                    '✓ Ít nhất 1500 từ nội dung',
+                    '✓ Hình ảnh với alt text',
+                    '✓ Liên kết nội bộ (3-5 cái)',
+                    '✓ Cấu trúc heading rõ ràng (H1, H2, H3)',
+                    '✓ URL thân thiện SEO',
+                    '✓ Schema.org structured data',
+                    '✓ Mobile responsive',
+                    '✓ Tốc độ tải < 3 giây'
+                ]
+            };
+
+            const html = `
+                <ul>
+                    <li><strong>Title SEO:</strong> ${suggestions.title}</li>
+                    <li><strong>Meta Description:</strong> ${suggestions.metaDescription}</li>
+                    <li><strong>URL Slug:</strong> /${suggestions.slug}</li>
+                    <li><strong>Từ khóa chính:</strong> ${suggestions.keywords.join(', ')}</li>
+                    <li><strong>Độ dài nội dung:</strong> ${suggestions.wordCount} từ (thời gian đọc: ${suggestions.readingTime} phút)</li>
+                    <li><strong>Heading H1:</strong> ${suggestions.headings.h1}</li>
+                    <li><strong>Heading H2 gợi ý:</strong>
+                        <ul style="margin-top: 0.5rem;">
+                            ${suggestions.headings.h2.map(h => `<li style="margin-left: 1rem;">- ${h}</li>`).join('')}
+                        </ul>
+                    </li>
+                </ul>
+                <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-light); border-radius: 6px;">
+                    <strong>📋 Checklist SEO:</strong>
+                    <ul style="margin-top: 0.5rem;">
+                        ${suggestions.checklist.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            document.getElementById('seoSuggestionContent').innerHTML = html;
+            document.getElementById('seoResults').style.display = 'block';
         }
 
         // Leads Management
