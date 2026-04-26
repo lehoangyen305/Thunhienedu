@@ -21,6 +21,7 @@
             --bg-light: #f9fafb;
             --white: #ffffff;
             --border: #e5e7eb;
+            --success: #10b981;
         }
 
         html {
@@ -95,6 +96,7 @@
         nav {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
 
         nav a {
@@ -122,6 +124,24 @@
 
         nav a:hover::after {
             width: 100%;
+        }
+
+        .admin-link {
+            background: var(--success);
+            color: var(--white) !important;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .admin-link::after {
+            display: none;
+        }
+
+        .admin-link:hover {
+            background: #059669;
+            opacity: 0.9;
         }
 
         .cta-btn {
@@ -504,6 +524,17 @@
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
         }
 
+        .success-message {
+            background: #d1fae5;
+            border: 1px solid #6ee7b7;
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
         /* Footer */
         footer {
             background: var(--text-dark);
@@ -593,6 +624,7 @@
                 <a href="#benefits">Lợi Ích</a>
                 <a href="#courses">Khóa Học</a>
                 <a href="#contact">Liên Hệ</a>
+                <a href="crm-dashboard.html" class="admin-link">📊 Quản Lý</a>
                 <button class="cta-btn" onclick="openModal()">Đăng Ký</button>
             </nav>
         </div>
@@ -704,6 +736,10 @@
                 <button class="modal-close" onclick="closeModal()">&times;</button>
             </div>
             
+            <div id="successMessage" class="success-message" style="display: none;">
+                ✅ Đăng ký thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.
+            </div>
+            
             <form id="registerForm">
                 <div class="form-group">
                     <label>Tên của bạn *</label>
@@ -756,9 +792,12 @@
     <script>
         const modal = document.getElementById('registerModal');
         const form = document.getElementById('registerForm');
+        const successMessage = document.getElementById('successMessage');
 
         function openModal() {
             modal.classList.add('active');
+            successMessage.style.display = 'none';
+            form.style.display = 'block';
         }
 
         function closeModal() {
@@ -782,29 +821,47 @@
             e.preventDefault();
             
             const data = {
+                id: Date.now(),
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 course: document.getElementById('course').value,
                 message: document.getElementById('message').value,
-                registeredDate: new Date().toLocaleDateString('vi-VN'),
+                createdDate: new Date().toLocaleDateString('vi-VN'),
                 status: 'chưa liên hệ'
             };
 
-            // Lưu vào localStorage (tạm thời)
-            let students = JSON.parse(localStorage.getItem('thunhienStudents') || '[]');
-            students.push(data);
-            localStorage.setItem('thunhienStudents', JSON.stringify(students));
-
-            // Hiển thị thông báo
-            alert('✅ Đăng ký thành công!\n\nChúng tôi sẽ liên hệ với bạn sớm nhất.\n\nEmail: dangky@thunhienedu.vn');
+            // Gửi dữ liệu đến Google Sheet qua Apps Script
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXfueXIUdEuK3iU08vWz97aCaJWqFZkoHE61hBkP_rmOg4Llh65YBsHR0Py9Xejfj5/exec';
             
-            // Reset form
-            form.reset();
-            closeModal();
-
-            // Log data (để test)
-            console.log('Dữ liệu đăng ký:', data);
+            fetch(scriptUrl, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Kết quả:', result);
+                
+                // Hiển thị thông báo thành công
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+                // Reset form
+                form.reset();
+                
+                // Đóng modal sau 3 giây
+                setTimeout(() => {
+                    closeModal();
+                    form.style.display = 'block';
+                }, 3000);
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert('❌ Có lỗi khi gửi dữ liệu. Vui lòng thử lại!');
+            });
         });
 
         // Keyboard shortcut to close modal
