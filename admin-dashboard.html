@@ -246,11 +246,16 @@
         }
 
         /* Forms */
+        .post-form-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
         .admin-form {
             background: var(--white);
             padding: 2rem;
             border-radius: 12px;
-            margin-bottom: 2rem;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
@@ -288,13 +293,7 @@
 
         .form-group textarea {
             resize: vertical;
-            min-height: 150px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            min-height: 200px;
         }
 
         .form-submit {
@@ -316,67 +315,127 @@
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
         }
 
-        /* SEO Suggestion Box */
-        .seo-suggestion {
-            background: #fef3c7;
-            border: 1px solid #fcd34d;
-            border-radius: 8px;
+        /* SEO Sidebar */
+        .seo-sidebar {
+            background: var(--white);
             padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
         }
 
-        .seo-suggestion h4 {
-            color: #92400e;
+        .seo-sidebar h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .seo-suggestion ul {
-            list-style: none;
-            padding: 0;
+        /* SEO Score Bar */
+        .seo-score-container {
+            margin-bottom: 1.5rem;
         }
 
-        .seo-suggestion li {
-            padding: 0.5rem 0;
-            color: #78350f;
-            font-size: 0.9rem;
+        .seo-score-bar {
+            width: 100%;
+            height: 30px;
+            background: var(--bg-light);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
         }
 
-        .seo-suggestion li:before {
-            content: "✓ ";
-            color: var(--success);
-            font-weight: bold;
-        }
-
-        .seo-score {
+        .seo-score-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #dc2626, #f59e0b, #10b981);
+            transition: width 0.3s ease;
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 0.8rem;
         }
 
-        .score-item {
-            flex: 1;
-            min-width: 150px;
-            background: var(--white);
-            padding: 1rem;
-            border-radius: 6px;
-            text-align: center;
-            border: 1px solid var(--border);
+        .seo-score-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
         }
 
-        .score-item .value {
+        .seo-score-value {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
+            text-align: center;
         }
 
-        .score-item .label {
+        /* SEO Checklist */
+        .seo-checklist {
+            margin-top: 1.5rem;
+        }
+
+        .seo-checklist h4 {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .seo-checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-light);
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
             font-size: 0.85rem;
+        }
+
+        .seo-checklist-item.done {
+            background: #d1fae5;
+        }
+
+        .seo-checklist-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .seo-checklist-text {
+            flex: 1;
+        }
+
+        .seo-checklist-text .label {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .seo-checklist-text .desc {
+            font-size: 0.75rem;
             color: var(--text-light);
-            margin-top: 0.5rem;
+            margin-top: 0.2rem;
+        }
+
+        /* SEO Tips */
+        .seo-tips {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #78350f;
+        }
+
+        .seo-tips strong {
+            color: #92400e;
         }
 
         /* Tables */
@@ -492,6 +551,16 @@
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .post-form-container {
+                grid-template-columns: 1fr;
+            }
+
+            .seo-sidebar {
+                position: static;
+            }
+        }
+
         @media (max-width: 768px) {
             .admin-layout.logged-in {
                 grid-template-columns: 1fr;
@@ -499,18 +568,6 @@
 
             .admin-sidebar {
                 display: none;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            table {
-                font-size: 0.85rem;
-            }
-
-            th, td {
-                padding: 0.75rem 0.5rem;
             }
         }
     </style>
@@ -546,7 +603,6 @@
             <ul class="sidebar-menu">
                 <li><a onclick="switchSection('dashboard')" class="menu-item active">📊 Dashboard</a></li>
                 <li><a onclick="switchSection('posts')" class="menu-item">📝 Quản Lý Bài Viết</a></li>
-                <li><a onclick="switchSection('seo-tool')" class="menu-item">🚀 Công Cụ SEO</a></li>
                 <li><a onclick="switchSection('leads')" class="menu-item">👥 Quản Lý Khách Hàng</a></li>
             </ul>
         </div>
@@ -584,40 +640,108 @@
             <div id="posts" class="content-section">
                 <div class="content-header">
                     <h2>Quản Lý Bài Viết</h2>
-                    <p>Viết, chỉnh sửa và xóa bài viết blog</p>
+                    <p>Viết bài với tối ưu SEO tự động</p>
                 </div>
 
                 <div id="postSuccessMsg" class="success-msg"></div>
 
-                <div class="admin-form">
-                    <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">📝 Thêm Bài Viết Mới</h3>
-                    <form onsubmit="addBlogPost(event)">
-                        <div class="form-row">
+                <div class="post-form-container">
+                    <!-- Form -->
+                    <div class="admin-form">
+                        <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">📝 Thêm Bài Viết Mới</h3>
+                        <form onsubmit="addBlogPost(event)">
                             <div class="form-group">
                                 <label>Tiêu Đề *</label>
-                                <input type="text" id="post-title" required placeholder="VD: 5 Cách Giảm Lo Âu Con...">
+                                <input type="text" id="post-title" oninput="updateSEOAnalysis()" required placeholder="VD: 5 Cách Giảm Lo Âu Con...">
                             </div>
+
                             <div class="form-group">
                                 <label>Icon/Emoji</label>
-                                <input type="text" id="post-icon" value="📚" placeholder="VD: 📚, 🎓, 💡, 😌">
+                                <input type="text" id="post-icon" oninput="updateSEOAnalysis()" value="📚" placeholder="VD: 📚, 🎓, 💡, 😌">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mô Tả Ngắn (Meta Description) *</label>
+                                <textarea id="post-excerpt" oninput="updateSEOAnalysis()" required placeholder="Mô tả dưới 160 ký tự..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nội Dung Đầy Đủ *</label>
+                                <textarea id="post-content" oninput="updateSEOAnalysis()" required placeholder="Nội dung chi tiết (tối thiểu 1500 từ)..." style="min-height: 300px;"></textarea>
+                            </div>
+
+                            <button type="submit" class="form-submit" id="submitBtn" disabled>✅ Đăng Bài Viết</button>
+                        </form>
+                    </div>
+
+                    <!-- SEO Sidebar -->
+                    <div class="seo-sidebar">
+                        <h3>🚀 SEO Score</h3>
+                        
+                        <div class="seo-score-container">
+                            <div class="seo-score-label">Điểm SEO</div>
+                            <div class="seo-score-bar">
+                                <div class="seo-score-fill" id="seoScoreFill" style="width: 0%;">0%</div>
+                            </div>
+                            <div class="seo-score-value" id="seoScoreValue">0/100</div>
+                        </div>
+
+                        <div class="seo-checklist">
+                            <h4>✅ Checklist</h4>
+                            
+                            <div class="seo-checklist-item" id="check-title">
+                                <div class="seo-checklist-icon">⭕</div>
+                                <div class="seo-checklist-text">
+                                    <div class="label">Tiêu Đề</div>
+                                    <div class="desc">Chưa có tiêu đề</div>
+                                </div>
+                            </div>
+
+                            <div class="seo-checklist-item" id="check-excerpt">
+                                <div class="seo-checklist-icon">⭕</div>
+                                <div class="seo-checklist-text">
+                                    <div class="label">Meta Description</div>
+                                    <div class="desc">Max 160 ký tự</div>
+                                </div>
+                            </div>
+
+                            <div class="seo-checklist-item" id="check-content">
+                                <div class="seo-checklist-icon">⭕</div>
+                                <div class="seo-checklist-text">
+                                    <div class="label">Nội Dung</div>
+                                    <div class="desc">Tối thiểu 1500 từ</div>
+                                </div>
+                            </div>
+
+                            <div class="seo-checklist-item" id="check-keyword">
+                                <div class="seo-checklist-icon">⭕</div>
+                                <div class="seo-checklist-text">
+                                    <div class="label">Từ Khóa</div>
+                                    <div class="desc">Lặp lại 2-3 lần</div>
+                                </div>
+                            </div>
+
+                            <div class="seo-checklist-item" id="check-emoji">
+                                <div class="seo-checklist-icon">⭕</div>
+                                <div class="seo-checklist-text">
+                                    <div class="label">Icon/Emoji</div>
+                                    <div class="desc">Để thu hút mắt</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label>Mô Tả Ngắn *</label>
-                            <textarea id="post-excerpt" required placeholder="Mô tả 2-3 dòng về bài viết..."></textarea>
+                        <div class="seo-tips">
+                            <strong>💡 Mẹo SEO:</strong><br>
+                            • Tiêu đề: 50-60 ký tự<br>
+                            • Mô tả: Dưới 160 ký tự<br>
+                            • Nội dung: 1500+ từ<br>
+                            • Từ khóa: Đặt tự nhiên<br>
+                            • Heading: H1, H2, H3
                         </div>
-
-                        <div class="form-group">
-                            <label>Nội Dung Đầy Đủ *</label>
-                            <textarea id="post-content" required placeholder="Nội dung chi tiết của bài viết..." style="min-height: 200px;"></textarea>
-                        </div>
-
-                        <button type="submit" class="form-submit">✅ Đăng Bài Viết</button>
-                    </form>
+                    </div>
                 </div>
 
-                <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">📋 Danh Sách Bài Viết</h3>
+                <h3 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--text-dark);">📋 Danh Sách Bài Viết</h3>
                 <div class="table-wrapper">
                     <table>
                         <thead>
@@ -632,45 +756,6 @@
                             <tr><td colspan="4" style="text-align: center; color: var(--text-light);">Chưa có bài viết</td></tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
-
-            <!-- SEO Tool Section -->
-            <div id="seo-tool" class="content-section">
-                <div class="content-header">
-                    <h2>🚀 Công Cụ Gợi Ý Bài Viết SEO</h2>
-                    <p>Gợi ý bài viết chuẩn SEO dựa vào từ khóa của bạn</p>
-                </div>
-
-                <div class="admin-form">
-                    <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">Nhập Từ Khóa & Chủ Đề</h3>
-                    <form onsubmit="generateSEOSuggestion(event)">
-                        <div class="form-group">
-                            <label>Từ Khóa Chính *</label>
-                            <input type="text" id="seo-keyword" required placeholder="VD: giảm lo âu, tâm lý trẻ em, coaching teen...">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Chủ Đề / Danh Mục *</label>
-                            <select id="seo-category" required>
-                                <option value="">-- Chọn --</option>
-                                <option value="Tâm Lý Trẻ Em">Tâm Lý Trẻ Em</option>
-                                <option value="NLP & Kỹ Năng">NLP & Kỹ Năng</option>
-                                <option value="Coaching & Tư Vấn">Coaching & Tư Vấn</option>
-                                <option value="Giáo Dục Cha Mẹ">Giáo Dục Cha Mẹ</option>
-                                <option value="Phát Triển Bản Thân">Phát Triển Bản Thân</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="form-submit">🎯 Gợi Ý Bài Viết SEO</button>
-                    </form>
-                </div>
-
-                <div id="seoResults" style="display: none;">
-                    <div class="seo-suggestion">
-                        <h4>📊 Gợi Ý Bài Viết SEO Chuẩn</h4>
-                        <div id="seoSuggestionContent"></div>
-                    </div>
                 </div>
             </div>
 
@@ -764,6 +849,101 @@
             document.getElementById('purchasedLeads').textContent = leads.filter(l => l.status === 'đã mua').length;
         }
 
+        // SEO Analysis
+        function updateSEOAnalysis() {
+            const title = document.getElementById('post-title').value;
+            const excerpt = document.getElementById('post-excerpt').value;
+            const content = document.getElementById('post-content').value;
+            const icon = document.getElementById('post-icon').value;
+
+            let score = 0;
+            let checks = {
+                title: false,
+                excerpt: false,
+                content: false,
+                keyword: false,
+                emoji: false
+            };
+
+            // Title check (50-60 ký tự)
+            if (title.length >= 30 && title.length <= 100) {
+                score += 20;
+                checks.title = true;
+            }
+
+            // Meta description (dưới 160 ký tự)
+            if (excerpt.length > 0 && excerpt.length <= 160) {
+                score += 20;
+                checks.excerpt = true;
+            }
+
+            // Content length (1500+ từ)
+            const wordCount = content.trim().split(/\s+/).length;
+            if (wordCount >= 1500) {
+                score += 20;
+                checks.content = true;
+            }
+
+            // Keyword frequency (lặp 2-3 lần)
+            const keywordMatch = title.toLowerCase().match(/(\w+)/g);
+            if (keywordMatch) {
+                const keyword = keywordMatch[0];
+                const keywordCount = content.toLowerCase().split(keyword).length - 1;
+                if (keywordCount >= 2 && keywordCount <= 5) {
+                    score += 20;
+                    checks.keyword = true;
+                }
+            }
+
+            // Icon check
+            if (icon && icon.trim() !== '') {
+                score += 20;
+                checks.emoji = true;
+            }
+
+            // Update UI
+            updateChecklistUI(checks);
+            updateScoreBar(score);
+            document.getElementById('submitBtn').disabled = score < 80;
+        }
+
+        function updateChecklistUI(checks) {
+            const items = {
+                'check-title': checks.title ? '✅' : '⭕',
+                'check-excerpt': checks.excerpt ? '✅' : '⭕',
+                'check-content': checks.content ? '✅' : '⭕',
+                'check-keyword': checks.keyword ? '✅' : '⭕',
+                'check-emoji': checks.emoji ? '✅' : '⭕'
+            };
+
+            for (const [id, icon] of Object.entries(items)) {
+                const element = document.getElementById(id);
+                element.querySelector('.seo-checklist-icon').textContent = icon;
+                if (icon === '✅') {
+                    element.classList.add('done');
+                } else {
+                    element.classList.remove('done');
+                }
+            }
+        }
+
+        function updateScoreBar(score) {
+            const fill = document.getElementById('seoScoreFill');
+            const value = document.getElementById('seoScoreValue');
+            
+            fill.style.width = score + '%';
+            fill.textContent = score + '%';
+            value.textContent = score + '/100';
+
+            if (score < 40) {
+                fill.style.background = 'linear-gradient(90deg, #dc2626, #ef4444)';
+            } else if (score < 70) {
+                fill.style.background = 'linear-gradient(90deg, #f59e0b, #fbbf24)';
+            } else {
+                fill.style.background = 'linear-gradient(90deg, #10b981, #34d399)';
+            }
+        }
+
         // Blog Posts
         function addBlogPost(e) {
             e.preventDefault();
@@ -786,6 +966,7 @@
             setTimeout(() => msgEl.classList.remove('show'), 3000);
 
             e.target.reset();
+            updateSEOAnalysis();
             renderPostsList();
             updateStats();
         }
@@ -817,75 +998,6 @@
                 renderPostsList();
                 updateStats();
             }
-        }
-
-        // SEO Tool
-        function generateSEOSuggestion(e) {
-            e.preventDefault();
-            
-            const keyword = document.getElementById('seo-keyword').value;
-            const category = document.getElementById('seo-category').value;
-
-            const suggestions = {
-                title: `${keyword} - Hướng dẫn Toàn Diện 2024 | Thu Nhiên Education`,
-                metaDescription: `Tìm hiểu chi tiết về ${keyword}. Hướng dẫn từ các chuyên gia NLP và Coaching tại Thu Nhiên Education.`,
-                slug: keyword.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
-                headings: {
-                    h1: `${keyword}: Hướng Dẫn Chi Tiết Cho Bố Mẹ Và Giáo Viên`,
-                    h2: [
-                        `Hiểu Rõ Về ${keyword}`,
-                        `Tại Sao ${keyword} Lại Quan Trọng?`,
-                        `Các Phương Pháp ${keyword} Hiệu Quả`,
-                        `Mẹo & Chiến Lược ${keyword}`,
-                        `Câu Hỏi Thường Gặp Về ${keyword}`
-                    ]
-                },
-                wordCount: 1500,
-                readingTime: 8,
-                keywords: [keyword, `${keyword} cho trẻ em`, `hướng dẫn ${keyword}`, `cách ${keyword}`],
-                internalLinks: [
-                    { text: 'Khóa Học NLP', url: '/courses' },
-                    { text: 'Blog', url: '/blog' },
-                    { text: 'Coaching 1-1', url: '/' }
-                ],
-                checklist: [
-                    '✓ Tiêu đề có từ khóa chính',
-                    '✓ Meta description dưới 160 ký tự',
-                    '✓ Ít nhất 1500 từ nội dung',
-                    '✓ Hình ảnh với alt text',
-                    '✓ Liên kết nội bộ (3-5 cái)',
-                    '✓ Cấu trúc heading rõ ràng (H1, H2, H3)',
-                    '✓ URL thân thiện SEO',
-                    '✓ Schema.org structured data',
-                    '✓ Mobile responsive',
-                    '✓ Tốc độ tải < 3 giây'
-                ]
-            };
-
-            const html = `
-                <ul>
-                    <li><strong>Title SEO:</strong> ${suggestions.title}</li>
-                    <li><strong>Meta Description:</strong> ${suggestions.metaDescription}</li>
-                    <li><strong>URL Slug:</strong> /${suggestions.slug}</li>
-                    <li><strong>Từ khóa chính:</strong> ${suggestions.keywords.join(', ')}</li>
-                    <li><strong>Độ dài nội dung:</strong> ${suggestions.wordCount} từ (thời gian đọc: ${suggestions.readingTime} phút)</li>
-                    <li><strong>Heading H1:</strong> ${suggestions.headings.h1}</li>
-                    <li><strong>Heading H2 gợi ý:</strong>
-                        <ul style="margin-top: 0.5rem;">
-                            ${suggestions.headings.h2.map(h => `<li style="margin-left: 1rem;">- ${h}</li>`).join('')}
-                        </ul>
-                    </li>
-                </ul>
-                <div style="margin-top: 1rem; padding: 1rem; background: var(--bg-light); border-radius: 6px;">
-                    <strong>📋 Checklist SEO:</strong>
-                    <ul style="margin-top: 0.5rem;">
-                        ${suggestions.checklist.map(item => `<li>${item}</li>`).join('')}
-                    </ul>
-                </div>
-            `;
-
-            document.getElementById('seoSuggestionContent').innerHTML = html;
-            document.getElementById('seoResults').style.display = 'block';
         }
 
         // Leads Management
