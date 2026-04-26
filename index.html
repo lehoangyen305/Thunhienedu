@@ -29,13 +29,13 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             color: var(--text-dark);
             line-height: 1.6;
             background: var(--white);
         }
 
-        /* Header & Navigation */
+        /* Header */
         header {
             background: var(--white);
             border-bottom: 1px solid var(--border);
@@ -63,6 +63,7 @@
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
+            cursor: pointer;
         }
 
         .logo-icon {
@@ -77,71 +78,24 @@
             font-size: 1.2rem;
         }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        .logo-text strong {
-            font-size: 0.9rem;
-        }
-
-        .logo-text span {
-            font-size: 0.65rem;
-            color: var(--text-light);
-            font-weight: 400;
-        }
-
         nav {
             display: flex;
             gap: 2rem;
             align-items: center;
         }
 
-        nav a {
+        nav button {
+            background: none;
+            border: none;
             color: var(--text-dark);
-            text-decoration: none;
+            cursor: pointer;
             font-size: 0.95rem;
             transition: color 0.3s;
-            position: relative;
+            font-weight: 500;
         }
 
-        nav a:hover {
+        nav button:hover {
             color: var(--primary);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .admin-link {
-            background: var(--success);
-            color: var(--white) !important;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .admin-link::after {
-            display: none;
-        }
-
-        .admin-link:hover {
-            background: #059669;
-            opacity: 0.9;
         }
 
         .cta-btn {
@@ -149,17 +103,37 @@
             color: var(--white);
             padding: 0.75rem 1.5rem;
             border-radius: 6px;
-            text-decoration: none;
+            border: none;
             font-weight: 500;
+            cursor: pointer;
             transition: all 0.3s;
-            border: 2px solid var(--primary);
         }
 
         .cta-btn:hover {
             background: var(--primary-dark);
-            border-color: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Hero Section */
@@ -168,7 +142,6 @@
             margin: 0 auto;
             padding: 5rem 2rem;
             text-align: center;
-            animation: fadeInUp 0.8s ease-out;
         }
 
         .hero h1 {
@@ -245,17 +218,7 @@
             margin: 0 auto;
         }
 
-        /* Benefits Section */
-        .benefits {
-            background: var(--bg-light);
-            padding: 5rem 2rem;
-        }
-
-        .benefits-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        /* Section Titles */
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -271,63 +234,17 @@
             font-size: 1.1rem;
         }
 
-        .benefits-grid {
+        /* Cards Grid */
+        .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-        }
-
-        .benefit-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            border-color: var(--primary-light);
-        }
-
-        .benefit-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .benefit-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-            color: var(--primary);
-        }
-
-        .benefit-card p {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Courses Section */
-        .courses {
-            padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .course-card {
+        .card {
             background: var(--white);
             border: 2px solid var(--border);
             border-radius: 12px;
@@ -335,47 +252,48 @@
             transition: all 0.3s;
             display: flex;
             flex-direction: column;
+            cursor: pointer;
         }
 
-        .course-card:hover {
+        .card:hover {
             border-color: var(--primary);
             box-shadow: 0 20px 40px rgba(30, 64, 175, 0.12);
             transform: translateY(-6px);
         }
 
-        .course-header {
+        .card-header {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: var(--white);
             padding: 2rem;
             text-align: center;
         }
 
-        .course-name {
+        .card-title {
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .course-price {
+        .card-price {
             font-size: 1.5rem;
             font-weight: 800;
             opacity: 0.9;
         }
 
-        .course-body {
+        .card-body {
             padding: 2rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
-        .course-description {
+        .card-description {
             color: var(--text-light);
             margin-bottom: 1.5rem;
             font-size: 0.95rem;
         }
 
-        .course-btn {
+        .card-btn {
             background: var(--primary);
             color: var(--white);
             border: none;
@@ -387,32 +305,74 @@
             margin-top: auto;
         }
 
-        .course-btn:hover {
+        .card-btn:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
         }
 
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white);
-            padding: 4rem 2rem;
-            text-align: center;
-            margin: 3rem 0;
+        /* Blog Section */
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
         }
 
-        .cta-section h2 {
-            font-size: 2.25rem;
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.15), rgba(6, 182, 212, 0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-light);
             margin-bottom: 1rem;
         }
 
-        .cta-section p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        /* Modal Form */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -504,6 +464,23 @@
             min-height: 80px;
         }
 
+        .checkbox-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item input {
+            width: auto;
+            cursor: pointer;
+        }
+
         .form-submit {
             width: 100%;
             background: var(--primary);
@@ -541,11 +518,7 @@
             color: var(--white);
             padding: 3rem 2rem;
             text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-top: 3rem;
         }
 
         .footer-links {
@@ -566,29 +539,6 @@
             color: var(--primary-light);
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             nav {
@@ -607,127 +557,173 @@
                 padding: 1.5rem;
             }
         }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="header-content">
-            <a href="#" class="logo">
+            <a href="#" class="logo" onclick="goPage('home')">
                 <div class="logo-icon">🔱</div>
-                <div class="logo-text">
-                    <strong>Thu Nhiên</strong>
-                    <span>Education</span>
+                <div>
+                    <div style="font-size: 0.9rem;">Thu Nhiên</div>
+                    <div style="font-size: 0.65rem; color: var(--text-light); font-weight: 400;">Education</div>
                 </div>
             </a>
             <nav>
-                <a href="#benefits">Lợi Ích</a>
-                <a href="#courses">Khóa Học</a>
-                <a href="#contact">Liên Hệ</a>
+                <button onclick="goPage('home')">Trang Chủ</button>
+                <button onclick="goPage('courses')">Khóa Học</button>
+                <button onclick="goPage('blog')">Blog</button>
+                <button onclick="goPage('contact')">Liên Hệ</button>
                 <button class="cta-btn" onclick="openModal()">Đăng Ký</button>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
-        <p class="subtitle">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
-        <div class="hero-cta">
-            <button class="btn-primary" onclick="openModal()">Đăng Ký Ngay</button>
-            <button class="btn-secondary" onclick="document.getElementById('courses').scrollIntoView()">Xem Khóa Học</button>
-        </div>
-        <div class="hero-image">🌱</div>
-    </section>
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <h1>Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
+            <p class="subtitle">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
+            <div class="hero-cta">
+                <button class="btn-primary" onclick="openModal()">Đăng Ký Ngay</button>
+                <button class="btn-secondary" onclick="goPage('courses')">Xem Khóa Học</button>
+            </div>
+            <div class="hero-image">🌱</div>
+        </section>
 
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
-        <div class="benefits-container">
-            <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
-            <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
+        <section style="background: var(--bg-light); padding: 5rem 2rem;">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
+                <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧠</div>
+                            <div class="card-title">Thay Đổi Niềm Tin</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💆</div>
+                            <div class="card-title">Giảm Lo Âu</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🧘</div>
+                            <div class="card-title">Cắt Cơn Hoảng Loạn</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">Cắt Cơn Hoảng Loạn Bằng Chánh Niệm (Mindfulness) - kỹ năng tự điều chỉnh cảm xúc</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- COURSES PAGE -->
+    <div id="courses" class="page">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;">
+            <h2 class="section-title">Các Khóa Học</h2>
+            <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
             
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">🧠</div>
-                    <h3>Thay Đổi Niềm Tin</h3>
-                    <p>Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Hiểu Con Hơn</div>
+                        <div class="card-price">4.5M</div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
+                        <button class="card-btn" onclick="openModal('Hiểu Con Hơn', '4.5M')">Chi Tiết</button>
+                    </div>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">💆</div>
-                    <h3>Giảm Lo Âu</h3>
-                    <p>Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Đồng Hành Tâm Trí Teen</div>
+                        <div class="card-price">2.5M/giờ</div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin và sức khỏe tinh thần</p>
+                        <button class="card-btn" onclick="openModal('Đồng Hành Tâm Trí Teen', '2.5M/giờ')">Chi Tiết</button>
+                    </div>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">🧘</div>
-                    <h3>Cắt Cơn Hoảng Loạn</h3>
-                    <p>Cắt Cơn Hoảng Loạn Bằng Chánh Niệm (Mindfulness) - kỹ năng tự điều chỉnh cảm xúc</p>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Trải Nghiệm với Coach</div>
+                        <div class="card-price">99K/30p</div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">Buổi coaching một-một để giải quyết vấn đề cụ thể, linh hoạt thời gian</p>
+                        <button class="card-btn" onclick="openModal('Trải Nghiệm với Coach', '99K/30p')">Chi Tiết</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Khám Phá & Phát Triển Cá Nhân</div>
+                        <div class="card-price">Khóa Hè</div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
+                        <button class="card-btn" onclick="openModal('Khám Phá & Phát Triển Cá Nhân', 'Khóa Hè')">Chi Tiết</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Courses Section -->
-    <section class="courses" id="courses">
-        <h2 class="section-title">Các Khóa Học</h2>
-        <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
-        
-        <div class="courses-grid">
-            <div class="course-card">
-                <div class="course-header">
-                    <div class="course-name">Hiểu Con Hơn</div>
-                    <div class="course-price">4.5M</div>
-                </div>
-                <div class="course-body">
-                    <p class="course-description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
-                    <button class="course-btn" onclick="enrollCourse('Hiểu Con Hơn', '4.5M')">Chi Tiết</button>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <div class="course-header">
-                    <div class="course-name">Đồng Hành Tâm Trí Teen</div>
-                    <div class="course-price">2.5M/giờ</div>
-                </div>
-                <div class="course-body">
-                    <p class="course-description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin và sức khỏe tinh thần</p>
-                    <button class="course-btn" onclick="enrollCourse('Đồng Hành Tâm Trí Teen', '2.5M/giờ')">Chi Tiết</button>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <div class="course-header">
-                    <div class="course-name">Trải Nghiệm với Coach</div>
-                    <div class="course-price">99K/30p</div>
-                </div>
-                <div class="course-body">
-                    <p class="course-description">Buổi coaching một-một để giải quyết vấn đề cụ thể, linh hoạt thời gian</p>
-                    <button class="course-btn" onclick="enrollCourse('Trải Nghiệm với Coach', '99K/30p')">Chi Tiết</button>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <div class="course-header">
-                    <div class="course-name">Khám Phá & Phát Triển Cá Nhân</div>
-                    <div class="course-price">Khóa Hè</div>
-                </div>
-                <div class="course-body">
-                    <p class="course-description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
-                    <button class="course-btn" onclick="enrollCourse('Khám Phá & Phát Triển Cá Nhân', 'Khóa Hè')">Chi Tiết</button>
-                </div>
+    <!-- BLOG PAGE -->
+    <div id="blog" class="page">
+        <div class="blog-container">
+            <h2 class="section-title">Blog - Chia Sẻ Kiến Thức</h2>
+            <p class="section-subtitle">Các bài viết về tâm lý, giáo dục và phát triển cá nhân</p>
+            
+            <div id="blogGrid" class="blog-grid">
+                <!-- Blog posts will be loaded here -->
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- CTA Section -->
-    <section class="cta-section" id="contact">
-        <h2>Sẵn Sàng Thay Đổi?</h2>
-        <p>Đăng ký ngay để nhận tư vấn miễn phí về khóa học phù hợp</p>
-        <button class="btn-primary" onclick="openModal()">Liên Hệ Chúng Tôi</button>
-    </section>
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <div style="max-width: 600px; margin: 3rem auto; padding: 2rem;">
+            <h2 class="section-title">Liên Hệ Chúng Tôi</h2>
+            <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px; text-align: center;">
+                <p style="margin-bottom: 1rem; font-size: 1.1rem;">📧 Email: <strong>dangky@thunhienedu.vn</strong></p>
+                <p style="margin-bottom: 1rem; font-size: 1.1rem;">💬 Messenger: <a href="#" style="color: var(--primary);">Thu Nhiên Education</a></p>
+                <p style="font-size: 1.1rem;">📱 Hotline: <strong>0xxx.xxx.xxx</strong></p>
+                <p style="margin-top: 2rem; color: var(--text-light);">Hoặc điền form dưới để chúng tôi liên hệ lại bạn</p>
+                <button class="btn-primary" onclick="openModal()" style="margin-top: 1rem;">Gửi Thông Tin Liên Hệ</button>
+            </div>
+        </div>
+    </div>
 
-    <!-- Modal Form -->
+    <!-- Registration Modal -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -739,25 +735,59 @@
                 ✅ Đăng ký thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.
             </div>
             
-            <form id="registerForm">
+            <form id="registerForm" onsubmit="submitForm(event)">
                 <div class="form-group">
                     <label>Tên của bạn *</label>
-                    <input type="text" id="name" name="name" required placeholder="Nguyễn Văn A">
+                    <input type="text" id="name" required placeholder="Nguyễn Văn A">
                 </div>
 
                 <div class="form-group">
                     <label>Email *</label>
-                    <input type="email" id="email" name="email" required placeholder="abc@example.com">
+                    <input type="email" id="email" required placeholder="abc@example.com">
                 </div>
 
                 <div class="form-group">
                     <label>Số Điện Thoại *</label>
-                    <input type="tel" id="phone" name="phone" required placeholder="0912345678">
+                    <input type="tel" id="phone" required placeholder="0912345678">
+                </div>
+
+                <div class="form-group">
+                    <label>Tuổi của con</label>
+                    <select id="child-age">
+                        <option value="">-- Chọn --</option>
+                        <option value="3-6">3-6 tuổi</option>
+                        <option value="6-9">6-9 tuổi</option>
+                        <option value="9-12">9-12 tuổi</option>
+                        <option value="12-15">12-15 tuổi (Teen)</option>
+                        <option value="15+">15+ tuổi</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Vấn đề chính bạn đang gặp</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="issue-academic" value="Học tập kém">
+                            <label for="issue-academic" style="margin-bottom: 0;">Học tập kém</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="issue-anxiety" value="Lo âu/Stress">
+                            <label for="issue-anxiety" style="margin-bottom: 0;">Lo âu/Stress</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="issue-relation" value="Mâu thuẫn gia đình">
+                            <label for="issue-relation" style="margin-bottom: 0;">Mâu thuẫn gia đình</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="issue-confidence" value="Thiếu tự tin">
+                            <label for="issue-confidence" style="margin-bottom: 0;">Thiếu tự tin</label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Khóa Học Quan Tâm *</label>
-                    <select id="course" name="course" required>
+                    <select id="course" required>
                         <option value="">-- Chọn khóa học --</option>
                         <option value="Hiểu Con Hơn - 4.5M">Hiểu Con Hơn - 4.5M</option>
                         <option value="Đồng Hành Tâm Trí Teen - 2.5M/giờ">Đồng Hành Tâm Trí Teen - 2.5M/giờ</option>
@@ -768,7 +798,14 @@
 
                 <div class="form-group">
                     <label>Lời Nhắn</label>
-                    <textarea id="message" name="message" placeholder="Câu hỏi hoặc yêu cầu của bạn..."></textarea>
+                    <textarea id="message" placeholder="Câu hỏi hoặc yêu cầu của bạn..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="lead-magnet" value="yes">
+                        <label for="lead-magnet" style="margin-bottom: 0;">📥 Gửi ebook miễn phí "5 Kỹ Năng NLP Giảm Lo Âu"</label>
+                    </div>
                 </div>
 
                 <button type="submit" class="form-submit">Gửi Đơn Đăng Ký</button>
@@ -778,105 +815,115 @@
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#benefits">Lợi Ích</a>
-                <a href="#courses">Khóa Học</a>
-                <a href="mailto:dangky@thunhienedu.vn">Email</a>
-            </div>
-            <p>&copy; 2024 Thu Nhiên Education. Tất cả quyền được bảo vệ.</p>
+        <div class="footer-links">
+            <a href="#" onclick="goPage('home')">Trang Chủ</a>
+            <a href="#" onclick="goPage('courses')">Khóa Học</a>
+            <a href="#" onclick="goPage('blog')">Blog</a>
+            <a href="mailto:dangky@thunhienedu.vn">Email</a>
+            <a href="admin-dashboard.html" style="color: var(--text-light); font-size: 0.8rem;">🔐 Admin</a>
         </div>
+        <p>&copy; 2024 Thu Nhiên Education. Tất cả quyền được bảo vệ.</p>
     </footer>
 
     <script>
-        const modal = document.getElementById('registerModal');
-        const form = document.getElementById('registerForm');
-        const successMessage = document.getElementById('successMessage');
+        // Navigation
+        function goPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+            window.scrollTo(0, 0);
+            
+            if (page === 'blog') renderBlogPosts();
+        }
 
-        function openModal() {
-            modal.classList.add('active');
-            successMessage.style.display = 'none';
-            form.style.display = 'block';
+        // Modal
+        function openModal(courseName, price) {
+            document.getElementById('registerModal').classList.add('active');
+            if (courseName) {
+                document.getElementById('course').value = courseName + ' - ' + price;
+            }
         }
 
         function closeModal() {
-            modal.classList.remove('active');
+            document.getElementById('registerModal').classList.remove('active');
         }
 
-        function enrollCourse(courseName, price) {
-            document.getElementById('course').value = courseName + ' - ' + price;
-            openModal();
-        }
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        // Handle form submission
-        form.addEventListener('submit', (e) => {
+        // Form Submission
+        function submitForm(e) {
             e.preventDefault();
             
-            const data = {
+            const issues = [];
+            document.querySelectorAll('.checkbox-group input:checked').forEach(cb => {
+                issues.push(cb.value);
+            });
+
+            const lead = {
                 id: Date.now(),
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
+                childAge: document.getElementById('child-age').value,
+                issues: issues.join(', '),
                 course: document.getElementById('course').value,
                 message: document.getElementById('message').value,
+                leadMagnet: document.getElementById('lead-magnet').checked,
                 createdDate: new Date().toLocaleDateString('vi-VN'),
                 status: 'chưa liên hệ'
             };
 
-            // Gửi dữ liệu đến Google Sheet qua Apps Script
+            // Save to Google Sheets
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXfueXIUdEuK3iU08vWz97aCaJWqFZkoHE61hBkP_rmOg4Llh65YBsHR0Py9Xejfj5/exec';
             
-            // Dùng fetch với mode: 'no-cors' để tránh CORS error
             fetch(scriptUrl, {
                 method: 'POST',
                 mode: 'no-cors',
-                body: JSON.stringify(data),
+                body: JSON.stringify(lead),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => {
-                // Với mode 'no-cors', response sẽ luôn ok
-                // Dữ liệu vẫn được gửi đi bình thường
+            .then(() => {
+                document.getElementById('registerForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
                 
-                // Hiển thị thông báo thành công
-                form.style.display = 'none';
-                successMessage.style.display = 'block';
-                
-                // Reset form
-                form.reset();
-                
-                // Đóng modal sau 3 giây
                 setTimeout(() => {
                     closeModal();
-                    form.style.display = 'block';
-                }, 3000);
-            })
-            .catch(error => {
-                console.error('Lỗi:', error);
-                // Vẫn hiển thị thành công vì dữ liệu đã được gửi
-                form.style.display = 'none';
-                successMessage.style.display = 'block';
-                form.reset();
-                setTimeout(() => {
-                    closeModal();
-                    form.style.display = 'block';
+                    document.getElementById('registerForm').style.display = 'block';
+                    document.getElementById('successMessage').style.display = 'none';
+                    document.getElementById('registerForm').reset();
                 }, 3000);
             });
+        }
+
+        // Blog Management
+        function renderBlogPosts() {
+            const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+            const grid = document.getElementById('blogGrid');
+            
+            if (blogPosts.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; color: var(--text-light); grid-column: 1/-1;">Chưa có bài viết. Quay lại sau!</p>';
+                return;
+            }
+
+            grid.innerHTML = blogPosts.map(post => `
+                <div class="blog-card">
+                    <div class="blog-image">${post.icon}</div>
+                    <div class="blog-content">
+                        <div class="blog-date">${post.date}</div>
+                        <h3 class="blog-title">${post.title}</h3>
+                        <p class="blog-excerpt">${post.excerpt}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Close modal on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
         });
 
-        // Keyboard shortcut to close modal
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
+        // Close modal on click outside
+        document.getElementById('registerModal').addEventListener('click', (e) => {
+            if (e.target.id === 'registerModal') closeModal();
         });
     </script>
 </body>
