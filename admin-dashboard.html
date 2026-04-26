@@ -723,6 +723,7 @@
                                 </div>
 
                                 <button type="submit" class="form-submit" id="submitBtn">✅ Đăng Bài Viết</button>
+                                <small id="seoWarning" style="color: var(--warning); margin-top: 0.5rem; display: block;"></small>
                             </form>
                         </div>
                     </div>
@@ -965,7 +966,18 @@
 
             updateChecklistUI(checks);
             updateScoreBar(score);
-            document.getElementById('submitBtn').disabled = score < 80;
+            
+            // Cảnh báo gợi ý thay vì disable button
+            const warning = document.getElementById('seoWarning');
+            if (score < 80) {
+                warning.textContent = `⚠️ SEO chưa tối ưu (${score}/100). Vẫn có thể đăng nhưng nên cải thiện để xếp hạng tốt hơn trên Google.`;
+                warning.style.display = 'block';
+            } else {
+                warning.style.display = 'none';
+            }
+            
+            // Nút luôn enabled
+            document.getElementById('submitBtn').disabled = false;
         }
 
         function updateChecklistUI(checks) {
