@@ -6,75 +6,16 @@
     <meta name="description" content="Thu Nhiên Education - Giáo dục tâm lý giúp con tự tin, vượt qua lo âu, phát triển bản thân. Khóa học NLP, coaching tâm lý cho bố mẹ và teen.">
     <meta name="keywords" content="giáo dục tâm lý, NLP cho trẻ, coaching teen, giảm lo âu học tập, phát triển bản thân, tâm lý trẻ em">
     <meta name="author" content="Thu Nhiên Education">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="Vietnamese">
     
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Thu Nhiên Education - Phát Triển Tâm Trí Con">
     <meta property="og:description" content="Khóa học giáo dục tâm lý online giúp con tự tin học tập, giảm lo âu, phát triển cá nhân.">
-    <meta property="og:image" content="https://thunhienedu.vercel.app/og-image.png">
     <meta property="og:url" content="https://thunhienedu.vercel.app">
-    <meta property="og:site_name" content="Thu Nhiên Education">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Thu Nhiên Education - Phát Triển Tâm Trí Con">
-    <meta name="twitter:description" content="Khóa học giáo dục tâm lý giúp con tự tin và phát triển bản thân.">
-    <meta name="twitter:image" content="https://thunhienedu.vercel.app/og-image.png">
-    
-    <!-- Structured Data - Organization Schema -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Thu Nhiên Education",
-        "url": "https://thunhienedu.vercel.app",
-        "logo": "https://thunhienedu.vercel.app/logo.png",
-        "description": "Giáo dục tâm lý - khóa học giúp con tự tin, vượt qua lo âu, phát triển bản thân",
-        "sameAs": ["https://facebook.com/thunhienedu", "https://instagram.com/thunhienedu"],
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+84-xxx-xxx-xxx",
-            "contactType": "Customer Support",
-            "email": "dangky@thunhienedu.vn"
-        }
-    }
-    </script>
-    
-    <!-- Structured Data - Course Schema -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Course",
-        "name": "Hiểu Con Hơn - Khóa Học Giáo Dục Tâm Lý",
-        "description": "Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn",
-        "provider": {
-            "@type": "Organization",
-            "name": "Thu Nhiên Education"
-        },
-        "instructor": {
-            "@type": "Person",
-            "name": "Coach Thu Nhiên"
-        },
-        "offers": {
-            "@type": "Offer",
-            "price": "4500000",
-            "priceCurrency": "VND",
-            "availability": "InStock"
-        }
-    }
-    </script>
     
     <!-- Canonical -->
     <link rel="canonical" href="https://thunhienedu.vercel.app">
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🔱</text></svg>">
-    
-    <!-- Preload critical assets -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://script.google.com">
     
     <title>Thu Nhiên Education - Phát Triển Tâm Trí Con | Khóa Học NLP</title>
     
@@ -96,6 +37,7 @@
             --white: #ffffff;
             --border: #e5e7eb;
             --success: #10b981;
+            --danger: #dc2626;
         }
 
         html {
@@ -109,7 +51,29 @@
             background: var(--white);
         }
 
-        /* Performance: critical CSS only */
+        /* Livestream Banner */
+        .livestream-banner {
+            background: linear-gradient(90deg, #dc2626, #f59e0b);
+            color: var(--white);
+            padding: 0.75rem 2rem;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .livestream-banner:hover {
+            padding: 1rem 2rem;
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Header */
         header {
             background: var(--white);
             border-bottom: 1px solid var(--border);
@@ -189,6 +153,7 @@
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
         }
 
+        /* Pages */
         .page {
             display: none;
             animation: fadeIn 0.3s ease-out;
@@ -209,6 +174,7 @@
             }
         }
 
+        /* Hero Section */
         .hero {
             max-width: 1200px;
             margin: 0 auto;
@@ -238,6 +204,7 @@
             gap: 1rem;
             justify-content: center;
             margin-bottom: 3rem;
+            flex-wrap: wrap;
         }
 
         .btn-primary {
@@ -276,6 +243,28 @@
             color: var(--white);
         }
 
+        .btn-livestream {
+            background: linear-gradient(90deg, #dc2626, #f59e0b);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            animation: pulse-btn 2s infinite;
+        }
+
+        @keyframes pulse-btn {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+        }
+
+        .btn-livestream:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(220, 38, 38, 0.3);
+        }
+
         .hero-image {
             width: 100%;
             max-width: 600px;
@@ -289,6 +278,7 @@
             margin: 0 auto;
         }
 
+        /* Section Titles */
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -304,6 +294,7 @@
             font-size: 1.1rem;
         }
 
+        /* Cards Grid */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -379,6 +370,7 @@
             transform: translateY(-2px);
         }
 
+        /* Blog Section */
         .blog-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -440,6 +432,47 @@
             margin-bottom: 1rem;
         }
 
+        .blog-read-more {
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .blog-read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-light);
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -579,6 +612,59 @@
             font-weight: 500;
         }
 
+        /* Livestream Modal */
+        .livestream-modal-content {
+            text-align: center;
+        }
+
+        .livestream-modal-content .modal-header {
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .livestream-time {
+            background: linear-gradient(90deg, #dc2626, #f59e0b);
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .livestream-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .livestream-link-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .livestream-link-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .livestream-link-btn.tiktok {
+            background: #000000;
+        }
+
+        .livestream-link-btn.tiktok:hover {
+            background: #1a1a1a;
+        }
+
+        /* Footer */
         footer {
             background: var(--text-dark);
             color: var(--white);
@@ -633,34 +719,13 @@
                 opacity: 1;
             }
         }
-
-        /* Accessibility */
-        a:focus,
-        button:focus {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        /* Skip to content link for accessibility */
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: var(--primary);
-            color: var(--white);
-            padding: 8px;
-            text-decoration: none;
-            z-index: 100;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
     </style>
 </head>
 <body>
-    <!-- Skip to content link -->
-    <a href="#main-content" class="skip-link">Bỏ qua đến nội dung chính</a>
+    <!-- Livestream Banner -->
+    <div class="livestream-banner" onclick="openLivestream()">
+        🔴 LIVESTREAM TỐI NÀY: Thứ 2-5, 8:30 PM - Bấm để tham gia!
+    </div>
 
     <!-- Header -->
     <header role="banner">
@@ -685,54 +750,66 @@
     <!-- HOME PAGE -->
     <main id="main-content">
         <div id="home" class="page active">
-            <section class="hero" itemscope itemtype="https://schema.org/LocalBusiness">
-                <meta itemprop="name" content="Thu Nhiên Education">
-                <meta itemprop="description" content="Giáo dục tâm lý giúp con tự tin, vượt qua lo âu, phát triển bản thân">
-                
-                <h1 itemprop="headline">Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
-                <p class="subtitle" itemprop="description">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
+            <section class="hero">
+                <h1>Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
+                <p class="subtitle">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
                 <div class="hero-cta">
                     <button class="btn-primary" onclick="openModal()">Đăng Ký Ngay</button>
                     <button class="btn-secondary" onclick="goPage('courses')">Xem Khóa Học</button>
+                    <button class="btn-livestream" onclick="openLivestream()">🔴 Tham Gia Livestream</button>
                 </div>
-                <div class="hero-image" aria-hidden="true">🌱</div>
+                <div class="hero-image">🌱</div>
             </section>
 
-            <section style="background: var(--bg-light); padding: 5rem 2rem;" itemscope itemtype="https://schema.org/Thing">
+            <section style="background: var(--bg-light); padding: 5rem 2rem;">
                 <div style="max-width: 1200px; margin: 0 auto;">
                     <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
                     <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
                     
                     <div class="cards-grid">
-                        <div class="card" itemscope itemtype="https://schema.org/Thing">
+                        <div class="card">
                             <div class="card-header">
                                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" aria-hidden="true">🧠</div>
-                                <div class="card-title" itemprop="name">Thay Đổi Niềm Tin</div>
+                                <div class="card-title">Thay Đổi Niềm Tin</div>
                             </div>
                             <div class="card-body">
-                                <p class="card-description" itemprop="description">Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
+                                <p class="card-description">Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
                             </div>
                         </div>
                         
-                        <div class="card" itemscope itemtype="https://schema.org/Thing">
+                        <div class="card">
                             <div class="card-header">
                                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" aria-hidden="true">💆</div>
-                                <div class="card-title" itemprop="name">Giảm Lo Âu</div>
+                                <div class="card-title">Giảm Lo Âu</div>
                             </div>
                             <div class="card-body">
-                                <p class="card-description" itemprop="description">Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
+                                <p class="card-description">Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
                             </div>
                         </div>
                         
-                        <div class="card" itemscope itemtype="https://schema.org/Thing">
+                        <div class="card">
                             <div class="card-header">
                                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" aria-hidden="true">🧘</div>
-                                <div class="card-title" itemprop="name">Cắt Cơn Hoảng Loạn</div>
+                                <div class="card-title">Cắt Cơn Hoảng Loạn</div>
                             </div>
                             <div class="card-body">
-                                <p class="card-description" itemprop="description">Cắt Cơn Hoảng Loạn Bằng Chánh Niệm (Mindfulness) - kỹ năng tự điều chỉnh cảm xúc</p>
+                                <p class="card-description">Cắt Cơn Hoảng Loạn Bằng Chánh Niệm (Mindfulness) - kỹ năng tự điều chỉnh cảm xúc</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section style="padding: 5rem 2rem;">
+                <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+                    <h2 class="section-title">Theo Dõi Chúng Tôi Trên Mạng Xã Hội</h2>
+                    <p class="section-subtitle">Nhận cập nhật tip & livestream hàng tuần</p>
+                    
+                    <div class="social-links">
+                        <a href="https://facebook.com/thunhienbetterminds" target="_blank" class="social-link" title="Facebook">📘</a>
+                        <a href="https://zalo.me/0987654321" target="_blank" class="social-link" title="Zalo">💬</a>
+                        <a href="https://tiktok.com/@thunhienbetterminds" target="_blank" class="social-link" title="TikTok">🎵</a>
+                        <a href="mailto:dangky@thunhienedu.vn" class="social-link" title="Email">📧</a>
                     </div>
                 </div>
             </section>
@@ -745,49 +822,46 @@
                 <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
                 
                 <div class="cards-grid">
-                    <div class="card" itemscope itemtype="https://schema.org/Course">
+                    <div class="card">
                         <div class="card-header">
-                            <div class="card-title" itemprop="name">Hiểu Con Hơn</div>
-                            <div class="card-price" itemprop="price">4.5M</div>
-                            <meta itemprop="priceCurrency" content="VND">
+                            <div class="card-title">Hiểu Con Hơn</div>
+                            <div class="card-price">4.5M</div>
                         </div>
                         <div class="card-body">
-                            <p class="card-description" itemprop="description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
+                            <p class="card-description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
                             <button class="card-btn" onclick="openModal('Hiểu Con Hơn', '4.5M')">Chi Tiết</button>
                         </div>
                     </div>
 
-                    <div class="card" itemscope itemtype="https://schema.org/Course">
+                    <div class="card">
                         <div class="card-header">
-                            <div class="card-title" itemprop="name">Đồng Hành Tâm Trí Teen</div>
-                            <div class="card-price" itemprop="price">2.5M/giờ</div>
-                            <meta itemprop="priceCurrency" content="VND">
+                            <div class="card-title">Đồng Hành Tâm Trí Teen</div>
+                            <div class="card-price">2.5M/giờ</div>
                         </div>
                         <div class="card-body">
-                            <p class="card-description" itemprop="description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin và sức khỏe tinh thần</p>
+                            <p class="card-description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin và sức khỏe tinh thần</p>
                             <button class="card-btn" onclick="openModal('Đồng Hành Tâm Trí Teen', '2.5M/giờ')">Chi Tiết</button>
                         </div>
                     </div>
 
-                    <div class="card" itemscope itemtype="https://schema.org/Course">
+                    <div class="card">
                         <div class="card-header">
-                            <div class="card-title" itemprop="name">Trải Nghiệm với Coach</div>
-                            <div class="card-price" itemprop="price">99K/30p</div>
-                            <meta itemprop="priceCurrency" content="VND">
+                            <div class="card-title">Trải Nghiệm với Coach</div>
+                            <div class="card-price">99K/30p</div>
                         </div>
                         <div class="card-body">
-                            <p class="card-description" itemprop="description">Buổi coaching một-một để giải quyết vấn đề cụ thể, linh hoạt thời gian</p>
+                            <p class="card-description">Buổi coaching một-một để giải quyết vấn đề cụ thể, linh hoạt thời gian</p>
                             <button class="card-btn" onclick="openModal('Trải Nghiệm với Coach', '99K/30p')">Chi Tiết</button>
                         </div>
                     </div>
 
-                    <div class="card" itemscope itemtype="https://schema.org/Course">
+                    <div class="card">
                         <div class="card-header">
-                            <div class="card-title" itemprop="name">Khám Phá & Phát Triển Cá Nhân</div>
-                            <div class="card-price" itemprop="price">Khóa Hè</div>
+                            <div class="card-title">Khám Phá & Phát Triển Cá Nhân</div>
+                            <div class="card-price">Khóa Hè</div>
                         </div>
                         <div class="card-body">
-                            <p class="card-description" itemprop="description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
+                            <p class="card-description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
                             <button class="card-btn" onclick="openModal('Khám Phá & Phát Triển Cá Nhân', 'Khóa Hè')">Chi Tiết</button>
                         </div>
                     </div>
@@ -807,14 +881,25 @@
             </div>
         </div>
 
+        <!-- BLOG POST PAGE -->
+        <div id="blog-post" class="page">
+            <div style="max-width: 800px; margin: 0 auto; padding: 3rem 2rem;">
+                <button onclick="goPage('blog')" style="background: var(--primary); color: var(--white); padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; margin-bottom: 2rem;">← Quay lại Blog</button>
+                
+                <article id="postContent">
+                    <!-- Blog post content will be loaded here -->
+                </article>
+            </div>
+        </div>
+
         <!-- CONTACT PAGE -->
         <div id="contact" class="page">
             <div style="max-width: 600px; margin: 3rem auto; padding: 2rem;">
                 <h2 class="section-title">Liên Hệ Chúng Tôi</h2>
                 <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px; text-align: center;">
                     <p style="margin-bottom: 1rem; font-size: 1.1rem;">📧 Email: <strong><a href="mailto:dangky@thunhienedu.vn" style="color: var(--primary);">dangky@thunhienedu.vn</a></strong></p>
-                    <p style="margin-bottom: 1rem; font-size: 1.1rem;">💬 Messenger: <a href="#" style="color: var(--primary);">Thu Nhiên Education</a></p>
-                    <p style="font-size: 1.1rem;">📱 Hotline: <strong>0xxx.xxx.xxx</strong></p>
+                    <p style="margin-bottom: 1rem; font-size: 1.1rem;">💬 Zalo: <strong>0987654321</strong></p>
+                    <p style="font-size: 1.1rem;">📱 TikTok: <strong><a href="https://tiktok.com/@thunhienbetterminds" target="_blank" style="color: var(--primary);">@thunhienbetterminds</a></strong></p>
                     <p style="margin-top: 2rem; color: var(--text-light);">Hoặc điền form dưới để chúng tôi liên hệ lại bạn</p>
                     <button class="btn-primary" onclick="openModal()" style="margin-top: 1rem;">Gửi Thông Tin Liên Hệ</button>
                 </div>
@@ -903,12 +988,39 @@
                 <div class="form-group">
                     <div class="checkbox-item">
                         <input type="checkbox" id="lead-magnet" value="yes">
-                        <label for="lead-magnet" style="margin-bottom: 0;">📥 Gửi ebook miễn phí "5 Kỹ Năng NLP Giảm Lo Âu"</label>
+                        <label for="lead-magnet" style="margin-bottom: 0;">📥 Tôi muốn theo dõi livestream hàng tuần</label>
                     </div>
                 </div>
 
                 <button type="submit" class="form-submit">Gửi Đơn Đăng Ký</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Livestream Modal -->
+    <div class="modal" id="livestreamModal" role="dialog" aria-modal="true">
+        <div class="modal-content livestream-modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeLivestream()" aria-label="Đóng">&times;</button>
+            </div>
+            
+            <h2 style="color: var(--primary); margin-bottom: 1rem;">🔴 LIVESTREAM TỐI NÀY</h2>
+            <p style="color: var(--text-light); margin-bottom: 1.5rem;">Giáo dục tâm lý - Q&A với Coach Thu Nhiên</p>
+            
+            <div class="livestream-time">
+                📅 Thứ 2-5 | 🕒 8:30 PM
+            </div>
+
+            <p style="margin: 1.5rem 0; color: var(--text-dark);">Theo dõi TikTok để nhận thông báo livestream:</p>
+
+            <div class="livestream-links">
+                <a href="https://tiktok.com/@thunhienbetterminds" target="_blank" class="livestream-link-btn tiktok">🎵 Follow TikTok @thunhienbetterminds</a>
+                <a href="https://zalo.me/0987654321" target="_blank" class="livestream-link-btn">💬 Chat Zalo để nhận lịch</a>
+            </div>
+
+            <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 2rem;">
+                ✨ Tham gia livestream để nhận tips NLP miễn phí & Q&A cùng coach!
+            </p>
         </div>
     </div>
 
@@ -946,6 +1058,14 @@
             document.getElementById('registerModal').classList.remove('active');
         }
 
+        function openLivestream() {
+            document.getElementById('livestreamModal').classList.add('active');
+        }
+
+        function closeLivestream() {
+            document.getElementById('livestreamModal').classList.remove('active');
+        }
+
         // Form Submission
         function submitForm(e) {
             e.preventDefault();
@@ -964,7 +1084,7 @@
                 issues: issues.join(', '),
                 course: document.getElementById('course').value,
                 message: document.getElementById('message').value,
-                leadMagnet: document.getElementById('lead-magnet').checked,
+                followLivestream: document.getElementById('lead-magnet').checked,
                 createdDate: new Date().toLocaleDateString('vi-VN'),
                 status: 'chưa liên hệ'
             };
@@ -1004,30 +1124,56 @@
             }
 
             grid.innerHTML = blogPosts.map(post => `
-                <article class="blog-card" itemscope itemtype="https://schema.org/BlogPosting">
-                    <div class="blog-image" aria-hidden="true">${post.icon}</div>
+                <article class="blog-card" onclick="viewBlogPost(${post.id})">
+                    <div class="blog-image">${post.icon}</div>
                     <div class="blog-content">
-                        <time class="blog-date" itemprop="datePublished">${post.date}</time>
-                        <h3 class="blog-title" itemprop="headline">${post.title}</h3>
-                        <p class="blog-excerpt" itemprop="description">${post.excerpt}</p>
-                        <meta itemprop="author" content="Thu Nhiên Education">
+                        <time class="blog-date">${post.date}</time>
+                        <h3 class="blog-title">${post.title}</h3>
+                        <p class="blog-excerpt">${post.excerpt}</p>
+                        <span class="blog-read-more">Đọc tiếp →</span>
                     </div>
                 </article>
             `).join('');
         }
 
-        // Close modal on Escape
+        function viewBlogPost(postId) {
+            const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+            const post = blogPosts.find(p => p.id === postId);
+            
+            if (!post) return;
+
+            document.getElementById('postContent').innerHTML = `
+                <h1>${post.icon} ${post.title}</h1>
+                <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 2rem;">Đăng ngày: ${post.date}</p>
+                <div style="line-height: 1.8; font-size: 1.05rem;">
+                    ${post.content}
+                </div>
+            `;
+            
+            goPage('blog-post');
+        }
+
+        // Close modals on Escape
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
+            if (e.key === 'Escape') {
+                closeModal();
+                closeLivestream();
+            }
         });
 
-        // Close modal on click outside
+        // Close modals on click outside
         document.getElementById('registerModal').addEventListener('click', (e) => {
             if (e.target.id === 'registerModal') closeModal();
         });
 
-        // Render blog posts on load
-        renderBlogPosts();
+        document.getElementById('livestreamModal').addEventListener('click', (e) => {
+            if (e.target.id === 'livestreamModal') closeLivestream();
+        });
+
+        // Load initial data
+        window.addEventListener('load', () => {
+            renderBlogPosts();
+        });
     </script>
 </body>
 </html>
