@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Thu Nhiên Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -248,7 +250,7 @@
         /* Forms */
         .post-form-container {
             display: grid;
-            grid-template-columns: 1fr 350px;
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
         }
 
@@ -294,6 +296,8 @@
         .form-group textarea {
             resize: vertical;
             min-height: 200px;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.9rem;
         }
 
         .form-submit {
@@ -309,35 +313,115 @@
             transition: all 0.3s;
         }
 
-        .form-submit:hover {
+        .form-submit:hover:not(:disabled) {
             background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
         }
 
-        /* SEO Sidebar */
-        .seo-sidebar {
+        .form-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Tabs */
+        .editor-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .editor-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            margin-bottom: -2px;
+        }
+
+        .editor-tab:hover {
+            color: var(--primary);
+        }
+
+        .editor-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Preview */
+        .preview-container {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            max-height: 600px;
+            overflow-y: auto;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .preview-content {
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .preview-content h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .preview-content h2 {
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+        }
+
+        .preview-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .preview-content p {
+            margin-bottom: 1rem;
+        }
+
+        .preview-content ul, .preview-content ol {
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        .preview-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-content code {
+            background: var(--bg-light);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* SEO Score */
+        .seo-score-container {
             background: var(--white);
             padding: 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            height: fit-content;
-            position: sticky;
-            top: 2rem;
-        }
-
-        .seo-sidebar h3 {
-            font-size: 1.1rem;
-            color: var(--primary);
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* SEO Score Bar */
-        .seo-score-container {
-            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .seo-score-bar {
@@ -362,39 +446,21 @@
             font-size: 0.8rem;
         }
 
-        .seo-score-label {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-        }
-
         .seo-score-value {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--primary);
             text-align: center;
         }
 
-        /* SEO Checklist */
-        .seo-checklist {
-            margin-top: 1.5rem;
-        }
-
-        .seo-checklist h4 {
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
         .seo-checklist-item {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 0.75rem;
             padding: 0.75rem;
             background: var(--bg-light);
             border-radius: 6px;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             font-size: 0.85rem;
         }
 
@@ -405,37 +471,6 @@
         .seo-checklist-icon {
             font-size: 1.2rem;
             flex-shrink: 0;
-            margin-top: 0.2rem;
-        }
-
-        .seo-checklist-text {
-            flex: 1;
-        }
-
-        .seo-checklist-text .label {
-            font-weight: 500;
-            color: var(--text-dark);
-        }
-
-        .seo-checklist-text .desc {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-top: 0.2rem;
-        }
-
-        /* SEO Tips */
-        .seo-tips {
-            background: #fef3c7;
-            border: 1px solid #fcd34d;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: #78350f;
-        }
-
-        .seo-tips strong {
-            color: #92400e;
         }
 
         /* Tables */
@@ -551,13 +586,9 @@
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
             .post-form-container {
                 grid-template-columns: 1fr;
-            }
-
-            .seo-sidebar {
-                position: static;
             }
         }
 
@@ -640,103 +671,103 @@
             <div id="posts" class="content-section">
                 <div class="content-header">
                     <h2>Quản Lý Bài Viết</h2>
-                    <p>Viết bài với tối ưu SEO tự động</p>
+                    <p>Viết bài với HTML editor + SEO real-time</p>
                 </div>
 
                 <div id="postSuccessMsg" class="success-msg"></div>
 
                 <div class="post-form-container">
                     <!-- Form -->
-                    <div class="admin-form">
-                        <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">📝 Thêm Bài Viết Mới</h3>
-                        <form onsubmit="addBlogPost(event)">
-                            <div class="form-group">
-                                <label>Tiêu Đề *</label>
-                                <input type="text" id="post-title" oninput="updateSEOAnalysis()" required placeholder="VD: 5 Cách Giảm Lo Âu Con...">
-                            </div>
+                    <div>
+                        <div class="admin-form">
+                            <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">📝 Thêm Bài Viết Mới</h3>
+                            <form onsubmit="addBlogPost(event)">
+                                <div class="form-group">
+                                    <label>Tiêu Đề *</label>
+                                    <input type="text" id="post-title" oninput="updatePreview(); updateSEOAnalysis()" required placeholder="VD: 5 Cách Giảm Lo Âu Con">
+                                </div>
 
-                            <div class="form-group">
-                                <label>Icon/Emoji</label>
-                                <input type="text" id="post-icon" oninput="updateSEOAnalysis()" value="📚" placeholder="VD: 📚, 🎓, 💡, 😌">
-                            </div>
+                                <div class="form-group">
+                                    <label>Icon/Emoji</label>
+                                    <input type="text" id="post-icon" oninput="updatePreview()" value="📚" placeholder="VD: 📚, 🎓, 💡">
+                                </div>
 
-                            <div class="form-group">
-                                <label>Mô Tả Ngắn (Meta Description) *</label>
-                                <textarea id="post-excerpt" oninput="updateSEOAnalysis()" required placeholder="Mô tả dưới 160 ký tự..."></textarea>
-                            </div>
+                                <div class="form-group">
+                                    <label>Meta Description (Mô Tả Ngắn) *</label>
+                                    <textarea id="post-excerpt" oninput="updateSEOAnalysis()" required placeholder="Max 160 ký tự..."></textarea>
+                                    <small style="color: var(--text-light);" id="charCount">0/160</small>
+                                </div>
 
-                            <div class="form-group">
-                                <label>Nội Dung Đầy Đủ *</label>
-                                <textarea id="post-content" oninput="updateSEOAnalysis()" required placeholder="Nội dung chi tiết (tối thiểu 1500 từ)..." style="min-height: 300px;"></textarea>
-                            </div>
+                                <div class="form-group">
+                                    <label>Từ Khóa Chính (Tùy Chỉnh) *</label>
+                                    <input type="text" id="post-keyword" oninput="updateSEOAnalysis()" required placeholder="VD: giảm lo âu con, tâm lý trẻ em...">
+                                    <small style="color: var(--text-light);">Dùng để kiểm tra SEO</small>
+                                </div>
 
-                            <button type="submit" class="form-submit" id="submitBtn" disabled>✅ Đăng Bài Viết</button>
-                        </form>
+                                <div class="form-group">
+                                    <label>Nội Dung (HTML Hỗ Trợ) *</label>
+                                    <div class="editor-tabs">
+                                        <button type="button" class="editor-tab active" onclick="switchEditorTab('edit')">✏️ Chỉnh Sửa</button>
+                                        <button type="button" class="editor-tab" onclick="switchEditorTab('preview')">👁️ Xem Trước</button>
+                                    </div>
+                                    
+                                    <div id="edit-tab" class="tab-content active">
+                                        <textarea id="post-content" oninput="updatePreview(); updateSEOAnalysis()" required placeholder="Hỗ trợ HTML: &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;strong&gt;... (tối thiểu 1500 từ)" style="min-height: 300px;"></textarea>
+                                    </div>
+                                    
+                                    <div id="preview-tab" class="tab-content">
+                                        <div class="preview-container">
+                                            <div class="preview-content" id="contentPreview"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="form-submit" id="submitBtn">✅ Đăng Bài Viết</button>
+                            </form>
+                        </div>
                     </div>
 
-                    <!-- SEO Sidebar -->
-                    <div class="seo-sidebar">
-                        <h3>🚀 SEO Score</h3>
-                        
+                    <!-- SEO Score Sidebar -->
+                    <div>
                         <div class="seo-score-container">
-                            <div class="seo-score-label">Điểm SEO</div>
+                            <h3 style="margin-bottom: 1rem; color: var(--primary);">🚀 SEO Score</h3>
                             <div class="seo-score-bar">
                                 <div class="seo-score-fill" id="seoScoreFill" style="width: 0%;">0%</div>
                             </div>
                             <div class="seo-score-value" id="seoScoreValue">0/100</div>
                         </div>
 
-                        <div class="seo-checklist">
-                            <h4>✅ Checklist</h4>
-                            
+                        <div class="seo-score-container">
+                            <h4 style="margin-bottom: 1rem;">✅ Checklist</h4>
                             <div class="seo-checklist-item" id="check-title">
                                 <div class="seo-checklist-icon">⭕</div>
-                                <div class="seo-checklist-text">
-                                    <div class="label">Tiêu Đề</div>
-                                    <div class="desc">Chưa có tiêu đề</div>
-                                </div>
+                                <div><strong>Tiêu Đề</strong> (50-100 ký tự)</div>
                             </div>
-
                             <div class="seo-checklist-item" id="check-excerpt">
                                 <div class="seo-checklist-icon">⭕</div>
-                                <div class="seo-checklist-text">
-                                    <div class="label">Meta Description</div>
-                                    <div class="desc">Max 160 ký tự</div>
-                                </div>
+                                <div><strong>Meta Desc</strong> (max 160 ký tự)</div>
                             </div>
-
                             <div class="seo-checklist-item" id="check-content">
                                 <div class="seo-checklist-icon">⭕</div>
-                                <div class="seo-checklist-text">
-                                    <div class="label">Nội Dung</div>
-                                    <div class="desc">Tối thiểu 1500 từ</div>
-                                </div>
+                                <div><strong>Nội Dung</strong> (1500+ từ)</div>
                             </div>
-
                             <div class="seo-checklist-item" id="check-keyword">
                                 <div class="seo-checklist-icon">⭕</div>
-                                <div class="seo-checklist-text">
-                                    <div class="label">Từ Khóa</div>
-                                    <div class="desc">Lặp lại 2-3 lần</div>
-                                </div>
+                                <div><strong>Từ Khóa</strong> (lặp 2-5 lần)</div>
                             </div>
-
                             <div class="seo-checklist-item" id="check-emoji">
                                 <div class="seo-checklist-icon">⭕</div>
-                                <div class="seo-checklist-text">
-                                    <div class="label">Icon/Emoji</div>
-                                    <div class="desc">Để thu hút mắt</div>
-                                </div>
+                                <div><strong>Icon/Emoji</strong> (có mặt)</div>
                             </div>
                         </div>
 
-                        <div class="seo-tips">
-                            <strong>💡 Mẹo SEO:</strong><br>
-                            • Tiêu đề: 50-60 ký tự<br>
-                            • Mô tả: Dưới 160 ký tự<br>
-                            • Nội dung: 1500+ từ<br>
-                            • Từ khóa: Đặt tự nhiên<br>
-                            • Heading: H1, H2, H3
+                        <div style="background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 1rem; font-size: 0.85rem; color: #78350f;">
+                            <strong>💡 Mẹo HTML:</strong><br>
+                            • &lt;h2&gt;Heading&lt;/h2&gt;<br>
+                            • &lt;p&gt;Paragraph&lt;/p&gt;<br>
+                            • &lt;strong&gt;Bold&lt;/strong&gt;<br>
+                            • &lt;ul&gt;&lt;li&gt;List&lt;/li&gt;&lt;/ul&gt;<br>
+                            • &lt;ol&gt;&lt;li&gt;Số&lt;/li&gt;&lt;/ol&gt;
                         </div>
                     </div>
                 </div>
@@ -763,7 +794,7 @@
             <div id="leads" class="content-section">
                 <div class="content-header">
                     <h2>Quản Lý Khách Hàng</h2>
-                    <p>Xem, cập nhật trạng thái và export dữ liệu khách hàng</p>
+                    <p>Xem, cập nhật trạng thái và export dữ liệu</p>
                 </div>
 
                 <div style="margin-bottom: 1.5rem;">
@@ -841,6 +872,15 @@
             if (section === 'leads') renderLeadsList();
         }
 
+        // Switch Editor Tab
+        function switchEditorTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.editor-tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(tab + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
         // Stats
         function updateStats() {
             document.getElementById('totalPosts').textContent = blogPosts.length;
@@ -849,11 +889,33 @@
             document.getElementById('purchasedLeads').textContent = leads.filter(l => l.status === 'đã mua').length;
         }
 
+        // Preview Live
+        function updatePreview() {
+            const content = document.getElementById('post-content').value;
+            const title = document.getElementById('post-title').value;
+            const icon = document.getElementById('post-icon').value;
+            
+            let html = `<p style="text-align: center; font-size: 2rem; margin-bottom: 1rem;">${icon || '📚'}</p>`;
+            html += `<h1>${title || 'Tiêu Đề'}</h1>`;
+            html += content;
+            
+            document.getElementById('contentPreview').innerHTML = html;
+        }
+
+        // Update char count
+        document.addEventListener('input', (e) => {
+            if (e.target.id === 'post-excerpt') {
+                const count = e.target.value.length;
+                document.getElementById('charCount').textContent = count + '/160';
+            }
+        });
+
         // SEO Analysis
         function updateSEOAnalysis() {
             const title = document.getElementById('post-title').value;
             const excerpt = document.getElementById('post-excerpt').value;
             const content = document.getElementById('post-content').value;
+            const keyword = document.getElementById('post-keyword').value;
             const icon = document.getElementById('post-icon').value;
 
             let score = 0;
@@ -865,30 +927,30 @@
                 emoji: false
             };
 
-            // Title check (50-60 ký tự)
-            if (title.length >= 30 && title.length <= 100) {
+            // Title check
+            if (title.length >= 50 && title.length <= 100) {
                 score += 20;
                 checks.title = true;
             }
 
-            // Meta description (dưới 160 ký tự)
+            // Meta description
             if (excerpt.length > 0 && excerpt.length <= 160) {
                 score += 20;
                 checks.excerpt = true;
             }
 
-            // Content length (1500+ từ)
-            const wordCount = content.trim().split(/\s+/).length;
+            // Content length
+            const wordCount = content.trim().split(/\s+/).filter(w => w.length > 0).length;
             if (wordCount >= 1500) {
                 score += 20;
                 checks.content = true;
             }
 
-            // Keyword frequency (lặp 2-3 lần)
-            const keywordMatch = title.toLowerCase().match(/(\w+)/g);
-            if (keywordMatch) {
-                const keyword = keywordMatch[0];
-                const keywordCount = content.toLowerCase().split(keyword).length - 1;
+            // Keyword frequency
+            if (keyword.length > 0) {
+                const keywordLower = keyword.toLowerCase();
+                const contentLower = content.toLowerCase();
+                const keywordCount = (contentLower.match(new RegExp(keywordLower, 'g')) || []).length;
                 if (keywordCount >= 2 && keywordCount <= 5) {
                     score += 20;
                     checks.keyword = true;
@@ -901,7 +963,6 @@
                 checks.emoji = true;
             }
 
-            // Update UI
             updateChecklistUI(checks);
             updateScoreBar(score);
             document.getElementById('submitBtn').disabled = score < 80;
@@ -909,17 +970,17 @@
 
         function updateChecklistUI(checks) {
             const items = {
-                'check-title': checks.title ? '✅' : '⭕',
-                'check-excerpt': checks.excerpt ? '✅' : '⭕',
-                'check-content': checks.content ? '✅' : '⭕',
-                'check-keyword': checks.keyword ? '✅' : '⭕',
-                'check-emoji': checks.emoji ? '✅' : '⭕'
+                'check-title': checks.title,
+                'check-excerpt': checks.excerpt,
+                'check-content': checks.content,
+                'check-keyword': checks.keyword,
+                'check-emoji': checks.emoji
             };
 
-            for (const [id, icon] of Object.entries(items)) {
+            for (const [id, done] of Object.entries(items)) {
                 const element = document.getElementById(id);
-                element.querySelector('.seo-checklist-icon').textContent = icon;
-                if (icon === '✅') {
+                element.querySelector('.seo-checklist-icon').textContent = done ? '✅' : '⭕';
+                if (done) {
                     element.classList.add('done');
                 } else {
                     element.classList.remove('done');
@@ -953,6 +1014,7 @@
                 title: document.getElementById('post-title').value,
                 excerpt: document.getElementById('post-excerpt').value,
                 content: document.getElementById('post-content').value,
+                keyword: document.getElementById('post-keyword').value,
                 icon: document.getElementById('post-icon').value || '📚',
                 date: new Date().toLocaleDateString('vi-VN')
             };
@@ -966,6 +1028,7 @@
             setTimeout(() => msgEl.classList.remove('show'), 3000);
 
             e.target.reset();
+            updatePreview();
             updateSEOAnalysis();
             renderPostsList();
             updateStats();
