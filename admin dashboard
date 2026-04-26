@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Thu Nhiên Education</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
+            --accent: #06b6d4;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --danger: #dc2626;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: var(--bg-light);
+        }
+
+        /* Login Screen */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        }
+
+        .login-box {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-box h1 {
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-box p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .login-box .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .login-box label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Admin Layout */
+        .admin-layout {
+            display: none;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: auto 1fr;
+        }
+
+        .admin-layout.logged-in {
+            display: grid;
+        }
+
+        /* Admin Header */
+        .admin-header {
+            grid-column: 1 / -1;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-header h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .logout-btn {
+            background: var(--danger);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            background: var(--white);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem 0;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin: 0;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .sidebar-menu a:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-menu a.active {
+            background: var(--bg-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .admin-content {
+            padding: 2rem;
+            overflow-y: auto;
+            background: var(--bg-light);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-header {
+            margin-bottom: 2rem;
+        }
+
+        .content-header h2 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .content-header p {
+            color: var(--text-light);
+        }
+
+        /* Forms */
+        .admin-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-submit {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .form-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        .form-submit.secondary {
+            background: var(--text-light);
+            margin-left: 0.5rem;
+        }
+
+        .form-submit.secondary:hover {
+            background: var(--text-dark);
+        }
+
+        /* Tables */
+        .table-wrapper {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--bg-light);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        tr:hover {
+            background: var(--bg-light);
+        }
+
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            margin-right: 0.5rem;
+            border: 1px solid var(--border);
+            background: var(--white);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: var(--bg-light);
+        }
+
+        .action-btn.delete {
+            color: var(--danger);
+            border-color: #fca5a5;
+        }
+
+        .action-btn.delete:hover {
+            background: #fee2e2;
+        }
+
+        .action-btn.edit {
+            color: var(--primary);
+            border-color: #bfdbfe;
+        }
+
+        .action-btn.edit:hover {
+            background: #eff6ff;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-new {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-contacted {
+            background: #dbeafe;
+            color: #0c4a6e;
+        }
+
+        .status-purchased {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Success Message */
+        .success-msg {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border: 1px solid #6ee7b7;
+            display: none;
+        }
+
+        .success-msg.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-layout.logged-in {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                display: none;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <h1>🔱 Thu Nhiên</h1>
+            <p>Admin Dashboard</p>
+            
+            <div class="form-group">
+                <label>Mật khẩu Admin</label>
+                <input type="password" id="passwordInput" placeholder="Nhập mật khẩu" onkeypress="if(event.key==='Enter') login()">
+            </div>
+            
+            <button class="login-btn" onclick="login()">Đăng Nhập</button>
+            
+            <div class="error-message" id="errorMessage">❌ Mật khẩu sai. Thử lại!</div>
+        </div>
+    </div>
+
+    <!-- Admin Layout -->
+    <div id="adminLayout" class="admin-layout">
+        <!-- Header -->
+        <div class="admin-header">
+            <h1>🔱 Thu Nhiên Education - Admin</h1>
+            <button class="logout-btn" onclick="logout()">🚪 Đăng Xuất</button>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a onclick="switchSection('dashboard')" class="menu-item active">📊 Dashboard</a></li>
+                <li><a onclick="switchSection('posts')" class="menu-item">📝 Quản Lý Bài Viết</a></li>
+                <li><a onclick="switchSection('leads')" class="menu-item">👥 Quản Lý Khách Hàng</a></li>
+            </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="admin-content">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="content-section active">
+                <div class="content-header">
+                    <h2>Dashboard</h2>
+                    <p>Tổng quan hoạt động</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Tổng Bài Viết</div>
+                        <div class="stat-value" id="totalPosts">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Tổng Khách Đăng Ký</div>
+                        <div class="stat-value" id="totalLeads">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Chưa Liên Hệ</div>
+                        <div class="stat-value" id="newLeads">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Đã Mua</div>
+                        <div class="stat-value" id="purchasedLeads">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posts Management Section -->
+            <div id="posts" class="content-section">
+                <div class="content-header">
+                    <h2>Quản Lý Bài Viết</h2>
+                    <p>Viết, chỉnh sửa và xóa bài viết blog</p>
+                </div>
+
+                <div id="postSuccessMsg" class="success-msg"></div>
+
+                <div class="admin-form">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">📝 Thêm Bài Viết Mới</h3>
+                    <form onsubmit="addBlogPost(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tiêu Đề *</label>
+                                <input type="text" id="post-title" required placeholder="VD: 5 Cách Giảm Lo Âu Con...">
+                            </div>
+                            <div class="form-group">
+                                <label>Icon/Emoji</label>
+                                <input type="text" id="post-icon" value="📚" placeholder="VD: 📚, 🎓, 💡, 😌">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mô Tả Ngắn *</label>
+                            <textarea id="post-excerpt" required placeholder="Mô tả 2-3 dòng về bài viết..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nội Dung Đầy Đủ *</label>
+                            <textarea id="post-content" required placeholder="Nội dung chi tiết của bài viết..." style="min-height: 200px;"></textarea>
+                        </div>
+
+                        <button type="submit" class="form-submit">✅ Đăng Bài Viết</button>
+                    </form>
+                </div>
+
+                <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">📋 Danh Sách Bài Viết</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Icon</th>
+                                <th>Tiêu Đề</th>
+                                <th>Ngày Tạo</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="postsTable">
+                            <tr><td colspan="4" style="text-align: center; color: var(--text-light);">Chưa có bài viết</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Leads Management Section -->
+            <div id="leads" class="content-section">
+                <div class="content-header">
+                    <h2>Quản Lý Khách Hàng</h2>
+                    <p>Xem, cập nhật trạng thái và export dữ liệu khách hàng</p>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <button class="form-submit" onclick="exportLeads()" style="width: auto; padding: 0.75rem 1.5rem;">📥 Export CSV</button>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Email</th>
+                                <th>Điện Thoại</th>
+                                <th>Tuổi Con</th>
+                                <th>Khóa Học</th>
+                                <th>Trạng Thái</th>
+                                <th>Ngày Đăng Ký</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leadsTable">
+                            <tr><td colspan="8" style="text-align: center; color: var(--text-light);">Chưa có khách hàng đăng ký</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Config
+        const ADMIN_PASSWORD = '123456'; // Thay đổi password này!
+        
+        // Data
+        let blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+        let leads = JSON.parse(localStorage.getItem('leads')) || [];
+
+        // Login
+        function login() {
+            const password = document.getElementById('passwordInput').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminLayout').classList.add('logged-in');
+                updateStats();
+                renderPostsList();
+                renderLeadsList();
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                setTimeout(() => {
+                    document.getElementById('errorMessage').style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function logout() {
+            if (confirm('Bạn chắc chắn muốn đăng xuất?')) {
+                document.getElementById('adminLayout').classList.remove('logged-in');
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        // Switch Sections
+        function switchSection(section) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (section === 'dashboard') updateStats();
+            if (section === 'posts') renderPostsList();
+            if (section === 'leads') renderLeadsList();
+        }
+
+        // Stats
+        function updateStats() {
+            document.getElementById('totalPosts').textContent = blogPosts.length;
+            document.getElementById('totalLeads').textContent = leads.length;
+            document.getElementById('newLeads').textContent = leads.filter(l => l.status === 'chưa liên hệ').length;
+            document.getElementById('purchasedLeads').textContent = leads.filter(l => l.status === 'đã mua').length;
+        }
+
+        // Blog Posts
+        function addBlogPost(e) {
+            e.preventDefault();
+            
+            const post = {
+                id: Date.now(),
+                title: document.getElementById('post-title').value,
+                excerpt: document.getElementById('post-excerpt').value,
+                content: document.getElementById('post-content').value,
+                icon: document.getElementById('post-icon').value || '📚',
+                date: new Date().toLocaleDateString('vi-VN')
+            };
+
+            blogPosts.unshift(post);
+            localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+            
+            // Show success
+            const msgEl = document.getElementById('postSuccessMsg');
+            msgEl.textContent = '✅ Bài viết đã được đăng thành công!';
+            msgEl.classList.add('show');
+            setTimeout(() => msgEl.classList.remove('show'), 3000);
+
+            e.target.reset();
+            renderPostsList();
+            updateStats();
+        }
+
+        function renderPostsList() {
+            const tbody = document.getElementById('postsTable');
+            
+            if (blogPosts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-light);">Chưa có bài viết</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = blogPosts.map(post => `
+                <tr>
+                    <td style="font-size: 1.5rem;">${post.icon}</td>
+                    <td><strong>${post.title}</strong></td>
+                    <td>${post.date}</td>
+                    <td>
+                        <button class="action-btn edit" onclick="editBlogPost(${post.id})">✏️ Sửa</button>
+                        <button class="action-btn delete" onclick="deleteBlogPost(${post.id})">🗑️ Xóa</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function deleteBlogPost(id) {
+            if (confirm('Xóa bài viết này?')) {
+                blogPosts = blogPosts.filter(p => p.id !== id);
+                localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+                renderPostsList();
+                updateStats();
+            }
+        }
+
+        function editBlogPost(id) {
+            const post = blogPosts.find(p => p.id === id);
+            if (post) {
+                document.getElementById('post-title').value = post.title;
+                document.getElementById('post-excerpt').value = post.excerpt;
+                document.getElementById('post-content').value = post.content;
+                document.getElementById('post-icon').value = post.icon;
+                
+                document.querySelector('input[type="submit"]').textContent = '✏️ Cập Nhật Bài Viết';
+                document.getElementById('posts').scrollIntoView({ behavior: 'smooth' });
+                
+                // Delete old and add new when saved
+                blogPosts = blogPosts.filter(p => p.id !== id);
+            }
+        }
+
+        // Leads Management
+        function renderLeadsList() {
+            const tbody = document.getElementById('leadsTable');
+            
+            if (leads.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--text-light);">Chưa có khách hàng đăng ký</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = leads.map(lead => `
+                <tr>
+                    <td><strong>${lead.name}</strong></td>
+                    <td>${lead.email}</td>
+                    <td>${lead.phone}</td>
+                    <td>${lead.childAge || '-'}</td>
+                    <td style="font-size: 0.85rem;">${lead.course}</td>
+                    <td>
+                        <select onchange="updateLeadStatus(${lead.id}, this.value)" style="padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid var(--border); cursor: pointer;">
+                            <option value="chưa liên hệ" ${lead.status === 'chưa liên hệ' ? 'selected' : ''}>Chưa liên hệ</option>
+                            <option value="đã liên hệ" ${lead.status === 'đã liên hệ' ? 'selected' : ''}>Đã liên hệ</option>
+                            <option value="đã mua" ${lead.status === 'đã mua' ? 'selected' : ''}>Đã mua</option>
+                        </select>
+                    </td>
+                    <td>${lead.createdDate}</td>
+                    <td>
+                        <button class="action-btn delete" onclick="deleteLead(${lead.id})">🗑️ Xóa</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateLeadStatus(id, status) {
+            const lead = leads.find(l => l.id === id);
+            if (lead) {
+                lead.status = status;
+                localStorage.setItem('leads', JSON.stringify(leads));
+                updateStats();
+            }
+        }
+
+        function deleteLead(id) {
+            if (confirm('Xóa khách hàng này?')) {
+                leads = leads.filter(l => l.id !== id);
+                localStorage.setItem('leads', JSON.stringify(leads));
+                renderLeadsList();
+                updateStats();
+            }
+        }
+
+        function exportLeads() {
+            if (leads.length === 0) {
+                alert('❌ Chưa có dữ liệu khách hàng để export');
+                return;
+            }
+
+            let csv = 'ID,Ngày Đăng Ký,Tên,Email,Số Điện Thoại,Tuổi Con,Vấn Đề,Khóa Học,Lời Nhắn,Trạng Thái\n';
+            
+            leads.forEach(lead => {
+                csv += `${lead.id},"${lead.createdDate}","${lead.name}","${lead.email}","${lead.phone}","${lead.childAge || ''}","${lead.issues || ''}","${lead.course}","${lead.message || ''}","${lead.status}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `leads_${new Date().getTime()}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Focus password field on load
+        window.addEventListener('load', () => {
+            document.getElementById('passwordInput').focus();
+        });
+    </script>
+</body>
+</html>
