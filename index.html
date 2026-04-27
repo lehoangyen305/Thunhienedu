@@ -1420,7 +1420,72 @@
         // Initialize on page load
         window.addEventListener('load', () => {
             renderBlogPosts();
+            loadCustomizations();
         });
+
+        // ============ LOAD CUSTOMIZATIONS ============
+        function loadCustomizations() {
+            // Load hero background
+            const heroUrl = localStorage.getItem('heroImageUrl');
+            if (heroUrl) {
+                const heroEl = document.querySelector('.hero');
+                if (heroEl) {
+                    heroEl.style.backgroundImage = `linear-gradient(135deg, rgba(30, 64, 175, 0.85), rgba(6, 182, 212, 0.85)), url('${heroUrl}')`;
+                }
+            }
+
+            // Load hero text
+            const heroTitle = localStorage.getItem('heroTitle');
+            if (heroTitle) {
+                const titleEl = document.querySelector('.hero h1');
+                if (titleEl) titleEl.textContent = heroTitle;
+            }
+
+            const heroSubtitle = localStorage.getItem('heroSubtitle');
+            if (heroSubtitle) {
+                const subtitleEl = document.querySelector('.hero .subtitle');
+                if (subtitleEl) subtitleEl.textContent = heroSubtitle;
+            }
+
+            // Load primary color
+            const primaryColor = localStorage.getItem('primaryColor');
+            if (primaryColor) {
+                document.documentElement.style.setProperty('--primary', primaryColor);
+                document.documentElement.style.setProperty('--primary-light', primaryColor);
+                document.documentElement.style.setProperty('--primary-dark', primaryColor);
+            }
+
+            // Load contact info
+            const email = localStorage.getItem('contactEmail');
+            if (email) {
+                document.querySelectorAll('[href^="mailto:"]').forEach(el => {
+                    el.href = `mailto:${email}`;
+                    el.textContent = email;
+                });
+            }
+
+            const phone = localStorage.getItem('contactPhone');
+            if (phone) {
+                const phoneEls = document.querySelectorAll('a[href^="tel:"], strong');
+                phoneEls.forEach(el => {
+                    if (el.textContent.match(/\d{10}/)) {
+                        el.href = `tel:${phone}`;
+                        el.textContent = phone;
+                    }
+                });
+            }
+
+            // Load livestream banner text
+            const livestreamText = localStorage.getItem('livestreamText');
+            if (livestreamText) {
+                const bannerEl = document.querySelector('.livestream-banner');
+                if (bannerEl) {
+                    const zaloLink = localStorage.getItem('zaloLink') || 'https://zalo.me/0987654321';
+                    const facebookLink = localStorage.getItem('facebookLink') || 'https://facebook.com/thunhienbetterminds';
+                    bannerEl.innerHTML = `${livestreamText} | <a href="${zaloLink}" target="_blank">💬 Zalo</a> | <a href="${facebookLink}" target="_blank">📘 Facebook</a>`;
+                }
+            }
+        }
     </script>
 </body>
 </html>
