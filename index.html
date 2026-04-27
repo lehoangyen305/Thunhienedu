@@ -570,6 +570,7 @@
         }
 
         .form-group input,
+        .form-group select,
         .form-group textarea {
             width: 100%;
             padding: 0.75rem;
@@ -580,6 +581,7 @@
         }
 
         .form-group input:focus,
+        .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
             border-color: var(--primary);
@@ -918,6 +920,16 @@
                 <div class="form-group">
                     <label>Số Điện Thoại *</label>
                     <input type="tel" id="phone" required placeholder="0912345678">
+                </div>
+
+                <div class="form-group">
+                    <label>Khóa Học Quan Tâm *</label>
+                    <select id="course" required>
+                        <option value="">-- Chọn khóa học --</option>
+                        <option value="Hiểu Con Hơn - 4.5M">Hiểu Con Hơn - 4.5M</option>
+                        <option value="Đồng Hành Tâm Trí Teen - 2.5M/giờ">Đồng Hành Tâm Trí Teen - 2.5M/giờ</option>
+                        <option value="Khám Phá & Phát Triển Cá Nhân - Khóa Hè">Khám Phá & Phát Triển Cá Nhân - Khóa Hè</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
