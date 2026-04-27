@@ -525,7 +525,7 @@
         <div class="admin-header">
             <h1>🔱 Thu Nhiên Education - Admin</h1>
             <div class="header-actions">
-                <a href="index.html" target="_blank">👁️ Xem Website</a>
+                <a href="index-final.html" target="_blank">👁️ Xem Website</a>
                 <a href="email-analytics.html" target="_blank">📧 Email & Analytics</a>
                 <button class="logout-btn" onclick="logout()">🚪 Đăng Xuất</button>
             </div>
@@ -538,6 +538,8 @@
                 <li><a onclick="switchSection('posts')" class="menu-item">📝 Quản Lý Bài Viết</a></li>
                 <li><a onclick="switchSection('leads')" class="menu-item">👥 Quản Lý Khách Hàng</a></li>
                 <li><a onclick="switchSection('customize')" class="menu-item">🎨 Tùy Chỉnh Website</a></li>
+                <li><a onclick="switchSection('help-manager')" class="menu-item">💡 Quản Lý Chúng Tôi Giúp Gì</a></li>
+                <li><a onclick="switchSection('courses-manager')" class="menu-item">🎓 Quản Lý Khóa Học</a></li>
                 <li><a onclick="switchSection('settings')" class="menu-item">⚙️ Cấu Hình</a></li>
             </ul>
         </div>
@@ -800,6 +802,43 @@
                         </div>
                         <button onclick="updateContact()" style="width: 100%; background: var(--primary); color: var(--white); padding: 0.75rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 1rem;">Cập Nhật</button>
                     </div>
+                </div>
+            </div>
+
+            <!-- Help Sections Manager -->
+            <div id="help-manager" class="content-section" style="display: none;">
+                <div class="content-header">
+                    <h2>💡 Quản Lý "Chúng Tôi Giúp Gì Cho Con"</h2>
+                    <p>Thêm/Sửa/Xóa các kỹ năng giúp con phát triển</p>
+                </div>
+                <div id="helpList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;"></div>
+                <div style="background: var(--white); padding: 2rem; border-radius: 12px; border: 1px solid var(--border);">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Thêm Mục Mới</h3>
+                    <form id="addHelpForm" onsubmit="addHelpItem(event)" style="display: grid; gap: 1rem;">
+                        <input type="text" id="help-icon" placeholder="Icon/Emoji (VD: 🧠)" required style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+                        <input type="text" id="help-title" placeholder="Tiêu đề (VD: Thay Đổi Niềm Tin)" required style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+                        <textarea id="help-desc" placeholder="Mô tả chi tiết" required style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; min-height: 100px;"></textarea>
+                        <button type="submit" style="background: var(--primary); color: var(--white); padding: 0.75rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">➕ Thêm Mục</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Courses Manager -->
+            <div id="courses-manager" class="content-section" style="display: none;">
+                <div class="content-header">
+                    <h2>🎓 Quản Lý "Khóa Học"</h2>
+                    <p>Thêm/Sửa/Xóa các khóa học</p>
+                </div>
+                <div id="coursesList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;"></div>
+                <div style="background: var(--white); padding: 2rem; border-radius: 12px; border: 1px solid var(--border);">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Thêm Khóa Học Mới</h3>
+                    <form id="addCourseForm" onsubmit="addCourse(event)" style="display: grid; gap: 1rem;">
+                        <input type="text" id="course-icon" placeholder="Icon/Emoji (VD: 🎓)" required style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+                        <input type="text" id="course-title" placeholder="Tên khóa học" required style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+                        <input type="text" id="course-price" placeholder="Giá (VD: 4.5M, 2.5M/giờ, Khóa Hè)" required style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;">
+                        <textarea id="course-desc" placeholder="Mô tả khóa học" required style="padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px; min-height: 100px;"></textarea>
+                        <button type="submit" style="background: var(--primary); color: var(--white); padding: 0.75rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">➕ Thêm Khóa</button>
+                    </form>
                 </div>
             </div>
 
@@ -1145,6 +1184,10 @@
             
             const phone = localStorage.getItem('contactPhone');
             if (phone) document.getElementById('contactPhone').value = phone;
+            
+            // Load help sections and courses
+            renderHelpList();
+            renderCoursesList();
         });
 
         // ============ WEBSITE CUSTOMIZATION FUNCTIONS ============
@@ -1207,6 +1250,110 @@
             localStorage.setItem('contactEmail', email);
             localStorage.setItem('contactPhone', phone);
             alert('✅ Thông tin liên hệ đã được cập nhật!');
+        }
+
+        // ============ HELP SECTIONS MANAGEMENT ============
+
+        function renderHelpList() {
+            const helpSections = JSON.parse(localStorage.getItem('helpSections')) || [];
+            const container = document.getElementById('helpList');
+            
+            if (helpSections.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-light); grid-column: 1/-1;">Chưa có mục nào. Hãy thêm mục mới!</p>';
+                return;
+            }
+            
+            container.innerHTML = helpSections.map(item => `
+                <div style="background: var(--white); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">${item.icon}</div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.5rem;">${item.title}</h4>
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">${item.description}</p>
+                    <button onclick="deleteHelpItem(${item.id})" style="background: var(--danger); color: var(--white); padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">🗑️ Xóa</button>
+                </div>
+            `).join('');
+        }
+
+        function addHelpItem(e) {
+            e.preventDefault();
+            
+            const item = {
+                id: Date.now(),
+                icon: document.getElementById('help-icon').value,
+                title: document.getElementById('help-title').value,
+                description: document.getElementById('help-desc').value
+            };
+            
+            let helpSections = JSON.parse(localStorage.getItem('helpSections')) || [];
+            helpSections.push(item);
+            localStorage.setItem('helpSections', JSON.stringify(helpSections));
+            
+            alert('✅ Đã thêm mục mới!');
+            document.getElementById('addHelpForm').reset();
+            renderHelpList();
+        }
+
+        function deleteHelpItem(id) {
+            if (!confirm('Bạn chắc chắn muốn xóa?')) return;
+            
+            let helpSections = JSON.parse(localStorage.getItem('helpSections')) || [];
+            helpSections = helpSections.filter(item => item.id !== id);
+            localStorage.setItem('helpSections', JSON.stringify(helpSections));
+            
+            alert('✅ Đã xóa!');
+            renderHelpList();
+        }
+
+        // ============ COURSES MANAGEMENT ============
+
+        function renderCoursesList() {
+            const courses = JSON.parse(localStorage.getItem('courses')) || [];
+            const container = document.getElementById('coursesList');
+            
+            if (courses.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-light); grid-column: 1/-1;">Chưa có khóa học nào. Hãy thêm khóa mới!</p>';
+                return;
+            }
+            
+            container.innerHTML = courses.map(course => `
+                <div style="background: var(--white); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">${course.icon}</div>
+                    <h4 style="color: var(--primary); margin-bottom: 0.25rem;">${course.title}</h4>
+                    <p style="color: var(--success); font-weight: 600; margin-bottom: 0.75rem;">${course.price}</p>
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">${course.description}</p>
+                    <button onclick="deleteCourse(${course.id})" style="background: var(--danger); color: var(--white); padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">🗑️ Xóa</button>
+                </div>
+            `).join('');
+        }
+
+        function addCourse(e) {
+            e.preventDefault();
+            
+            const course = {
+                id: Date.now(),
+                icon: document.getElementById('course-icon').value,
+                title: document.getElementById('course-title').value,
+                price: document.getElementById('course-price').value,
+                description: document.getElementById('course-desc').value
+            };
+            
+            let courses = JSON.parse(localStorage.getItem('courses')) || [];
+            courses.push(course);
+            localStorage.setItem('courses', JSON.stringify(courses));
+            
+            alert('✅ Đã thêm khóa học!');
+            document.getElementById('addCourseForm').reset();
+            renderCoursesList();
+        }
+
+        function deleteCourse(id) {
+            if (!confirm('Bạn chắc chắn muốn xóa?')) return;
+            
+            let courses = JSON.parse(localStorage.getItem('courses')) || [];
+            courses = courses.filter(course => course.id !== id);
+            localStorage.setItem('courses', JSON.stringify(courses));
+            
+            alert('✅ Đã xóa!');
+            renderCoursesList();
         }
     </script>
 </body>
