@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Thu Nhiên Education</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
+            --accent: #06b6d4;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: var(--bg-light);
+        }
+
+        /* Login Screen */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        }
+
+        .login-box {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-box h1 {
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-box p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .login-box .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .login-box label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Admin Layout */
+        .admin-layout {
+            display: none;
+            min-height: 100vh;
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: auto 1fr;
+        }
+
+        .admin-layout.logged-in {
+            display: grid;
+        }
+
+        /* Admin Header */
+        .admin-header {
+            grid-column: 1 / -1;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .admin-header h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .header-actions a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .header-actions a:hover {
+            color: var(--primary-dark);
+        }
+
+        .logout-btn {
+            background: var(--danger);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            background: var(--white);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem 0;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            overflow-y: auto;
+            max-height: calc(100vh - 60px);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin: 0;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .sidebar-menu a:hover {
+            background: var(--bg-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .sidebar-menu a.active {
+            background: var(--bg-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .admin-content {
+            padding: 2rem;
+            overflow-y: auto;
+            background: var(--bg-light);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-header {
+            margin-bottom: 2rem;
+        }
+
+        .content-header h2 {
+            font-size: 2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .content-header p {
+            color: var(--text-light);
+        }
+
+        /* Forms */
+        .admin-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 200px;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .form-submit {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .form-submit:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        .form-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Tables */
+        .table-wrapper {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--bg-light);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        tr:hover {
+            background: var(--bg-light);
+        }
+
+        .action-btn {
+            padding: 0.4rem 0.8rem;
+            margin-right: 0.5rem;
+            border: 1px solid var(--border);
+            background: var(--white);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: var(--bg-light);
+        }
+
+        .action-btn.delete {
+            color: var(--danger);
+            border-color: #fca5a5;
+        }
+
+        .action-btn.delete:hover {
+            background: #fee2e2;
+        }
+
+        /* Success Message */
+        .success-msg {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border: 1px solid #6ee7b7;
+            display: none;
+        }
+
+        .success-msg.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Quick Links */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-link {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .quick-link:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(30, 64, 175, 0.2);
+        }
+
+        .quick-link-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-link-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .quick-link-desc {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-layout.logged-in {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <h1>🔱 Thu Nhiên</h1>
+            <p>Admin Dashboard</p>
+            
+            <div class="form-group">
+                <label>Mật khẩu Admin</label>
+                <input type="password" id="passwordInput" placeholder="Nhập mật khẩu" onkeypress="if(event.key==='Enter') login()">
+            </div>
+            
+            <button class="login-btn" onclick="login()">Đăng Nhập</button>
+            
+            <div class="error-message" id="errorMessage">❌ Mật khẩu sai. Thử lại!</div>
+        </div>
+    </div>
+
+    <!-- Admin Layout -->
+    <div id="adminLayout" class="admin-layout">
+        <!-- Header -->
+        <div class="admin-header">
+            <h1>🔱 Thu Nhiên Education - Admin</h1>
+            <div class="header-actions">
+                <a href="index-final.html" target="_blank">👁️ Xem Website</a>
+                <a href="email-analytics.html" target="_blank">📧 Email & Analytics</a>
+                <a href="booking-system.html" target="_blank">📅 Booking</a>
+                <button class="logout-btn" onclick="logout()">🚪 Đăng Xuất</button>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="admin-sidebar">
+            <ul class="sidebar-menu">
+                <li><a onclick="switchSection('dashboard')" class="menu-item active">📊 Dashboard</a></li>
+                <li><a onclick="switchSection('posts')" class="menu-item">📝 Quản Lý Bài Viết</a></li>
+                <li><a onclick="switchSection('leads')" class="menu-item">👥 Quản Lý Khách Hàng</a></li>
+                <li><a onclick="switchSection('settings')" class="menu-item">⚙️ Cấu Hình</a></li>
+            </ul>
+        </div>
+
+        <!-- Content -->
+        <div class="admin-content">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="content-section active">
+                <div class="content-header">
+                    <h2>Dashboard</h2>
+                    <p>Tổng quan hoạt động</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Tổng Bài Viết</div>
+                        <div class="stat-value" id="totalPosts">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Tổng Khách Đăng Ký</div>
+                        <div class="stat-value" id="totalLeads">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Chưa Liên Hệ</div>
+                        <div class="stat-value" id="newLeads">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Đã Mua</div>
+                        <div class="stat-value" id="purchasedLeads">0</div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: var(--text-dark);">🔗 Quick Links</h3>
+                <div class="quick-links">
+                    <a class="quick-link" href="email-analytics.html" target="_blank">
+                        <div class="quick-link-icon">📧</div>
+                        <div class="quick-link-title">Email Automation</div>
+                        <div class="quick-link-desc">Gửi email hàng loạt</div>
+                    </a>
+                    <a class="quick-link" href="email-analytics.html" target="_blank" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <div class="quick-link-icon">📊</div>
+                        <div class="quick-link-title">Analytics</div>
+                        <div class="quick-link-desc">Phân tích dữ liệu khách</div>
+                    </a>
+                    <a class="quick-link" href="booking-system.html" target="_blank" style="background: linear-gradient(135deg, #f59e0b, #dc2626);">
+                        <div class="quick-link-icon">📅</div>
+                        <div class="quick-link-title">Booking Calendar</div>
+                        <div class="quick-link-desc">Lịch tư vấn 1:1</div>
+                    </a>
+                    <button class="quick-link" onclick="switchSection('posts')" style="background: linear-gradient(135deg, #06b6d4, var(--primary));">
+                        <div class="quick-link-icon">📝</div>
+                        <div class="quick-link-title">Viết Bài Blog</div>
+                        <div class="quick-link-desc">Tạo bài viết mới</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Posts Management Section -->
+            <div id="posts" class="content-section">
+                <div class="content-header">
+                    <h2>Quản Lý Bài Viết</h2>
+                    <p>Viết bài với HTML editor + SEO real-time + Cloudinary image upload</p>
+                </div>
+
+                <div id="postSuccessMsg" class="success-msg"></div>
+
+                <div class="admin-form">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">📝 Thêm Bài Viết Mới</h3>
+                    <form onsubmit="addBlogPost(event)">
+                        <div class="form-group">
+                            <label>Tiêu Đề *</label>
+                            <input type="text" id="post-title" oninput="updateSEOAnalysis()" required placeholder="VD: 5 Cách Giảm Lo Âu Con">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Icon/Emoji</label>
+                            <input type="text" id="post-icon" value="📚" placeholder="VD: 📚, 🎓, 💡">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Meta Description (Mô Tả Ngắn) *</label>
+                            <textarea id="post-excerpt" oninput="updateSEOAnalysis()" required placeholder="Max 160 ký tự..."></textarea>
+                            <small style="color: var(--text-light);" id="charCount">0/160</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Từ Khóa Chính (Tùy Chỉnh) *</label>
+                            <input type="text" id="post-keyword" oninput="updateSEOAnalysis()" required placeholder="VD: giảm lo âu con, tâm lý trẻ em...">
+                            <small style="color: var(--text-light);">Dùng để kiểm tra SEO</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cloudinary Image URL</label>
+                            <input type="text" id="post-image" placeholder="https://res.cloudinary.com/...">
+                            <small style="color: var(--text-light);">Dán URL ảnh từ Cloudinary (tùy chọn)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nội Dung (HTML Hỗ Trợ) *</label>
+                            <textarea id="post-content" oninput="updateSEOAnalysis()" required placeholder="Hỗ trợ HTML: &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;strong&gt;... (tối thiểu 1500 từ)"></textarea>
+                        </div>
+
+                        <button type="submit" class="form-submit" id="submitBtn">✅ Đăng Bài Viết</button>
+                        <small id="seoWarning" style="color: var(--warning); margin-top: 0.5rem; display: block;"></small>
+                    </form>
+                </div>
+
+                <h3 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--text-dark);">📋 Danh Sách Bài Viết</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Icon</th>
+                                <th>Tiêu Đề</th>
+                                <th>Ngày Tạo</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="postsTable">
+                            <tr><td colspan="4" style="text-align: center; color: var(--text-light);">Chưa có bài viết</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Leads Management Section -->
+            <div id="leads" class="content-section">
+                <div class="content-header">
+                    <h2>Quản Lý Khách Hàng</h2>
+                    <p>Xem, cập nhật trạng thái và export dữ liệu</p>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <button class="form-submit" onclick="exportLeads()" style="width: auto; padding: 0.75rem 1.5rem;">📥 Export CSV</button>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Email</th>
+                                <th>Điện Thoại</th>
+                                <th>Khóa Học</th>
+                                <th>Trạng Thái</th>
+                                <th>Ngày Đăng Ký</th>
+                                <th>Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leadsTable">
+                            <tr><td colspan="7" style="text-align: center; color: var(--text-light);">Chưa có khách hàng đăng ký</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings" class="content-section">
+                <div class="content-header">
+                    <h2>⚙️ Cấu Hình</h2>
+                    <p>Thay đổi mật khẩu admin & các cài đặt hệ thống</p>
+                </div>
+
+                <div class="admin-form">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">Thay Đổi Mật Khẩu</h3>
+                    <form onsubmit="changePassword(event)">
+                        <div class="form-group">
+                            <label>Mật Khẩu Cũ *</label>
+                            <input type="password" id="oldPassword" required placeholder="Nhập mật khẩu hiện tại">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mật Khẩu Mới *</label>
+                            <input type="password" id="newPassword" required placeholder="Nhập mật khẩu mới">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Xác Nhận Mật Khẩu *</label>
+                            <input type="password" id="confirmPassword" required placeholder="Nhập lại mật khẩu mới">
+                        </div>
+
+                        <button type="submit" class="form-submit">Cập Nhật Mật Khẩu</button>
+                    </form>
+                </div>
+
+                <div class="admin-form">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--text-dark);">ℹ️ Thông Tin Hệ Thống</h3>
+                    <div style="background: var(--bg-light); padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
+                        <p><strong>Version:</strong> Admin Dashboard v5</p>
+                        <p><strong>Database:</strong> localStorage (Client-side)</p>
+                        <p><strong>Google Sheets:</strong> Connected</p>
+                        <p><strong>Features:</strong> Blog, Booking, Email, Analytics</p>
+                    </div>
+
+                    <h3 style="margin: 2rem 0 1rem; color: var(--text-dark);">🗑️ Xóa Dữ Liệu</h3>
+                    <button onclick="clearAllData()" style="background: var(--danger); color: var(--white); padding: 0.75rem 1.5rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">⚠️ Xóa Toàn Bộ Dữ Liệu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Config
+        const ADMIN_PASSWORD = '123456';
+        
+        // Data
+        let blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+        let leads = JSON.parse(localStorage.getItem('leads')) || [];
+
+        // Login
+        function login() {
+            const password = document.getElementById('passwordInput').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminLayout').classList.add('logged-in');
+                updateStats();
+                renderPostsList();
+                renderLeadsList();
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                setTimeout(() => {
+                    document.getElementById('errorMessage').style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function logout() {
+            if (confirm('Bạn chắc chắn muốn đăng xuất?')) {
+                document.getElementById('adminLayout').classList.remove('logged-in');
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        // Switch Sections
+        function switchSection(section) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (section === 'dashboard') updateStats();
+            if (section === 'posts') renderPostsList();
+            if (section === 'leads') renderLeadsList();
+        }
+
+        // Stats
+        function updateStats() {
+            document.getElementById('totalPosts').textContent = blogPosts.length;
+            document.getElementById('totalLeads').textContent = leads.length;
+            document.getElementById('newLeads').textContent = leads.filter(l => l.status === 'chưa liên hệ').length;
+            document.getElementById('purchasedLeads').textContent = leads.filter(l => l.status === 'đã mua').length;
+        }
+
+        // SEO Analysis
+        function updateSEOAnalysis() {
+            const title = document.getElementById('post-title').value;
+            const excerpt = document.getElementById('post-excerpt').value;
+            const content = document.getElementById('post-content').value;
+            const keyword = document.getElementById('post-keyword').value;
+
+            let score = 0;
+            
+            if (title.length >= 50 && title.length <= 100) score += 20;
+            if (excerpt.length > 0 && excerpt.length <= 160) score += 20;
+            
+            const wordCount = content.trim().split(/\s+/).filter(w => w.length > 0).length;
+            if (wordCount >= 1500) score += 20;
+            
+            if (keyword.length > 0) {
+                const keywordLower = keyword.toLowerCase();
+                const contentLower = content.toLowerCase();
+                const keywordCount = (contentLower.match(new RegExp(keywordLower, 'g')) || []).length;
+                if (keywordCount >= 2 && keywordCount <= 5) score += 20;
+            }
+
+            score += 20; // Icon check
+
+            const warning = document.getElementById('seoWarning');
+            if (score < 80) {
+                warning.textContent = `⚠️ SEO chưa tối ưu (${score}/100). Vẫn có thể đăng nhưng nên cải thiện.`;
+                warning.style.display = 'block';
+            } else {
+                warning.style.display = 'none';
+            }
+
+            document.getElementById('submitBtn').disabled = false;
+        }
+
+        // Blog Posts
+        function addBlogPost(e) {
+            e.preventDefault();
+            
+            const post = {
+                id: Date.now(),
+                title: document.getElementById('post-title').value,
+                excerpt: document.getElementById('post-excerpt').value,
+                content: document.getElementById('post-content').value,
+                keyword: document.getElementById('post-keyword').value,
+                icon: document.getElementById('post-icon').value || '📚',
+                imageUrl: document.getElementById('post-image').value || '',
+                date: new Date().toLocaleDateString('vi-VN')
+            };
+
+            blogPosts.unshift(post);
+            localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+            
+            const msgEl = document.getElementById('postSuccessMsg');
+            msgEl.textContent = '✅ Bài viết đã được đăng thành công!';
+            msgEl.classList.add('show');
+            setTimeout(() => msgEl.classList.remove('show'), 3000);
+
+            e.target.reset();
+            renderPostsList();
+            updateStats();
+        }
+
+        function renderPostsList() {
+            const tbody = document.getElementById('postsTable');
+            
+            if (blogPosts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-light);">Chưa có bài viết</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = blogPosts.map(post => `
+                <tr>
+                    <td style="font-size: 1.5rem;">${post.icon}</td>
+                    <td><strong>${post.title}</strong></td>
+                    <td>${post.date}</td>
+                    <td>
+                        <button class="action-btn delete" onclick="deleteBlogPost(${post.id})">🗑️ Xóa</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function deleteBlogPost(id) {
+            if (confirm('Xóa bài viết này?')) {
+                blogPosts = blogPosts.filter(p => p.id !== id);
+                localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+                renderPostsList();
+                updateStats();
+            }
+        }
+
+        // Leads Management
+        function renderLeadsList() {
+            const tbody = document.getElementById('leadsTable');
+            
+            if (leads.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--text-light);">Chưa có khách hàng đăng ký</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = leads.map(lead => `
+                <tr>
+                    <td><strong>${lead.name}</strong></td>
+                    <td>${lead.email}</td>
+                    <td>${lead.phone}</td>
+                    <td style="font-size: 0.85rem;">${lead.course}</td>
+                    <td>
+                        <select onchange="updateLeadStatus(${lead.id}, this.value)" style="padding: 0.25rem 0.5rem; border-radius: 4px; border: 1px solid var(--border); cursor: pointer;">
+                            <option value="chưa liên hệ" ${lead.status === 'chưa liên hệ' ? 'selected' : ''}>Chưa liên hệ</option>
+                            <option value="đã liên hệ" ${lead.status === 'đã liên hệ' ? 'selected' : ''}>Đã liên hệ</option>
+                            <option value="đã mua" ${lead.status === 'đã mua' ? 'selected' : ''}>Đã mua</option>
+                        </select>
+                    </td>
+                    <td>${lead.createdDate}</td>
+                    <td>
+                        <button class="action-btn delete" onclick="deleteLead(${lead.id})">🗑️ Xóa</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateLeadStatus(id, status) {
+            const lead = leads.find(l => l.id === id);
+            if (lead) {
+                lead.status = status;
+                localStorage.setItem('leads', JSON.stringify(leads));
+                updateStats();
+            }
+        }
+
+        function deleteLead(id) {
+            if (confirm('Xóa khách hàng này?')) {
+                leads = leads.filter(l => l.id !== id);
+                localStorage.setItem('leads', JSON.stringify(leads));
+                renderLeadsList();
+                updateStats();
+            }
+        }
+
+        function exportLeads() {
+            if (leads.length === 0) {
+                alert('❌ Chưa có dữ liệu khách hàng để export');
+                return;
+            }
+
+            let csv = 'Ngày Đăng Ký,Tên,Email,Số Điện Thoại,Khóa Học,Trạng Thái\n';
+            
+            leads.forEach(lead => {
+                csv += `"${lead.createdDate}","${lead.name}","${lead.email}","${lead.phone}","${lead.course}","${lead.status}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `leads_${new Date().getTime()}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Settings
+        function changePassword(e) {
+            e.preventDefault();
+            const oldPass = document.getElementById('oldPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirmPass = document.getElementById('confirmPassword').value;
+
+            if (oldPass !== ADMIN_PASSWORD) {
+                alert('❌ Mật khẩu cũ không chính xác');
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                alert('❌ Mật khẩu mới không khớp');
+                return;
+            }
+
+            // In production, send to server
+            alert('⚠️ Tính năng này cần backend. Vui lòng thay đổi code để cập nhật mật khẩu.');
+            document.getElementById('oldPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        function clearAllData() {
+            if (confirm('⚠️ Hành động này sẽ XÓA TẤT CẢ dữ liệu! Bạn chắc chắn?')) {
+                if (confirm('Lần cuối: Bạn thực sự muốn xóa?')) {
+                    localStorage.clear();
+                    location.reload();
+                }
+            }
+        }
+
+        // Monitor char count
+        document.addEventListener('input', (e) => {
+            if (e.target.id === 'post-excerpt') {
+                const count = e.target.value.length;
+                document.getElementById('charCount').textContent = count + '/160';
+            }
+        });
+
+        // Focus password on load
+        window.addEventListener('load', () => {
+            document.getElementById('passwordInput').focus();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking System - Thu Nhiên Education</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: var(--bg-light);
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Booking Grid */
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .booking-card {
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .booking-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 12px 30px rgba(30, 64, 175, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .booking-card.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.05), rgba(6, 182, 212, 0.05));
+        }
+
+        .booking-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .booking-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .booking-desc {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .booking-schedule {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .booking-schedule strong {
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        /* Calendar */
+        .calendar-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .calendar-nav button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .calendar-nav button:hover {
+            background: var(--primary-dark);
+        }
+
+        .calendar-month {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            background: var(--white);
+        }
+
+        .calendar-day:hover:not(.disabled) {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            background: var(--bg-light);
+        }
+
+        .calendar-day.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .calendar-day.booked {
+            background: #fee2e2;
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* Available Slots */
+        .slots-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .slots-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+        }
+
+        .slot-btn {
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .slot-btn:hover {
+            border-color: var(--primary);
+            background: var(--bg-light);
+        }
+
+        .slot-btn.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .slot-btn.booked {
+            background: #fee2e2;
+            border-color: var(--danger);
+            color: var(--danger);
+            cursor: not-allowed;
+        }
+
+        /* Form */
+        .booking-form {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .booking-summary {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .summary-item strong {
+            color: var(--primary);
+        }
+
+        .btn-confirm {
+            background: var(--success);
+            width: 100%;
+        }
+
+        .btn-confirm:hover {
+            background: #059669;
+        }
+
+        .success-msg {
+            background: #d1fae5;
+            border: 1px solid #6ee7b7;
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .success-msg.show {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-nav button {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .slots-grid {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index-final.html" class="logo">
+                <div class="logo-icon">🔱</div>
+                <div>
+                    <div style="font-size: 0.9rem;">Thu Nhiên</div>
+                    <div style="font-size: 0.65rem; color: var(--text-light); font-weight: 400;">Booking</div>
+                </div>
+            </a>
+            <div style="text-align: right;">
+                <a href="index-final.html" style="color: var(--primary); text-decoration: none; font-weight: 600;">← Quay lại Website</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>📅 Đặt Lịch Tư Vấn & Livestream</h1>
+        <p class="subtitle">Chọn loại hình tư vấn và thời gian phù hợp với bạn</p>
+
+        <!-- Success Message -->
+        <div class="success-msg" id="successMsg">
+            ✅ Đặt lịch thành công! Chúng tôi sẽ gửi xác nhận qua email.
+        </div>
+
+        <!-- Booking Type Selection -->
+        <div class="booking-grid">
+            <!-- Livestream -->
+            <div class="booking-card active" id="livestreamCard" onclick="selectBookingType('livestream')">
+                <div class="booking-icon">🔴</div>
+                <div class="booking-title">Livestream Hàng Tuần</div>
+                <p class="booking-desc">Tham gia buổi livestream Q&A miễn phí với Coach, nhận tips NLP trực tiếp</p>
+                <div class="booking-schedule">
+                    <strong>📅 Lịch cố định:</strong><br>
+                    Thứ 2-5 | 8:30 PM<br>
+                    <small>(Miễn phí, không cần đặt lịch)</small>
+                </div>
+                <button class="btn-primary" onclick="selectBookingType('livestream')">Chọn Livestream</button>
+            </div>
+
+            <!-- 1:1 Coaching -->
+            <div class="booking-card" id="coachingCard" onclick="selectBookingType('coaching')">
+                <div class="booking-icon">👥</div>
+                <div class="booking-title">Tư Vấn 1:1 Riêng</div>
+                <p class="booking-desc">Buổi coaching riêng 30-60 phút, giải quyết vấn đề cụ thể của con</p>
+                <div class="booking-schedule">
+                    <strong>📅 Có thể chọn:</strong><br>
+                    Thứ 3-4, bất kỳ lúc nào<br>
+                    <small>(Thanh toán sau buổi tư vấn)</small>
+                </div>
+                <button class="btn-primary" onclick="selectBookingType('coaching')">Chọn Tư Vấn 1:1</button>
+            </div>
+        </div>
+
+        <!-- Booking Type Content -->
+        <div id="livestreamContent" style="display: block;">
+            <div class="booking-form">
+                <h2 style="margin-bottom: 1.5rem; color: var(--primary);">📍 Đăng Ký Livestream</h2>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem;">Điền thông tin để chúng tôi gửi lịch & link livestream cho bạn</p>
+
+                <form onsubmit="bookLivestream(event)">
+                    <div class="form-group">
+                        <label>Tên của bạn *</label>
+                        <input type="text" id="ls-name" required placeholder="Nguyễn Văn A">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="ls-email" required placeholder="abc@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Số Điện Thoại *</label>
+                        <input type="tel" id="ls-phone" required placeholder="0912345678">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nội Dung Tư Vấn</label>
+                        <textarea id="ls-topic" placeholder="Vấn đề bạn muốn hỏi trong livestream (không bắt buộc)..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-confirm">✅ Đăng Ký Livestream</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="coachingContent" style="display: none;">
+            <!-- Calendar -->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <div>
+                        <div class="calendar-month" id="calendarMonth">Tháng 4, 2025</div>
+                    </div>
+                    <div class="calendar-nav">
+                        <button onclick="prevMonth()">← Trước</button>
+                        <button onclick="nextMonth()">Sau →</button>
+                    </div>
+                </div>
+
+                <div class="weekdays">
+                    <div class="weekday">T2</div>
+                    <div class="weekday">T3</div>
+                    <div class="weekday">T4</div>
+                    <div class="weekday">T5</div>
+                    <div class="weekday">T6</div>
+                    <div class="weekday">T7</div>
+                    <div class="weekday">CN</div>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Days will be generated here -->
+                </div>
+            </div>
+
+            <!-- Available Slots -->
+            <div class="slots-container" id="slotsContainer" style="display: none;">
+                <div class="slots-title" id="slotsTitle">Khung giờ trống - Thứ 3</div>
+                <div class="slots-grid" id="slotsGrid">
+                    <!-- Slots will be generated here -->
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="booking-form" id="coachingForm" style="display: none;">
+                <h2 style="margin-bottom: 1.5rem; color: var(--primary);">📍 Xác Nhận Đặt Lịch Tư Vấn 1:1</h2>
+
+                <div class="booking-summary">
+                    <div class="summary-item">
+                        <span>📅 Ngày chọn:</span>
+                        <strong id="selectedDateDisplay">--</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>🕒 Giờ chọn:</span>
+                        <strong id="selectedSlotDisplay">--</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>💰 Giá:</span>
+                        <strong id="priceDisplay">99,000 VND (30 phút) / 199,000 VND (60 phút)</strong>
+                    </div>
+                </div>
+
+                <form onsubmit="bookCoaching(event)">
+                    <div class="form-group">
+                        <label>Tên của bạn *</label>
+                        <input type="text" id="co-name" required placeholder="Nguyễn Văn A">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="co-email" required placeholder="abc@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Số Điện Thoại *</label>
+                        <input type="tel" id="co-phone" required placeholder="0912345678">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vấn Đề Cần Tư Vấn *</label>
+                        <textarea id="co-issue" required placeholder="Mô tả vấn đề của con (học tập, lo âu, tâm lý...)..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Thời Lượng *</label>
+                        <select id="co-duration" required>
+                            <option value="">-- Chọn thời lượng --</option>
+                            <option value="30">30 phút - 99,000 VND</option>
+                            <option value="60">60 phút - 199,000 VND</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary btn-confirm">✅ Xác Nhận Đặt Lịch</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentDate = new Date(2025, 3, 1); // April 2025
+        let selectedDate = null;
+        let selectedSlot = null;
+
+        // Available times (Thu 3-4, 19:00-21:00)
+        const availableSlots = [
+            '19:00', '19:30', '20:00', '20:30', '21:00'
+        ];
+
+        // Booked slots (simulated)
+        let bookedSlots = JSON.parse(localStorage.getItem('bookedSlots')) || {};
+
+        // Booking Type Selection
+        function selectBookingType(type) {
+            document.getElementById('livestreamCard').classList.toggle('active', type === 'livestream');
+            document.getElementById('coachingCard').classList.toggle('active', type === 'coaching');
+            document.getElementById('livestreamContent').style.display = type === 'livestream' ? 'block' : 'none';
+            document.getElementById('coachingContent').style.display = type === 'coaching' ? 'block' : 'none';
+
+            if (type === 'coaching') {
+                renderCalendar();
+            }
+        }
+
+        // Calendar Functions
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('calendarMonth').textContent = 
+                `Tháng ${month + 1}, ${year}`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            let html = '';
+            
+            // Empty cells
+            for (let i = 0; i < (firstDay || 7) - 1; i++) {
+                html += '<div class="calendar-day disabled"></div>';
+            }
+            
+            // Days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dayOfWeek = date.getDay();
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                
+                // Only allow Thu (4) & Fri (5)
+                const isAvailable = dayOfWeek === 3 || dayOfWeek === 4;
+                const isBooked = bookedSlots[dateStr];
+                const isSelected = selectedDate === dateStr;
+                
+                let className = 'calendar-day';
+                if (!isAvailable) className += ' disabled';
+                if (isBooked) className += ' booked';
+                if (isSelected) className += ' selected';
+                
+                html += `<div class="calendar-day ${className}" 
+                    onclick="selectDate('${dateStr}')" 
+                    ${!isAvailable ? 'style="cursor:not-allowed"' : ''}>
+                    ${day}
+                </div>`;
+            }
+            
+            document.getElementById('calendarGrid').innerHTML = html;
+        }
+
+        function prevMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        function selectDate(dateStr) {
+            const date = new Date(dateStr);
+            const dayOfWeek = date.getDay();
+            
+            // Only allow Thu (3) & Fri (4)
+            if (dayOfWeek !== 3 && dayOfWeek !== 4) return;
+            
+            selectedDate = dateStr;
+            selectedSlot = null;
+            
+            // Show slots
+            document.getElementById('slotsContainer').style.display = 'block';
+            document.getElementById('coachingForm').style.display = 'none';
+            
+            const dayName = dayOfWeek === 3 ? 'Thứ 3' : 'Thứ 4';
+            document.getElementById('slotsTitle').textContent = `Khung giờ trống - ${dayName} (${dateStr})`;
+            
+            renderSlots();
+            renderCalendar();
+        }
+
+        function renderSlots() {
+            const dateStr = selectedDate;
+            const booked = (bookedSlots[dateStr] || []);
+            
+            let html = '';
+            availableSlots.forEach(slot => {
+                const isBooked = booked.includes(slot);
+                html += `
+                    <button 
+                        class="slot-btn ${isBooked ? 'booked' : ''} ${selectedSlot === slot ? 'selected' : ''}"
+                        onclick="selectSlot('${slot}')"
+                        ${isBooked ? 'disabled' : ''}>
+                        ${slot}
+                        ${isBooked ? '<br><small>(Đã đặt)</small>' : ''}
+                    </button>
+                `;
+            });
+            
+            document.getElementById('slotsGrid').innerHTML = html;
+        }
+
+        function selectSlot(slot) {
+            selectedSlot = slot;
+            document.getElementById('selectedDateDisplay').textContent = selectedDate;
+            document.getElementById('selectedSlotDisplay').textContent = slot;
+            document.getElementById('coachingForm').style.display = 'block';
+            renderSlots();
+        }
+
+        // Form Submissions
+        function bookLivestream(e) {
+            e.preventDefault();
+            
+            const booking = {
+                type: 'livestream',
+                name: document.getElementById('ls-name').value,
+                email: document.getElementById('ls-email').value,
+                phone: document.getElementById('ls-phone').value,
+                topic: document.getElementById('ls-topic').value,
+                date: new Date().toLocaleDateString('vi-VN')
+            };
+            
+            // Save to localStorage
+            let bookings = JSON.parse(localStorage.getItem('livestreamBookings')) || [];
+            bookings.push(booking);
+            localStorage.setItem('livestreamBookings', JSON.stringify(bookings));
+            
+            // Send to Google Sheets
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXfueXIUdEuK3iU08vWz97aCaJWqFZkoHE61hBkP_rmOg4Llh65YBsHR0Py9Xejfj5/exec';
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(booking),
+                headers: { 'Content-Type': 'application/json' }
+            }).then(() => {
+                showSuccess();
+                document.getElementById('ls-name').value = '';
+                document.getElementById('ls-email').value = '';
+                document.getElementById('ls-phone').value = '';
+                document.getElementById('ls-topic').value = '';
+            });
+        }
+
+        function bookCoaching(e) {
+            e.preventDefault();
+            
+            const booking = {
+                type: 'coaching',
+                name: document.getElementById('co-name').value,
+                email: document.getElementById('co-email').value,
+                phone: document.getElementById('co-phone').value,
+                date: selectedDate,
+                time: selectedSlot,
+                issue: document.getElementById('co-issue').value,
+                duration: document.getElementById('co-duration').value,
+                bookingDate: new Date().toLocaleDateString('vi-VN')
+            };
+            
+            // Save to localStorage
+            let bookings = JSON.parse(localStorage.getItem('coachingBookings')) || [];
+            bookings.push(booking);
+            localStorage.setItem('coachingBookings', JSON.stringify(bookings));
+            
+            // Mark slot as booked
+            if (!bookedSlots[selectedDate]) {
+                bookedSlots[selectedDate] = [];
+            }
+            bookedSlots[selectedDate].push(selectedSlot);
+            localStorage.setItem('bookedSlots', JSON.stringify(bookedSlots));
+            
+            // Send to Google Sheets
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXfueXIUdEuK3iU08vWz97aCaJWqFZkoHE61hBkP_rmOg4Llh65YBsHR0Py9Xejfj5/exec';
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(booking),
+                headers: { 'Content-Type': 'application/json' }
+            }).then(() => {
+                showSuccess();
+                selectedDate = null;
+                selectedSlot = null;
+                document.getElementById('coachingContent').style.display = 'none';
+                document.getElementById('livestreamContent').style.display = 'block';
+            });
+        }
+
+        function showSuccess() {
+            const msg = document.getElementById('successMsg');
+            msg.classList.add('show');
+            setTimeout(() => msg.classList.remove('show'), 3000);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            renderCalendar();
+        });
+    </script>
+</body>
+</html>
