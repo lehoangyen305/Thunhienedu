@@ -5,19 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Thu Nhiên Education - Giáo dục tâm lý giúp con tự tin, vượt qua lo âu, phát triển bản thân. Khóa học NLP, coaching tâm lý cho bố mẹ và teen.">
     <meta name="keywords" content="giáo dục tâm lý, NLP cho trẻ, coaching teen, giảm lo âu học tập, phát triển bản thân, tâm lý trẻ em">
-    <meta name="author" content="Thu Nhiên Education">
     
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Thu Nhiên Education - Phát Triển Tâm Trí Con">
-    <meta property="og:description" content="Khóa học giáo dục tâm lý online giúp con tự tin học tập, giảm lo âu, phát triển cá nhân.">
-    <meta property="og:url" content="https://thunhienedu.vercel.app">
+    <!-- Cloudinary script for image uploads -->
+    <script src="https://widget.cloudinary.com/v2.0/cloudinary-core.js"></script>
     
-    <!-- Canonical -->
-    <link rel="canonical" href="https://thunhienedu.vercel.app">
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🔱</text></svg>">
-    
-    <title>Thu Nhiên Education - Phát Triển Tâm Trí Con | Khóa Học NLP</title>
+    <title>Thu Nhiên Education - Phát Triển Tâm Trí Con</title>
     
     <style>
         * {
@@ -174,36 +166,41 @@
             }
         }
 
-        /* Hero Section */
+        /* Hero Section with Background Image */
         .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.85), rgba(6, 182, 212, 0.85)), 
+                        url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop') center/cover;
+            color: var(--white);
+            padding: 8rem 2rem;
             text-align: center;
+            position: relative;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            color: var(--primary-dark);
             line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .hero .subtitle {
             font-size: 1.25rem;
-            color: var(--text-light);
             margin-bottom: 2rem;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .hero-cta {
             display: flex;
             gap: 1rem;
             justify-content: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
@@ -228,9 +225,9 @@
 
         .btn-secondary {
             background: transparent;
-            color: var(--primary);
+            color: var(--white);
             padding: 1rem 2rem;
-            border: 2px solid var(--primary);
+            border: 2px solid var(--white);
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
@@ -239,8 +236,8 @@
         }
 
         .btn-secondary:hover {
-            background: var(--primary);
-            color: var(--white);
+            background: var(--white);
+            color: var(--primary);
         }
 
         .btn-livestream {
@@ -252,30 +249,11 @@
             cursor: pointer;
             border: none;
             transition: all 0.3s;
-            animation: pulse-btn 2s infinite;
-        }
-
-        @keyframes pulse-btn {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
         }
 
         .btn-livestream:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(220, 38, 38, 0.3);
-        }
-
-        .hero-image {
-            width: 100%;
-            max-width: 600px;
-            height: 300px;
-            background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(6, 182, 212, 0.1));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            margin: 0 auto;
         }
 
         /* Section Titles */
@@ -294,16 +272,58 @@
             font-size: 1.1rem;
         }
 
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+        /* Slider/Carousel */
+        .slider-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
 
+        .slider-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 2rem;
+        }
+
+        .slider-item {
+            flex: 0 0 calc(33.333% - 1.33rem);
+            min-height: 350px;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .slider-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-btn.prev {
+            left: -60px;
+        }
+
+        .slider-btn.next {
+            right: -60px;
+        }
+
+        /* Card Styles */
         .card {
             background: var(--white);
             border: 2px solid var(--border);
@@ -312,7 +332,7 @@
             transition: all 0.3s;
             display: flex;
             flex-direction: column;
-            cursor: pointer;
+            height: 100%;
         }
 
         .card:hover {
@@ -326,18 +346,22 @@
             color: var(--white);
             padding: 2rem;
             text-align: center;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
         }
 
         .card-title {
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-        }
-
-        .card-price {
-            font-size: 1.5rem;
-            font-weight: 800;
-            opacity: 0.9;
         }
 
         .card-body {
@@ -351,23 +375,6 @@
             color: var(--text-light);
             margin-bottom: 1.5rem;
             font-size: 0.95rem;
-        }
-
-        .card-btn {
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin-top: auto;
-        }
-
-        .card-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
         }
 
         /* Blog Section */
@@ -391,6 +398,8 @@
             overflow: hidden;
             transition: all 0.3s;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
         .blog-card:hover {
@@ -406,10 +415,20 @@
             align-items: center;
             justify-content: center;
             font-size: 3rem;
+            object-fit: cover;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .blog-content {
             padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .blog-date {
@@ -430,16 +449,7 @@
             font-size: 0.9rem;
             color: var(--text-light);
             margin-bottom: 1rem;
-        }
-
-        .blog-read-more {
-            color: var(--primary);
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .blog-read-more:hover {
-            text-decoration: underline;
+            flex-grow: 1;
         }
 
         /* Social Links */
@@ -495,7 +505,7 @@
             background: var(--white);
             padding: 3rem;
             border-radius: 12px;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
@@ -548,7 +558,6 @@
             border-radius: 6px;
             font-family: inherit;
             font-size: 0.95rem;
-            transition: border-color 0.3s;
         }
 
         .form-group input:focus,
@@ -557,28 +566,6 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .checkbox-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .checkbox-item input {
-            width: auto;
-            cursor: pointer;
         }
 
         .form-submit {
@@ -612,56 +599,40 @@
             font-weight: 500;
         }
 
-        /* Livestream Modal */
-        .livestream-modal-content {
-            text-align: center;
+        /* Legal Pages */
+        .legal-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
         }
 
-        .livestream-modal-content .modal-header {
-            justify-content: center;
-            margin-bottom: 2rem;
+        .legal-content h2 {
+            color: var(--primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
         }
 
-        .livestream-time {
-            background: linear-gradient(90deg, #dc2626, #f59e0b);
-            color: var(--white);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 1.5rem 0;
+        .legal-content h3 {
+            color: var(--text-dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
             font-size: 1.1rem;
-            font-weight: 600;
         }
 
-        .livestream-links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin: 2rem 0;
+        .legal-content p {
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            line-height: 1.8;
         }
 
-        .livestream-link-btn {
-            background: var(--primary);
-            color: var(--white);
-            padding: 1rem;
-            border: none;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+        .legal-content ul {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-light);
         }
 
-        .livestream-link-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .livestream-link-btn.tiktok {
-            background: #000000;
-        }
-
-        .livestream-link-btn.tiktok:hover {
-            background: #1a1a1a;
+        .legal-content li {
+            margin-bottom: 0.5rem;
         }
 
         /* Footer */
@@ -704,6 +675,14 @@
                 font-size: 1.75rem;
             }
 
+            .slider-item {
+                flex: 0 0 100%;
+            }
+
+            .slider-btn {
+                display: none;
+            }
+
             .modal-content {
                 padding: 1.5rem;
             }
@@ -730,15 +709,15 @@
     <!-- Header -->
     <header role="banner">
         <div class="header-content">
-            <a href="#" class="logo" onclick="goPage('home')" aria-label="Thu Nhiên Education - Trang chủ">
-                <div class="logo-icon" aria-hidden="true">🔱</div>
+            <a href="#" class="logo" onclick="goPage('home')">
+                <div class="logo-icon">🔱</div>
                 <div>
                     <div style="font-size: 0.9rem;">Thu Nhiên</div>
                     <div style="font-size: 0.65rem; color: var(--text-light); font-weight: 400;">Education</div>
                 </div>
             </a>
-            <nav role="navigation" aria-label="Menu chính">
-                <button onclick="goPage('home')" aria-current="page">Trang Chủ</button>
+            <nav role="navigation">
+                <button onclick="goPage('home')">Trang Chủ</button>
                 <button onclick="goPage('courses')">Khóa Học</button>
                 <button onclick="goPage('blog')">Blog</button>
                 <button onclick="goPage('contact')">Liên Hệ</button>
@@ -750,6 +729,7 @@
     <!-- HOME PAGE -->
     <main id="main-content">
         <div id="home" class="page active">
+            <!-- Hero with Background Image -->
             <section class="hero">
                 <h1>Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
                 <p class="subtitle">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
@@ -758,48 +738,25 @@
                     <button class="btn-secondary" onclick="goPage('courses')">Xem Khóa Học</button>
                     <button class="btn-livestream" onclick="openLivestream()">🔴 Tham Gia Livestream</button>
                 </div>
-                <div class="hero-image">🌱</div>
             </section>
 
+            <!-- Benefits with Slider -->
             <section style="background: var(--bg-light); padding: 5rem 2rem;">
-                <div style="max-width: 1200px; margin: 0 auto;">
-                    <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
-                    <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
-                    
-                    <div class="cards-grid">
-                        <div class="card">
-                            <div class="card-header">
-                                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" aria-hidden="true">🧠</div>
-                                <div class="card-title">Thay Đổi Niềm Tin</div>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-description">Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
-                            </div>
+                <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
+                <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
+                
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <div class="slider-track" id="sliderTrack">
+                            <!-- Cards will be loaded here -->
                         </div>
-                        
-                        <div class="card">
-                            <div class="card-header">
-                                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" aria-hidden="true">💆</div>
-                                <div class="card-title">Giảm Lo Âu</div>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-description">Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
-                            </div>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-header">
-                                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" aria-hidden="true">🧘</div>
-                                <div class="card-title">Cắt Cơn Hoảng Loạn</div>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-description">Cắt Cơn Hoảng Loạn Bằng Chánh Niệm (Mindfulness) - kỹ năng tự điều chỉnh cảm xúc</p>
-                            </div>
-                        </div>
+                        <button class="slider-btn prev" onclick="slideLeft()">❮</button>
+                        <button class="slider-btn next" onclick="slideRight()">❯</button>
                     </div>
                 </div>
             </section>
 
+            <!-- Social Links -->
             <section style="padding: 5rem 2rem;">
                 <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
                     <h2 class="section-title">Theo Dõi Chúng Tôi Trên Mạng Xã Hội</h2>
@@ -821,48 +778,48 @@
                 <h2 class="section-title">Các Khóa Học</h2>
                 <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
                 
-                <div class="cards-grid">
+                <div class="blog-grid">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Hiểu Con Hơn</div>
-                            <div class="card-price">4.5M</div>
+                            <div style="font-size: 1.5rem; font-weight: 800; opacity: 0.9;">4.5M</div>
                         </div>
                         <div class="card-body">
                             <p class="card-description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
-                            <button class="card-btn" onclick="openModal('Hiểu Con Hơn', '4.5M')">Chi Tiết</button>
+                            <button class="form-submit" onclick="openModal('Hiểu Con Hơn', '4.5M')">Chi Tiết</button>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Đồng Hành Tâm Trí Teen</div>
-                            <div class="card-price">2.5M/giờ</div>
+                            <div style="font-size: 1.5rem; font-weight: 800; opacity: 0.9;">2.5M/giờ</div>
                         </div>
                         <div class="card-body">
                             <p class="card-description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin và sức khỏe tinh thần</p>
-                            <button class="card-btn" onclick="openModal('Đồng Hành Tâm Trí Teen', '2.5M/giờ')">Chi Tiết</button>
+                            <button class="form-submit" onclick="openModal('Đồng Hành Tâm Trí Teen', '2.5M/giờ')">Chi Tiết</button>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Trải Nghiệm với Coach</div>
-                            <div class="card-price">99K/30p</div>
+                            <div style="font-size: 1.5rem; font-weight: 800; opacity: 0.9;">99K/30p</div>
                         </div>
                         <div class="card-body">
                             <p class="card-description">Buổi coaching một-một để giải quyết vấn đề cụ thể, linh hoạt thời gian</p>
-                            <button class="card-btn" onclick="openModal('Trải Nghiệm với Coach', '99K/30p')">Chi Tiết</button>
+                            <button class="form-submit" onclick="openModal('Trải Nghiệm với Coach', '99K/30p')">Chi Tiết</button>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Khám Phá & Phát Triển Cá Nhân</div>
-                            <div class="card-price">Khóa Hè</div>
+                            <div style="font-size: 1.5rem; font-weight: 800; opacity: 0.9;">Khóa Hè</div>
                         </div>
                         <div class="card-body">
                             <p class="card-description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
-                            <button class="card-btn" onclick="openModal('Khám Phá & Phát Triển Cá Nhân', 'Khóa Hè')">Chi Tiết</button>
+                            <button class="form-submit" onclick="openModal('Khám Phá & Phát Triển Cá Nhân', 'Khóa Hè')">Chi Tiết</button>
                         </div>
                     </div>
                 </div>
@@ -875,7 +832,7 @@
                 <h2 class="section-title">Blog - Chia Sẻ Kiến Thức</h2>
                 <p class="section-subtitle">Các bài viết về tâm lý, giáo dục và phát triển cá nhân</p>
                 
-                <div id="blogGrid" class="blog-grid" role="region" aria-label="Danh sách bài viết blog">
+                <div id="blogGrid" class="blog-grid">
                     <!-- Blog posts will be loaded here -->
                 </div>
             </div>
@@ -905,17 +862,104 @@
                 </div>
             </div>
         </div>
+
+        <!-- PRIVACY PAGE -->
+        <div id="privacy" class="page">
+            <div class="legal-content">
+                <h1 style="color: var(--primary); margin-bottom: 2rem;">Chính Sách Bảo Mật</h1>
+                
+                <h2>1. Thông Tin Chúng Tôi Thu Thập</h2>
+                <p>Thu Nhiên Education thu thập thông tin cá nhân của bạn bao gồm: tên, email, số điện thoại, thông tin con cái để cung cấp các khóa học và dịch vụ coaching tâm lý.</p>
+
+                <h2>2. Cách Chúng Tôi Sử Dụng Thông Tin</h2>
+                <p>Thông tin của bạn được sử dụng để:</p>
+                <ul>
+                    <li>Cung cấp các khóa học và dịch vụ tư vấn</li>
+                    <li>Gửi cập nhật về livestream hàng tuần</li>
+                    <li>Liên hệ hỗ trợ khách hàng</li>
+                    <li>Cải thiện dịch vụ của chúng tôi</li>
+                </ul>
+
+                <h2>3. Bảo Vệ Dữ Liệu</h2>
+                <p>Chúng tôi sử dụng các biện pháp bảo mật chuẩn để bảo vệ thông tin cá nhân của bạn khỏi truy cập trái phép.</p>
+
+                <h2>4. Chia Sẻ Thông Tin</h2>
+                <p>Chúng tôi không bao giờ chia sẻ thông tin cá nhân của bạn với bên thứ ba mà không có sự đồng ý của bạn, ngoại trừ các trường hợp yêu cầu bởi luật pháp.</p>
+
+                <h2>5. Cookie & Tracking</h2>
+                <p>Website này không sử dụng cookie theo dõi. Chúng tôi chỉ sử dụng dữ liệu cần thiết để vận hành website.</p>
+
+                <h2>6. Quyền Của Bạn</h2>
+                <p>Bạn có quyền truy cập, chỉnh sửa hoặc xóa thông tin cá nhân của mình. Vui lòng liên hệ dangky@thunhienedu.vn để yêu cầu.</p>
+            </div>
+        </div>
+
+        <!-- TERMS PAGE -->
+        <div id="terms" class="page">
+            <div class="legal-content">
+                <h1 style="color: var(--primary); margin-bottom: 2rem;">Điều Khoản Sử Dụng</h1>
+                
+                <h2>1. Chấp Nhận Điều Khoản</h2>
+                <p>Bằng cách sử dụng website này, bạn đồng ý tuân thủ toàn bộ điều khoản sử dụng dưới đây.</p>
+
+                <h2>2. Giấy Phép Sử Dụng</h2>
+                <p>Thu Nhiên Education cấp cho bạn giấy phép hạn chế, không độc quyền để truy cập và sử dụng website này cho mục đích cá nhân.</p>
+
+                <h2>3. Cấm Dùng</h2>
+                <p>Bạn không được phép:</p>
+                <ul>
+                    <li>Sao chép hoặc phân phối bất kỳ nội dung nào mà không có phép</li>
+                    <li>Cố gắng hack hoặc tấn công website</li>
+                    <li>Gửi nội dung gây hại hoặc xúc phạm</li>
+                    <li>Sử dụng website cho mục đích thương mại mà không được phép</li>
+                </ul>
+
+                <h2>4. Giới Hạn Trách Nhiệm</h2>
+                <p>Thu Nhiên Education cung cấp dịch vụ "nguyên trạng" mà không có bất kỳ bảo đảm nào.</p>
+
+                <h2>5. Thay Đổi Điều Khoản</h2>
+                <p>Chúng tôi có quyền thay đổi điều khoản này bất cứ lúc nào. Các thay đổi sẽ có hiệu lực khi được đăng trên website.</p>
+
+                <h2>6. Liên Hệ</h2>
+                <p>Nếu bạn có câu hỏi về điều khoản này, vui lòng liên hệ dangky@thunhienedu.vn</p>
+            </div>
+        </div>
+
+        <!-- DISCLAIMER PAGE -->
+        <div id="disclaimer" class="page">
+            <div class="legal-content">
+                <h1 style="color: var(--primary); margin-bottom: 2rem;">Tuyên Bố Miễn Trừ Trách Nhiệm</h1>
+                
+                <h2>1. Tính Chất Giáo Dục</h2>
+                <p>Các khóa học và dịch vụ coaching từ Thu Nhiên Education có tính chất giáo dục và không thay thế cho tư vấn chuyên ngành y tế hoặc tâm lý học từ các chuyên gia y tế được cấp phép.</p>
+
+                <h2>2. Không Là Tư Vấn Y Tế</h2>
+                <p>Nội dung trên website không được dự định làm cơ sở cho chẩn đoán, điều trị hoặc phòng ngừa bất kỳ bệnh tật nào. Nếu bạn hoặc con của bạn đang trải qua vấn đề tâm lý hoặc y tế nghiêm trọng, vui lòng tham khảo ý kiến của bác sĩ hoặc chuyên gia tâm lý.</p>
+
+                <h2>3. Kết Quả Không Được Đảm Bảo</h2>
+                <p>Mỗi cá nhân phản ứng khác nhau với các kỹ năng và phương pháp được giảng dạy. Thu Nhiên Education không đảm bảo kết quả cụ thể hoặc lợi ích từ các khóa học của chúng tôi.</p>
+
+                <h2>4. Trách Nhiệm Của Bạn</h2>
+                <p>Bạn chịu trách nhiệm quyết định xem liệu các dịch vụ của chúng tôi có phù hợp cho bạn và con cái của bạn. Vui lòng tham khảo ý kiến chuyên gia y tế trước khi áp dụng bất kỳ hướng dẫn nào.</p>
+
+                <h2>5. Không Chịu Trách Nhiệm Cho Hành Động Của Bên Thứ Ba</h2>
+                <p>Thu Nhiên Education không chịu trách nhiệm cho bất kỳ hành động hoặc bài viết của bên thứ ba trên website này hoặc các nền tảng xã hội liên kết.</p>
+
+                <h2>6. Thay Đổi Nội Dung</h2>
+                <p>Chúng tôi bảo lưu quyền thay đổi bất kỳ nội dung nào bất cứ lúc nào mà không cần thông báo trước.</p>
+            </div>
+        </div>
     </main>
 
     <!-- Registration Modal -->
-    <div class="modal" id="registerModal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+    <div class="modal" id="registerModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modalTitle">Đăng Ký Khóa Học</h2>
-                <button class="modal-close" onclick="closeModal()" aria-label="Đóng form đăng ký">&times;</button>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
             </div>
             
-            <div id="successMessage" class="success-message" style="display: none;" role="alert">
+            <div id="successMessage" class="success-message" style="display: none;">
                 ✅ Đăng ký thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.
             </div>
             
@@ -936,40 +980,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="child-age">Tuổi của con</label>
-                    <select id="child-age">
-                        <option value="">-- Chọn --</option>
-                        <option value="3-6">3-6 tuổi</option>
-                        <option value="6-9">6-9 tuổi</option>
-                        <option value="9-12">9-12 tuổi</option>
-                        <option value="12-15">12-15 tuổi (Teen)</option>
-                        <option value="15+">15+ tuổi</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Vấn đề chính bạn đang gặp</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="issue-academic" value="Học tập kém">
-                            <label for="issue-academic" style="margin-bottom: 0;">Học tập kém</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="issue-anxiety" value="Lo âu/Stress">
-                            <label for="issue-anxiety" style="margin-bottom: 0;">Lo âu/Stress</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="issue-relation" value="Mâu thuẫn gia đình">
-                            <label for="issue-relation" style="margin-bottom: 0;">Mâu thuẫn gia đình</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="issue-confidence" value="Thiếu tự tin">
-                            <label for="issue-confidence" style="margin-bottom: 0;">Thiếu tự tin</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label for="course">Khóa Học Quan Tâm *</label>
                     <select id="course" required>
                         <option value="">-- Chọn khóa học --</option>
@@ -985,37 +995,30 @@
                     <textarea id="message" placeholder="Câu hỏi hoặc yêu cầu của bạn..."></textarea>
                 </div>
 
-                <div class="form-group">
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="lead-magnet" value="yes">
-                        <label for="lead-magnet" style="margin-bottom: 0;">📥 Tôi muốn theo dõi livestream hàng tuần</label>
-                    </div>
-                </div>
-
                 <button type="submit" class="form-submit">Gửi Đơn Đăng Ký</button>
             </form>
         </div>
     </div>
 
     <!-- Livestream Modal -->
-    <div class="modal" id="livestreamModal" role="dialog" aria-modal="true">
-        <div class="modal-content livestream-modal-content">
+    <div class="modal" id="livestreamModal">
+        <div class="modal-content" style="text-align: center;">
             <div class="modal-header">
-                <button class="modal-close" onclick="closeLivestream()" aria-label="Đóng">&times;</button>
+                <button class="modal-close" onclick="closeLivestream()">&times;</button>
             </div>
             
             <h2 style="color: var(--primary); margin-bottom: 1rem;">🔴 LIVESTREAM TỐI NÀY</h2>
             <p style="color: var(--text-light); margin-bottom: 1.5rem;">Giáo dục tâm lý - Q&A với Coach Thu Nhiên</p>
             
-            <div class="livestream-time">
-                📅 Thứ 2-5 | 🕒 8:30 PM
+            <div style="background: linear-gradient(90deg, #dc2626, #f59e0b); color: var(--white); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+                <p style="margin: 0;">📅 Thứ 2-5 | 🕒 8:30 PM</p>
             </div>
 
             <p style="margin: 1.5rem 0; color: var(--text-dark);">Theo dõi TikTok để nhận thông báo livestream:</p>
 
-            <div class="livestream-links">
-                <a href="https://tiktok.com/@thunhienbetterminds" target="_blank" class="livestream-link-btn tiktok">🎵 Follow TikTok @thunhienbetterminds</a>
-                <a href="https://zalo.me/0987654321" target="_blank" class="livestream-link-btn">💬 Chat Zalo để nhận lịch</a>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <a href="https://tiktok.com/@thunhienbetterminds" target="_blank" style="background: #000000; color: var(--white); padding: 1rem; border-radius: 6px; text-decoration: none; font-weight: 600;">🎵 Follow TikTok @thunhienbetterminds</a>
+                <a href="https://zalo.me/0987654321" target="_blank" style="background: var(--primary); color: var(--white); padding: 1rem; border-radius: 6px; text-decoration: none; font-weight: 600;">💬 Chat Zalo để nhận lịch</a>
             </div>
 
             <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 2rem;">
@@ -1025,18 +1028,85 @@
     </div>
 
     <!-- Footer -->
-    <footer role="contentinfo">
+    <footer>
         <div class="footer-links">
             <a href="#" onclick="goPage('home')">Trang Chủ</a>
             <a href="#" onclick="goPage('courses')">Khóa Học</a>
             <a href="#" onclick="goPage('blog')">Blog</a>
             <a href="mailto:dangky@thunhienedu.vn">Email</a>
+            <a href="#" onclick="goPage('privacy')">Bảo Mật</a>
+            <a href="#" onclick="goPage('terms')">Điều Khoản</a>
+            <a href="#" onclick="goPage('disclaimer')">Miễn Trừ</a>
             <a href="admin-dashboard.html" style="color: var(--text-light); font-size: 0.8rem;">🔐 Admin</a>
         </div>
         <p>&copy; 2024 Thu Nhiên Education. Tất cả quyền được bảo vệ.</p>
     </footer>
 
     <script>
+        // CONFIG: Customizable Benefits
+        const benefits = [
+            {
+                icon: '🧠',
+                title: 'Thay Đổi Niềm Tin',
+                description: 'Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai'
+            },
+            {
+                icon: '💆',
+                title: 'Giảm Lo Âu',
+                description: 'Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring'
+            },
+            {
+                icon: '🧘',
+                title: 'Cắt Cơn Hoảng Loạn',
+                description: 'Cắt Cơn Hoảng Loạn Bằng Chánh Niệm (Mindfulness) - kỹ năng tự điều chỉnh cảm xúc'
+            },
+            {
+                icon: '💪',
+                title: 'Xây Dựng Tự Tin',
+                description: 'Giúp con phát triển lòng tự tin trong giao tiếp và học tập hàng ngày'
+            }
+        ];
+
+        let sliderIndex = 0;
+
+        // Initialize
+        function initSlider() {
+            renderSlider();
+        }
+
+        function renderSlider() {
+            const track = document.getElementById('sliderTrack');
+            track.innerHTML = benefits.map(benefit => `
+                <div class="slider-item">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">${benefit.icon}</div>
+                            <div class="card-title">${benefit.title}</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">${benefit.description}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function slideLeft() {
+            sliderIndex = Math.max(0, sliderIndex - 1);
+            updateSlider();
+        }
+
+        function slideRight() {
+            sliderIndex = Math.min(benefits.length - 3, sliderIndex + 1);
+            updateSlider();
+        }
+
+        function updateSlider() {
+            const track = document.getElementById('sliderTrack');
+            const itemWidth = 100 / 3;
+            track.style.transform = `translateX(-${sliderIndex * itemWidth}%)`;
+        }
+
         // Navigation
         function goPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1069,22 +1139,14 @@
         // Form Submission
         function submitForm(e) {
             e.preventDefault();
-            
-            const issues = [];
-            document.querySelectorAll('.checkbox-group input:checked').forEach(cb => {
-                issues.push(cb.value);
-            });
 
             const lead = {
                 id: Date.now(),
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                childAge: document.getElementById('child-age').value,
-                issues: issues.join(', '),
                 course: document.getElementById('course').value,
                 message: document.getElementById('message').value,
-                followLivestream: document.getElementById('lead-magnet').checked,
                 createdDate: new Date().toLocaleDateString('vi-VN'),
                 status: 'chưa liên hệ'
             };
@@ -1125,12 +1187,14 @@
 
             grid.innerHTML = blogPosts.map(post => `
                 <article class="blog-card" onclick="viewBlogPost(${post.id})">
-                    <div class="blog-image">${post.icon}</div>
+                    <div class="blog-image">
+                        ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : post.icon}
+                    </div>
                     <div class="blog-content">
                         <time class="blog-date">${post.date}</time>
                         <h3 class="blog-title">${post.title}</h3>
                         <p class="blog-excerpt">${post.excerpt}</p>
-                        <span class="blog-read-more">Đọc tiếp →</span>
+                        <span style="color: var(--primary); font-weight: 600; cursor: pointer;">Đọc tiếp →</span>
                     </div>
                 </article>
             `).join('');
@@ -1142,7 +1206,13 @@
             
             if (!post) return;
 
+            let imageHtml = '';
+            if (post.imageUrl) {
+                imageHtml = `<img src="${post.imageUrl}" alt="${post.title}" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 2rem;">`;
+            }
+
             document.getElementById('postContent').innerHTML = `
+                ${imageHtml}
                 <h1>${post.icon} ${post.title}</h1>
                 <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 2rem;">Đăng ngày: ${post.date}</p>
                 <div style="line-height: 1.8; font-size: 1.05rem;">
@@ -1153,7 +1223,7 @@
             goPage('blog-post');
         }
 
-        // Close modals on Escape
+        // Close modals on Escape & Click Outside
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeModal();
@@ -1161,7 +1231,6 @@
             }
         });
 
-        // Close modals on click outside
         document.getElementById('registerModal').addEventListener('click', (e) => {
             if (e.target.id === 'registerModal') closeModal();
         });
@@ -1170,8 +1239,9 @@
             if (e.target.id === 'livestreamModal') closeLivestream();
         });
 
-        // Load initial data
+        // Initialize on load
         window.addEventListener('load', () => {
+            initSlider();
             renderBlogPosts();
         });
     </script>
