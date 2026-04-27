@@ -671,6 +671,128 @@
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
+        /* Blog Styling */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.15), rgba(6, 182, 212, 0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            flex-grow: 1;
+        }
+
+        /* Blog Post Content */
+        article h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        article h2 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        article p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        article ul, article ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        article li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        article strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        article img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .blog-meta {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 <body>
@@ -694,6 +816,7 @@
             <nav>
                 <button onclick="goPage('home')">Trang Chủ</button>
                 <button onclick="goPage('courses')">Khóa Học</button>
+                <button onclick="goPage('blog')">Blog</button>
                 <button onclick="goPage('contact')">Liên Hệ</button>
                 <button class="cta-btn" onclick="openRegister()">Đăng Ký</button>
             </nav>
@@ -894,6 +1017,26 @@
                 <p>Chúng tôi bảo lưu quyền thay đổi bất kỳ nội dung nào bất cứ lúc nào mà không cần thông báo trước.</p>
             </div>
         </div>
+        <!-- Blog Page -->
+        <div id="blog" class="page">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;">
+                <h2 class="section-title">Blog - Chia Sẻ Kiến Thức</h2>
+                <p class="section-subtitle">Các bài viết về tâm lý, giáo dục và phát triển cá nhân</p>
+                
+                <div id="blogGrid" class="blog-grid"></div>
+                <div id="noBlogMsg" style="text-align: center; color: var(--text-light); padding: 3rem; display: none;">
+                    Chưa có bài viết nào. Hãy quay lại sau!
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Post Detail Page -->
+        <div id="blog-post" class="page">
+            <div style="max-width: 800px; margin: 0 auto; padding: 3rem 2rem;">
+                <button class="btn" onclick="goPage('blog')" style="margin-bottom: 2rem; background: var(--primary); color: var(--white); padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">← Quay lại Blog</button>
+                <article id="postContent"></article>
+            </div>
+        </div>
     </main>
 
     <!-- Register Modal -->
@@ -1018,6 +1161,7 @@
         <div class="footer-links">
             <a onclick="goPage('home')">Trang Chủ</a>
             <a onclick="goPage('courses')">Khóa Học</a>
+            <a onclick="goPage('blog')">Blog</a>
             <a onclick="goPage('contact')">Liên Hệ</a>
             <a onclick="goPage('privacy')">Bảo Mật</a>
             <a onclick="goPage('terms')">Điều Khoản</a>
@@ -1215,6 +1359,67 @@
                 closeModal();
                 closeConsultation();
             }
+        });
+
+        // ============ BLOG FUNCTIONS ============
+
+        function renderBlogPosts() {
+            const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+            const grid = document.getElementById('blogGrid');
+            const noMsg = document.getElementById('noBlogMsg');
+            
+            if (blogPosts.length === 0) {
+                grid.style.display = 'none';
+                noMsg.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            noMsg.style.display = 'none';
+            
+            grid.innerHTML = blogPosts.map(post => `
+                <article class="blog-card" onclick="viewBlogPost(${post.id})">
+                    <div class="blog-image">
+                        ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : post.icon || '📚'}
+                    </div>
+                    <div class="blog-content">
+                        <time class="blog-date">${post.date}</time>
+                        <h3 class="blog-title">${post.title}</h3>
+                        <p class="blog-excerpt">${post.excerpt}</p>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function viewBlogPost(postId) {
+            const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+            const post = blogPosts.find(p => p.id === postId);
+            
+            if (!post) return;
+
+            let imageHtml = '';
+            if (post.imageUrl) {
+                imageHtml = `<img src="${post.imageUrl}" alt="${post.title}" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 2rem;">`;
+            }
+
+            document.getElementById('postContent').innerHTML = `
+                ${imageHtml}
+                <h1>${post.icon} ${post.title}</h1>
+                <div class="blog-meta">
+                    <span>📅 ${post.date}</span>
+                    <span>🔑 ${post.keyword}</span>
+                </div>
+                <div style="line-height: 1.8; font-size: 1.05rem; color: var(--text-dark);">
+                    ${post.content}
+                </div>
+            `;
+            
+            goPage('blog-post');
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            renderBlogPosts();
         });
     </script>
 </body>
