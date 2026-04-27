@@ -817,6 +817,8 @@
                 <button onclick="goPage('home')">Trang Chủ</button>
                 <button onclick="goPage('courses')">Khóa Học</button>
                 <button onclick="goPage('blog')">Blog</button>
+                <button onclick="goPage('help-section')">Chúng Tôi Giúp Gì</button>
+                <button onclick="goPage('courses-section')">Khóa Học</button>
                 <button onclick="goPage('contact')">Liên Hệ</button>
                 <button class="cta-btn" onclick="openRegister()">Đăng Ký</button>
             </nav>
@@ -1037,6 +1039,24 @@
                 <article id="postContent"></article>
             </div>
         </div>
+
+        <!-- Help Section Page -->
+        <div id="help-section" class="page">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;">
+                <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
+                <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
+                <div id="helpGrid" class="grid"></div>
+            </div>
+        </div>
+
+        <!-- Courses Section Page -->
+        <div id="courses-section" class="page">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;">
+                <h2 class="section-title">Các Khóa Học</h2>
+                <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
+                <div id="coursesGrid" class="grid"></div>
+            </div>
+        </div>
     </main>
 
     <!-- Register Modal -->
@@ -1162,6 +1182,8 @@
             <a onclick="goPage('home')">Trang Chủ</a>
             <a onclick="goPage('courses')">Khóa Học</a>
             <a onclick="goPage('blog')">Blog</a>
+            <a onclick="goPage('help-section')">Chúng Tôi Giúp Gì</a>
+            <a onclick="goPage('courses-section')">Khóa Học</a>
             <a onclick="goPage('contact')">Liên Hệ</a>
             <a onclick="goPage('privacy')">Bảo Mật</a>
             <a onclick="goPage('terms')">Điều Khoản</a>
@@ -1292,6 +1314,7 @@
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
+                course: document.getElementById('course').value,
                 message: document.getElementById('message').value,
                 type: 'registration',
                 createdDate: new Date().toLocaleDateString('vi-VN'),
@@ -1420,8 +1443,98 @@
         // Initialize on page load
         window.addEventListener('load', () => {
             renderBlogPosts();
+            renderHelpSection();
+            renderCoursesSection();
             loadCustomizations();
         });
+
+        // ============ RENDER HELP SECTIONS ============
+
+        function renderHelpSection() {
+            const helpSections = JSON.parse(localStorage.getItem('helpSections')) || getDefaultHelp();
+            const grid = document.getElementById('helpGrid');
+            
+            grid.innerHTML = helpSections.map(item => `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">${item.icon}</div>
+                        <div class="card-title">${item.title}</div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">${item.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getDefaultHelp() {
+            return [
+                {
+                    id: 1,
+                    icon: '🧠',
+                    title: 'Thay Đổi Niềm Tin',
+                    description: 'Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai'
+                },
+                {
+                    id: 2,
+                    icon: '💆',
+                    title: 'Giảm Lo Âu',
+                    description: 'Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring'
+                },
+                {
+                    id: 3,
+                    icon: '🧘',
+                    title: 'Cắt Cơn Hoảng Loạn',
+                    description: 'Cắt Cơn Hoảng Loạn Bằng Chánh Niệm - kỹ năng tự điều chỉnh cảm xúc'
+                }
+            ];
+        }
+
+        // ============ RENDER COURSES ============
+
+        function renderCoursesSection() {
+            const courses = JSON.parse(localStorage.getItem('courses')) || getDefaultCourses();
+            const grid = document.getElementById('coursesGrid');
+            
+            grid.innerHTML = courses.map(course => `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">${course.title}</div>
+                        <div class="card-price">${course.price}</div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">${course.description}</p>
+                        <button class="card-btn" onclick="openRegister()">Chi Tiết</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getDefaultCourses() {
+            return [
+                {
+                    id: 1,
+                    icon: '📚',
+                    title: 'Hiểu Con Hơn',
+                    price: '4.5M',
+                    description: 'Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn'
+                },
+                {
+                    id: 2,
+                    icon: '👨',
+                    title: 'Đồng Hành Tâm Trí Teen',
+                    price: '2.5M/giờ',
+                    description: 'Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin'
+                },
+                {
+                    id: 3,
+                    icon: '🌟',
+                    title: 'Khám Phá & Phát Triển Cá Nhân',
+                    price: 'Khóa Hè',
+                    description: 'Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin'
+                }
+            ];
+        }
 
         // ============ LOAD CUSTOMIZATIONS ============
         function loadCustomizations() {
