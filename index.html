@@ -799,8 +799,8 @@
     <!-- Livestream Banner - Đơn giản -->
     <div class="livestream-banner">
         🔴 LIVESTREAM HÀNG TUẦN: Thứ 2 & 4, từ 8:30 PM | 
-        <a href="https://qr.bitly.ac/s/oPLHG0BFg" target="_blank">💬 Zalo</a> | 
-        <a href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank">📘 Facebook</a>
+        <a href="https://zalo.me/0987654321" target="_blank">💬 Zalo</a> | 
+        <a href="https://facebook.com/thunhienbetterminds" target="_blank">📘 Facebook</a>
     </div>
 
     <!-- Header -->
@@ -819,6 +819,7 @@
                 <button onclick="goPage('blog')">Blog</button>
                 <button onclick="goPage('help-section')">Chúng Tôi Giúp Gì</button>
                 <button onclick="goPage('courses-section')">Khóa Học</button>
+                <button onclick="goPage('hieuConHon')" style="background: linear-gradient(135deg, #1e40af, #06b6d4); color: white; font-weight: 700;">Hiểu Con Hơn</button>
                 <button onclick="goPage('contact')">Liên Hệ</button>
                 <button class="cta-btn" onclick="openRegister()">Đăng Ký</button>
             </nav>
@@ -833,6 +834,7 @@
                 <h1>Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
                 <p class="subtitle">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
                 <div class="hero-cta">
+                    <button class="btn" onclick="openRegister()">Đăng Ký Ngay</button>
                     <button class="btn btn-secondary" onclick="goPage('courses')">Xem Khóa Học</button>
                     <button class="btn btn-consultation" onclick="openConsultation()">👋 Tư Vấn 1:1 Miễn Phí</button>
                 </div>
@@ -919,14 +921,135 @@
             </div>
         </div>
 
+        <!-- Hiểu Con Hơn Landing Page Form -->
+        <div id="hieuConHon" class="page">
+            <div style="max-width: 700px; margin: 0 auto; padding: 0;">
+                <!-- Hero Section -->
+                <section style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.85), rgba(6, 182, 212, 0.85)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop'); background-size: cover; background-position: center; color: white; padding: 4rem 2rem 3rem; text-align: center; min-height: 400px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Hiểu Con Hơn</h1>
+                    <p style="font-size: 1.1rem; opacity: 0.95; max-width: 600px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Chương trình giáo dục tâm lý giúp bố mẹ hiểu và chăm sóc con tốt hơn</p>
+                </section>
+
+                <!-- Form Container -->
+                <div style="max-width: 700px; margin: -80px auto 0; background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); overflow: hidden; position: relative; z-index: 10;">
+                    <!-- Success Message -->
+                    <div id="hieuConHonSuccess" style="display: none; padding: 2rem; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; text-align: center; border-radius: 12px; margin: 2rem;">
+                        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">✅ Đăng ký thành công!</h2>
+                        <p style="opacity: 0.95;">Cảm ơn bạn đã quan tâm. Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.</p>
+                    </div>
+
+                    <!-- Form -->
+                    <div id="hieuConHonForm" style="padding: 3rem 2rem;">
+                        <form id="hieuConHonFormElement">
+                            <!-- Họ tên -->
+                            <div style="margin-bottom: 2rem;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.75rem;">Họ tên <span style="color: #dc2626;">*</span></label>
+                                <input type="text" name="hoTen" placeholder="Nhập họ và tên của bạn" required style="width: 100%; padding: 0.875rem; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 1rem; font-family: inherit;">
+                            </div>
+
+                            <!-- Số điện thoại -->
+                            <div style="margin-bottom: 2rem;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.75rem;">Số điện thoại <span style="color: #dc2626;">*</span></label>
+                                <input type="tel" name="soDienThoai" placeholder="VD: 0912345678" required style="width: 100%; padding: 0.875rem; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 1rem; font-family: inherit;">
+                            </div>
+
+                            <!-- Email -->
+                            <div style="margin-bottom: 2rem;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.75rem;">Email <span style="color: #dc2626;">*</span></label>
+                                <input type="email" name="email" placeholder="VD: your@email.com" required style="width: 100%; padding: 0.875rem; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 1rem; font-family: inherit;">
+                            </div>
+
+                            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 2rem 0;">
+
+                            <!-- Cam kết -->
+                            <div style="margin-bottom: 2rem;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 1rem;">Tôi cam kết tham gia chương trình <span style="color: #dc2626;">*</span></label>
+                                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                    <label style="display: flex; align-items: center; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                                        <input type="radio" name="camKet" value="Có, tôi sẽ tham gia đầy đủ 2 buổi" required style="width: 20px; height: 20px; margin-right: 1rem; cursor: pointer; accent-color: #1e40af;">
+                                        Có, tôi sẽ tham gia đầy đủ 2 buổi
+                                    </label>
+                                    <label style="display: flex; align-items: center; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                                        <input type="radio" name="camKet" value="Rất tiếc, tôi không thể tham dự" style="width: 20px; height: 20px; margin-right: 1rem; cursor: pointer; accent-color: #1e40af;">
+                                        Rất tiếc, tôi không thể tham dự
+                                    </label>
+                                </div>
+                            </div>
+
+                            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 2rem 0;">
+
+                            <!-- Sẵn sàng gặp gỡ -->
+                            <div style="margin-bottom: 2rem;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 1rem;">Sẵn sàng gặp gỡ cha mẹ khác? <span style="color: #dc2626;">*</span></label>
+                                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                    <label style="display: flex; align-items: center; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                                        <input type="radio" name="sanSang" value="Có" required style="width: 20px; height: 20px; margin-right: 1rem; cursor: pointer; accent-color: #1e40af;">
+                                        Có
+                                    </label>
+                                    <label style="display: flex; align-items: center; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                                        <input type="radio" name="sanSang" value="Chỉ mình tôi tham gia" style="width: 20px; height: 20px; margin-right: 1rem; cursor: pointer; accent-color: #1e40af;">
+                                        Chỉ mình tôi tham gia
+                                    </label>
+                                </div>
+                            </div>
+
+                            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 2rem 0;">
+
+                            <!-- Độ tuổi -->
+                            <div style="margin-bottom: 2rem;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 1rem;">Con anh chị ở độ tuổi nào? <span style="color: #dc2626;">*</span></label>
+                                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                    <label style="display: flex; align-items: center; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                                        <input type="radio" name="tuoi" value="Cấp 3" required style="width: 20px; height: 20px; margin-right: 1rem; cursor: pointer; accent-color: #1e40af;">
+                                        Cấp 3
+                                    </label>
+                                    <label style="display: flex; align-items: center; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                                        <input type="radio" name="tuoi" value="Cấp 2" style="width: 20px; height: 20px; margin-right: 1rem; cursor: pointer; accent-color: #1e40af;">
+                                        Cấp 2
+                                    </label>
+                                    <label style="display: flex; align-items: center; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                                        <input type="radio" name="tuoi" value="Tiểu học" style="width: 20px; height: 20px; margin-right: 1rem; cursor: pointer; accent-color: #1e40af;">
+                                        Tiểu học
+                                    </label>
+                                    <label style="display: flex; align-items: center; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; font-weight: 500;">
+                                        <input type="radio" name="tuoi" value="Đại học" style="width: 20px; height: 20px; margin-right: 1rem; cursor: pointer; accent-color: #1e40af;">
+                                        Đại học
+                                    </label>
+                                </div>
+                            </div>
+
+                            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 2rem 0;">
+
+                            <!-- Vấn đề -->
+                            <div style="margin-bottom: 2rem;">
+                                <label style="display: block; font-weight: 600; margin-bottom: 0.75rem;">Vấn đề gặp phải <span style="color: #dc2626;">*</span></label>
+                                <textarea name="vanDe" placeholder="Mô tả các vấn đề bạn đang gặp với con..." required style="width: 100%; padding: 0.875rem; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 1rem; font-family: inherit; resize: vertical; min-height: 100px;"></textarea>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div style="display: flex; gap: 1rem;">
+                                <button type="submit" style="flex: 1; padding: 1rem; background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;">🚀 Gửi Đăng Ký</button>
+                                <button type="reset" style="flex: 1; padding: 1rem; background: #f9fafb; color: #1f2937; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;">↺ Xóa</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Footer -->
+                    <div style="text-align: center; padding: 1.5rem 2rem; background: #f9fafb; border-top: 1px solid #e5e7eb; font-size: 0.875rem; color: #6b7280;">
+                        <p>📋 Dữ liệu của bạn sẽ được lưu trữ an toàn và không chia sẻ với bên thứ ba</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Contact Page -->
         <div id="contact" class="page">
             <div style="max-width: 600px; margin: 3rem auto; padding: 2rem;">
                 <h2 class="section-title">Liên Hệ Chúng Tôi</h2>
                 <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px; text-align: center;">
                     <p style="margin-bottom: 1rem;">📧 Email: <strong><a href="mailto:dangky@thunhienedu.vn" style="color: var(--primary);">dangky@thunhienedu.vn</a></strong></p>
-                    <p style="margin-bottom: 1rem;">💬 Zalo: <strong><a href="https://zalo.me/0917216246" target="_blank" style="color: var(--primary);">0917216246</a></strong></p>
-                    <p style="margin-bottom: 2rem;">📱 Facebook: <strong><a href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank" style="color: var(--primary);">@thunhienbetterminds</a></strong></p>
+                    <p style="margin-bottom: 1rem;">💬 Zalo: <strong><a href="https://zalo.me/0987654321" target="_blank" style="color: var(--primary);">0987654321</a></strong></p>
+                    <p style="margin-bottom: 2rem;">📱 TikTok: <strong><a href="https://tiktok.com/@thunhienbetterminds" target="_blank" style="color: var(--primary);">@thunhienbetterminds</a></strong></p>
                     <button class="btn" onclick="openRegister()" style="margin-top: 1rem;">Gửi Thông Tin</button>
                 </div>
             </div>
@@ -1115,7 +1238,7 @@
             <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
                 <p><strong>📅 Lịch:</strong> Thứ 2 & Thứ 4 hàng tuần</p>
                 <p><strong>🕖 Giờ:</strong> 7:30 PM - 8:30 PM</p>
-                <p><strong>💬 Hình thức:</strong>Video Call</p>
+                <p><strong>💬 Hình thức:</strong> Zoom Video Call</p>
                 <p><strong>💰 Giá:</strong> <span style="color: var(--success); font-weight: bold;">MIỄN PHÍ</span></p>
             </div>
 
@@ -1183,13 +1306,14 @@
             <a onclick="goPage('blog')">Blog</a>
             <a onclick="goPage('help-section')">Chúng Tôi Giúp Gì</a>
             <a onclick="goPage('courses-section')">Khóa Học</a>
+            <a onclick="goPage('hieuConHon')" style="font-weight: 700; background: linear-gradient(135deg, #1e40af, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Hiểu Con Hơn</a>
             <a onclick="goPage('contact')">Liên Hệ</a>
             <a onclick="goPage('privacy')">Bảo Mật</a>
             <a onclick="goPage('terms')">Điều Khoản</a>
             <a onclick="goPage('disclaimer')">Miễn Trừ</a>
             <a href="admin-dashboard.html" style="font-size: 0.8rem;">🔐 Admin</a>
         </div>
-        <p>&copy; 2026 Thu Nhiên Education. Tất cả quyền được bảo lưu.</p>
+        <p>&copy; 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</p>
     </footer>
 
     <script>
@@ -1445,7 +1569,59 @@
             renderHelpSection();
             renderCoursesSection();
             loadCustomizations();
+            initHieuConHonForm();
         });
+
+        // ============ HIỂU CON HƠN FORM HANDLER ============
+        function initHieuConHonForm() {
+            const hieuConHonForm = document.getElementById('hieuConHonFormElement');
+            if (!hieuConHonForm) return;
+
+            hieuConHonForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(hieuConHonForm);
+                const data = {
+                    hoTen: formData.get('hoTen'),
+                    soDienThoai: formData.get('soDienThoai'),
+                    email: formData.get('email'),
+                    camKet: formData.get('camKet'),
+                    sanSang: formData.get('sanSang'),
+                    tuoi: formData.get('tuoi'),
+                    vanDe: formData.get('vanDe'),
+                    ngayDangKy: new Date().toLocaleDateString('vi-VN'),
+                    timestamp: new Date().getTime()
+                };
+
+                try {
+                    const response = await fetch('https://script.google.com/macros/s/AKfycbzXfueXIUdEuK3iU08vWz97aCaJWqFZkoHE61hBkP_rmOg4Llh65YBsHR0Py9Xejfj5/exec', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    
+                    if (result.status === 'success') {
+                        document.getElementById('hieuConHonForm').style.display = 'none';
+                        document.getElementById('hieuConHonSuccess').style.display = 'block';
+                        
+                        setTimeout(() => {
+                            hieuConHonForm.reset();
+                            document.getElementById('hieuConHonForm').style.display = 'block';
+                            document.getElementById('hieuConHonSuccess').style.display = 'none';
+                        }, 3000);
+                    } else {
+                        alert('Lỗi: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra: ' + error.message + '\n\nVui lòng kiểm tra:\n1. AppScript URL đúng không?\n2. AppScript đã deploy chưa?\n3. Kiểm tra console (F12)');
+                }
+            });
+        }
 
         // ============ RENDER HELP SECTIONS ============
 
@@ -1592,8 +1768,8 @@
             if (livestreamText) {
                 const bannerEl = document.querySelector('.livestream-banner');
                 if (bannerEl) {
-                    const zaloLink = localStorage.getItem('zaloLink') || 'https://qr.bitly.ac/s/oPLHG0BFg';
-                    const facebookLink = localStorage.getItem('facebookLink') || 'https://www.facebook.com/ThuNhien.BetterMinds';
+                    const zaloLink = localStorage.getItem('zaloLink') || 'https://zalo.me/0987654321';
+                    const facebookLink = localStorage.getItem('facebookLink') || 'https://facebook.com/thunhienbetterminds';
                     bannerEl.innerHTML = `${livestreamText} | <a href="${zaloLink}" target="_blank">💬 Zalo</a> | <a href="${facebookLink}" target="_blank">📘 Facebook</a>`;
                 }
             }
