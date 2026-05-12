@@ -286,6 +286,21 @@
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
         }
 
+        .admin-btn {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .admin-btn:hover {
+            background: var(--primary-dark);
+        }
+
         /* Pages */
         .page {
             display: none;
@@ -876,6 +891,14 @@
             .section-title {
                 font-size: 1.75rem;
             }
+
+            .admin-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 99;
+                padding: 0.75rem 1rem;
+            }
         }
 
         @keyframes slideInUp {
@@ -903,6 +926,7 @@
                 <button onclick="goPage('courses')">Khóa Học</button>
                 <button onclick="goPage('blog')">Blog</button>
                 <button onclick="goPage('contact')">Liên Hệ</button>
+                <button class="admin-btn" onclick="openAdmin()" title="🔐 Admin Dashboard">⚙️ Admin</button>
                 <button class="cta-btn" onclick="openRegister()">Đăng Ký</button>
             </nav>
         </div>
@@ -912,10 +936,10 @@
     <main id="main-content">
         <!-- Home Page -->
         <div id="home" class="page active">
-            <!-- ========== BANNER SLIDER (THAY THẾ HERO SECTION) ========== -->
+            <!-- ========== BANNER SLIDER (LOAD TỪ LOCALSTORAGE) ========== -->
             <div class="banner-slider-container">
                 <div class="banner-slider" id="bannerSlider">
-                    <!-- Slides được thêm bằng JavaScript -->
+                    <!-- Slides được thêm bằng JavaScript từ localStorage -->
                 </div>
 
                 <!-- Banner Controls -->
@@ -1046,6 +1070,93 @@
                 <article id="postContent"></article>
             </div>
         </div>
+
+        <!-- Privacy Policy Page -->
+        <div id="privacy" class="page">
+            <div class="legal-content">
+                <h1>Chính Sách Bảo Mật</h1>
+                
+                <h2>1. Thông Tin Chúng Tôi Thu Thập</h2>
+                <p>Thu Nhiên Education thu thập thông tin cá nhân của bạn bao gồm: tên, email, số điện thoại, thông tin con cái để cung cấp các khóa học và dịch vụ coaching tâm lý.</p>
+
+                <h2>2. Cách Chúng Tôi Sử Dụng Thông Tin</h2>
+                <p>Thông tin của bạn được sử dụng để:</p>
+                <ul>
+                    <li>Cung cấp các khóa học và dịch vụ tư vấn</li>
+                    <li>Gửi cập nhật về livestream hàng tuần</li>
+                    <li>Liên hệ hỗ trợ khách hàng</li>
+                    <li>Cải thiện dịch vụ của chúng tôi</li>
+                </ul>
+
+                <h2>3. Bảo Vệ Dữ Liệu</h2>
+                <p>Chúng tôi sử dụng các biện pháp bảo mật chuẩn để bảo vệ thông tin cá nhân của bạn khỏi truy cập trái phép.</p>
+
+                <h2>4. Chia Sẻ Thông Tin</h2>
+                <p>Chúng tôi không bao giờ chia sẻ thông tin cá nhân của bạn với bên thứ ba mà không có sự đồng ý của bạn, ngoại trừ các trường hợp yêu cầu bởi luật pháp.</p>
+
+                <h2>5. Cookie & Tracking</h2>
+                <p>Website này không sử dụng cookie theo dõi. Chúng tôi chỉ sử dụng dữ liệu cần thiết để vận hành website.</p>
+
+                <h2>6. Quyền Của Bạn</h2>
+                <p>Bạn có quyền truy cập, chỉnh sửa hoặc xóa thông tin cá nhân của mình. Vui lòng liên hệ dangky@thunhienedu.vn để yêu cầu.</p>
+            </div>
+        </div>
+
+        <!-- Terms of Use Page -->
+        <div id="terms" class="page">
+            <div class="legal-content">
+                <h1>Điều Khoản Sử Dụng</h1>
+                
+                <h2>1. Chấp Nhận Điều Khoản</h2>
+                <p>Bằng cách sử dụng website này, bạn đồng ý tuân thủ toàn bộ điều khoản sử dụng dưới đây.</p>
+
+                <h2>2. Giấy Phép Sử Dụng</h2>
+                <p>Thu Nhiên Education cấp cho bạn giấy phép hạn chế, không độc quyền để truy cập và sử dụng website này cho mục đích cá nhân.</p>
+
+                <h2>3. Cấm Dùng</h2>
+                <p>Bạn không được phép:</p>
+                <ul>
+                    <li>Sao chép hoặc phân phối bất kỳ nội dung nào mà không có phép</li>
+                    <li>Cố gắng hack hoặc tấn công website</li>
+                    <li>Gửi nội dung gây hại hoặc xúc phạm</li>
+                    <li>Sử dụng website cho mục đích thương mại mà không được phép</li>
+                </ul>
+
+                <h2>4. Giới Hạn Trách Nhiệm</h2>
+                <p>Thu Nhiên Education cung cấp dịch vụ "nguyên trạng" mà không có bất kỳ bảo đảm nào.</p>
+
+                <h2>5. Thay Đổi Điều Khoản</h2>
+                <p>Chúng tôi có quyền thay đổi điều khoản này bất cứ lúc nào. Các thay đổi sẽ có hiệu lực khi được đăng trên website.</p>
+
+                <h2>6. Liên Hệ</h2>
+                <p>Nếu bạn có câu hỏi về điều khoản này, vui lòng liên hệ dangky@thunhienedu.vn</p>
+            </div>
+        </div>
+
+        <!-- Disclaimer Page -->
+        <div id="disclaimer" class="page">
+            <div class="legal-content">
+                <h1>Tuyên Bố Miễn Trừ Trách Nhiệm</h1>
+                
+                <h2>1. Tính Chất Giáo Dục</h2>
+                <p>Các khóa học và dịch vụ coaching từ Thu Nhiên Education có tính chất giáo dục và không thay thế cho tư vấn chuyên ngành y tế hoặc tâm lý học từ các chuyên gia y tế được cấp phép.</p>
+
+                <h2>2. Không Là Tư Vấn Y Tế</h2>
+                <p>Nội dung trên website không được dự định làm cơ sở cho chẩn đoán, điều trị hoặc phòng ngừa bất kỳ bệnh tật nào. Nếu bạn hoặc con của bạn đang trải qua vấn đề tâm lý hoặc y tế nghiêm trọng, vui lòng tham khảo ý kiến của bác sĩ hoặc chuyên gia tâm lý.</p>
+
+                <h2>3. Kết Quả Không Được Đảm Bảo</h2>
+                <p>Mỗi cá nhân phản ứng khác nhau với các kỹ năng và phương pháp được giảng dạy. Thu Nhiên Education không đảm bảo kết quả cụ thể hoặc lợi ích từ các khóa học của chúng tôi.</p>
+
+                <h2>4. Trách Nhiệm Của Bạn</h2>
+                <p>Bạn chịu trách nhiệm quyết định xem liệu các dịch vụ của chúng tôi có phù hợp cho bạn và con cái của bạn. Vui lòng tham khảo ý kiến chuyên gia y tế trước khi áp dụng bất kỳ hướng dẫn nào.</p>
+
+                <h2>5. Không Chịu Trách Nhiệm Cho Hành Động Của Bên Thứ Ba</h2>
+                <p>Thu Nhiên Education không chịu trách nhiệm cho bất kỳ hành động hoặc bài viết của bên thứ ba trên website này hoặc các nền tảng xã hội liên kết.</p>
+
+                <h2>6. Thay Đổi Nội Dung</h2>
+                <p>Chúng tôi bảo lưu quyền thay đổi bất kỳ nội dung nào bất cứ lúc nào mà không cần thông báo trước.</p>
+            </div>
+        </div>
     </main>
 
     <!-- Register Modal -->
@@ -1152,14 +1263,16 @@
             <a onclick="goPage('courses')">Khóa Học</a>
             <a onclick="goPage('blog')">Blog</a>
             <a onclick="goPage('contact')">Liên Hệ</a>
+            <a onclick="goPage('privacy')">Bảo Mật</a>
+            <a onclick="goPage('terms')">Điều Khoản</a>
+            <a onclick="goPage('disclaimer')">Miễn Trừ</a>
         </div>
         <p>&copy; 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</p>
     </footer>
 
     <script>
-        // ========== BANNER SLIDER CONFIG ==========
-        // 🎯 CHỈNH SỬA ĐÂY ĐỂ THÊMSLD BANNER + THAY ẢNH
-        const bannerSlides = [
+        // ========== BANNER SLIDER - LOAD TỪ LOCALSTORAGE ==========
+        let bannerSlides = JSON.parse(localStorage.getItem('bannerSlides')) || [
             {
                 image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&h=600&fit=crop",
                 title: "Hiểu Con Hơn",
@@ -1197,6 +1310,11 @@
             const bannerSlider = document.getElementById('bannerSlider');
             const indicatorsContainer = document.getElementById('bannerIndicators');
 
+            // Clear previous slides
+            bannerSlider.innerHTML = '';
+            indicatorsContainer.innerHTML = '';
+
+            // Create slides from localStorage
             bannerSlides.forEach((slide, index) => {
                 const slideElement = document.createElement('div');
                 slideElement.className = `banner-slide ${index === 0 ? 'active' : ''}`;
@@ -1214,6 +1332,7 @@
                 bannerSlider.appendChild(slideElement);
             });
 
+            // Create indicators
             bannerSlides.forEach((_, index) => {
                 const indicator = document.createElement('button');
                 indicator.className = `banner-indicator ${index === 0 ? 'active' : ''}`;
@@ -1231,9 +1350,11 @@
             slides.forEach(slide => slide.classList.remove('active'));
             indicators.forEach(ind => ind.classList.remove('active'));
 
-            slides[index].classList.add('active');
-            indicators[index].classList.add('active');
-            currentBannerIndex = index;
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                indicators[index].classList.add('active');
+                currentBannerIndex = index;
+            }
         }
 
         function nextBannerSlide() {
@@ -1269,6 +1390,10 @@
         let selectedDate = null;
         let selectedSlot = null;
         const availableSlots = ['19:30 - 20:00', '20:00 - 20:30'];
+
+        function openAdmin() {
+            window.open('admin-dashboard.html', '_blank', 'width=1400,height=800');
+        }
 
         function goPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1477,6 +1602,14 @@
         window.addEventListener('load', () => {
             initBannerSlider();
             renderBlogPosts();
+        });
+
+        // Listen for storage changes (khi admin thay đổi slides)
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'bannerSlides') {
+                bannerSlides = JSON.parse(e.newValue);
+                initBannerSlider();
+            }
         });
     </script>
 </body>
