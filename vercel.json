@@ -1,0 +1,17 @@
+{
+  "rewrites": [
+    {
+      "source": "/trangchu",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin-dashboard.html"
+    },
+    {
+      "source": "/",
+      "destination": "/index.html"
+    }
+  ]
+}
+
