@@ -3,148 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thu Nhiên Education - Thấu Hiểu Con Cùng NLP</title>
+    <title>Thu Nhiên Education - Phát Triển Tâm Trí Con</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* GIỮ LẠI CÁC STYLE GỐC CỦA BẠN VÀ BỔ SUNG THÊM */
+        /* === 1. GIỮ NGUYÊN TOÀN BỘ CSS GỐC CỦA BẠN === */
         :root {
             --primary: #1e40af;
-            --accent: #db2777; /* Màu hồng đậm cho Livestream */
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
+            --accent: #db2777; /* Đã chỉnh sang màu hồng đậm để nổi bật Livestream */
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
             --white: #ffffff;
+            --border: #e5e7eb;
         }
 
-        /* 1. Livestream Bar (New) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--text-dark); line-height: 1.6; }
+        
+        /* === 2. BỔ SUNG CSS CHO LIVE-BAR & FORM MỚI === */
         .live-bar {
             background: linear-gradient(90deg, #db2777, #7c3aed);
-            color: white;
-            text-align: center;
-            padding: 12px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            position: sticky;
-            top: 0;
-            z-index: 1001;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            color: white; text-align: center; padding: 12px; font-weight: bold;
+            position: sticky; top: 0; z-index: 1100; font-size: 0.9rem;
         }
-        .live-bar a {
-            color: #fef08a;
-            text-decoration: underline;
-            margin-left: 10px;
-            text-transform: uppercase;
-        }
+        .live-bar a { color: #fef08a; text-decoration: underline; margin-left: 10px; }
 
-        /* 2. Form NLP Style (New) */
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #374151; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 1rem;
+            width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem;
         }
-        .submit-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.2s;
+        
+        /* Modal Style (Giữ theo style của bạn) */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center;
         }
-        .submit-btn:hover { transform: scale(1.02); background: #be185d; }
-
-        /* Các style cũ của bạn tôi giữ nguyên bố cục chính */
-        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; margin: 0; }
-        header { background: white; padding: 15px; border-bottom: 1px solid #eee; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        .hero { padding: 60px 0; text-align: center; background: #f9fafb; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1002; align-items: center; justify-content: center; }
         .modal.active { display: flex; }
-        .modal-content { background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 500px; position: relative; }
+        .modal-content {
+            background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 500px;
+            position: relative; max-height: 90vh; overflow-y: auto;
+        }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; }
+
+        /* Các section khác của bạn... (Viết tóm lược để bạn dễ hình dung) */
+        header { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 45px; z-index: 1000; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .hero { padding: 80px 0; background: var(--bg-light); text-align: center; }
+        .btn-primary { background: var(--primary); color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="live-bar">
-        🔥 ƯU ĐÃI LIVESTREAM: Gói trải nghiệm 6h cùng Coach Thu Nhiên chỉ 99K 
+        🔥 ƯU ĐÃI LIVESTREAM ZALO: Gói trải nghiệm 6h cùng Coach Thu Nhiên chỉ 99K 
         <a href="javascript:void(0)" onclick="openModal()">Đăng ký ngay</a>
     </div>
 
     <header>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="color: var(--primary);">Thu Nhiên Education</h2>
-            <button onclick="openModal()" style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Đăng ký Tư vấn</button>
+        <div class="container nav-container">
+            <div class="logo">
+                <h1 style="color: var(--primary); font-size: 1.5rem;">Thu Nhiên <span style="color: var(--accent);">Edu</span></h1>
+            </div>
+            <nav>
+                <a href="#courses" style="margin-right: 20px; text-decoration: none; color: var(--text-dark);">Khóa học</a>
+                <a href="#blog" style="margin-right: 20px; text-decoration: none; color: var(--text-dark);">Blog</a>
+                <button class="btn-primary" onclick="openModal()">Đăng ký ngay</button>
+            </nav>
         </div>
     </header>
 
     <section class="hero">
         <div class="container">
-            <h1>Thấu Hiểu Con Tuổi Dậy Thì Bằng NLP</h1>
-            <p style="font-size: 1.2rem; color: #4b5563; margin: 20px 0;">Hết la hét, mất kết nối. Bắt đầu hành trình làm bạn cùng con chỉ sau 6 giờ trải nghiệm.</p>
-            <div style="margin-top: 30px;">
-                <button onclick="openModal()" class="submit-btn" style="width: auto; padding: 15px 40px;">BẮT ĐẦU TRẢI NGHIỆM 99K</button>
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: var(--primary-dark);">Thấu Hiểu Con Tuổi Dậy Thì Bằng NLP</h2>
+            <p style="font-size: 1.2rem; color: var(--text-light); max-width: 800px; margin: 0 auto 30px;">
+                Đừng để khoảng cách giữa cha mẹ và con cái ngày một xa. <br>
+                Hãy tham gia lớp trải nghiệm 6h để bắt đầu làm bạn cùng con.
+            </p>
+            <button class="btn-primary" style="background: var(--accent); padding: 15px 40px; font-size: 1.1rem;" onclick="openModal()">
+                BẮT ĐẦU VỚI 99K
+            </button>
+        </div>
+    </section>
+
+    <section id="courses" style="padding: 60px 0;">
+        <div class="container">
+            <h3 style="text-align: center; margin-bottom: 40px;">Các Chương Trình Đào Tạo</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;" id="course-list">
+                <div style="border: 1px solid #eee; padding: 20px; border-radius: 10px;">
+                    <h4>Nhà Tham Vấn Tại Gia</h4>
+                    <p>Lộ trình 16h học chuyên sâu dành cho cha mẹ.</p>
+                    <a href="javascript:void(0)" onclick="openModal()">Tìm hiểu thêm</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <div id="modal" class="modal">
+    <div id="regModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h3 style="text-align: center; margin-bottom: 20px; color: var(--primary);">Đăng Ký Trải Nghiệm 6h (99K)</h3>
-            <p style="text-align: center; font-size: 0.9rem; margin-bottom: 20px;">Để lại thông tin để nhận thêm <b>Quà tặng: PDF 7 câu nói mở lòng con</b></p>
+            <h3 style="color: var(--primary); margin-bottom: 10px;">Đăng Ký Tư Vấn & Nhận Quà</h3>
+            <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px;">
+                Nhận ngay file <b>PDF: 7 câu nói mở lòng con</b> sau khi đăng ký thành công.
+            </p>
             
-            <form id="registrationForm">
+            <form id="mainForm">
                 <div class="form-group">
-                    <label>Họ và tên Phụ huynh</label>
-                    <input type="text" id="name" placeholder="Ví dụ: Nguyễn Văn A" required>
+                    <label>Họ và tên</label>
+                    <input type="text" id="name" placeholder="Tên của bạn" required>
                 </div>
                 <div class="form-group">
                     <label>Số điện thoại (Zalo)</label>
-                    <input type="tel" id="phone" placeholder="Để gửi quà và xác nhận lớp" required>
+                    <input type="tel" id="phone" placeholder="Số điện thoại để gửi quà" required>
                 </div>
                 <div class="form-group">
-                    <label>Vấn đề lớn nhất của con hiện nay?</label>
-                    <select id="problem">
-                        <option value="mat-ket-noi">Mất kết nối, không nói chuyện</option>
-                        <option value="buong-binh">Bướng bỉnh, hay cãi lời</option>
-                        <option value="nghien-game">Nghiện game, điện thoại</option>
-                        <option value="ap-luc-hoc">Áp lực học hành, lầm lì</option>
-                        <option value="khac">Khác...</option>
+                    <label>Bạn quan tâm đến?</label>
+                    <select id="course">
+                        <option value="99k">Lớp trải nghiệm 6h (99K)</option>
+                        <option value="16h">Nhà tham vấn tại gia (16h)</option>
+                        <option value="coach1-1">Coach tâm trí 1:1</option>
                     </select>
                 </div>
-                <button type="submit" class="submit-btn">XÁC NHẬN ĐĂNG KÝ</button>
+                <div class="form-group">
+                    <label>Vấn đề của con khiến bạn lo lắng nhất?</label>
+                    <textarea id="message" rows="3" placeholder="Ví dụ: Con bướng bỉnh, nghiện game..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; background: var(--accent);">GỬI ĐĂNG KÝ NGAY</button>
             </form>
         </div>
     </div>
 
+    <footer style="background: #1f2937; color: white; padding: 40px 0; margin-top: 60px;">
+        <div class="container" style="text-align: center;">
+            <p>&copy; 2026 Thu Nhiên Education. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Zalo: 0987654321 | Facebook: thunhienbetterminds</p>
+        </div>
+    </footer>
+
     <script>
-        const modal = document.getElementById('modal');
+        // === SCRIPT XỬ LÝ MODAL ===
+        const modal = document.getElementById('regModal');
         function openModal() { modal.classList.add('active'); }
         function closeModal() { modal.classList.remove('active'); }
 
-        // Xử lý gửi form (Ở đây tôi vẫn giữ lưu localStorage để bạn test, 
-        // nhưng khuyến khích bạn thay bằng URL Google App Script sau này)
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        // Đóng modal khi nhấn ngoài vùng content
+        window.onclick = function(event) {
+            if (event.target == modal) closeModal();
+        }
+
+        // === SCRIPT LƯU DỮ LIỆU ĐĂNG KÝ ===
+        document.getElementById('mainForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const data = {
+            const formData = {
                 name: document.getElementById('name').value,
                 phone: document.getElementById('phone').value,
-                problem: document.getElementById('problem').value,
-                date: new Date().toLocaleString()
+                course: document.getElementById('course').value,
+                message: document.getElementById('message').value,
+                date: new Date().toLocaleString('vi-VN')
             };
 
-            // Lưu tạm vào LocalStorage để CRM của bạn vẫn lấy được dữ liệu
+            // 1. Lưu vào localStorage để CRM của bạn hiển thị được
             let students = JSON.parse(localStorage.getItem('thunhienStudents') || '[]');
-            students.push(data);
+            students.push(formData);
             localStorage.setItem('thunhienStudents', JSON.stringify(students));
 
-            alert('✅ Đăng ký thành công!\n\nThu Nhiên sẽ gửi quà PDF qua Zalo của bạn trong ít phút.');
+            // 2. Thông báo thành công
+            alert('✅ Chúc mừng ' + formData.name + '!\n\nThu Nhiên đã nhận được thông tin. Quà tặng PDF sẽ được gửi qua Zalo số ' + formData.phone + ' của bạn sớm nhất.');
+            
             closeModal();
             this.reset();
         });
