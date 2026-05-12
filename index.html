@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Thu Nhiên Education - Giáo dục tâm lý giúp con tự tin, vượt qua lo âu, phát triển bản thân. Livestream hàng tuần Thứ 2&4.">
     <title>Thu Nhiên Education - Phát Triển Tâm Trí Con</title>
+    
     <style>
         * {
             margin: 0;
@@ -21,6 +23,8 @@
             --bg-light: #f9fafb;
             --white: #ffffff;
             --border: #e5e7eb;
+            --success: #10b981;
+            --danger: #dc2626;
         }
 
         html {
@@ -28,13 +32,41 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             color: var(--text-dark);
             line-height: 1.6;
             background: var(--white);
         }
 
-        /* Header & Navigation */
+        /* Livestream Banner - Đơn giản, chỉ Zalo + Facebook */
+        .livestream-banner {
+            background: linear-gradient(90deg, #dc2626, #f59e0b);
+            color: var(--white);
+            padding: 1rem 2rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            animation: pulse 2s infinite;
+        }
+
+        .livestream-banner a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .livestream-banner a:hover {
+            text-decoration: underline;
+            opacity: 0.8;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+
+        /* Header */
         header {
             background: var(--white);
             border-bottom: 1px solid var(--border);
@@ -62,6 +94,7 @@
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
+            cursor: pointer;
         }
 
         .logo-icon {
@@ -76,52 +109,24 @@
             font-size: 1.2rem;
         }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-
-        .logo-text strong {
-            font-size: 0.9rem;
-        }
-
-        .logo-text span {
-            font-size: 0.65rem;
-            color: var(--text-light);
-            font-weight: 400;
-        }
-
         nav {
             display: flex;
             gap: 2rem;
+            align-items: center;
         }
 
-        nav a {
+        nav button {
+            background: none;
+            border: none;
             color: var(--text-dark);
-            text-decoration: none;
+            cursor: pointer;
             font-size: 0.95rem;
             transition: color 0.3s;
-            position: relative;
+            font-weight: 500;
         }
 
-        nav a:hover {
+        nav button:hover {
             color: var(--primary);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        nav a:hover::after {
-            width: 100%;
         }
 
         .cta-btn {
@@ -129,53 +134,74 @@
             color: var(--white);
             padding: 0.75rem 1.5rem;
             border-radius: 6px;
-            text-decoration: none;
+            border: none;
             font-weight: 500;
+            cursor: pointer;
             transition: all 0.3s;
-            border: 2px solid var(--primary);
         }
 
         .cta-btn:hover {
             background: var(--primary-dark);
-            border-color: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
         }
 
-        /* Hero Section */
+        /* Pages */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero - Customizable Background */
         .hero {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
+            background-image: linear-gradient(135deg, rgba(30, 64, 175, 0.85), rgba(6, 182, 212, 0.85)), 
+                              url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--white);
+            padding: 8rem 2rem;
             text-align: center;
-            animation: fadeInUp 0.8s ease-out;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            color: var(--primary-dark);
             line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .hero .subtitle {
             font-size: 1.25rem;
-            color: var(--text-light);
             margin-bottom: 2rem;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .hero-cta {
             display: flex;
             gap: 1rem;
             justify-content: center;
-            margin-bottom: 3rem;
+            flex-wrap: wrap;
         }
 
-        .btn-primary {
+        .btn {
             background: var(--primary);
             color: var(--white);
             padding: 1rem 2rem;
@@ -188,7 +214,7 @@
             font-size: 1rem;
         }
 
-        .btn-primary:hover {
+        .btn:hover {
             background: var(--primary-dark);
             transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(30, 64, 175, 0.3);
@@ -196,46 +222,24 @@
 
         .btn-secondary {
             background: transparent;
-            color: var(--primary);
-            padding: 1rem 2rem;
-            border: 2px solid var(--primary);
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
+            color: var(--white);
+            border: 2px solid var(--white);
         }
 
         .btn-secondary:hover {
-            background: var(--primary);
-            color: var(--white);
+            background: var(--white);
+            color: var(--primary);
         }
 
-        .hero-image {
-            width: 100%;
-            max-width: 600px;
-            height: 300px;
-            background: linear-gradient(135deg, rgba(30, 64, 175, 0.1), rgba(6, 182, 212, 0.1));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            margin: 0 auto;
+        .btn-consultation {
+            background: linear-gradient(90deg, #059669, #10b981);
         }
 
-        /* Benefits Section */
-        .benefits {
-            background: var(--bg-light);
-            padding: 5rem 2rem;
+        .btn-consultation:hover {
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.3);
         }
 
-        .benefits-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        /* Section */
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
@@ -251,63 +255,17 @@
             font-size: 1.1rem;
         }
 
-        .benefits-grid {
+        /* Grid */
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-        }
-
-        .benefit-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-            border-color: var(--primary-light);
-        }
-
-        .benefit-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .benefit-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-            color: var(--primary);
-        }
-
-        .benefit-card p {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Courses Section */
-        .courses {
-            padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .course-card {
+        .card {
             background: var(--white);
             border: 2px solid var(--border);
             border-radius: 12px;
@@ -317,45 +275,49 @@
             flex-direction: column;
         }
 
-        .course-card:hover {
+        .card:hover {
             border-color: var(--primary);
             box-shadow: 0 20px 40px rgba(30, 64, 175, 0.12);
             transform: translateY(-6px);
         }
 
-        .course-header {
+        .card-header {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: var(--white);
             padding: 2rem;
             text-align: center;
         }
 
-        .course-name {
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .course-price {
-            font-size: 1.5rem;
-            font-weight: 800;
+        .card-price {
+            font-size: 1.2rem;
             opacity: 0.9;
         }
 
-        .course-body {
+        .card-body {
             padding: 2rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
-        .course-description {
+        .card-description {
             color: var(--text-light);
             margin-bottom: 1.5rem;
             font-size: 0.95rem;
         }
 
-        .course-btn {
+        .card-btn {
             background: var(--primary);
             color: var(--white);
             border: none;
@@ -367,32 +329,186 @@
             margin-top: auto;
         }
 
-        .course-btn:hover {
+        .card-btn:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
         }
 
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white);
-            padding: 4rem 2rem;
-            text-align: center;
-            margin: 3rem 0;
+        /* Legal Content */
+        .legal-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
         }
 
-        .cta-section h2 {
-            font-size: 2.25rem;
+        .legal-content h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .legal-content h2 {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin-top: 2rem;
             margin-bottom: 1rem;
         }
 
-        .cta-section p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
+        .legal-content p {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            line-height: 1.8;
         }
 
-        /* Modal Form */
+        .legal-content ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        /* Calendar & Slots */
+        .calendar-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .calendar-nav button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .calendar-nav button:hover {
+            background: var(--primary-dark);
+        }
+
+        .calendar-month {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            background: var(--white);
+        }
+
+        .calendar-day:hover:not(.disabled) {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            background: var(--bg-light);
+        }
+
+        .calendar-day.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .slots-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .slots-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .slot-btn {
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .slot-btn:hover {
+            border-color: var(--primary);
+            background: var(--bg-light);
+        }
+
+        .slot-btn.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -404,6 +520,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            overflow-y: auto;
             backdrop-filter: blur(4px);
         }
 
@@ -413,12 +530,11 @@
 
         .modal-content {
             background: var(--white);
-            padding: 3rem;
+            padding: 2rem;
             border-radius: 12px;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
+            margin: auto;
             animation: slideInUp 0.3s ease-out;
         }
 
@@ -440,15 +556,10 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-light);
-            transition: color 0.3s;
-        }
-
-        .modal-close:hover {
-            color: var(--primary);
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .form-group label {
@@ -456,7 +567,6 @@
             margin-bottom: 0.5rem;
             font-weight: 600;
             color: var(--text-dark);
-            font-size: 0.95rem;
         }
 
         .form-group input,
@@ -468,7 +578,6 @@
             border-radius: 6px;
             font-family: inherit;
             font-size: 0.95rem;
-            transition: border-color 0.3s;
         }
 
         .form-group input:focus,
@@ -479,16 +588,11 @@
             box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
         .form-submit {
             width: 100%;
             background: var(--primary);
             color: var(--white);
-            padding: 1rem;
+            padding: 0.75rem;
             border: none;
             border-radius: 6px;
             font-weight: 600;
@@ -501,7 +605,20 @@
         .form-submit:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        .success-msg {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border: 1px solid #6ee7b7;
+            display: none;
+        }
+
+        .success-msg.show {
+            display: block;
         }
 
         /* Footer */
@@ -510,11 +627,7 @@
             color: var(--white);
             padding: 3rem 2rem;
             text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-top: 3rem;
         }
 
         .footer-links {
@@ -529,36 +642,13 @@
             color: var(--white);
             text-decoration: none;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         .footer-links a:hover {
             color: var(--primary-light);
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
             nav {
                 display: none;
@@ -572,131 +662,384 @@
                 font-size: 1.75rem;
             }
 
-            .modal-content {
-                padding: 1.5rem;
+            .livestream-banner {
+                font-size: 0.85rem;
             }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Blog Styling */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.15), rgba(6, 182, 212, 0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            flex-grow: 1;
+        }
+
+        /* Blog Post Content */
+        article h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        article h2 {
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        article p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        article ul, article ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        article li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        article strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        article img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .blog-meta {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
     </style>
 </head>
 <body>
+    <!-- Livestream Banner - Đơn giản -->
+    <div class="livestream-banner">
+        🔴 LIVESTREAM HÀNG TUẦN: Thứ 2 & 4, từ 8:30 PM | 
+        <a href="https://zalo.me/0987654321" target="_blank">💬 Zalo</a> | 
+        <a href="https://facebook.com/thunhienbetterminds" target="_blank">📘 Facebook</a>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="header-content">
-            <a href="#" class="logo">
+            <a href="#" class="logo" onclick="goPage('home')">
                 <div class="logo-icon">🔱</div>
-                <div class="logo-text">
-                    <strong>Thu Nhiên</strong>
-                    <span>Education</span>
+                <div>
+                    <div style="font-size: 0.9rem;">Thu Nhiên</div>
+                    <div style="font-size: 0.65rem; color: var(--text-light); font-weight: 400;">Education</div>
                 </div>
             </a>
             <nav>
-                <a href="#benefits">Lợi Ích</a>
-                <a href="#courses">Khóa Học</a>
-                <a href="#contact">Liên Hệ</a>
-                <button class="cta-btn" onclick="openModal()">Đăng Ký</button>
+                <button onclick="goPage('home')">Trang Chủ</button>
+                <button onclick="goPage('courses')">Khóa Học</button>
+                <button onclick="goPage('blog')">Blog</button>
+                <button onclick="goPage('contact')">Liên Hệ</button>
+                <button class="cta-btn" onclick="openRegister()">Đăng Ký</button>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
-        <p class="subtitle">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
-        <div class="hero-cta">
-            <button class="btn-primary" onclick="openModal()">Đăng Ký Ngay</button>
-            <button class="btn-secondary" onclick="document.getElementById('courses').scrollIntoView()">Xem Khóa Học</button>
-        </div>
-        <div class="hero-image">🌱</div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section class="benefits" id="benefits">
-        <div class="benefits-container">
-            <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
-            <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
-            
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">🧠</div>
-                    <h3>Thay Đổi Niềm Tin</h3>
-                    <p>Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <h1>Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
+                <p class="subtitle">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
+                <div class="hero-cta">
+                    <button class="btn" onclick="openRegister()">Đăng Ký Ngay</button>
+                    <button class="btn btn-secondary" onclick="goPage('courses')">Xem Khóa Học</button>
+                    <button class="btn btn-consultation" onclick="openConsultation()">👋 Tư Vấn 1:1 Miễn Phí</button>
                 </div>
+            </section>
+
+            <section style="background: var(--bg-light); padding: 5rem 2rem;">
+                <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
+                <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
                 
-                <div class="benefit-card">
-                    <div class="benefit-icon">💆</div>
-                    <h3>Giảm Lo Âu</h3>
-                    <p>Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🧠</div>
+                            <div class="card-title">Thay Đổi Niềm Tin</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">💆</div>
+                            <div class="card-title">Giảm Lo Âu</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🧘</div>
+                            <div class="card-title">Cắt Cơn Hoảng Loạn</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">Cắt Cơn Hoảng Loạn Bằng Chánh Niệm - kỹ năng tự điều chỉnh cảm xúc</p>
+                        </div>
+                    </div>
                 </div>
+            </section>
+        </div>
+
+        <!-- Courses Page -->
+        <div id="courses" class="page">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;">
+                <h2 class="section-title">Các Khóa Học</h2>
+                <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
                 
-                <div class="benefit-card">
-                    <div class="benefit-icon">🧘</div>
-                    <h3>Cắt Cơn Hoảng Loạn</h3>
-                    <p>Cắt Cơn Hoảng Loạn Bằng Chánh Niệm (Mindfulness) - kỹ năng tự điều chỉnh cảm xúc</p>
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Hiểu Con Hơn</div>
+                            <div class="card-price">4.5M</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
+                            <button class="card-btn" onclick="openRegister()">Chi Tiết</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Đồng Hành Tâm Trí Teen</div>
+                            <div class="card-price">2.5M/giờ</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin</p>
+                            <button class="card-btn" onclick="openRegister()">Chi Tiết</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Khám Phá & Phát Triển Cá Nhân</div>
+                            <div class="card-price">Khóa Hè</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
+                            <button class="card-btn" onclick="openRegister()">Chi Tiết</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Courses Section -->
-    <section class="courses" id="courses">
-        <h2 class="section-title">Các Khóa Học</h2>
-        <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
-        
-        <div class="courses-grid">
-            <div class="course-card">
-                <div class="course-header">
-                    <div class="course-name">Hiểu Con Hơn</div>
-                    <div class="course-price">4.5M</div>
-                </div>
-                <div class="course-body">
-                    <p class="course-description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
-                    <button class="course-btn" onclick="enrollCourse('Hiểu Con Hơn', '4.5M')">Chi Tiết</button>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <div class="course-header">
-                    <div class="course-name">Đồng Hành Tâm Trí Teen</div>
-                    <div class="course-price">2.5M/giờ</div>
-                </div>
-                <div class="course-body">
-                    <p class="course-description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin và sức khỏe tinh thần</p>
-                    <button class="course-btn" onclick="enrollCourse('Đồng Hành Tâm Trí Teen', '2.5M/giờ')">Chi Tiết</button>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <div class="course-header">
-                    <div class="course-name">Trải Nghiệm với Coach</div>
-                    <div class="course-price">99K/30p</div>
-                </div>
-                <div class="course-body">
-                    <p class="course-description">Buổi coaching một-một để giải quyết vấn đề cụ thể, linh hoạt thời gian</p>
-                    <button class="course-btn" onclick="enrollCourse('Trải Nghiệm với Coach', '99K/30p')">Chi Tiết</button>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <div class="course-header">
-                    <div class="course-name">Khám Phá & Phát Triển Cá Nhân</div>
-                    <div class="course-price">Khóa Hè</div>
-                </div>
-                <div class="course-body">
-                    <p class="course-description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
-                    <button class="course-btn" onclick="enrollCourse('Khám Phá & Phát Triển Cá Nhân', 'Khóa Hè')">Chi Tiết</button>
+        <!-- Contact Page -->
+        <div id="contact" class="page">
+            <div style="max-width: 600px; margin: 3rem auto; padding: 2rem;">
+                <h2 class="section-title">Liên Hệ Chúng Tôi</h2>
+                <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px; text-align: center;">
+                    <p style="margin-bottom: 1rem;">📧 Email: <strong><a href="mailto:dangky@thunhienedu.vn" style="color: var(--primary);">dangky@thunhienedu.vn</a></strong></p>
+                    <p style="margin-bottom: 1rem;">💬 Zalo: <strong><a href="https://zalo.me/0987654321" target="_blank" style="color: var(--primary);">0987654321</a></strong></p>
+                    <p style="margin-bottom: 2rem;">📱 TikTok: <strong><a href="https://tiktok.com/@thunhienbetterminds" target="_blank" style="color: var(--primary);">@thunhienbetterminds</a></strong></p>
+                    <button class="btn" onclick="openRegister()" style="margin-top: 1rem;">Gửi Thông Tin</button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section" id="contact">
-        <h2>Sẵn Sàng Thay Đổi?</h2>
-        <p>Đăng ký ngay để nhận tư vấn miễn phí về khóa học phù hợp</p>
-        <button class="btn-primary" onclick="openModal()">Liên Hệ Chúng Tôi</button>
-    </section>
+        <!-- Privacy Page -->
+        <div id="privacy" class="page">
+            <div class="legal-content">
+                <h1>Chính Sách Bảo Mật</h1>
+                
+                <h2>1. Thông Tin Chúng Tôi Thu Thập</h2>
+                <p>Thu Nhiên Education thu thập thông tin cá nhân của bạn bao gồm: tên, email, số điện thoại, thông tin con cái để cung cấp các khóa học và dịch vụ coaching tâm lý.</p>
 
-    <!-- Modal Form -->
+                <h2>2. Cách Chúng Tôi Sử Dụng Thông Tin</h2>
+                <p>Thông tin của bạn được sử dụng để:</p>
+                <ul>
+                    <li>Cung cấp các khóa học và dịch vụ tư vấn</li>
+                    <li>Gửi cập nhật về livestream hàng tuần</li>
+                    <li>Liên hệ hỗ trợ khách hàng</li>
+                    <li>Cải thiện dịch vụ của chúng tôi</li>
+                </ul>
+
+                <h2>3. Bảo Vệ Dữ Liệu</h2>
+                <p>Chúng tôi sử dụng các biện pháp bảo mật chuẩn để bảo vệ thông tin cá nhân của bạn khỏi truy cập trái phép.</p>
+
+                <h2>4. Chia Sẻ Thông Tin</h2>
+                <p>Chúng tôi không bao giờ chia sẻ thông tin cá nhân của bạn với bên thứ ba mà không có sự đồng ý của bạn, ngoại trừ các trường hợp yêu cầu bởi luật pháp.</p>
+
+                <h2>5. Cookie & Tracking</h2>
+                <p>Website này không sử dụng cookie theo dõi. Chúng tôi chỉ sử dụng dữ liệu cần thiết để vận hành website.</p>
+
+                <h2>6. Quyền Của Bạn</h2>
+                <p>Bạn có quyền truy cập, chỉnh sửa hoặc xóa thông tin cá nhân của mình. Vui lòng liên hệ dangky@thunhienedu.vn để yêu cầu.</p>
+            </div>
+        </div>
+
+        <!-- Terms Page -->
+        <div id="terms" class="page">
+            <div class="legal-content">
+                <h1>Điều Khoản Sử Dụng</h1>
+                
+                <h2>1. Chấp Nhận Điều Khoản</h2>
+                <p>Bằng cách sử dụng website này, bạn đồng ý tuân thủ toàn bộ điều khoản sử dụng dưới đây.</p>
+
+                <h2>2. Giấy Phép Sử Dụng</h2>
+                <p>Thu Nhiên Education cấp cho bạn giấy phép hạn chế, không độc quyền để truy cập và sử dụng website này cho mục đích cá nhân.</p>
+
+                <h2>3. Cấm Dùng</h2>
+                <p>Bạn không được phép:</p>
+                <ul>
+                    <li>Sao chép hoặc phân phối bất kỳ nội dung nào mà không có phép</li>
+                    <li>Cố gắng hack hoặc tấn công website</li>
+                    <li>Gửi nội dung gây hại hoặc xúc phạm</li>
+                    <li>Sử dụng website cho mục đích thương mại mà không được phép</li>
+                </ul>
+
+                <h2>4. Giới Hạn Trách Nhiệm</h2>
+                <p>Thu Nhiên Education cung cấp dịch vụ "nguyên trạng" mà không có bất kỳ bảo đảm nào.</p>
+
+                <h2>5. Thay Đổi Điều Khoản</h2>
+                <p>Chúng tôi có quyền thay đổi điều khoản này bất cứ lúc nào. Các thay đổi sẽ có hiệu lực khi được đăng trên website.</p>
+
+                <h2>6. Liên Hệ</h2>
+                <p>Nếu bạn có câu hỏi về điều khoản này, vui lòng liên hệ dangky@thunhienedu.vn</p>
+            </div>
+        </div>
+
+        <!-- Disclaimer Page -->
+        <div id="disclaimer" class="page">
+            <div class="legal-content">
+                <h1>Tuyên Bố Miễn Trừ Trách Nhiệm</h1>
+                
+                <h2>1. Tính Chất Giáo Dục</h2>
+                <p>Các khóa học và dịch vụ coaching từ Thu Nhiên Education có tính chất giáo dục và không thay thế cho tư vấn chuyên ngành y tế hoặc tâm lý học từ các chuyên gia y tế được cấp phép.</p>
+
+                <h2>2. Không Là Tư Vấn Y Tế</h2>
+                <p>Nội dung trên website không được dự định làm cơ sở cho chẩn đoán, điều trị hoặc phòng ngừa bất kỳ bệnh tật nào. Nếu bạn hoặc con của bạn đang trải qua vấn đề tâm lý hoặc y tế nghiêm trọng, vui lòng tham khảo ý kiến của bác sĩ hoặc chuyên gia tâm lý.</p>
+
+                <h2>3. Kết Quả Không Được Đảm Bảo</h2>
+                <p>Mỗi cá nhân phản ứng khác nhau với các kỹ năng và phương pháp được giảng dạy. Thu Nhiên Education không đảm bảo kết quả cụ thể hoặc lợi ích từ các khóa học của chúng tôi.</p>
+
+                <h2>4. Trách Nhiệm Của Bạn</h2>
+                <p>Bạn chịu trách nhiệm quyết định xem liệu các dịch vụ của chúng tôi có phù hợp cho bạn và con cái của bạn. Vui lòng tham khảo ý kiến chuyên gia y tế trước khi áp dụng bất kỳ hướng dẫn nào.</p>
+
+                <h2>5. Không Chịu Trách Nhiệm Cho Hành Động Của Bên Thứ Ba</h2>
+                <p>Thu Nhiên Education không chịu trách nhiệm cho bất kỳ hành động hoặc bài viết của bên thứ ba trên website này hoặc các nền tảng xã hội liên kết.</p>
+
+                <h2>6. Thay Đổi Nội Dung</h2>
+                <p>Chúng tôi bảo lưu quyền thay đổi bất kỳ nội dung nào bất cứ lúc nào mà không cần thông báo trước.</p>
+            </div>
+        </div>
+        <!-- Blog Page -->
+        <div id="blog" class="page">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;">
+                <h2 class="section-title">Blog - Chia Sẻ Kiến Thức</h2>
+                <p class="section-subtitle">Các bài viết về tâm lý, giáo dục và phát triển cá nhân</p>
+                
+                <div id="blogGrid" class="blog-grid"></div>
+                <div id="noBlogMsg" style="text-align: center; color: var(--text-light); padding: 3rem; display: none;">
+                    Chưa có bài viết nào. Hãy quay lại sau!
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Post Detail Page -->
+        <div id="blog-post" class="page">
+            <div style="max-width: 800px; margin: 0 auto; padding: 3rem 2rem;">
+                <button class="btn" onclick="goPage('blog')" style="margin-bottom: 2rem; background: var(--primary); color: var(--white); padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">← Quay lại Blog</button>
+                <article id="postContent"></article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Register Modal -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -704,114 +1047,379 @@
                 <button class="modal-close" onclick="closeModal()">&times;</button>
             </div>
             
-            <form id="registerForm">
+            <div id="successMsg" class="success-msg"></div>
+            
+            <form id="registerForm" onsubmit="submitRegister(event)">
                 <div class="form-group">
                     <label>Tên của bạn *</label>
-                    <input type="text" id="name" name="name" required placeholder="Nguyễn Văn A">
+                    <input type="text" id="name" required placeholder="Nguyễn Văn A">
                 </div>
 
                 <div class="form-group">
                     <label>Email *</label>
-                    <input type="email" id="email" name="email" required placeholder="abc@example.com">
+                    <input type="email" id="email" required placeholder="abc@example.com">
                 </div>
 
                 <div class="form-group">
                     <label>Số Điện Thoại *</label>
-                    <input type="tel" id="phone" name="phone" required placeholder="0912345678">
+                    <input type="tel" id="phone" required placeholder="0912345678">
                 </div>
 
                 <div class="form-group">
                     <label>Khóa Học Quan Tâm *</label>
-                    <select id="course" name="course" required>
+                    <select id="course" required>
                         <option value="">-- Chọn khóa học --</option>
                         <option value="Hiểu Con Hơn - 4.5M">Hiểu Con Hơn - 4.5M</option>
                         <option value="Đồng Hành Tâm Trí Teen - 2.5M/giờ">Đồng Hành Tâm Trí Teen - 2.5M/giờ</option>
-                        <option value="Trải Nghiệm với Coach - 99K/30p">Trải Nghiệm với Coach - 99K/30p</option>
                         <option value="Khám Phá & Phát Triển Cá Nhân - Khóa Hè">Khám Phá & Phát Triển Cá Nhân - Khóa Hè</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>Lời Nhắn</label>
-                    <textarea id="message" name="message" placeholder="Câu hỏi hoặc yêu cầu của bạn..."></textarea>
+                    <textarea id="message" placeholder="Câu hỏi hoặc yêu cầu..."></textarea>
                 </div>
 
-                <button type="submit" class="form-submit">Gửi Đơn Đăng Ký</button>
+                <button type="submit" class="form-submit">Đăng Ký</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Consultation Modal with Calendar -->
+    <div class="modal" id="consultationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>👋 Tư Vấn 1:1 Miễn Phí</h2>
+                <button class="modal-close" onclick="closeConsultation()">&times;</button>
+            </div>
+            
+            <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <p><strong>📅 Lịch:</strong> Thứ 2 & Thứ 4 hàng tuần</p>
+                <p><strong>🕖 Giờ:</strong> 7:30 PM - 8:30 PM</p>
+                <p><strong>💬 Hình thức:</strong> Zoom Video Call</p>
+                <p><strong>💰 Giá:</strong> <span style="color: var(--success); font-weight: bold;">MIỄN PHÍ</span></p>
+            </div>
+
+            <!-- Calendar -->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <div class="calendar-month" id="calendarMonth">Tháng 4, 2025</div>
+                    <div class="calendar-nav">
+                        <button onclick="prevMonth()">← Trước</button>
+                        <button onclick="nextMonth()">Sau →</button>
+                    </div>
+                </div>
+
+                <div class="weekdays">
+                    <div class="weekday">T2</div>
+                    <div class="weekday">T3</div>
+                    <div class="weekday">T4</div>
+                    <div class="weekday">T5</div>
+                    <div class="weekday">T6</div>
+                    <div class="weekday">T7</div>
+                    <div class="weekday">CN</div>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+
+            <!-- Time Slots -->
+            <div class="slots-container" id="slotsContainer" style="display: none;">
+                <div class="slots-title" id="slotsTitle">Chọn giờ</div>
+                <div class="slots-grid" id="slotsGrid"></div>
+            </div>
+
+            <!-- Form -->
+            <form id="consultationForm" onsubmit="submitConsultation(event)" style="display: none;">
+                <div class="form-group">
+                    <label>Tên của bạn *</label>
+                    <input type="text" id="cons-name" required placeholder="Nguyễn Văn A">
+                </div>
+
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="cons-email" required placeholder="abc@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Số Điện Thoại *</label>
+                    <input type="tel" id="cons-phone" required placeholder="0912345678">
+                </div>
+
+                <div class="form-group">
+                    <label>Vấn Đề Cần Tư Vấn *</label>
+                    <textarea id="cons-issue" required placeholder="Mô tả vấn đề..."></textarea>
+                </div>
+
+                <button type="submit" class="form-submit">Xác Nhận Đặt Lịch</button>
             </form>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#benefits">Lợi Ích</a>
-                <a href="#courses">Khóa Học</a>
-                <a href="mailto:dangky@thunhienedu.vn">Email</a>
-            </div>
-            <p>&copy; 2024 Thu Nhiên Education. Tất cả quyền được bảo vệ.</p>
+        <div class="footer-links">
+            <a onclick="goPage('home')">Trang Chủ</a>
+            <a onclick="goPage('courses')">Khóa Học</a>
+            <a onclick="goPage('blog')">Blog</a>
+            <a onclick="goPage('contact')">Liên Hệ</a>
+            <a onclick="goPage('privacy')">Bảo Mật</a>
+            <a onclick="goPage('terms')">Điều Khoản</a>
+            <a onclick="goPage('disclaimer')">Miễn Trừ</a>
+            <a href="admin-dashboard.html" style="font-size: 0.8rem;">🔐 Admin</a>
         </div>
+        <p>&copy; 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</p>
     </footer>
 
     <script>
-        const modal = document.getElementById('registerModal');
-        const form = document.getElementById('registerForm');
+        // State
+        let currentDate = new Date(2025, 3, 1);
+        let selectedDate = null;
+        let selectedSlot = null;
+        const availableSlots = ['19:30 - 20:00', '20:00 - 20:30'];
 
-        function openModal() {
-            modal.classList.add('active');
+        // Page Navigation
+        function goPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const targetPage = document.getElementById(page);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Calendar
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('calendarMonth').textContent = `Tháng ${month + 1}, ${year}`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            let html = '';
+            for (let i = 0; i < (firstDay || 7) - 1; i++) {
+                html += '<div class="calendar-day disabled"></div>';
+            }
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dayOfWeek = date.getDay();
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                
+                const isAvailable = dayOfWeek === 2 || dayOfWeek === 4; // Thứ 3 (2) & Thứ 5 (4)
+                const isSelected = selectedDate === dateStr;
+                
+                let className = 'calendar-day';
+                if (!isAvailable) className += ' disabled';
+                if (isSelected) className += ' selected';
+                
+                html += `<div class="${className}" onclick="selectDate('${dateStr}')" ${!isAvailable ? 'style="cursor:not-allowed"' : ''}>${day}</div>`;
+            }
+            
+            document.getElementById('calendarGrid').innerHTML = html;
+        }
+
+        function prevMonth() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        function selectDate(dateStr) {
+            const date = new Date(dateStr);
+            const dayOfWeek = date.getDay();
+            
+            if (dayOfWeek !== 2 && dayOfWeek !== 4) return;
+            
+            selectedDate = dateStr;
+            selectedSlot = null;
+            
+            document.getElementById('slotsContainer').style.display = 'block';
+            document.getElementById('consultationForm').style.display = 'none';
+            
+            const dayName = dayOfWeek === 2 ? 'Thứ 3' : 'Thứ 5';
+            document.getElementById('slotsTitle').textContent = `Chọn giờ - ${dayName} (${dateStr})`;
+            
+            let slotsHtml = '';
+            availableSlots.forEach(slot => {
+                slotsHtml += `<button type="button" class="slot-btn ${selectedSlot === slot ? 'selected' : ''}" onclick="selectSlot('${slot}')">${slot}</button>`;
+            });
+            document.getElementById('slotsGrid').innerHTML = slotsHtml;
+            renderCalendar();
+        }
+
+        function selectSlot(slot) {
+            selectedSlot = slot;
+            document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+            event.target.classList.add('selected');
+            document.getElementById('consultationForm').style.display = 'block';
+        }
+
+        // Modals
+        function openRegister() {
+            document.getElementById('registerModal').classList.add('active');
         }
 
         function closeModal() {
-            modal.classList.remove('active');
+            document.getElementById('registerModal').classList.remove('active');
+            document.getElementById('registerForm').reset();
         }
 
-        function enrollCourse(courseName, price) {
-            document.getElementById('course').value = courseName + ' - ' + price;
-            openModal();
+        function openConsultation() {
+            renderCalendar();
+            document.getElementById('consultationModal').classList.add('active');
         }
 
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
+        function closeConsultation() {
+            document.getElementById('consultationModal').classList.remove('active');
+            selectedDate = null;
+            selectedSlot = null;
+            document.getElementById('consultationForm').reset();
+        }
 
-        // Handle form submission
-        form.addEventListener('submit', (e) => {
+        // Forms
+        function submitRegister(e) {
             e.preventDefault();
-            
-            const data = {
+
+            const lead = {
+                id: Date.now(),
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                course: document.getElementById('course').value,
                 message: document.getElementById('message').value,
-                registeredDate: new Date().toLocaleDateString('vi-VN'),
+                type: 'registration',
+                createdDate: new Date().toLocaleDateString('vi-VN'),
                 status: 'chưa liên hệ'
             };
 
-            // Lưu vào localStorage (tạm thời)
-            let students = JSON.parse(localStorage.getItem('thunhienStudents') || '[]');
-            students.push(data);
-            localStorage.setItem('thunhienStudents', JSON.stringify(students));
-
-            // Hiển thị thông báo
-            alert('✅ Đăng ký thành công!\n\nChúng tôi sẽ liên hệ với bạn sớm nhất.\n\nEmail: dangky@thunhienedu.vn');
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXfueXIUdEuK3iU08vWz97aCaJWqFZkoHE61hBkP_rmOg4Llh65YBsHR0Py9Xejfj5/exec';
             
-            // Reset form
-            form.reset();
-            closeModal();
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(lead)
+            }).then(() => {
+                document.getElementById('successMsg').textContent = '✅ Đăng ký thành công!';
+                document.getElementById('successMsg').classList.add('show');
+                document.getElementById('registerForm').style.display = 'none';
+                
+                setTimeout(() => {
+                    closeModal();
+                    document.getElementById('registerForm').style.display = 'block';
+                }, 2000);
+            });
+        }
 
-            // Log data (để test)
-            console.log('Dữ liệu đăng ký:', data);
+        function submitConsultation(e) {
+            e.preventDefault();
+
+            const consultation = {
+                id: Date.now(),
+                name: document.getElementById('cons-name').value,
+                email: document.getElementById('cons-email').value,
+                phone: document.getElementById('cons-phone').value,
+                issue: document.getElementById('cons-issue').value,
+                date: selectedDate,
+                time: selectedSlot,
+                type: 'consultation',
+                createdDate: new Date().toLocaleDateString('vi-VN'),
+                status: 'chờ xác nhận'
+            };
+
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXfueXIUdEuK3iU08vWz97aCaJWqFZkoHE61hBkP_rmOg4Llh65YBsHR0Py9Xejfj5/exec';
+            
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(consultation)
+            }).then(() => {
+                alert('✅ Thông tin đã được ghi nhận! Coach sẽ liên hệ bạn trong 2 giờ.');
+                closeConsultation();
+            });
+        }
+
+        // Close on outside click
+        document.getElementById('registerModal').addEventListener('click', (e) => {
+            if (e.target.id === 'registerModal') closeModal();
         });
 
-        // Keyboard shortcut to close modal
+        document.getElementById('consultationModal').addEventListener('click', (e) => {
+            if (e.target.id === 'consultationModal') closeConsultation();
+        });
+
+        // Close on Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeModal();
+                closeConsultation();
             }
+        });
+
+        // ============ BLOG FUNCTIONS ============
+
+        function renderBlogPosts() {
+            const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+            const grid = document.getElementById('blogGrid');
+            const noMsg = document.getElementById('noBlogMsg');
+            
+            if (blogPosts.length === 0) {
+                grid.style.display = 'none';
+                noMsg.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            noMsg.style.display = 'none';
+            
+            grid.innerHTML = blogPosts.map(post => `
+                <article class="blog-card" onclick="viewBlogPost(${post.id})">
+                    <div class="blog-image">
+                        ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : post.icon || '📚'}
+                    </div>
+                    <div class="blog-content">
+                        <time class="blog-date">${post.date}</time>
+                        <h3 class="blog-title">${post.title}</h3>
+                        <p class="blog-excerpt">${post.excerpt}</p>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function viewBlogPost(postId) {
+            const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+            const post = blogPosts.find(p => p.id === postId);
+            
+            if (!post) return;
+
+            let imageHtml = '';
+            if (post.imageUrl) {
+                imageHtml = `<img src="${post.imageUrl}" alt="${post.title}" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 2rem;">`;
+            }
+
+            document.getElementById('postContent').innerHTML = `
+                ${imageHtml}
+                <h1>${post.icon} ${post.title}</h1>
+                <div class="blog-meta">
+                    <span>📅 ${post.date}</span>
+                    <span>🔑 ${post.keyword}</span>
+                </div>
+                <div style="line-height: 1.8; font-size: 1.05rem; color: var(--text-dark);">
+                    ${post.content}
+                </div>
+            `;
+            
+            goPage('blog-post');
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            renderBlogPosts();
         });
     </script>
 </body>
