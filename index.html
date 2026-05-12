@@ -917,7 +917,7 @@
         <div class="header-content">
             <a href="#" class="logo" onclick="goPage('home')">
                 <div class="logo-icon">
-                    <img src="https://PLACEHOLDER-LOGO-URL-HERE.png" alt="Logo" title="Thay URL này bằng GitHub link">
+                    <img src="https://i.ibb.co/YVndtzQ/BM7-12.png" alt="Logo Thu Nhiên">
                 </div>
                 <div>
                     <div style="font-size: 0.9rem;">Thu Nhiên</div>
@@ -1004,42 +1004,59 @@
                 <h2 class="section-title">Các Khóa Học</h2>
                 <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
                 
-                <div class="grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Hiểu Con Hơn</div>
-                            <div style="font-size: 1.3rem; margin-top: 0.5rem;">4.5M</div>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
-                            <button class="card-btn" onclick="openRegister()">Chi Tiết</button>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Đồng Hành Tâm Trí Teen</div>
-                            <div style="font-size: 1.3rem; margin-top: 0.5rem;">2.5M/giờ</div>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin</p>
-                            <button class="card-btn" onclick="openRegister()">Chi Tiết</button>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Khám Phá & Phát Triển Cá Nhân</div>
-                            <div style="font-size: 1.3rem; margin-top: 0.5rem;">Khóa Hè</div>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
-                            <button class="card-btn" onclick="openRegister()">Chi Tiết</button>
-                        </div>
-                    </div>
-                </div>
+                <div class="grid" id="coursesList"></div>
             </div>
         </div>
+
+        <script>
+            // Load courses from localStorage
+            function loadCourses() {
+                console.log('Loading courses...');
+                const products = JSON.parse(localStorage.getItem('products')) || [];
+                console.log('Products found:', products);
+                const coursesList = document.getElementById('coursesList');
+                
+                if (!coursesList) {
+                    console.log('coursesList element not found');
+                    return;
+                }
+                
+                if (products.length === 0) {
+                    coursesList.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-light);">Hiện chưa có khóa học nào. Vui lòng quay lại sau.</p>';
+                    console.log('No products found');
+                    return;
+                }
+                
+                coursesList.innerHTML = products.map(p => `
+                    <div class="card">
+                        ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px 8px 0 0;">` : ''}
+                        <div class="card-header">
+                            <div class="card-title">${p.name}</div>
+                            <div style="font-size: 1.3rem; margin-top: 0.5rem;">💰 ${p.price.toLocaleString('vi-VN')} VND</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">${p.desc}</p>
+                            <button class="card-btn" onclick="openRegister()">${p.btnText}</button>
+                        </div>
+                    </div>
+                `).join('');
+                console.log('Courses loaded successfully');
+            }
+            
+            // Load immediately after page load
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadCourses);
+            } else {
+                loadCourses();
+            }
+            
+            // Also load on window load
+            window.addEventListener('load', loadCourses);
+            
+            // Reload when storage changes (from admin dashboard)
+            window.addEventListener('storage', loadCourses);
+        </script>
+        </script>
 
         <!-- Contact Page -->
         <div id="contact" class="page">
