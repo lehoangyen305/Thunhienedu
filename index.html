@@ -299,6 +299,18 @@
 
         .admin-btn:hover {
             background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+        }
+
+        footer .admin-btn {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            background: rgba(30, 64, 175, 0.9);
+        }
+
+        footer .admin-btn:hover {
+            background: var(--primary);
         }
 
         /* Pages */
@@ -891,14 +903,6 @@
             .section-title {
                 font-size: 1.75rem;
             }
-
-            .admin-btn {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                z-index: 99;
-                padding: 0.75rem 1rem;
-            }
         }
 
         @keyframes slideInUp {
@@ -913,7 +917,7 @@
         <div class="header-content">
             <a href="#" class="logo" onclick="goPage('home')">
                 <div class="logo-icon">
-                    <img src="https://github.com/lehoangyen305/Thunhienedu/blob/main/BM7-12.png" alt="Logo" title="ThuNhienBetterMind">
+                    <img src="https://PLACEHOLDER-LOGO-URL-HERE.png" alt="Logo" title="Thay URL này bằng GitHub link">
                 </div>
                 <div>
                     <div style="font-size: 0.9rem;">Thu Nhiên</div>
@@ -926,7 +930,6 @@
                 <button onclick="goPage('courses')">Khóa Học</button>
                 <button onclick="goPage('blog')">Blog</button>
                 <button onclick="goPage('contact')">Liên Hệ</button>
-                <button class="admin-btn" onclick="openAdmin()" title="🔐 Admin Dashboard">⚙️ Admin</button>
                 <button class="cta-btn" onclick="openRegister()">Đăng Ký</button>
             </nav>
         </div>
@@ -1268,6 +1271,9 @@
             <a onclick="goPage('disclaimer')">Miễn Trừ</a>
         </div>
         <p>&copy; 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</p>
+        <div style="margin-top: 1.5rem; text-align: center;">
+            <button class="admin-btn" onclick="openAdmin()" title="🔐 Admin Dashboard">⚙️ Admin Dashboard</button>
+        </div>
     </footer>
 
     <script>
@@ -1392,7 +1398,7 @@
         const availableSlots = ['19:30 - 20:00', '20:00 - 20:30'];
 
         function openAdmin() {
-            window.open('admin-dashboard.html', '_blank', 'width=1400,height=800');
+            window.open('https://thunhienedu.vercel.app/admin', '_blank', 'width=1400,height=800');
         }
 
         function goPage(page) {
