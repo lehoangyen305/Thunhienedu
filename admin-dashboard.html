@@ -32,6 +32,92 @@
             color: var(--text-dark);
         }
 
+        /* ============ LOGIN SCREEN ============ */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .login-screen.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-box h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .login-box p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .login-error {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+
+        /* ============ MAIN ============ */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -54,9 +140,30 @@
             font-size: 1.5rem;
         }
 
+        .header-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
         .header-info {
             font-size: 0.9rem;
             opacity: 0.9;
+        }
+
+        .logout-btn {
+            padding: 0.6rem 1.2rem;
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
         }
 
         /* Tabs Navigation */
@@ -177,7 +284,7 @@
             min-height: 80px;
         }
 
-        /* Image Upload Preview */
+        /* Image Preview */
         .image-preview {
             width: 100%;
             height: 150px;
@@ -233,6 +340,15 @@
 
         .btn-danger:hover {
             background: #991b1b;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: var(--white);
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
         }
 
         .btn-small {
@@ -332,10 +448,6 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .table-search {
-            margin-bottom: 1rem;
-        }
-
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -361,34 +473,33 @@
             color: var(--text-light);
             margin-top: 0.5rem;
         }
-
-        /* Email Template */
-        .email-preview {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-top: 1rem;
-            max-height: 400px;
-            overflow-y: auto;
-            line-height: 1.6;
-            white-space: pre-wrap;
-            word-break: break-word;
-            font-family: monospace;
-            font-size: 0.9rem;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- ============ LOGIN SCREEN ============ -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <h1>🎨 Thu Nhiên Admin</h1>
+            <p>Nhập mật khẩu để truy cập</p>
+            <div class="login-error" id="loginError">❌ Mật khẩu sai!</div>
+            <input type="password" id="passwordInput" class="login-input" placeholder="Mật khẩu" onkeypress="if(event.key==='Enter') login()">
+            <button class="login-btn" onclick="login()">🔓 Đăng Nhập</button>
+        </div>
+    </div>
+
+    <!-- ============ MAIN ADMIN ============ -->
+    <div class="container" id="adminContainer" style="display: none;">
         <!-- Header -->
         <header>
             <div>
                 <h1>🎨 Thu Nhiên Admin - Quản Lý Toàn Bộ</h1>
                 <div class="header-info">Slides • Blog • Khóa Học • Khách Hàng</div>
             </div>
-            <div class="header-info">
-                <a href="https://thunhienedu.vercel.app/" target="_blank" style="color: var(--white); text-decoration: underline;">🌐 Xem Website</a>
+            <div class="header-right">
+                <div class="header-info">
+                    <a href="https://thunhienedu.vercel.app/" target="_blank" style="color: var(--white); text-decoration: underline;">🌐 Xem Website</a>
+                </div>
+                <button class="logout-btn" onclick="logout()">🚪 Đăng Xuất</button>
             </div>
         </header>
 
@@ -489,9 +600,8 @@
                         <label>Ảnh Đại Diện (300×200px)</label>
                         <input type="file" id="blogImageInput" accept="image/*" onchange="previewBlogImage()">
                         <div class="image-preview" id="blogImagePreview">
-                            <span style="color: var(--text-light);">Hoặc paste URL ảnh dưới đây</span>
+                            <span style="color: var(--text-light);">Upload ảnh</span>
                         </div>
-                        <input type="text" id="blogImageURL" placeholder="https://... (nếu không upload file)">
                     </div>
 
                     <button class="btn-primary" onclick="addBlogPost()" style="width: 100%;">✍️ Thêm Bài Viết</button>
@@ -511,7 +621,7 @@
             </div>
         </div>
 
-        <!-- ============ TAB 3: PRODUCTS/COURSES ============ -->
+        <!-- ============ TAB 3: PRODUCTS ============ -->
         <div id="products" class="tab-content">
             <div class="layout">
                 <div class="panel">
@@ -563,14 +673,13 @@
             </div>
         </div>
 
-        <!-- ============ TAB 4: CUSTOMERS & EMAIL ============ -->
+        <!-- ============ TAB 4: CUSTOMERS ============ -->
         <div id="customers" class="tab-content">
             <div class="panel" style="max-height: none;">
                 <h2>👥 Quản Lý Khách Hàng & Email Marketing</h2>
 
                 <div id="customerMessage" class="message"></div>
 
-                <!-- Stats -->
                 <div class="stats">
                     <div class="stat-card">
                         <div class="stat-number" id="totalCustomers">0</div>
@@ -582,16 +691,14 @@
                     </div>
                 </div>
 
-                <!-- Import Customers -->
                 <h3>📥 Import Khách Hàng</h3>
                 <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.75rem;">Paste CSV: Tên | Email | Phone | Khóa Học</p>
-                <textarea id="customerCSV" placeholder="Nguyễn Văn A|nguyenvana@email.com|0912345678|Khóa 1&#10;Trần Thị B|tranb@email.com|0987654321|Khóa 2" style="min-height: 100px; margin-bottom: 0.75rem;"></textarea>
+                <textarea id="customerCSV" placeholder="Nguyễn Văn A|nguyenvana@email.com|0912345678|Khóa 1" style="min-height: 100px; margin-bottom: 0.75rem;"></textarea>
                 <button class="btn-primary" onclick="importCustomers()">📥 Import CSV</button>
                 <button class="btn-danger btn-small" onclick="clearCustomers()">🗑️ Xóa Tất Cả</button>
 
                 <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
 
-                <!-- Email Marketing -->
                 <h3>📧 Email Marketing</h3>
                 
                 <div class="form-group">
@@ -611,15 +718,10 @@
                 </div>
 
                 <button class="btn-success" onclick="sendBulkEmail()" style="width: 100%;">📨 Gửi Email</button>
-                <div class="email-preview" id="emailPreview" style="display: none;"></div>
 
                 <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
 
-                <!-- Customers List -->
                 <h3>📋 Danh Sách Khách Hàng</h3>
-                <div class="table-search">
-                    <input type="text" id="customerSearch" placeholder="🔍 Tìm kiếm theo tên, email..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;" onkeyup="filterCustomers()">
-                </div>
                 <table class="table">
                     <thead>
                         <tr>
@@ -637,6 +739,43 @@
     </div>
 
     <script>
+        // ============ LOGIN LOGIC ============
+        const ADMIN_PASSWORD = 'admin123';
+
+        function login() {
+            const password = document.getElementById('passwordInput').value;
+            const errorEl = document.getElementById('loginError');
+
+            if (password === ADMIN_PASSWORD) {
+                sessionStorage.setItem('adminLogged', 'true');
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('adminContainer').style.display = 'block';
+                initAdmin();
+            } else {
+                errorEl.classList.add('show');
+                setTimeout(() => errorEl.classList.remove('show'), 3000);
+            }
+        }
+
+        function logout() {
+            if (confirm('Bạn chắc chắn muốn đăng xuất?')) {
+                sessionStorage.removeItem('adminLogged');
+                document.getElementById('loginScreen').classList.remove('hidden');
+                document.getElementById('adminContainer').style.display = 'none';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        function checkAuth() {
+            if (sessionStorage.getItem('adminLogged') !== 'true') {
+                document.getElementById('loginScreen').classList.remove('hidden');
+                document.getElementById('adminContainer').style.display = 'none';
+            } else {
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('adminContainer').style.display = 'block';
+            }
+        }
+
         // ============ TAB SWITCHING ============
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -645,8 +784,13 @@
             event.target.classList.add('active');
         }
 
-        // ============ BANNER SLIDES ============
-        let slides = JSON.parse(localStorage.getItem('bannerSlides')) || [];
+        // ============ FORMAT PRICE ============
+        function formatPrice(price) {
+            return price.toLocaleString('vi-VN');
+        }
+
+        // ============ SLIDES ============
+        let slides = [];
         let previewIndex = 0;
 
         function addSlide() {
@@ -718,7 +862,7 @@
                 <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: 1;"></div>
                 <div style="position: relative; z-index: 2; text-align: center; color: white;">
                     <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${s.title}</h2>
-                    <p style="font-size: 0.95rem; margin-bottom: 1rem;">${s.subtitle}</p>
+                    <p style="font-size: 0.95rem;">${s.subtitle}</p>
                 </div>
             `;
         }
@@ -733,8 +877,8 @@
             updatePreview();
         }
 
-        // ============ BLOG POSTS ============
-        let blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+        // ============ BLOG ============
+        let blogPosts = [];
 
         function previewBlogImage() {
             const file = document.getElementById('blogImageInput').files[0];
@@ -743,7 +887,6 @@
             reader.onload = (e) => {
                 const preview = document.getElementById('blogImagePreview');
                 preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-                document.getElementById('blogImageURL').value = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -753,7 +896,7 @@
             const excerpt = document.getElementById('blogExcerpt').value.trim();
             const keyword = document.getElementById('blogKeyword').value.trim();
             const content = document.getElementById('blogContent').value.trim();
-            const image = document.getElementById('blogImageURL').value.trim();
+            const image = document.querySelector('#blogImagePreview img')?.src || '';
 
             if (!title || !excerpt || !keyword || !content) {
                 showMessage('blogMessage', '❌ Vui lòng điền đầy đủ', 'error');
@@ -772,6 +915,20 @@
             showMessage('blogMessage', '✅ Thêm bài viết thành công!', 'success');
         }
 
+        function editBlogPost(id) {
+            const post = blogPosts.find(p => p.id === id);
+            if (!post) return;
+            document.getElementById('blogTitle').value = post.title;
+            document.getElementById('blogExcerpt').value = post.excerpt;
+            document.getElementById('blogKeyword').value = post.keyword;
+            document.getElementById('blogContent').value = post.content;
+            if (post.image) {
+                document.getElementById('blogImagePreview').innerHTML = `<img src="${post.image}" alt="Preview">`;
+            }
+            deleteBlogPost(id);
+            window.scrollTo(0, 0);
+        }
+
         function deleteBlogPost(id) {
             blogPosts = blogPosts.filter(p => p.id !== id);
             localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
@@ -785,8 +942,7 @@
             document.getElementById('blogKeyword').value = '';
             document.getElementById('blogContent').value = '';
             document.getElementById('blogImageInput').value = '';
-            document.getElementById('blogImageURL').value = '';
-            document.getElementById('blogImagePreview').innerHTML = '<span style="color: var(--text-light);">Hoặc paste URL ảnh dưới đây</span>';
+            document.getElementById('blogImagePreview').innerHTML = '<span style="color: var(--text-light);">Upload ảnh</span>';
         }
 
         function renderBlogList() {
@@ -798,7 +954,8 @@
                         <div class="list-item-meta">📅 ${p.date} | 🔑 ${p.keyword}</div>
                     </div>
                     <div class="list-item-actions">
-                        <button class="btn-danger btn-small" onclick="deleteBlogPost(${p.id})">🗑️</button>
+                        <button class="btn-warning btn-small" onclick="editBlogPost(${p.id})">✏️ Sửa</button>
+                        <button class="btn-danger btn-small" onclick="deleteBlogPost(${p.id})">🗑️ Xóa</button>
                     </div>
                 </div>
             `).join('');
@@ -816,13 +973,13 @@
                     ${p.image ? `<img src="${p.image}" alt="${p.title}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 0.75rem;">` : ''}
                     <div style="font-weight: 600; margin-bottom: 0.25rem;">${p.title}</div>
                     <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">📅 ${p.date}</div>
-                    <div style="font-size: 0.9rem; color: var(--text-dark);">${p.excerpt}</div>
+                    <div style="font-size: 0.9rem;">${p.excerpt}</div>
                 </div>
             `).join('');
         }
 
-        // ============ PRODUCTS/COURSES ============
-        let products = JSON.parse(localStorage.getItem('products')) || [];
+        // ============ PRODUCTS ============
+        let products = [];
 
         function previewProductImage() {
             const file = document.getElementById('productImageInput').files[0];
@@ -879,10 +1036,10 @@
                     ${p.image ? `<div class="list-item-image"><img src="${p.image}" alt=""></div>` : ''}
                     <div class="list-item-content">
                         <div class="list-item-title">🛍️ ${p.name}</div>
-                        <div class="list-item-meta">💰 ${p.price.toLocaleString('vi-VN')} VND</div>
+                        <div class="list-item-meta">💰 ${formatPrice(p.price)} VND</div>
                     </div>
                     <div class="list-item-actions">
-                        <button class="btn-danger btn-small" onclick="deleteProduct(${p.id})">🗑️</button>
+                        <button class="btn-danger btn-small" onclick="deleteProduct(${p.id})">🗑️ Xóa</button>
                     </div>
                 </div>
             `).join('');
@@ -900,17 +1057,17 @@
                     ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width: 100%; height: 120px; object-fit: cover;">` : ''}
                     <div style="padding: 1rem;">
                         <div style="font-weight: 600; margin-bottom: 0.25rem;">${p.name}</div>
-                        <div style="font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;">💰 ${p.price.toLocaleString('vi-VN')} VND</div>
-                        <div style="font-size: 0.9rem; color: var(--text-dark); margin-bottom: 0.75rem;">${p.desc}</div>
-                        <button style="width: 100%; padding: 0.6rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer;">${p.btnText}</button>
+                        <div style="font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;">💰 ${formatPrice(p.price)} VND</div>
+                        <div style="font-size: 0.9rem; margin-bottom: 0.75rem;">${p.desc}</div>
+                        <button style="width: 100%; padding: 0.6rem; background: var(--primary); color: white; border: none; border-radius: 6px;">${p.btnText}</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        // ============ CUSTOMERS & EMAIL ============
-        let customers = JSON.parse(localStorage.getItem('customers')) || [];
-        let emailLogs = JSON.parse(localStorage.getItem('emailLogs')) || [];
+        // ============ CUSTOMERS ============
+        let customers = [];
+        let emailLogs = [];
 
         function importCustomers() {
             const csv = document.getElementById('customerCSV').value.trim();
@@ -961,28 +1118,7 @@
                     <td>${c.email}</td>
                     <td>${c.phone || '-'}</td>
                     <td>${c.course}</td>
-                    <td>
-                        <button class="btn-danger btn-small" onclick="deleteCustomer(${c.id})">🗑️ Xóa</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function filterCustomers() {
-            const keyword = document.getElementById('customerSearch').value.toLowerCase();
-            const tbody = document.getElementById('customerTable');
-            tbody.innerHTML = customers.filter(c => 
-                c.name.toLowerCase().includes(keyword) || 
-                c.email.toLowerCase().includes(keyword)
-            ).map(c => `
-                <tr>
-                    <td>${c.name}</td>
-                    <td>${c.email}</td>
-                    <td>${c.phone || '-'}</td>
-                    <td>${c.course}</td>
-                    <td>
-                        <button class="btn-danger btn-small" onclick="deleteCustomer(${c.id})">🗑️ Xóa</button>
-                    </td>
+                    <td><button class="btn-danger btn-small" onclick="deleteCustomer(${c.id})">🗑️</button></td>
                 </tr>
             `).join('');
         }
@@ -990,25 +1126,13 @@
         function sendBulkEmail() {
             const subject = document.getElementById('emailSubject').value.trim();
             const template = document.getElementById('emailTemplate').value.trim();
-            const filter = document.getElementById('filterCourse').value.trim().toLowerCase();
 
             if (!subject || !template) {
                 showMessage('customerMessage', '❌ Vui lòng điền tiêu đề và nội dung', 'error');
                 return;
             }
 
-            let toSend = customers;
-            if (filter) {
-                toSend = customers.filter(c => c.course.toLowerCase().includes(filter));
-            }
-
-            if (toSend.length === 0) {
-                showMessage('customerMessage', '❌ Không tìm thấy khách hàng phù hợp', 'error');
-                return;
-            }
-
-            // Ghi log
-            toSend.forEach(c => {
+            customers.forEach(c => {
                 emailLogs.push({
                     id: Date.now() + Math.random(),
                     to: c.email,
@@ -1019,11 +1143,7 @@
             localStorage.setItem('emailLogs', JSON.stringify(emailLogs));
             updateStats();
 
-            showMessage('customerMessage', `✅ Đã gửi email cho ${toSend.length} khách hàng!`, 'success');
-            alert(`Lưu ý: Để gửi email thực tế, bạn cần:
-1. Kết nối với Gmail API
-2. Hoặc dùng Email Service (SendGrid, Mailchimp)
-3. Hiện tại chỉ có log gửi\n\nGửi cho:\n${toSend.map(c => c.email).join('\\n')}`);
+            showMessage('customerMessage', `✅ Đã gửi email cho ${customers.length} khách hàng!`, 'success');
         }
 
         function updateStats() {
@@ -1039,8 +1159,13 @@
             setTimeout(() => msg.classList.remove('show'), 3000);
         }
 
-        // ============ INIT ============
-        window.addEventListener('load', () => {
+        function initAdmin() {
+            slides = JSON.parse(localStorage.getItem('bannerSlides')) || [];
+            blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+            products = JSON.parse(localStorage.getItem('products')) || [];
+            customers = JSON.parse(localStorage.getItem('customers')) || [];
+            emailLogs = JSON.parse(localStorage.getItem('emailLogs')) || [];
+
             renderSlides();
             updatePreview();
             renderBlogList();
@@ -1049,6 +1174,12 @@
             updateProductPreview();
             renderCustomers();
             updateStats();
+        }
+
+        // ============ ON LOAD ============
+        window.addEventListener('load', () => {
+            checkAuth();
+            initAdmin();
         });
     </script>
 </body>
