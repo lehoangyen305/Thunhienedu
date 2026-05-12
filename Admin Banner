@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thu Nhiên Admin - Quản Lý Banner Slides</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
+            --success: #10b981;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+        }
+
+        .header-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Panel */
+        .panel {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .panel h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.75rem;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Buttons */
+        button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: var(--white);
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Slides List */
+        .slides-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .slide-item {
+            background: var(--bg-light);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .slide-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
+        }
+
+        .slide-item.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .slide-item h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            word-break: break-word;
+        }
+
+        .slide-item p {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-item-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .slide-item-actions button {
+            flex: 1;
+        }
+
+        /* Preview */
+        .preview {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(6, 182, 212, 0.9));
+            background-image: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(6, 182, 212, 0.9)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .preview h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .preview p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+        }
+
+        .preview-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .preview-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            border: 2px solid var(--white);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .preview-btn:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .preview-btn.success {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        /* Status */
+        .status-message {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .status-message.show {
+            display: block;
+        }
+
+        .status-message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .status-message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-counter strong {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Actions Bar */
+        .actions-bar {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 6px;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .actions-bar button {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        /* Notes */
+        .note {
+            background: #fef3c7;
+            border-left: 4px solid var(--warning);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--bg-light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .slides-list {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div>
+                <h1>🎨 Thu Nhiên Admin</h1>
+                <p class="header-info">Quản Lý Banner Slides</p>
+            </div>
+            <div class="header-info">
+                👤 Admin Dashboard | 🔒 LocalStorage
+            </div>
+        </header>
+
+        <!-- Status Messages -->
+        <div id="statusMessage" class="status-message"></div>
+
+        <!-- Layout: Form + Preview -->
+        <div class="layout">
+            <!-- LEFT: Form -->
+            <div class="panel">
+                <h2>📝 Quản Lý Slides</h2>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('add')">➕ Thêm Mới</button>
+                    <button class="tab-btn" onclick="switchTab('edit')">✏️ Chỉnh Sửa</button>
+                    <button class="tab-btn" onclick="switchTab('export')">💾 Xuất/Nhập</button>
+                </div>
+
+                <!-- Tab 1: Add New Slide -->
+                <div id="tab-add" class="tab-content active">
+                    <form id="formAddSlide" onsubmit="addSlide(event)">
+                        <div class="form-group">
+                            <label>Tiêu Đề Slide *</label>
+                            <input type="text" id="newTitle" placeholder="Ví dụ: Hiểu Con Hơn" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Subtitle *</label>
+                            <textarea id="newSubtitle" placeholder="Ví dụ: Khám phá con bạn thực sự cần gì" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>URL Ảnh Banner (1400×600px) *</label>
+                            <input type="url" id="newImage" placeholder="https://..." required>
+                            <small style="color: var(--text-light); margin-top: 0.5rem; display: block;">
+                                💡 Tip: Upload ảnh lên GitHub, copy Raw URL
+                            </small>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Button 1 Text *</label>
+                                <input type="text" id="newBtn1Text" placeholder="Ví dụ: 📅 Taster 99K" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Button 1 Action *</label>
+                                <select id="newBtn1Action" required>
+                                    <option value="">-- Chọn action --</option>
+                                    <option value="openRegister()">Open Register Modal</option>
+                                    <option value="openConsultation()">Open Consultation</option>
+                                    <option value="goPage('courses')">Go to Courses</option>
+                                    <option value="goPage('contact')">Go to Contact</option>
+                                    <option value="goPage('blog')">Go to Blog</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Button 2 Text *</label>
+                                <input type="text" id="newBtn2Text" placeholder="Ví dụ: Xem Khóa Học" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Button 2 Action *</label>
+                                <select id="newBtn2Action" required>
+                                    <option value="">-- Chọn action --</option>
+                                    <option value="openRegister()">Open Register Modal</option>
+                                    <option value="openConsultation()">Open Consultation</option>
+                                    <option value="goPage('courses')">Go to Courses</option>
+                                    <option value="goPage('contact')">Go to Contact</option>
+                                    <option value="goPage('blog')">Go to Blog</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="submit" class="btn-primary">➕ Thêm Slide</button>
+                            <button type="reset" class="btn-warning">🔄 Xóa Form</button>
+                        </div>
+                    </form>
+
+                    <div class="note">
+                        💡 <strong>Hướng dẫn:</strong> Điền đầy đủ thông tin, sau đó click "Thêm Slide". Slide sẽ được lưu vào localStorage và hiển thị ngay trên trang chính.
+                    </div>
+                </div>
+
+                <!-- Tab 2: Edit Slide -->
+                <div id="tab-edit" class="tab-content">
+                    <div class="slide-counter">
+                        Tổng slides: <strong id="totalSlides">0</strong>
+                    </div>
+
+                    <div id="slidesList" class="slides-list"></div>
+
+                    <div id="editForm" style="display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--border);">
+                        <h3 style="margin-bottom: 1rem;">Chỉnh sửa Slide</h3>
+
+                        <div class="form-group">
+                            <label>Tiêu Đề Slide *</label>
+                            <input type="text" id="editTitle" placeholder="Tiêu đề" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Subtitle *</label>
+                            <textarea id="editSubtitle" placeholder="Subtitle" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>URL Ảnh Banner *</label>
+                            <input type="url" id="editImage" placeholder="https://..." required>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Button 1 Text *</label>
+                                <input type="text" id="editBtn1Text" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Button 1 Action *</label>
+                                <select id="editBtn1Action" required>
+                                    <option value="">-- Chọn action --</option>
+                                    <option value="openRegister()">Open Register Modal</option>
+                                    <option value="openConsultation()">Open Consultation</option>
+                                    <option value="goPage('courses')">Go to Courses</option>
+                                    <option value="goPage('contact')">Go to Contact</option>
+                                    <option value="goPage('blog')">Go to Blog</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Button 2 Text *</label>
+                                <input type="text" id="editBtn2Text" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Button 2 Action *</label>
+                                <select id="editBtn2Action" required>
+                                    <option value="">-- Chọn action --</option>
+                                    <option value="openRegister()">Open Register Modal</option>
+                                    <option value="openConsultation()">Open Consultation</option>
+                                    <option value="goPage('courses')">Go to Courses</option>
+                                    <option value="goPage('contact')">Go to Contact</option>
+                                    <option value="goPage('blog')">Go to Blog</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button onclick="saveSlide()" class="btn-success">💾 Lưu Thay Đổi</button>
+                            <button onclick="cancelEdit()" class="btn-warning">❌ Hủy</button>
+                            <button onclick="deleteSlide()" class="btn-danger">🗑️ Xóa Slide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Export/Import -->
+                <div id="tab-export" class="tab-content">
+                    <div class="note">
+                        📌 <strong>Backup & Restore:</strong> Xuất toàn bộ slides thành JSON để backup, hoặc nhập từ file JSON.
+                    </div>
+
+                    <div class="form-group">
+                        <label>📥 Xuất Slides (JSON)</label>
+                        <textarea id="exportData" style="height: 200px; font-family: monospace; font-size: 0.85rem;" readonly></textarea>
+                        <button onclick="exportSlides()" class="btn-primary" style="margin-top: 0.5rem;">📋 Copy to Clipboard</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>📤 Nhập Slides (JSON)</label>
+                        <textarea id="importData" style="height: 200px; font-family: monospace; font-size: 0.85rem;" placeholder="Dán JSON data ở đây"></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button onclick="importSlides()" class="btn-success">📥 Nhập Slides</button>
+                        <button onclick="resetAllSlides()" class="btn-danger">🔄 Reset Tất Cả</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Preview -->
+            <div>
+                <div class="panel">
+                    <h2>👁️ Preview Live</h2>
+
+                    <div id="previewContainer" class="preview" style="background: #ccc; color: #999; display: flex; align-items: center; justify-content: center;">
+                        <p>Chưa có slide nào. Hãy thêm slide mới ở bên trái.</p>
+                    </div>
+
+                    <div class="actions-bar">
+                        <button onclick="previewPrev()" class="btn-primary btn-small">◀️ Trước</button>
+                        <button onclick="previewNext()" class="btn-primary btn-small">Sau ▶️</button>
+                        <button onclick="autoPlayPreview()" class="btn-success btn-small" id="autoPlayBtn">▶️ Auto Play</button>
+                    </div>
+
+                    <div class="note">
+                        🔍 Preview hiển thị cách banner sẽ trông trên trang chính. Nhấn ◀️ ▶️ để chuyển slide.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let slides = JSON.parse(localStorage.getItem('bannerSlides')) || [
+            {
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&h=600&fit=crop",
+                title: "Hiểu Con Hơn",
+                subtitle: "Khám phá con bạn thực sự cần gì - Xây dựng tương lai sáng",
+                cta1: { text: "📅 Taster 99K", action: "openRegister()" },
+                cta2: { text: "Xem Khóa Học", action: "goPage('courses')" }
+            },
+            {
+                image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1400&h=600&fit=crop",
+                title: "Khóa Học 4.5M",
+                subtitle: "Transformation hoàn chỉnh cho gia đình bạn",
+                cta1: { text: "Tìm Hiểu Thêm", action: "openRegister()" },
+                cta2: { text: "Tư Vấn Miễn Phí", action: "openConsultation()" }
+            }
+        ];
+
+        let currentEditIndex = -1;
+        let previewIndex = 0;
+        let autoPlayTimer = null;
+        let isAutoPlaying = false;
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadSlides();
+            updatePreview();
+            updateExportData();
+        });
+
+        // Switch Tabs
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(`tab-${tab}`).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tab === 'edit') {
+                renderSlidesList();
+            } else if (tab === 'export') {
+                updateExportData();
+            }
+        }
+
+        // Add Slide
+        function addSlide(e) {
+            e.preventDefault();
+
+            const newSlide = {
+                image: document.getElementById('newImage').value,
+                title: document.getElementById('newTitle').value,
+                subtitle: document.getElementById('newSubtitle').value,
+                cta1: { 
+                    text: document.getElementById('newBtn1Text').value, 
+                    action: document.getElementById('newBtn1Action').value 
+                },
+                cta2: { 
+                    text: document.getElementById('newBtn2Text').value, 
+                    action: document.getElementById('newBtn2Action').value 
+                }
+            };
+
+            slides.push(newSlide);
+            saveToStorage();
+            showStatus('✅ Slide đã được thêm thành công!', 'success');
+            document.getElementById('formAddSlide').reset();
+            updatePreview();
+            updateExportData();
+        }
+
+        // Render Slides List
+        function renderSlidesList() {
+            const list = document.getElementById('slidesList');
+            list.innerHTML = slides.map((slide, index) => `
+                <div class="slide-item ${currentEditIndex === index ? 'active' : ''}" onclick="editSlide(${index})">
+                    <h3>${slide.title}</h3>
+                    <p>${slide.subtitle.substring(0, 50)}...</p>
+                    <small>Slide ${index + 1} / ${slides.length}</small>
+                </div>
+            `).join('');
+
+            document.getElementById('totalSlides').textContent = slides.length;
+        }
+
+        // Edit Slide
+        function editSlide(index) {
+            currentEditIndex = index;
+            const slide = slides[index];
+
+            document.getElementById('editTitle').value = slide.title;
+            document.getElementById('editSubtitle').value = slide.subtitle;
+            document.getElementById('editImage').value = slide.image;
+            document.getElementById('editBtn1Text').value = slide.cta1.text;
+            document.getElementById('editBtn1Action').value = slide.cta1.action;
+            document.getElementById('editBtn2Text').value = slide.cta2.text;
+            document.getElementById('editBtn2Action').value = slide.cta2.action;
+
+            document.getElementById('editForm').style.display = 'block';
+            renderSlidesList();
+            updatePreview();
+        }
+
+        // Save Slide
+        function saveSlide() {
+            const slide = {
+                image: document.getElementById('editImage').value,
+                title: document.getElementById('editTitle').value,
+                subtitle: document.getElementById('editSubtitle').value,
+                cta1: { 
+                    text: document.getElementById('editBtn1Text').value, 
+                    action: document.getElementById('editBtn1Action').value 
+                },
+                cta2: { 
+                    text: document.getElementById('editBtn2Text').value, 
+                    action: document.getElementById('editBtn2Action').value 
+                }
+            };
+
+            slides[currentEditIndex] = slide;
+            saveToStorage();
+            showStatus('✅ Slide đã được cập nhật!', 'success');
+            cancelEdit();
+        }
+
+        // Delete Slide
+        function deleteSlide() {
+            if (confirm('Bạn chắc chắn muốn xóa slide này?')) {
+                slides.splice(currentEditIndex, 1);
+                saveToStorage();
+                showStatus('✅ Slide đã được xóa!', 'success');
+                cancelEdit();
+                renderSlidesList();
+                updatePreview();
+                updateExportData();
+            }
+        }
+
+        // Cancel Edit
+        function cancelEdit() {
+            currentEditIndex = -1;
+            document.getElementById('editForm').style.display = 'none';
+            renderSlidesList();
+        }
+
+        // Preview
+        function updatePreview() {
+            if (slides.length === 0) {
+                document.getElementById('previewContainer').innerHTML = `
+                    <p>Chưa có slide nào. Hãy thêm slide mới ở bên trái.</p>
+                `;
+                return;
+            }
+
+            const slide = slides[previewIndex];
+            document.getElementById('previewContainer').innerHTML = `
+                <img src="${slide.image}" alt="" style="position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.35);"></div>
+                <div style="position: relative; z-index: 1; text-align: center;">
+                    <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">${slide.title}</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); max-width: 500px;">${slide.subtitle}</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <button class="preview-btn" onclick="alert('Action: ${slide.cta1.action}')">${slide.cta1.text}</button>
+                        <button class="preview-btn success" onclick="alert('Action: ${slide.cta2.action}')">${slide.cta2.text}</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function previewPrev() {
+            previewIndex = (previewIndex - 1 + slides.length) % slides.length;
+            updatePreview();
+        }
+
+        function previewNext() {
+            previewIndex = (previewIndex + 1) % slides.length;
+            updatePreview();
+        }
+
+        function autoPlayPreview() {
+            if (isAutoPlaying) {
+                clearInterval(autoPlayTimer);
+                isAutoPlaying = false;
+                document.getElementById('autoPlayBtn').textContent = '▶️ Auto Play';
+            } else {
+                isAutoPlaying = true;
+                document.getElementById('autoPlayBtn').textContent = '⏸️ Dừng';
+                autoPlayTimer = setInterval(() => {
+                    previewNext();
+                }, 5000);
+            }
+        }
+
+        // Storage
+        function saveToStorage() {
+            localStorage.setItem('bannerSlides', JSON.stringify(slides));
+        }
+
+        function loadSlides() {
+            const stored = localStorage.getItem('bannerSlides');
+            if (stored) {
+                slides = JSON.parse(stored);
+            }
+        }
+
+        // Export/Import
+        function updateExportData() {
+            document.getElementById('exportData').value = JSON.stringify(slides, null, 2);
+        }
+
+        function exportSlides() {
+            document.getElementById('exportData').select();
+            document.execCommand('copy');
+            showStatus('✅ Đã copy vào clipboard!', 'success');
+        }
+
+        function importSlides() {
+            try {
+                const data = document.getElementById('importData').value;
+                const imported = JSON.parse(data);
+                
+                if (Array.isArray(imported)) {
+                    slides = imported;
+                    saveToStorage();
+                    showStatus('✅ Slides đã được nhập thành công!', 'success');
+                    updatePreview();
+                    updateExportData();
+                } else {
+                    showStatus('❌ Dữ liệu không hợp lệ. Vui lòng kiểm tra lại JSON.', 'error');
+                }
+            } catch (e) {
+                showStatus('❌ Lỗi: ' + e.message, 'error');
+            }
+        }
+
+        function resetAllSlides() {
+            if (confirm('Bạn chắc chắn muốn reset TẤT CẢ slides? Hành động này không thể hoàn tác!')) {
+                slides = [
+                    {
+                        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&h=600&fit=crop",
+                        title: "Hiểu Con Hơn",
+                        subtitle: "Khám phá con bạn thực sự cần gì - Xây dựng tương lai sáng",
+                        cta1: { text: "📅 Taster 99K", action: "openRegister()" },
+                        cta2: { text: "Xem Khóa Học", action: "goPage('courses')" }
+                    }
+                ];
+                saveToStorage();
+                showStatus('✅ Đã reset về default!', 'success');
+                updatePreview();
+                updateExportData();
+            }
+        }
+
+        // Status Message
+        function showStatus(message, type = 'success') {
+            const el = document.getElementById('statusMessage');
+            el.textContent = message;
+            el.className = `status-message show ${type}`;
+            setTimeout(() => el.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
