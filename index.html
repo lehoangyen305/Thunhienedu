@@ -38,32 +38,145 @@
             background: var(--white);
         }
 
-        /* Livestream Banner - Đơn giản, chỉ Zalo + Facebook */
-        .livestream-banner {
-            background: linear-gradient(90deg, #dc2626, #f59e0b);
-            color: var(--white);
-            padding: 1rem 2rem;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.95rem;
-            animation: pulse 2s infinite;
+        /* ========== BANNER SLIDER ========== */
+        .banner-slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            background: #000;
         }
 
-        .livestream-banner a {
+        .banner-slider {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            align-items: stretch;
+        }
+
+        @media (max-width: 768px) {
+            .banner-slider {
+                height: 250px;
+            }
+        }
+
+        .banner-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .banner-slide.active {
+            opacity: 1;
+        }
+
+        .banner-slide-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .banner-slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             color: var(--white);
-            text-decoration: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .banner-slide-title {
+            font-size: 2.5rem;
             font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .banner-slide-subtitle {
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            opacity: 0.95;
+        }
+
+        @media (max-width: 768px) {
+            .banner-slide-title {
+                font-size: 1.5rem;
+            }
+            .banner-slide-subtitle {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Banner Controls */
+        .banner-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            z-index: 10;
+        }
+
+        .banner-nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--primary);
+        }
+
+        .banner-nav-btn:hover {
+            background: var(--white);
+            transform: scale(1.1);
+        }
+
+        .banner-indicators {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .banner-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
             transition: all 0.3s;
         }
 
-        .livestream-banner a:hover {
-            text-decoration: underline;
-            opacity: 0.8;
+        .banner-indicator.active {
+            background: var(--white);
+            transform: scale(1.3);
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.85; }
+        .banner-indicator:hover {
+            background: rgba(255, 255, 255, 0.8);
         }
 
         /* Header */
@@ -107,6 +220,14 @@
             border-radius: 8px;
             color: var(--white);
             font-size: 1.2rem;
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 4px;
         }
 
         nav {
@@ -161,7 +282,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Hero - Customizable Background */
+        /* Hero */
         .hero {
             background-image: linear-gradient(135deg, rgba(30, 64, 175, 0.85), rgba(6, 182, 212, 0.85)), 
                               url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop');
@@ -286,22 +407,34 @@
             color: var(--white);
             padding: 2rem;
             text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .card-icon {
             font-size: 3rem;
             margin-bottom: 0.5rem;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
         .card-title {
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-        }
-
-        .card-price {
-            font-size: 1.2rem;
-            opacity: 0.9;
         }
 
         .card-body {
@@ -649,29 +782,6 @@
             color: var(--primary-light);
         }
 
-        @media (max-width: 768px) {
-            nav {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .section-title {
-                font-size: 1.75rem;
-            }
-
-            .livestream-banner {
-                font-size: 0.85rem;
-            }
-        }
-
-        @keyframes slideInUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
         /* Blog Styling */
         .blog-grid {
             display: grid;
@@ -793,26 +903,56 @@
             gap: 1rem;
             flex-wrap: wrap;
         }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
 <body>
-    <!-- Livestream Banner - Đơn giản -->
-    <div class="livestream-banner">
-        🔴 LIVESTREAM HÀNG TUẦN: Thứ 2 & 4, từ 8:30 PM | 
-        <a href="https://zalo.me/0987654321" target="_blank">💬 Zalo</a> | 
-        <a href="https://facebook.com/thunhienbetterminds" target="_blank">📘 Facebook</a>
+    <!-- ========== BANNER SLIDER ========== -->
+    <div class="banner-slider-container">
+        <div class="banner-slider" id="bannerSlider">
+            <!-- Slides được thêm bằng JavaScript -->
+        </div>
+
+        <!-- Banner Controls -->
+        <div class="banner-controls">
+            <button class="banner-nav-btn" onclick="prevBannerSlide()">❮</button>
+            <div class="banner-indicators" id="bannerIndicators"></div>
+            <button class="banner-nav-btn" onclick="nextBannerSlide()">❯</button>
+        </div>
     </div>
 
     <!-- Header -->
     <header>
         <div class="header-content">
+            <!-- 🎯 LOGO PLACEHOLDER: Thay URL này sau khi upload lên GitHub -->
             <a href="#" class="logo" onclick="goPage('home')">
-                <div class="logo-icon">🔱</div>
+                <div class="logo-icon">
+                    <img src="https://PLACEHOLDER-LOGO-URL-HERE.png" alt="Logo" title="Thay URL này bằng GitHub link">
+                </div>
                 <div>
                     <div style="font-size: 0.9rem;">Thu Nhiên</div>
                     <div style="font-size: 0.65rem; color: var(--text-light); font-weight: 400;">Education</div>
                 </div>
             </a>
+            
             <nav>
                 <button onclick="goPage('home')">Trang Chủ</button>
                 <button onclick="goPage('courses')">Khóa Học</button>
@@ -829,9 +969,9 @@
         <div id="home" class="page active">
             <section class="hero">
                 <h1>Phát Triển Tâm Trí Con<br>Xây Dựng Tương Lai Sáng</h1>
-                <p class="subtitle">Thấu hiểu tâm lý tuổi dậy thì bằng ngôn ngữ NLP. Giúp cha mẹ kết nối lại với con chỉ sau 6 giờ trải nghiệm.</p>
+                <p class="subtitle">Giáo dục tâm lý - giúp con tự tin, vượt qua lo âu, phát triển bản thân</p>
                 <div class="hero-cta">
-                    <button class="btn" onclick="openRegister()">Đăng ký Trải nghiệm 6h (Chỉ 99k)</button>
+                    <button class="btn" onclick="openRegister()">Đăng Ký Ngay</button>
                     <button class="btn btn-secondary" onclick="goPage('courses')">Xem Khóa Học</button>
                     <button class="btn btn-consultation" onclick="openConsultation()">👋 Tư Vấn 1:1 Miễn Phí</button>
                 </div>
@@ -842,33 +982,42 @@
                 <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
                 
                 <div class="grid">
+                    <!-- 🎯 BENEFIT 1 PLACEHOLDER -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-icon">🧠</div>
-                            <div class="card-title">Phá băng giao tiếp</div>
+                            <div class="card-icon">
+                                <img src="https://PLACEHOLDER-BENEFIT1-URL-HERE.png" alt="Thay Đổi Niềm Tin" title="Thay URL này bằng GitHub link">
+                            </div>
+                            <div class="card-title">Thay Đổi Niềm Tin</div>
                         </div>
                         <div class="card-body">
-                            <p class="card-description">Không còn những bữa cơm im lặng hay những lần con đóng sầm cửa. Bạn sẽ biết cách đặt câu hỏi để con tự tìm đến tâm sự như một người bạn.</p>
+                            <p class="card-description">Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
                         </div>
                     </div>
 
+                    <!-- 🎯 BENEFIT 2 PLACEHOLDER -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-icon">💆</div>
-                            <div class="card-title">Hóa giải bướng bỉnh</div>
+                            <div class="card-icon">
+                                <img src="https://PLACEHOLDER-BENEFIT2-URL-HERE.png" alt="Giảm Lo Âu" title="Thay URL này bằng GitHub link">
+                            </div>
+                            <div class="card-title">Giảm Lo Âu</div>
                         </div>
                         <div class="card-body">
-                            <p class="card-description">Hiểu rõ cơ chế não bộ tuổi dậy thì. Thay thế sự la hét bằng kỹ thuật 'Thôi miên ngôn ngữ' giúp con tự giác và hợp tác.</p>
+                            <p class="card-description">Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
                         </div>
                     </div>
 
+                    <!-- 🎯 BENEFIT 3 PLACEHOLDER -->
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-icon">🧘</div>
-                            <div class="card-title">Định hướng tương lai</div>
+                            <div class="card-icon">
+                                <img src="https://PLACEHOLDER-BENEFIT3-URL-HERE.png" alt="Cắt Cơn Hoảng Loạn" title="Thay URL này bằng GitHub link">
+                            </div>
+                            <div class="card-title">Cắt Cơn Hoảng Loạn</div>
                         </div>
                         <div class="card-body">
-                            <p class="card-description">Dùng NLP khai phá thế mạnh tiềm ẩn. Giúp con tự tin, có mục tiêu học tập rõ ràng mà không cần cha mẹ thúc ép.</p>
+                            <p class="card-description">Cắt Cơn Hoảng Loạn Bằng Chánh Niệm - kỹ năng tự điều chỉnh cảm xúc</p>
                         </div>
                     </div>
                 </div>
@@ -885,7 +1034,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Hiểu Con Hơn</div>
-                            <div class="card-price">4.5M</div>
+                            <div style="font-size: 1.3rem; margin-top: 0.5rem;">4.5M</div>
                         </div>
                         <div class="card-body">
                             <p class="card-description">Khóa học toàn diện giúp bố mẹ hiểu sâu về tâm lý con, xây dựng mối quan hệ tốt hơn</p>
@@ -896,7 +1045,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Đồng Hành Tâm Trí Teen</div>
-                            <div class="card-price">2.5M/giờ</div>
+                            <div style="font-size: 1.3rem; margin-top: 0.5rem;">2.5M/giờ</div>
                         </div>
                         <div class="card-body">
                             <p class="card-description">Hỗ trợ con trong những thay đổi tâm lý tuổi teen, xây dựng tự tin</p>
@@ -907,7 +1056,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Khám Phá & Phát Triển Cá Nhân</div>
-                            <div class="card-price">Khóa Hè</div>
+                            <div style="font-size: 1.3rem; margin-top: 0.5rem;">Khóa Hè</div>
                         </div>
                         <div class="card-body">
                             <p class="card-description">Chương trình hè toàn diện: team building, phát triển tài năng, xây dựng tự tin</p>
@@ -935,30 +1084,8 @@
         <div id="privacy" class="page">
             <div class="legal-content">
                 <h1>Chính Sách Bảo Mật</h1>
-                
                 <h2>1. Thông Tin Chúng Tôi Thu Thập</h2>
                 <p>Thu Nhiên Education thu thập thông tin cá nhân của bạn bao gồm: tên, email, số điện thoại, thông tin con cái để cung cấp các khóa học và dịch vụ coaching tâm lý.</p>
-
-                <h2>2. Cách Chúng Tôi Sử Dụng Thông Tin</h2>
-                <p>Thông tin của bạn được sử dụng để:</p>
-                <ul>
-                    <li>Cung cấp các khóa học và dịch vụ tư vấn</li>
-                    <li>Gửi cập nhật về livestream hàng tuần</li>
-                    <li>Liên hệ hỗ trợ khách hàng</li>
-                    <li>Cải thiện dịch vụ của chúng tôi</li>
-                </ul>
-
-                <h2>3. Bảo Vệ Dữ Liệu</h2>
-                <p>Chúng tôi sử dụng các biện pháp bảo mật chuẩn để bảo vệ thông tin cá nhân của bạn khỏi truy cập trái phép.</p>
-
-                <h2>4. Chia Sẻ Thông Tin</h2>
-                <p>Chúng tôi không bao giờ chia sẻ thông tin cá nhân của bạn với bên thứ ba mà không có sự đồng ý của bạn, ngoại trừ các trường hợp yêu cầu bởi luật pháp.</p>
-
-                <h2>5. Cookie & Tracking</h2>
-                <p>Website này không sử dụng cookie theo dõi. Chúng tôi chỉ sử dụng dữ liệu cần thiết để vận hành website.</p>
-
-                <h2>6. Quyền Của Bạn</h2>
-                <p>Bạn có quyền truy cập, chỉnh sửa hoặc xóa thông tin cá nhân của mình. Vui lòng liên hệ dangky@thunhienedu.vn để yêu cầu.</p>
             </div>
         </div>
 
@@ -966,63 +1093,16 @@
         <div id="terms" class="page">
             <div class="legal-content">
                 <h1>Điều Khoản Sử Dụng</h1>
-                
                 <h2>1. Chấp Nhận Điều Khoản</h2>
                 <p>Bằng cách sử dụng website này, bạn đồng ý tuân thủ toàn bộ điều khoản sử dụng dưới đây.</p>
-
-                <h2>2. Giấy Phép Sử Dụng</h2>
-                <p>Thu Nhiên Education cấp cho bạn giấy phép hạn chế, không độc quyền để truy cập và sử dụng website này cho mục đích cá nhân.</p>
-
-                <h2>3. Cấm Dùng</h2>
-                <p>Bạn không được phép:</p>
-                <ul>
-                    <li>Sao chép hoặc phân phối bất kỳ nội dung nào mà không có phép</li>
-                    <li>Cố gắng hack hoặc tấn công website</li>
-                    <li>Gửi nội dung gây hại hoặc xúc phạm</li>
-                    <li>Sử dụng website cho mục đích thương mại mà không được phép</li>
-                </ul>
-
-                <h2>4. Giới Hạn Trách Nhiệm</h2>
-                <p>Thu Nhiên Education cung cấp dịch vụ "nguyên trạng" mà không có bất kỳ bảo đảm nào.</p>
-
-                <h2>5. Thay Đổi Điều Khoản</h2>
-                <p>Chúng tôi có quyền thay đổi điều khoản này bất cứ lúc nào. Các thay đổi sẽ có hiệu lực khi được đăng trên website.</p>
-
-                <h2>6. Liên Hệ</h2>
-                <p>Nếu bạn có câu hỏi về điều khoản này, vui lòng liên hệ dangky@thunhienedu.vn</p>
             </div>
         </div>
 
-        <!-- Disclaimer Page -->
-        <div id="disclaimer" class="page">
-            <div class="legal-content">
-                <h1>Tuyên Bố Miễn Trừ Trách Nhiệm</h1>
-                
-                <h2>1. Tính Chất Giáo Dục</h2>
-                <p>Các khóa học và dịch vụ coaching từ Thu Nhiên Education có tính chất giáo dục và không thay thế cho tư vấn chuyên ngành y tế hoặc tâm lý học từ các chuyên gia y tế được cấp phép.</p>
-
-                <h2>2. Không Là Tư Vấn Y Tế</h2>
-                <p>Nội dung trên website không được dự định làm cơ sở cho chẩn đoán, điều trị hoặc phòng ngừa bất kỳ bệnh tật nào. Nếu bạn hoặc con của bạn đang trải qua vấn đề tâm lý hoặc y tế nghiêm trọng, vui lòng tham khảo ý kiến của bác sĩ hoặc chuyên gia tâm lý.</p>
-
-                <h2>3. Kết Quả Không Được Đảm Bảo</h2>
-                <p>Mỗi cá nhân phản ứng khác nhau với các kỹ năng và phương pháp được giảng dạy. Thu Nhiên Education không đảm bảo kết quả cụ thể hoặc lợi ích từ các khóa học của chúng tôi.</p>
-
-                <h2>4. Trách Nhiệm Của Bạn</h2>
-                <p>Bạn chịu trách nhiệm quyết định xem liệu các dịch vụ của chúng tôi có phù hợp cho bạn và con cái của bạn. Vui lòng tham khảo ý kiến chuyên gia y tế trước khi áp dụng bất kỳ hướng dẫn nào.</p>
-
-                <h2>5. Không Chịu Trách Nhiệm Cho Hành Động Của Bên Thứ Ba</h2>
-                <p>Thu Nhiên Education không chịu trách nhiệm cho bất kỳ hành động hoặc bài viết của bên thứ ba trên website này hoặc các nền tảng xã hội liên kết.</p>
-
-                <h2>6. Thay Đổi Nội Dung</h2>
-                <p>Chúng tôi bảo lưu quyền thay đổi bất kỳ nội dung nào bất cứ lúc nào mà không cần thông báo trước.</p>
-            </div>
-        </div>
         <!-- Blog Page -->
         <div id="blog" class="page">
             <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;">
                 <h2 class="section-title">Blog - Chia Sẻ Kiến Thức</h2>
                 <p class="section-subtitle">Các bài viết về tâm lý, giáo dục và phát triển cá nhân</p>
-                
                 <div id="blogGrid" class="blog-grid"></div>
                 <div id="noBlogMsg" style="text-align: center; color: var(--text-light); padding: 3rem; display: none;">
                     Chưa có bài viết nào. Hãy quay lại sau!
@@ -1033,7 +1113,7 @@
         <!-- Blog Post Detail Page -->
         <div id="blog-post" class="page">
             <div style="max-width: 800px; margin: 0 auto; padding: 3rem 2rem;">
-                <button class="btn" onclick="goPage('blog')" style="margin-bottom: 2rem; background: var(--primary); color: var(--white); padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">← Quay lại Blog</button>
+                <button class="btn" onclick="goPage('blog')" style="margin-bottom: 2rem;">← Quay lại Blog</button>
                 <article id="postContent"></article>
             </div>
         </div>
@@ -1046,25 +1126,20 @@
                 <h2>Đăng Ký Khóa Học</h2>
                 <button class="modal-close" onclick="closeModal()">&times;</button>
             </div>
-            
             <div id="successMsg" class="success-msg"></div>
-            
             <form id="registerForm" onsubmit="submitRegister(event)">
                 <div class="form-group">
                     <label>Tên của bạn *</label>
                     <input type="text" id="name" required placeholder="Nguyễn Văn A">
                 </div>
-
                 <div class="form-group">
                     <label>Email *</label>
                     <input type="email" id="email" required placeholder="abc@example.com">
                 </div>
-
                 <div class="form-group">
                     <label>Số Điện Thoại *</label>
                     <input type="tel" id="phone" required placeholder="0912345678">
                 </div>
-
                 <div class="form-group">
                     <label>Khóa Học Quan Tâm *</label>
                     <select id="course" required>
@@ -1074,33 +1149,28 @@
                         <option value="Khám Phá & Phát Triển Cá Nhân - Khóa Hè">Khám Phá & Phát Triển Cá Nhân - Khóa Hè</option>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label>Lời Nhắn</label>
                     <textarea id="message" placeholder="Câu hỏi hoặc yêu cầu..."></textarea>
                 </div>
-
                 <button type="submit" class="form-submit">Đăng Ký</button>
             </form>
         </div>
     </div>
 
-    <!-- Consultation Modal with Calendar -->
+    <!-- Consultation Modal -->
     <div class="modal" id="consultationModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>👋 Tư Vấn 1:1 Miễn Phí</h2>
                 <button class="modal-close" onclick="closeConsultation()">&times;</button>
             </div>
-            
             <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
                 <p><strong>📅 Lịch:</strong> Thứ 2 & Thứ 4 hàng tuần</p>
                 <p><strong>🕖 Giờ:</strong> 7:30 PM - 8:30 PM</p>
                 <p><strong>💬 Hình thức:</strong> Zoom Video Call</p>
                 <p><strong>💰 Giá:</strong> <span style="color: var(--success); font-weight: bold;">MIỄN PHÍ</span></p>
             </div>
-
-            <!-- Calendar -->
             <div class="calendar-container">
                 <div class="calendar-header">
                     <div class="calendar-month" id="calendarMonth">Tháng 4, 2025</div>
@@ -1109,7 +1179,6 @@
                         <button onclick="nextMonth()">Sau →</button>
                     </div>
                 </div>
-
                 <div class="weekdays">
                     <div class="weekday">T2</div>
                     <div class="weekday">T3</div>
@@ -1119,38 +1188,29 @@
                     <div class="weekday">T7</div>
                     <div class="weekday">CN</div>
                 </div>
-
                 <div class="calendar-grid" id="calendarGrid"></div>
             </div>
-
-            <!-- Time Slots -->
             <div class="slots-container" id="slotsContainer" style="display: none;">
                 <div class="slots-title" id="slotsTitle">Chọn giờ</div>
                 <div class="slots-grid" id="slotsGrid"></div>
             </div>
-
-            <!-- Form -->
             <form id="consultationForm" onsubmit="submitConsultation(event)" style="display: none;">
                 <div class="form-group">
                     <label>Tên của bạn *</label>
                     <input type="text" id="cons-name" required placeholder="Nguyễn Văn A">
                 </div>
-
                 <div class="form-group">
                     <label>Email *</label>
                     <input type="email" id="cons-email" required placeholder="abc@example.com">
                 </div>
-
                 <div class="form-group">
                     <label>Số Điện Thoại *</label>
                     <input type="tel" id="cons-phone" required placeholder="0912345678">
                 </div>
-
                 <div class="form-group">
                     <label>Vấn Đề Cần Tư Vấn *</label>
                     <textarea id="cons-issue" required placeholder="Mô tả vấn đề..."></textarea>
                 </div>
-
                 <button type="submit" class="form-submit">Xác Nhận Đặt Lịch</button>
             </form>
         </div>
@@ -1165,20 +1225,114 @@
             <a onclick="goPage('contact')">Liên Hệ</a>
             <a onclick="goPage('privacy')">Bảo Mật</a>
             <a onclick="goPage('terms')">Điều Khoản</a>
-            <a onclick="goPage('disclaimer')">Miễn Trừ</a>
-            <a href="admin-dashboard.html" style="font-size: 0.8rem;">🔐 Admin</a>
         </div>
         <p>&copy; 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</p>
     </footer>
 
     <script>
-        // State
+        // ========== BANNER SLIDER CONFIG ==========
+        // 🎯 CHỈNH SỬA ĐÂY ĐỂ THÊMSLD BANNER SLIDES
+        const bannerSlides = [
+            {
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=400&fit=crop",
+                title: "Hiểu Con Hơn",
+                subtitle: "Khám phá con bạn thực sự cần gì"
+            },
+            {
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=400&fit=crop",
+                title: "Khóa 4.5M",
+                subtitle: "Transformation hoàn chỉnh cho gia đình bạn"
+            },
+            {
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=400&fit=crop",
+                title: "Đồng Hành Teen",
+                subtitle: "Hỗ trợ liên tục cho tuổi teen"
+            },
+            {
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=400&fit=crop",
+                title: "Tư Vấn Miễn Phí",
+                subtitle: "Đặt lịch với Coach hôm nay"
+            }
+        ];
+
+        let currentBannerIndex = 0;
+        let bannerAutoPlay;
+
+        function initBannerSlider() {
+            const bannerSlider = document.getElementById('bannerSlider');
+            const indicatorsContainer = document.getElementById('bannerIndicators');
+
+            // Tạo slides
+            bannerSlides.forEach((slide, index) => {
+                const slideElement = document.createElement('div');
+                slideElement.className = `banner-slide ${index === 0 ? 'active' : ''}`;
+                slideElement.innerHTML = `
+                    <img src="${slide.image}" alt="${slide.title}" class="banner-slide-image">
+                    <div class="banner-slide-overlay">
+                        <h2 class="banner-slide-title">${slide.title}</h2>
+                        <p class="banner-slide-subtitle">${slide.subtitle}</p>
+                    </div>
+                `;
+                bannerSlider.appendChild(slideElement);
+            });
+
+            // Tạo indicators
+            bannerSlides.forEach((_, index) => {
+                const indicator = document.createElement('button');
+                indicator.className = `banner-indicator ${index === 0 ? 'active' : ''}`;
+                indicator.onclick = () => goToBannerSlide(index);
+                indicatorsContainer.appendChild(indicator);
+            });
+
+            startBannerAutoPlay();
+        }
+
+        function showBannerSlide(index) {
+            const slides = document.querySelectorAll('.banner-slide');
+            const indicators = document.querySelectorAll('.banner-indicator');
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(ind => ind.classList.remove('active'));
+
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+            currentBannerIndex = index;
+        }
+
+        function nextBannerSlide() {
+            const nextIndex = (currentBannerIndex + 1) % bannerSlides.length;
+            showBannerSlide(nextIndex);
+            resetBannerAutoPlay();
+        }
+
+        function prevBannerSlide() {
+            const prevIndex = (currentBannerIndex - 1 + bannerSlides.length) % bannerSlides.length;
+            showBannerSlide(prevIndex);
+            resetBannerAutoPlay();
+        }
+
+        function goToBannerSlide(index) {
+            showBannerSlide(index);
+            resetBannerAutoPlay();
+        }
+
+        function startBannerAutoPlay() {
+            bannerAutoPlay = setInterval(() => {
+                nextBannerSlide();
+            }, 5000); // Mỗi 5 giây
+        }
+
+        function resetBannerAutoPlay() {
+            clearInterval(bannerAutoPlay);
+            startBannerAutoPlay();
+        }
+
+        // ========== PAGE NAVIGATION ==========
         let currentDate = new Date(2025, 3, 1);
         let selectedDate = null;
         let selectedSlot = null;
         const availableSlots = ['19:30 - 20:00', '20:00 - 20:30'];
 
-        // Page Navigation
         function goPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const targetPage = document.getElementById(page);
@@ -1188,36 +1342,27 @@
             }
         }
 
-        // Calendar
         function renderCalendar() {
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
-            
             document.getElementById('calendarMonth').textContent = `Tháng ${month + 1}, ${year}`;
-
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
-            
             let html = '';
             for (let i = 0; i < (firstDay || 7) - 1; i++) {
                 html += '<div class="calendar-day disabled"></div>';
             }
-            
             for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(year, month, day);
                 const dayOfWeek = date.getDay();
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                
-                const isAvailable = dayOfWeek === 2 || dayOfWeek === 4; // Thứ 3 (2) & Thứ 5 (4)
+                const isAvailable = dayOfWeek === 2 || dayOfWeek === 4;
                 const isSelected = selectedDate === dateStr;
-                
                 let className = 'calendar-day';
                 if (!isAvailable) className += ' disabled';
                 if (isSelected) className += ' selected';
-                
                 html += `<div class="${className}" onclick="selectDate('${dateStr}')" ${!isAvailable ? 'style="cursor:not-allowed"' : ''}>${day}</div>`;
             }
-            
             document.getElementById('calendarGrid').innerHTML = html;
         }
 
@@ -1234,18 +1379,13 @@
         function selectDate(dateStr) {
             const date = new Date(dateStr);
             const dayOfWeek = date.getDay();
-            
             if (dayOfWeek !== 2 && dayOfWeek !== 4) return;
-            
             selectedDate = dateStr;
             selectedSlot = null;
-            
             document.getElementById('slotsContainer').style.display = 'block';
             document.getElementById('consultationForm').style.display = 'none';
-            
             const dayName = dayOfWeek === 2 ? 'Thứ 3' : 'Thứ 5';
             document.getElementById('slotsTitle').textContent = `Chọn giờ - ${dayName} (${dateStr})`;
-            
             let slotsHtml = '';
             availableSlots.forEach(slot => {
                 slotsHtml += `<button type="button" class="slot-btn ${selectedSlot === slot ? 'selected' : ''}" onclick="selectSlot('${slot}')">${slot}</button>`;
@@ -1261,7 +1401,6 @@
             document.getElementById('consultationForm').style.display = 'block';
         }
 
-        // Modals
         function openRegister() {
             document.getElementById('registerModal').classList.add('active');
         }
@@ -1283,10 +1422,8 @@
             document.getElementById('consultationForm').reset();
         }
 
-        // Forms
         function submitRegister(e) {
             e.preventDefault();
-
             const lead = {
                 id: Date.now(),
                 name: document.getElementById('name').value,
@@ -1297,9 +1434,7 @@
                 createdDate: new Date().toLocaleDateString('vi-VN'),
                 status: 'chưa liên hệ'
             };
-
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXfueXIUdEuK3iU08vWz97aCaJWqFZkoHE61hBkP_rmOg4Llh65YBsHR0Py9Xejfj5/exec';
-            
             fetch(scriptUrl, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -1308,7 +1443,6 @@
                 document.getElementById('successMsg').textContent = '✅ Đăng ký thành công!';
                 document.getElementById('successMsg').classList.add('show');
                 document.getElementById('registerForm').style.display = 'none';
-                
                 setTimeout(() => {
                     closeModal();
                     document.getElementById('registerForm').style.display = 'block';
@@ -1318,7 +1452,6 @@
 
         function submitConsultation(e) {
             e.preventDefault();
-
             const consultation = {
                 id: Date.now(),
                 name: document.getElementById('cons-name').value,
@@ -1331,9 +1464,7 @@
                 createdDate: new Date().toLocaleDateString('vi-VN'),
                 status: 'chờ xác nhận'
             };
-
             const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXfueXIUdEuK3iU08vWz97aCaJWqFZkoHE61hBkP_rmOg4Llh65YBsHR0Py9Xejfj5/exec';
-            
             fetch(scriptUrl, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -1344,7 +1475,6 @@
             });
         }
 
-        // Close on outside click
         document.getElementById('registerModal').addEventListener('click', (e) => {
             if (e.target.id === 'registerModal') closeModal();
         });
@@ -1353,7 +1483,6 @@
             if (e.target.id === 'consultationModal') closeConsultation();
         });
 
-        // Close on Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeModal();
@@ -1361,22 +1490,17 @@
             }
         });
 
-        // ============ BLOG FUNCTIONS ============
-
         function renderBlogPosts() {
             const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
             const grid = document.getElementById('blogGrid');
             const noMsg = document.getElementById('noBlogMsg');
-            
             if (blogPosts.length === 0) {
                 grid.style.display = 'none';
                 noMsg.style.display = 'block';
                 return;
             }
-
             grid.style.display = 'grid';
             noMsg.style.display = 'none';
-            
             grid.innerHTML = blogPosts.map(post => `
                 <article class="blog-card" onclick="viewBlogPost(${post.id})">
                     <div class="blog-image">
@@ -1394,14 +1518,11 @@
         function viewBlogPost(postId) {
             const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
             const post = blogPosts.find(p => p.id === postId);
-            
             if (!post) return;
-
             let imageHtml = '';
             if (post.imageUrl) {
                 imageHtml = `<img src="${post.imageUrl}" alt="${post.title}" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 2rem;">`;
             }
-
             document.getElementById('postContent').innerHTML = `
                 ${imageHtml}
                 <h1>${post.icon} ${post.title}</h1>
@@ -1413,12 +1534,12 @@
                     ${post.content}
                 </div>
             `;
-            
             goPage('blog-post');
         }
 
-        // Initialize on page load
+        // Initialize
         window.addEventListener('load', () => {
+            initBannerSlider();
             renderBlogPosts();
         });
     </script>
