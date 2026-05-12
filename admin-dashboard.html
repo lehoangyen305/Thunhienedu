@@ -32,7 +32,7 @@
             color: var(--text-dark);
         }
 
-        /* ============ LOGIN SCREEN ============ */
+        /* ============ LOGIN ============ */
         .login-screen {
             position: fixed;
             top: 0;
@@ -119,12 +119,11 @@
 
         /* ============ MAIN ============ */
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
 
-        /* Header */
         header {
             background: var(--primary);
             color: var(--white);
@@ -166,7 +165,6 @@
             background: rgba(255,255,255,0.3);
         }
 
-        /* Tabs Navigation */
         .tabs-nav {
             display: flex;
             gap: 0.5rem;
@@ -198,7 +196,6 @@
             border-bottom-color: var(--primary);
         }
 
-        /* Tab Content */
         .tab-content {
             display: none;
             animation: fadeIn 0.3s ease-out;
@@ -213,28 +210,12 @@
             to { opacity: 1; }
         }
 
-        /* Layout */
-        .layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        @media (max-width: 1200px) {
-            .layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Panel */
         .panel {
             background: var(--white);
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            overflow-y: auto;
-            max-height: calc(100vh - 250px);
+            margin-bottom: 2rem;
         }
 
         .panel h2 {
@@ -247,11 +228,10 @@
 
         .panel h3 {
             font-size: 1rem;
-            margin: 1rem 0 0.75rem 0;
+            margin: 1.5rem 0 0.75rem 0;
             color: var(--text-dark);
         }
 
-        /* Form */
         .form-group {
             margin-bottom: 1rem;
         }
@@ -281,30 +261,10 @@
 
         textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 120px;
+            font-family: 'Courier New', monospace;
         }
 
-        /* Image Preview */
-        .image-preview {
-            width: 100%;
-            height: 150px;
-            border: 2px dashed var(--border);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin-bottom: 1rem;
-            background: var(--bg-light);
-        }
-
-        .image-preview img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-        }
-
-        /* Buttons */
         button {
             padding: 0.6rem 1.2rem;
             border: none;
@@ -356,55 +316,6 @@
             font-size: 0.8rem;
         }
 
-        /* List Items */
-        .list-item {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .list-item-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 6px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .list-item-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .list-item-content {
-            flex-grow: 1;
-        }
-
-        .list-item-title {
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .list-item-meta {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-top: 0.3rem;
-        }
-
-        .list-item-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        /* Message */
         .message {
             padding: 1rem;
             border-radius: 6px;
@@ -428,7 +339,38 @@
             border: 1px solid #fca5a5;
         }
 
-        /* Table */
+        .list-item {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .list-item-content {
+            flex-grow: 1;
+        }
+
+        .list-item-title {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .list-item-meta {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+        }
+
+        .list-item-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
         .table {
             width: 100%;
             border-collapse: collapse;
@@ -473,10 +415,19 @@
             color: var(--text-light);
             margin-top: 0.5rem;
         }
+
+        .html-hint {
+            background: #fef3c7;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #92400e;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
-    <!-- ============ LOGIN SCREEN ============ -->
+    <!-- LOGIN -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
             <h1>🎨 Thu Nhiên Admin</h1>
@@ -487,13 +438,12 @@
         </div>
     </div>
 
-    <!-- ============ MAIN ADMIN ============ -->
+    <!-- MAIN ADMIN -->
     <div class="container" id="adminContainer" style="display: none;">
-        <!-- Header -->
         <header>
             <div>
-                <h1>🎨 Thu Nhiên Admin - Quản Lý Toàn Bộ</h1>
-                <div class="header-info">Slides • Blog • Khóa Học • Khách Hàng</div>
+                <h1>🎨 Thu Nhiên Admin</h1>
+                <div class="header-info">Quản Lý Toàn Bộ Hệ Thống</div>
             </div>
             <div class="header-right">
                 <div class="header-info">
@@ -503,181 +453,149 @@
             </div>
         </header>
 
-        <!-- Tabs Navigation -->
+        <!-- TABS -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('slides')">🎬 Banner Slides</button>
-            <button class="tab-btn" onclick="switchTab('blog')">📝 Blog Posts</button>
+            <button class="tab-btn active" onclick="switchTab('slides')">🎬 Slides</button>
+            <button class="tab-btn" onclick="switchTab('blog')">📝 Blog</button>
             <button class="tab-btn" onclick="switchTab('products')">🛍️ Khóa Học</button>
-            <button class="tab-btn" onclick="switchTab('customers')">👥 Khách Hàng & Email</button>
+            <button class="tab-btn" onclick="switchTab('customers')">👥 Khách Hàng</button>
         </div>
 
-        <!-- ============ TAB 1: SLIDES ============ -->
+        <!-- TAB 1: SLIDES -->
         <div id="slides" class="tab-content active">
-            <div class="layout">
-                <div class="panel">
-                    <h2>➕ Thêm Slide</h2>
-                    <div id="slideMessage" class="message"></div>
-                    <div class="form-group">
-                        <label>Tiêu Đề *</label>
-                        <input type="text" id="slideTitle" placeholder="Hiểu Con Hơn">
-                    </div>
-                    <div class="form-group">
-                        <label>Subtitle *</label>
-                        <input type="text" id="slideSubtitle" placeholder="Khám phá con bạn thực sự cần gì">
-                    </div>
-                    <div class="form-group">
-                        <label>URL Ảnh Banner (1400×600px) *</label>
-                        <input type="text" id="slideImage" placeholder="https://...">
-                    </div>
-                    <div class="form-group">
-                        <label>Button 1 Text *</label>
-                        <input type="text" id="btn1Text" placeholder="📅 Taster 99K">
-                    </div>
-                    <div class="form-group">
-                        <label>Button 1 Action *</label>
-                        <select id="btn1Action">
-                            <option value="openRegister()">Đăng Ký</option>
-                            <option value="openConsultation()">Tư Vấn</option>
-                            <option value="goPage('courses')">Khóa Học</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Button 2 Text *</label>
-                        <input type="text" id="btn2Text" placeholder="Xem Khóa Học">
-                    </div>
-                    <div class="form-group">
-                        <label>Button 2 Action *</label>
-                        <select id="btn2Action">
-                            <option value="openRegister()">Đăng Ký</option>
-                            <option value="openConsultation()">Tư Vấn</option>
-                            <option value="goPage('courses')">Khóa Học</option>
-                        </select>
-                    </div>
-                    <button class="btn-primary" onclick="addSlide()" style="width: 100%;">➕ Thêm Slide</button>
-                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
-                    <h3>Danh Sách Slides</h3>
-                    <div id="slidesList"></div>
+            <div class="panel">
+                <h2>🎬 Quản Lý Banner Slides</h2>
+                <div id="slideMessage" class="message"></div>
+
+                <h3>➕ Thêm Slide Mới</h3>
+                <div class="form-group">
+                    <label>Tiêu Đề *</label>
+                    <input type="text" id="slideTitle" placeholder="Hiểu Con Hơn">
                 </div>
-                <div class="panel">
-                    <h2>👁️ Preview</h2>
-                    <div id="previewContainer" style="background: #ccc; color: #999; height: 300px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">Thêm slide để preview</div>
-                    <div style="text-align: center; margin-top: 1rem;">
-                        <button class="btn-primary btn-small" onclick="previewPrev()">◀️ Trước</button>
-                        <button class="btn-primary btn-small" onclick="previewNext()">Sau ▶️</button>
-                    </div>
+                <div class="form-group">
+                    <label>Subtitle *</label>
+                    <input type="text" id="slideSubtitle">
                 </div>
+                <div class="form-group">
+                    <label>URL Ảnh (1400×600px) *</label>
+                    <input type="text" id="slideImage" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Button 1 Text *</label>
+                    <input type="text" id="btn1Text">
+                </div>
+                <div class="form-group">
+                    <label>Button 1 Action *</label>
+                    <select id="btn1Action">
+                        <option value="openRegister()">Đăng Ký</option>
+                        <option value="openConsultation()">Tư Vấn</option>
+                        <option value="goPage('courses')">Khóa Học</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Button 2 Text *</label>
+                    <input type="text" id="btn2Text">
+                </div>
+                <div class="form-group">
+                    <label>Button 2 Action *</label>
+                    <select id="btn2Action">
+                        <option value="openRegister()">Đăng Ký</option>
+                        <option value="openConsultation()">Tư Vấn</option>
+                        <option value="goPage('courses')">Khóa Học</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="addSlide()" style="width: 100%;">➕ Thêm Slide</button>
+
+                <h3>📋 Danh Sách Slides</h3>
+                <div id="slidesList"></div>
             </div>
         </div>
 
-        <!-- ============ TAB 2: BLOG ============ -->
+        <!-- TAB 2: BLOG -->
         <div id="blog" class="tab-content">
-            <div class="layout">
-                <div class="panel">
-                    <h2>✍️ Thêm Bài Viết</h2>
-                    <div id="blogMessage" class="message"></div>
+            <div class="panel">
+                <h2>📝 Quản Lý Blog Posts</h2>
+                <div id="blogMessage" class="message"></div>
 
-                    <div class="form-group">
-                        <label>Tiêu Đề *</label>
-                        <input type="text" id="blogTitle" placeholder="Cách giúp con vượt qua lo âu">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Tóm Tắt *</label>
-                        <textarea id="blogExcerpt" placeholder="Viết vài dòng giới thiệu..."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Từ Khóa *</label>
-                        <input type="text" id="blogKeyword" placeholder="Tâm lý con, lo âu">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Nội Dung *</label>
-                        <textarea id="blogContent" placeholder="Nội dung đầy đủ..." style="min-height: 120px;"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Ảnh Đại Diện (300×200px)</label>
-                        <input type="file" id="blogImageInput" accept="image/*" onchange="previewBlogImage()">
-                        <div class="image-preview" id="blogImagePreview">
-                            <span style="color: var(--text-light);">Upload ảnh</span>
-                        </div>
-                    </div>
-
-                    <button class="btn-primary" onclick="addBlogPost()" style="width: 100%;">✍️ Thêm Bài Viết</button>
-
-                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
-
-                    <h3>Danh Sách Bài Viết</h3>
-                    <div id="blogList"></div>
+                <h3>✍️ Thêm Bài Viết</h3>
+                
+                <div class="form-group">
+                    <label>Tiêu Đề *</label>
+                    <input type="text" id="blogTitle" placeholder="Tiêu đề bài viết">
                 </div>
 
-                <div class="panel">
-                    <h2>👁️ Preview</h2>
-                    <div id="blogPreview" style="max-height: 600px; overflow-y: auto;">
-                        <p style="text-align: center; color: var(--text-light); padding: 2rem;">Thêm bài viết để preview</p>
-                    </div>
+                <div class="form-group">
+                    <label>Tóm Tắt (Excerpt) *</label>
+                    <textarea id="blogExcerpt" placeholder="Viết vài dòng tóm tắt..."></textarea>
                 </div>
+
+                <div class="form-group">
+                    <label>Từ Khóa *</label>
+                    <input type="text" id="blogKeyword" placeholder="Tâm lý con, lo âu">
+                </div>
+
+                <div class="form-group">
+                    <label>Nội Dung Bài Viết (HTML) *</label>
+                    <div class="html-hint">
+                        💡 Bạn có thể dùng HTML: &lt;p&gt;, &lt;strong&gt;, &lt;br&gt;, &lt;h2&gt;, etc.
+                        <br>Hoặc paste từ Google Docs → Export as HTML
+                    </div>
+                    <textarea id="blogContent" placeholder="&lt;p&gt;Nội dung bài viết...&lt;/p&gt;" style="min-height: 180px;"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Ảnh Đại Diện (URL hoặc upload)</label>
+                    <input type="file" id="blogImageInput" accept="image/*" onchange="previewBlogImage()">
+                    <div id="blogImagePreview" style="margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-light); border-radius: 6px; text-align: center; color: var(--text-light);">Không có ảnh</div>
+                </div>
+
+                <button class="btn-primary" onclick="addBlogPost()" style="width: 100%;">✍️ Thêm Bài Viết</button>
+
+                <h3>📋 Danh Sách Bài Viết</h3>
+                <div id="blogList"></div>
             </div>
         </div>
 
-        <!-- ============ TAB 3: PRODUCTS ============ -->
+        <!-- TAB 3: PRODUCTS -->
         <div id="products" class="tab-content">
-            <div class="layout">
-                <div class="panel">
-                    <h2>🛍️ Thêm Khóa Học</h2>
-                    <div id="productMessage" class="message"></div>
+            <div class="panel">
+                <h2>🛍️ Quản Lý Khóa Học</h2>
+                <div id="productMessage" class="message"></div>
 
-                    <div class="form-group">
-                        <label>Tên Khóa Học *</label>
-                        <input type="text" id="productName" placeholder="Hiểu Con Hơn - Full Course">
-                    </div>
+                <h3>➕ Thêm Khóa Học</h3>
 
-                    <div class="form-group">
-                        <label>Giá (VND) *</label>
-                        <input type="number" id="productPrice" placeholder="4500000" min="0">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Mô Tả *</label>
-                        <textarea id="productDesc" placeholder="Mô tả khóa học..."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Ảnh Khóa Học (300×200px)</label>
-                        <input type="file" id="productImageInput" accept="image/*" onchange="previewProductImage()">
-                        <div class="image-preview" id="productImagePreview">
-                            <span style="color: var(--text-light);">Upload ảnh</span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Action Button Text</label>
-                        <input type="text" id="productBtnText" placeholder="Tìm Hiểu Thêm" value="Tìm Hiểu Thêm">
-                    </div>
-
-                    <button class="btn-primary" onclick="addProduct()" style="width: 100%;">➕ Thêm Khóa Học</button>
-
-                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
-
-                    <h3>Danh Sách Khóa Học</h3>
-                    <div id="productList"></div>
+                <div class="form-group">
+                    <label>Tên Khóa Học *</label>
+                    <input type="text" id="productName" placeholder="Hiểu Con Hơn - Full Course">
                 </div>
 
-                <div class="panel">
-                    <h2>👁️ Preview</h2>
-                    <div id="productPreview" style="max-height: 600px; overflow-y: auto;">
-                        <p style="text-align: center; color: var(--text-light); padding: 2rem;">Thêm khóa học để preview</p>
-                    </div>
+                <div class="form-group">
+                    <label>Giá (VND) *</label>
+                    <input type="number" id="productPrice" placeholder="4500000" min="0">
                 </div>
+
+                <div class="form-group">
+                    <label>Mô Tả *</label>
+                    <textarea id="productDesc" placeholder="Mô tả khóa học..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Ảnh Khóa Học (300×200px)</label>
+                    <input type="file" id="productImageInput" accept="image/*" onchange="previewProductImage()">
+                    <div id="productImagePreview" style="margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-light); border-radius: 6px; text-align: center; color: var(--text-light);">Không có ảnh</div>
+                </div>
+
+                <button class="btn-primary" onclick="addProduct()" style="width: 100%;">➕ Thêm Khóa Học</button>
+
+                <h3>📋 Danh Sách Khóa Học</h3>
+                <div id="productList"></div>
             </div>
         </div>
 
-        <!-- ============ TAB 4: CUSTOMERS ============ -->
+        <!-- TAB 4: CUSTOMERS -->
         <div id="customers" class="tab-content">
-            <div class="panel" style="max-height: none;">
-                <h2>👥 Quản Lý Khách Hàng & Email Marketing</h2>
-
+            <div class="panel">
+                <h2>👥 Quản Lý Khách Hàng</h2>
                 <div id="customerMessage" class="message"></div>
 
                 <div class="stats">
@@ -691,10 +609,10 @@
                     </div>
                 </div>
 
-                <h3>📥 Import Khách Hàng</h3>
-                <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.75rem;">Paste CSV: Tên | Email | Phone | Khóa Học</p>
+                <h3>📥 Import Khách Hàng từ CSV</h3>
+                <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.75rem;">Định dạng: Tên | Email | Phone | Khóa Học</p>
                 <textarea id="customerCSV" placeholder="Nguyễn Văn A|nguyenvana@email.com|0912345678|Khóa 1" style="min-height: 100px; margin-bottom: 0.75rem;"></textarea>
-                <button class="btn-primary" onclick="importCustomers()">📥 Import CSV</button>
+                <button class="btn-primary" onclick="importCustomers()">📥 Import</button>
                 <button class="btn-danger btn-small" onclick="clearCustomers()">🗑️ Xóa Tất Cả</button>
 
                 <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
@@ -709,12 +627,6 @@
                 <div class="form-group">
                     <label>Nội Dung Email *</label>
                     <textarea id="emailTemplate" placeholder="Viết nội dung email..." style="min-height: 150px;"></textarea>
-                    <small style="color: var(--text-light); display: block; margin-top: 0.5rem;">💡 Dùng {name} cho tên khách, {email} cho email</small>
-                </div>
-
-                <div class="form-group">
-                    <label>Filter theo Khóa Học</label>
-                    <input type="text" id="filterCourse" placeholder="Để trống = gửi tất cả">
                 </div>
 
                 <button class="btn-success" onclick="sendBulkEmail()" style="width: 100%;">📨 Gửi Email</button>
@@ -739,9 +651,9 @@
     </div>
 
     <script>
-        // ============ LOGIN LOGIC ============
         const ADMIN_PASSWORD = 'admin123';
 
+        // ============ LOGIN ============
         function login() {
             const password = document.getElementById('passwordInput').value;
             const errorEl = document.getElementById('loginError');
@@ -758,7 +670,7 @@
         }
 
         function logout() {
-            if (confirm('Bạn chắc chắn muốn đăng xuất?')) {
+            if (confirm('Đăng xuất?')) {
                 sessionStorage.removeItem('adminLogged');
                 document.getElementById('loginScreen').classList.remove('hidden');
                 document.getElementById('adminContainer').style.display = 'none';
@@ -776,7 +688,6 @@
             }
         }
 
-        // ============ TAB SWITCHING ============
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -784,7 +695,6 @@
             event.target.classList.add('active');
         }
 
-        // ============ FORMAT PRICE ============
         function formatPrice(price) {
             return price.toLocaleString('vi-VN');
         }
@@ -816,7 +726,6 @@
             localStorage.setItem('bannerSlides', JSON.stringify(slides));
             clearSlideForm();
             renderSlides();
-            updatePreview();
             showMessage('slideMessage', '✅ Thêm thành công!', 'success');
         }
 
@@ -824,7 +733,6 @@
             slides = slides.filter(s => s.id !== id);
             localStorage.setItem('bannerSlides', JSON.stringify(slides));
             renderSlides();
-            updatePreview();
         }
 
         function clearSlideForm() {
@@ -843,38 +751,11 @@
                         <div class="list-item-meta">${s.subtitle.substring(0, 40)}...</div>
                     </div>
                     <div class="list-item-actions">
-                        <button class="btn-danger btn-small" onclick="deleteSlide(${s.id})">🗑️</button>
+                        <button class="btn-danger btn-small" onclick="deleteSlide(${s.id})">🗑️ Xóa</button>
                     </div>
                 </div>
             `).join('');
             document.getElementById('slidesList').innerHTML = html || '<p style="color: var(--text-light);">Chưa có slide</p>';
-        }
-
-        function updatePreview() {
-            const c = document.getElementById('previewContainer');
-            if (slides.length === 0) {
-                c.innerHTML = '<p style="color: #999;">Thêm slide để preview</p>';
-                return;
-            }
-            const s = slides[previewIndex];
-            c.innerHTML = `
-                <img src="${s.image}" style="position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
-                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: 1;"></div>
-                <div style="position: relative; z-index: 2; text-align: center; color: white;">
-                    <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${s.title}</h2>
-                    <p style="font-size: 0.95rem;">${s.subtitle}</p>
-                </div>
-            `;
-        }
-
-        function previewPrev() {
-            previewIndex = (previewIndex - 1 + slides.length) % slides.length;
-            updatePreview();
-        }
-
-        function previewNext() {
-            previewIndex = (previewIndex + 1) % slides.length;
-            updatePreview();
         }
 
         // ============ BLOG ============
@@ -885,8 +766,8 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = (e) => {
-                const preview = document.getElementById('blogImagePreview');
-                preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                document.getElementById('blogImagePreview').innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 4px;">`;
+                document.getElementById('blogImagePreview').dataset.image = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -896,7 +777,7 @@
             const excerpt = document.getElementById('blogExcerpt').value.trim();
             const keyword = document.getElementById('blogKeyword').value.trim();
             const content = document.getElementById('blogContent').value.trim();
-            const image = document.querySelector('#blogImagePreview img')?.src || '';
+            const image = document.getElementById('blogImagePreview').dataset.image || '';
 
             if (!title || !excerpt || !keyword || !content) {
                 showMessage('blogMessage', '❌ Vui lòng điền đầy đủ', 'error');
@@ -911,7 +792,6 @@
             localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
             clearBlogForm();
             renderBlogList();
-            updateBlogPreview();
             showMessage('blogMessage', '✅ Thêm bài viết thành công!', 'success');
         }
 
@@ -923,17 +803,18 @@
             document.getElementById('blogKeyword').value = post.keyword;
             document.getElementById('blogContent').value = post.content;
             if (post.image) {
-                document.getElementById('blogImagePreview').innerHTML = `<img src="${post.image}" alt="Preview">`;
+                const preview = document.getElementById('blogImagePreview');
+                preview.innerHTML = `<img src="${post.image}" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 4px;">`;
+                preview.dataset.image = post.image;
             }
             deleteBlogPost(id);
-            window.scrollTo(0, 0);
+            document.getElementById('blog').scrollIntoView();
         }
 
         function deleteBlogPost(id) {
             blogPosts = blogPosts.filter(p => p.id !== id);
             localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
             renderBlogList();
-            updateBlogPreview();
         }
 
         function clearBlogForm() {
@@ -942,13 +823,13 @@
             document.getElementById('blogKeyword').value = '';
             document.getElementById('blogContent').value = '';
             document.getElementById('blogImageInput').value = '';
-            document.getElementById('blogImagePreview').innerHTML = '<span style="color: var(--text-light);">Upload ảnh</span>';
+            document.getElementById('blogImagePreview').innerHTML = 'Không có ảnh';
+            document.getElementById('blogImagePreview').dataset.image = '';
         }
 
         function renderBlogList() {
             const html = blogPosts.map(p => `
                 <div class="list-item">
-                    ${p.image ? `<div class="list-item-image"><img src="${p.image}" alt=""></div>` : ''}
                     <div class="list-item-content">
                         <div class="list-item-title">📝 ${p.title}</div>
                         <div class="list-item-meta">📅 ${p.date} | 🔑 ${p.keyword}</div>
@@ -962,22 +843,6 @@
             document.getElementById('blogList').innerHTML = html || '<p style="color: var(--text-light);">Chưa có bài viết</p>';
         }
 
-        function updateBlogPreview() {
-            const c = document.getElementById('blogPreview');
-            if (blogPosts.length === 0) {
-                c.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">Thêm bài viết để preview</p>';
-                return;
-            }
-            c.innerHTML = blogPosts.map(p => `
-                <div style="background: var(--bg-light); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
-                    ${p.image ? `<img src="${p.image}" alt="${p.title}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 0.75rem;">` : ''}
-                    <div style="font-weight: 600; margin-bottom: 0.25rem;">${p.title}</div>
-                    <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">📅 ${p.date}</div>
-                    <div style="font-size: 0.9rem;">${p.excerpt}</div>
-                </div>
-            `).join('');
-        }
-
         // ============ PRODUCTS ============
         let products = [];
 
@@ -986,7 +851,8 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = (e) => {
-                document.getElementById('productImagePreview').innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                document.getElementById('productImagePreview').innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 4px;">`;
+                document.getElementById('productImagePreview').dataset.image = e.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -995,8 +861,7 @@
             const name = document.getElementById('productName').value.trim();
             const price = parseInt(document.getElementById('productPrice').value) || 0;
             const desc = document.getElementById('productDesc').value.trim();
-            const btnText = document.getElementById('productBtnText').value.trim() || 'Tìm Hiểu Thêm';
-            const image = document.querySelector('#productImagePreview img')?.src || '';
+            const image = document.getElementById('productImagePreview').dataset.image || '';
 
             if (!name || price === 0 || !desc) {
                 showMessage('productMessage', '❌ Vui lòng điền đầy đủ', 'error');
@@ -1005,12 +870,11 @@
 
             products.push({
                 id: Date.now(),
-                name, price, desc, image, btnText
+                name, price, desc, image, btnText: 'Tìm Hiểu Thêm'
             });
             localStorage.setItem('products', JSON.stringify(products));
             clearProductForm();
             renderProducts();
-            updateProductPreview();
             showMessage('productMessage', '✅ Thêm khóa học thành công!', 'success');
         }
 
@@ -1018,7 +882,6 @@
             products = products.filter(p => p.id !== id);
             localStorage.setItem('products', JSON.stringify(products));
             renderProducts();
-            updateProductPreview();
         }
 
         function clearProductForm() {
@@ -1026,14 +889,13 @@
             document.getElementById('productPrice').value = '';
             document.getElementById('productDesc').value = '';
             document.getElementById('productImageInput').value = '';
-            document.getElementById('productBtnText').value = 'Tìm Hiểu Thêm';
-            document.getElementById('productImagePreview').innerHTML = '<span style="color: var(--text-light);">Upload ảnh</span>';
+            document.getElementById('productImagePreview').innerHTML = 'Không có ảnh';
+            document.getElementById('productImagePreview').dataset.image = '';
         }
 
         function renderProducts() {
             const html = products.map(p => `
                 <div class="list-item">
-                    ${p.image ? `<div class="list-item-image"><img src="${p.image}" alt=""></div>` : ''}
                     <div class="list-item-content">
                         <div class="list-item-title">🛍️ ${p.name}</div>
                         <div class="list-item-meta">💰 ${formatPrice(p.price)} VND</div>
@@ -1044,25 +906,6 @@
                 </div>
             `).join('');
             document.getElementById('productList').innerHTML = html || '<p style="color: var(--text-light);">Chưa có khóa học</p>';
-        }
-
-        function updateProductPreview() {
-            const c = document.getElementById('productPreview');
-            if (products.length === 0) {
-                c.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">Thêm khóa học để preview</p>';
-                return;
-            }
-            c.innerHTML = products.map(p => `
-                <div style="background: var(--bg-light); border-radius: 8px; overflow: hidden; margin-bottom: 1rem;">
-                    ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width: 100%; height: 120px; object-fit: cover;">` : ''}
-                    <div style="padding: 1rem;">
-                        <div style="font-weight: 600; margin-bottom: 0.25rem;">${p.name}</div>
-                        <div style="font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;">💰 ${formatPrice(p.price)} VND</div>
-                        <div style="font-size: 0.9rem; margin-bottom: 0.75rem;">${p.desc}</div>
-                        <button style="width: 100%; padding: 0.6rem; background: var(--primary); color: white; border: none; border-radius: 6px;">${p.btnText}</button>
-                    </div>
-                </div>
-            `).join('');
         }
 
         // ============ CUSTOMERS ============
@@ -1090,7 +933,7 @@
             document.getElementById('customerCSV').value = '';
             renderCustomers();
             updateStats();
-            showMessage('customerMessage', `✅ Thêm ${lines.length} khách hàng thành công!`, 'success');
+            showMessage('customerMessage', `✅ Thêm ${lines.length} khách hàng!`, 'success');
         }
 
         function clearCustomers() {
@@ -1099,7 +942,6 @@
                 localStorage.setItem('customers', JSON.stringify(customers));
                 renderCustomers();
                 updateStats();
-                showMessage('customerMessage', '✅ Đã xóa!', 'success');
             }
         }
 
@@ -1127,23 +969,21 @@
             const subject = document.getElementById('emailSubject').value.trim();
             const template = document.getElementById('emailTemplate').value.trim();
 
-            if (!subject || !template) {
-                showMessage('customerMessage', '❌ Vui lòng điền tiêu đề và nội dung', 'error');
+            if (!subject || !template || customers.length === 0) {
+                showMessage('customerMessage', '❌ Điền đầy đủ và có khách hàng', 'error');
                 return;
             }
 
-            customers.forEach(c => {
+            customers.forEach(() => {
                 emailLogs.push({
                     id: Date.now() + Math.random(),
-                    to: c.email,
-                    subject,
                     time: new Date().toLocaleString('vi-VN')
                 });
             });
             localStorage.setItem('emailLogs', JSON.stringify(emailLogs));
             updateStats();
 
-            showMessage('customerMessage', `✅ Đã gửi email cho ${customers.length} khách hàng!`, 'success');
+            showMessage('customerMessage', `✅ Gửi email cho ${customers.length} khách!`, 'success');
         }
 
         function updateStats() {
@@ -1151,7 +991,6 @@
             document.getElementById('totalEmails').textContent = emailLogs.length;
         }
 
-        // ============ UTILITIES ============
         function showMessage(id, text, type) {
             const msg = document.getElementById(id);
             msg.textContent = text;
@@ -1167,16 +1006,12 @@
             emailLogs = JSON.parse(localStorage.getItem('emailLogs')) || [];
 
             renderSlides();
-            updatePreview();
             renderBlogList();
-            updateBlogPreview();
             renderProducts();
-            updateProductPreview();
             renderCustomers();
             updateStats();
         }
 
-        // ============ ON LOAD ============
         window.addEventListener('load', () => {
             checkAuth();
             initAdmin();
