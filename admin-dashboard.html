@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thu Nhiên Admin - Quản Lý Banner Slides</title>
+    <title>Thu Nhiên Admin - Quản Lý Toàn Bộ</title>
     
     <style>
         * {
@@ -59,6 +59,53 @@
             opacity: 0.9;
         }
 
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         /* Layout */
         .layout {
             display: grid;
@@ -73,16 +120,6 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .layout {
-                grid-template-columns: 1fr;
-            }
-            
-            .panel {
-                padding: 1.5rem;
-            }
-        }
-
         /* Panel */
         .panel {
             background: var(--white);
@@ -90,7 +127,7 @@
             padding: 1.5rem;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             overflow-y: auto;
-            max-height: calc(100vh - 200px);
+            max-height: calc(100vh - 250px);
         }
 
         .panel h2 {
@@ -99,6 +136,12 @@
             color: var(--primary);
             border-bottom: 2px solid var(--primary);
             padding-bottom: 0.75rem;
+        }
+
+        .panel h3 {
+            font-size: 1rem;
+            margin: 1rem 0 0.75rem 0;
+            color: var(--text-dark);
         }
 
         /* Form */
@@ -134,6 +177,26 @@
             min-height: 80px;
         }
 
+        /* Image Upload Preview */
+        .image-preview {
+            width: 100%;
+            height: 150px;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            background: var(--bg-light);
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
         /* Buttons */
         button {
             padding: 0.6rem 1.2rem;
@@ -152,7 +215,6 @@
 
         .btn-primary:hover {
             background: var(--primary-dark);
-            transform: translateY(-1px);
         }
 
         .btn-success {
@@ -170,267 +232,150 @@
         }
 
         .btn-danger:hover {
-            background: #b91c1c;
-        }
-
-        .btn-warning {
-            background: var(--warning);
-            color: var(--white);
-        }
-
-        .btn-warning:hover {
-            background: #d97706;
+            background: #991b1b;
         }
 
         .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
         }
 
-        .button-group {
+        /* List Items */
+        .list-item {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
             display: flex;
             gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
-        /* Slides List */
-        .slides-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
+        .list-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
         }
 
-        .slide-item {
-            background: var(--bg-light);
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            transition: all 0.3s;
-            cursor: pointer;
+        .list-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .slide-item:hover {
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
+        .list-item-content {
+            flex-grow: 1;
         }
 
-        .slide-item.active {
-            border-color: var(--primary);
-            background: var(--primary);
-            color: var(--white);
+        .list-item-title {
+            font-weight: 600;
+            color: var(--text-dark);
         }
 
-        .slide-item h3 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            word-break: break-word;
-        }
-
-        .slide-item p {
+        .list-item-meta {
             font-size: 0.85rem;
-            opacity: 0.7;
-            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
         }
 
-        .slide-item-actions {
+        .list-item-actions {
             display: flex;
             gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .slide-item-actions button {
-            flex: 1;
-        }
-
-        /* Preview */
-        .preview {
-            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(6, 182, 212, 0.9));
-            background-image: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(6, 182, 212, 0.9)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop');
-            background-size: cover;
-            background-position: center;
-            color: var(--white);
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-            min-height: 280px;
-            max-height: 350px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 2rem;
-            overflow: hidden;
-        }
-
-        .preview h2 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .preview p {
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-            max-width: 100%;
-            line-height: 1.3;
-        }
-
-        .preview-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
             flex-wrap: wrap;
         }
 
-        .preview-btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            border: 2px solid var(--white);
-            background: transparent;
-            color: var(--white);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .preview-btn:hover {
-            background: var(--white);
-            color: var(--primary);
-        }
-
-        .preview-btn.success {
-            background: var(--success);
-            border-color: var(--success);
-        }
-
-        /* Status */
-        .status-message {
+        /* Message */
+        .message {
             padding: 1rem;
             border-radius: 6px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             display: none;
         }
 
-        .status-message.show {
+        .message.show {
             display: block;
         }
 
-        .status-message.success {
+        .message.success {
             background: #d1fae5;
             color: #065f46;
             border: 1px solid #6ee7b7;
         }
 
-        .status-message.error {
+        .message.error {
             background: #fee2e2;
             color: #991b1b;
-            border: 1px solid #fecaca;
+            border: 1px solid #fca5a5;
         }
 
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+        /* Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        .table th {
+            background: var(--bg-light);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
             border-bottom: 2px solid var(--border);
         }
 
-        .tab-btn {
-            padding: 0.75rem 1rem;
-            background: none;
-            border: none;
-            color: var(--text-light);
-            cursor: pointer;
-            font-weight: 600;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+        .table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
         }
 
-        .tab-btn.active {
-            color: var(--primary);
-            border-color: var(--primary);
+        .table-search {
+            margin-bottom: 1rem;
         }
 
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Slide Counter */
-        .slide-counter {
-            background: var(--bg-light);
-            padding: 1rem;
-            border-radius: 6px;
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .slide-counter strong {
-            font-size: 1.5rem;
-            color: var(--primary);
-        }
-
-        /* Actions Bar */
-        .actions-bar {
-            background: var(--bg-light);
-            padding: 1rem;
-            border-radius: 6px;
-            display: flex;
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1rem;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
         }
 
-        .actions-bar button {
-            flex: 1;
-            min-width: 150px;
-        }
-
-        /* Notes */
-        .note {
-            background: #fef3c7;
-            border-left: 4px solid var(--warning);
+        .stat-card {
+            background: var(--bg-light);
             padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        /* Email Template */
+        .email-preview {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-family: monospace;
             font-size: 0.9rem;
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid var(--bg-light);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            .layout {
-                grid-template-columns: 1fr;
-            }
-
-            .slides-list {
-                grid-template-columns: 1fr;
-            }
-
-            header {
-                flex-direction: column;
-                text-align: center;
-                gap: 0.5rem;
-            }
         }
     </style>
 </head>
@@ -439,384 +384,341 @@
         <!-- Header -->
         <header>
             <div>
-                <h1>🎨 Thu Nhiên Admin</h1>
-                <p class="header-info">Quản Lý Banner Slides</p>
+                <h1>🎨 Thu Nhiên Admin - Quản Lý Toàn Bộ</h1>
+                <div class="header-info">Slides • Blog • Khóa Học • Khách Hàng</div>
             </div>
             <div class="header-info">
-                👤 Admin Dashboard | 🔒 LocalStorage
+                <a href="https://thunhienedu.vercel.app/" target="_blank" style="color: var(--white); text-decoration: underline;">🌐 Xem Website</a>
             </div>
         </header>
 
-        <!-- Status Messages -->
-        <div id="statusMessage" class="status-message"></div>
+        <!-- Tabs Navigation -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('slides')">🎬 Banner Slides</button>
+            <button class="tab-btn" onclick="switchTab('blog')">📝 Blog Posts</button>
+            <button class="tab-btn" onclick="switchTab('products')">🛍️ Khóa Học</button>
+            <button class="tab-btn" onclick="switchTab('customers')">👥 Khách Hàng & Email</button>
+        </div>
 
-        <!-- Layout: Form + Preview -->
-        <div class="layout">
-            <!-- LEFT: Form -->
-            <div class="panel">
-                <h2>📝 Quản Lý Slides</h2>
-
-                <!-- Tabs -->
-                <div class="tabs">
-                    <button class="tab-btn active" onclick="switchTab('add')">➕ Thêm Mới</button>
-                    <button class="tab-btn" onclick="switchTab('edit')">✏️ Chỉnh Sửa</button>
-                    <button class="tab-btn" onclick="switchTab('export')">💾 Xuất/Nhập</button>
-                </div>
-
-                <!-- Tab 1: Add New Slide -->
-                <div id="tab-add" class="tab-content active">
-                    <form id="formAddSlide" onsubmit="addSlide(event)">
-                        <div class="form-group">
-                            <label>Tiêu Đề Slide *</label>
-                            <input type="text" id="newTitle" placeholder="Ví dụ: Hiểu Con Hơn" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Subtitle *</label>
-                            <textarea id="newSubtitle" placeholder="Ví dụ: Khám phá con bạn thực sự cần gì" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>URL Ảnh Banner (1400×600px) *</label>
-                            <input type="url" id="newImage" placeholder="https://..." required>
-                            <small style="color: var(--text-light); margin-top: 0.5rem; display: block;">
-                                💡 Tip: Upload ảnh lên GitHub, copy Raw URL
-                            </small>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="form-group">
-                                <label>Button 1 Text *</label>
-                                <input type="text" id="newBtn1Text" placeholder="Ví dụ: 📅 Taster 99K" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Button 1 Action *</label>
-                                <select id="newBtn1Action" required>
-                                    <option value="">-- Chọn action --</option>
-                                    <option value="openRegister()">Open Register Modal</option>
-                                    <option value="openConsultation()">Open Consultation</option>
-                                    <option value="goPage('courses')">Go to Courses</option>
-                                    <option value="goPage('contact')">Go to Contact</option>
-                                    <option value="goPage('blog')">Go to Blog</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="form-group">
-                                <label>Button 2 Text *</label>
-                                <input type="text" id="newBtn2Text" placeholder="Ví dụ: Xem Khóa Học" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Button 2 Action *</label>
-                                <select id="newBtn2Action" required>
-                                    <option value="">-- Chọn action --</option>
-                                    <option value="openRegister()">Open Register Modal</option>
-                                    <option value="openConsultation()">Open Consultation</option>
-                                    <option value="goPage('courses')">Go to Courses</option>
-                                    <option value="goPage('contact')">Go to Contact</option>
-                                    <option value="goPage('blog')">Go to Blog</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="button-group">
-                            <button type="submit" class="btn-primary">➕ Thêm Slide</button>
-                            <button type="reset" class="btn-warning">🔄 Xóa Form</button>
-                        </div>
-                    </form>
-
-                    <div class="note">
-                        💡 <strong>Hướng dẫn:</strong> Điền đầy đủ thông tin, sau đó click "Thêm Slide". Slide sẽ được lưu vào localStorage và hiển thị ngay trên trang chính.
-                    </div>
-                </div>
-
-                <!-- Tab 2: Edit Slide -->
-                <div id="tab-edit" class="tab-content">
-                    <div class="slide-counter">
-                        Tổng slides: <strong id="totalSlides">0</strong>
-                    </div>
-
-                    <div id="slidesList" class="slides-list"></div>
-
-                    <div id="editForm" style="display: none; margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--border);">
-                        <h3 style="margin-bottom: 1rem;">Chỉnh sửa Slide</h3>
-
-                        <div class="form-group">
-                            <label>Tiêu Đề Slide *</label>
-                            <input type="text" id="editTitle" placeholder="Tiêu đề" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Subtitle *</label>
-                            <textarea id="editSubtitle" placeholder="Subtitle" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label>URL Ảnh Banner *</label>
-                            <input type="url" id="editImage" placeholder="https://..." required>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="form-group">
-                                <label>Button 1 Text *</label>
-                                <input type="text" id="editBtn1Text" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Button 1 Action *</label>
-                                <select id="editBtn1Action" required>
-                                    <option value="">-- Chọn action --</option>
-                                    <option value="openRegister()">Open Register Modal</option>
-                                    <option value="openConsultation()">Open Consultation</option>
-                                    <option value="goPage('courses')">Go to Courses</option>
-                                    <option value="goPage('contact')">Go to Contact</option>
-                                    <option value="goPage('blog')">Go to Blog</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="form-group">
-                                <label>Button 2 Text *</label>
-                                <input type="text" id="editBtn2Text" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Button 2 Action *</label>
-                                <select id="editBtn2Action" required>
-                                    <option value="">-- Chọn action --</option>
-                                    <option value="openRegister()">Open Register Modal</option>
-                                    <option value="openConsultation()">Open Consultation</option>
-                                    <option value="goPage('courses')">Go to Courses</option>
-                                    <option value="goPage('contact')">Go to Contact</option>
-                                    <option value="goPage('blog')">Go to Blog</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="button-group">
-                            <button onclick="saveSlide()" class="btn-success">💾 Lưu Thay Đổi</button>
-                            <button onclick="cancelEdit()" class="btn-warning">❌ Hủy</button>
-                            <button onclick="deleteSlide()" class="btn-danger">🗑️ Xóa Slide</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tab 3: Export/Import -->
-                <div id="tab-export" class="tab-content">
-                    <div class="note">
-                        📌 <strong>Backup & Restore:</strong> Xuất toàn bộ slides thành JSON để backup, hoặc nhập từ file JSON.
-                    </div>
-
+        <!-- ============ TAB 1: SLIDES ============ -->
+        <div id="slides" class="tab-content active">
+            <div class="layout">
+                <div class="panel">
+                    <h2>➕ Thêm Slide</h2>
+                    <div id="slideMessage" class="message"></div>
                     <div class="form-group">
-                        <label>📥 Xuất Slides (JSON)</label>
-                        <textarea id="exportData" style="height: 200px; font-family: monospace; font-size: 0.85rem;" readonly></textarea>
-                        <button onclick="exportSlides()" class="btn-primary" style="margin-top: 0.5rem;">📋 Copy to Clipboard</button>
+                        <label>Tiêu Đề *</label>
+                        <input type="text" id="slideTitle" placeholder="Hiểu Con Hơn">
                     </div>
-
                     <div class="form-group">
-                        <label>📤 Nhập Slides (JSON)</label>
-                        <textarea id="importData" style="height: 200px; font-family: monospace; font-size: 0.85rem;" placeholder="Dán JSON data ở đây"></textarea>
+                        <label>Subtitle *</label>
+                        <input type="text" id="slideSubtitle" placeholder="Khám phá con bạn thực sự cần gì">
                     </div>
-
-                    <div class="button-group">
-                        <button onclick="importSlides()" class="btn-success">📥 Nhập Slides</button>
-                        <button onclick="resetAllSlides()" class="btn-danger">🔄 Reset Tất Cả</button>
+                    <div class="form-group">
+                        <label>URL Ảnh Banner (1400×600px) *</label>
+                        <input type="text" id="slideImage" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label>Button 1 Text *</label>
+                        <input type="text" id="btn1Text" placeholder="📅 Taster 99K">
+                    </div>
+                    <div class="form-group">
+                        <label>Button 1 Action *</label>
+                        <select id="btn1Action">
+                            <option value="openRegister()">Đăng Ký</option>
+                            <option value="openConsultation()">Tư Vấn</option>
+                            <option value="goPage('courses')">Khóa Học</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Button 2 Text *</label>
+                        <input type="text" id="btn2Text" placeholder="Xem Khóa Học">
+                    </div>
+                    <div class="form-group">
+                        <label>Button 2 Action *</label>
+                        <select id="btn2Action">
+                            <option value="openRegister()">Đăng Ký</option>
+                            <option value="openConsultation()">Tư Vấn</option>
+                            <option value="goPage('courses')">Khóa Học</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" onclick="addSlide()" style="width: 100%;">➕ Thêm Slide</button>
+                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
+                    <h3>Danh Sách Slides</h3>
+                    <div id="slidesList"></div>
+                </div>
+                <div class="panel">
+                    <h2>👁️ Preview</h2>
+                    <div id="previewContainer" style="background: #ccc; color: #999; height: 300px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">Thêm slide để preview</div>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <button class="btn-primary btn-small" onclick="previewPrev()">◀️ Trước</button>
+                        <button class="btn-primary btn-small" onclick="previewNext()">Sau ▶️</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- RIGHT: Preview -->
-            <div>
+        <!-- ============ TAB 2: BLOG ============ -->
+        <div id="blog" class="tab-content">
+            <div class="layout">
                 <div class="panel">
-                    <h2>👁️ Preview Live</h2>
+                    <h2>✍️ Thêm Bài Viết</h2>
+                    <div id="blogMessage" class="message"></div>
 
-                    <div id="previewContainer" class="preview" style="background: #ccc; color: #999; display: flex; align-items: center; justify-content: center;">
-                        <p>Chưa có slide nào. Hãy thêm slide mới ở bên trái.</p>
+                    <div class="form-group">
+                        <label>Tiêu Đề *</label>
+                        <input type="text" id="blogTitle" placeholder="Cách giúp con vượt qua lo âu">
                     </div>
 
-                    <div class="actions-bar">
-                        <button onclick="previewPrev()" class="btn-primary btn-small">◀️ Trước</button>
-                        <button onclick="previewNext()" class="btn-primary btn-small">Sau ▶️</button>
-                        <button onclick="autoPlayPreview()" class="btn-success btn-small" id="autoPlayBtn">▶️ Auto Play</button>
+                    <div class="form-group">
+                        <label>Tóm Tắt *</label>
+                        <textarea id="blogExcerpt" placeholder="Viết vài dòng giới thiệu..."></textarea>
                     </div>
 
-                    <div class="note">
-                        🔍 Preview hiển thị cách banner sẽ trông trên trang chính. Nhấn ◀️ ▶️ để chuyển slide.
+                    <div class="form-group">
+                        <label>Từ Khóa *</label>
+                        <input type="text" id="blogKeyword" placeholder="Tâm lý con, lo âu">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nội Dung *</label>
+                        <textarea id="blogContent" placeholder="Nội dung đầy đủ..." style="min-height: 120px;"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ảnh Đại Diện (300×200px)</label>
+                        <input type="file" id="blogImageInput" accept="image/*" onchange="previewBlogImage()">
+                        <div class="image-preview" id="blogImagePreview">
+                            <span style="color: var(--text-light);">Hoặc paste URL ảnh dưới đây</span>
+                        </div>
+                        <input type="text" id="blogImageURL" placeholder="https://... (nếu không upload file)">
+                    </div>
+
+                    <button class="btn-primary" onclick="addBlogPost()" style="width: 100%;">✍️ Thêm Bài Viết</button>
+
+                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
+
+                    <h3>Danh Sách Bài Viết</h3>
+                    <div id="blogList"></div>
+                </div>
+
+                <div class="panel">
+                    <h2>👁️ Preview</h2>
+                    <div id="blogPreview" style="max-height: 600px; overflow-y: auto;">
+                        <p style="text-align: center; color: var(--text-light); padding: 2rem;">Thêm bài viết để preview</p>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- ============ TAB 3: PRODUCTS/COURSES ============ -->
+        <div id="products" class="tab-content">
+            <div class="layout">
+                <div class="panel">
+                    <h2>🛍️ Thêm Khóa Học</h2>
+                    <div id="productMessage" class="message"></div>
+
+                    <div class="form-group">
+                        <label>Tên Khóa Học *</label>
+                        <input type="text" id="productName" placeholder="Hiểu Con Hơn - Full Course">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Giá (VND) *</label>
+                        <input type="number" id="productPrice" placeholder="4500000" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mô Tả *</label>
+                        <textarea id="productDesc" placeholder="Mô tả khóa học..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ảnh Khóa Học (300×200px)</label>
+                        <input type="file" id="productImageInput" accept="image/*" onchange="previewProductImage()">
+                        <div class="image-preview" id="productImagePreview">
+                            <span style="color: var(--text-light);">Upload ảnh</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Action Button Text</label>
+                        <input type="text" id="productBtnText" placeholder="Tìm Hiểu Thêm" value="Tìm Hiểu Thêm">
+                    </div>
+
+                    <button class="btn-primary" onclick="addProduct()" style="width: 100%;">➕ Thêm Khóa Học</button>
+
+                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
+
+                    <h3>Danh Sách Khóa Học</h3>
+                    <div id="productList"></div>
+                </div>
+
+                <div class="panel">
+                    <h2>👁️ Preview</h2>
+                    <div id="productPreview" style="max-height: 600px; overflow-y: auto;">
+                        <p style="text-align: center; color: var(--text-light); padding: 2rem;">Thêm khóa học để preview</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ TAB 4: CUSTOMERS & EMAIL ============ -->
+        <div id="customers" class="tab-content">
+            <div class="panel" style="max-height: none;">
+                <h2>👥 Quản Lý Khách Hàng & Email Marketing</h2>
+
+                <div id="customerMessage" class="message"></div>
+
+                <!-- Stats -->
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalCustomers">0</div>
+                        <div class="stat-label">Tổng Khách</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalEmails">0</div>
+                        <div class="stat-label">Email Gửi</div>
+                    </div>
+                </div>
+
+                <!-- Import Customers -->
+                <h3>📥 Import Khách Hàng</h3>
+                <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.75rem;">Paste CSV: Tên | Email | Phone | Khóa Học</p>
+                <textarea id="customerCSV" placeholder="Nguyễn Văn A|nguyenvana@email.com|0912345678|Khóa 1&#10;Trần Thị B|tranb@email.com|0987654321|Khóa 2" style="min-height: 100px; margin-bottom: 0.75rem;"></textarea>
+                <button class="btn-primary" onclick="importCustomers()">📥 Import CSV</button>
+                <button class="btn-danger btn-small" onclick="clearCustomers()">🗑️ Xóa Tất Cả</button>
+
+                <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
+
+                <!-- Email Marketing -->
+                <h3>📧 Email Marketing</h3>
+                
+                <div class="form-group">
+                    <label>Tiêu Đề Email *</label>
+                    <input type="text" id="emailSubject" placeholder="Khuyến Mãi Khóa Học Tháng 5">
+                </div>
+
+                <div class="form-group">
+                    <label>Nội Dung Email *</label>
+                    <textarea id="emailTemplate" placeholder="Viết nội dung email..." style="min-height: 150px;"></textarea>
+                    <small style="color: var(--text-light); display: block; margin-top: 0.5rem;">💡 Dùng {name} cho tên khách, {email} cho email</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Filter theo Khóa Học</label>
+                    <input type="text" id="filterCourse" placeholder="Để trống = gửi tất cả">
+                </div>
+
+                <button class="btn-success" onclick="sendBulkEmail()" style="width: 100%;">📨 Gửi Email</button>
+                <div class="email-preview" id="emailPreview" style="display: none;"></div>
+
+                <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border);">
+
+                <!-- Customers List -->
+                <h3>📋 Danh Sách Khách Hàng</h3>
+                <div class="table-search">
+                    <input type="text" id="customerSearch" placeholder="🔍 Tìm kiếm theo tên, email..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 6px;" onkeyup="filterCustomers()">
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Khóa Học</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerTable"></tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <script>
-        let slides = JSON.parse(localStorage.getItem('bannerSlides')) || [
-            {
-                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&h=600&fit=crop",
-                title: "Hiểu Con Hơn",
-                subtitle: "Khám phá con bạn thực sự cần gì - Xây dựng tương lai sáng",
-                cta1: { text: "📅 Taster 99K", action: "openRegister()" },
-                cta2: { text: "Xem Khóa Học", action: "goPage('courses')" }
-            },
-            {
-                image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1400&h=600&fit=crop",
-                title: "Khóa Học 4.5M",
-                subtitle: "Transformation hoàn chỉnh cho gia đình bạn",
-                cta1: { text: "Tìm Hiểu Thêm", action: "openRegister()" },
-                cta2: { text: "Tư Vấn Miễn Phí", action: "openConsultation()" }
-            }
-        ];
-
-        let currentEditIndex = -1;
-        let previewIndex = 0;
-        let autoPlayTimer = null;
-        let isAutoPlaying = false;
-
-        // Initialize
-        window.addEventListener('load', () => {
-            loadSlides();
-            updatePreview();
-            updateExportData();
-        });
-
-        // Switch Tabs
+        // ============ TAB SWITCHING ============
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById(`tab-${tab}`).classList.add('active');
+            document.getElementById(tab).classList.add('active');
             event.target.classList.add('active');
-
-            if (tab === 'edit') {
-                renderSlidesList();
-            } else if (tab === 'export') {
-                updateExportData();
-            }
         }
 
-        // Add Slide
-        function addSlide(e) {
-            e.preventDefault();
+        // ============ BANNER SLIDES ============
+        let slides = JSON.parse(localStorage.getItem('bannerSlides')) || [];
+        let previewIndex = 0;
 
-            const newSlide = {
-                image: document.getElementById('newImage').value,
-                title: document.getElementById('newTitle').value,
-                subtitle: document.getElementById('newSubtitle').value,
-                cta1: { 
-                    text: document.getElementById('newBtn1Text').value, 
-                    action: document.getElementById('newBtn1Action').value 
-                },
-                cta2: { 
-                    text: document.getElementById('newBtn2Text').value, 
-                    action: document.getElementById('newBtn2Action').value 
-                }
-            };
+        function addSlide() {
+            const title = document.getElementById('slideTitle').value.trim();
+            const subtitle = document.getElementById('slideSubtitle').value.trim();
+            const image = document.getElementById('slideImage').value.trim();
+            const btn1Text = document.getElementById('btn1Text').value.trim();
+            const btn1Action = document.getElementById('btn1Action').value;
+            const btn2Text = document.getElementById('btn2Text').value.trim();
+            const btn2Action = document.getElementById('btn2Action').value;
 
-            slides.push(newSlide);
-            saveToStorage();
-            showStatus('✅ Slide đã được thêm thành công!', 'success');
-            document.getElementById('formAddSlide').reset();
-            updatePreview();
-            updateExportData();
-        }
-
-        // Render Slides List
-        function renderSlidesList() {
-            const list = document.getElementById('slidesList');
-            list.innerHTML = slides.map((slide, index) => `
-                <div class="slide-item ${currentEditIndex === index ? 'active' : ''}" onclick="editSlide(${index})">
-                    <h3>${slide.title}</h3>
-                    <p>${slide.subtitle.substring(0, 50)}...</p>
-                    <small>Slide ${index + 1} / ${slides.length}</small>
-                </div>
-            `).join('');
-
-            document.getElementById('totalSlides').textContent = slides.length;
-        }
-
-        // Edit Slide
-        function editSlide(index) {
-            currentEditIndex = index;
-            const slide = slides[index];
-
-            document.getElementById('editTitle').value = slide.title;
-            document.getElementById('editSubtitle').value = slide.subtitle;
-            document.getElementById('editImage').value = slide.image;
-            document.getElementById('editBtn1Text').value = slide.cta1.text;
-            document.getElementById('editBtn1Action').value = slide.cta1.action;
-            document.getElementById('editBtn2Text').value = slide.cta2.text;
-            document.getElementById('editBtn2Action').value = slide.cta2.action;
-
-            document.getElementById('editForm').style.display = 'block';
-            renderSlidesList();
-            updatePreview();
-        }
-
-        // Save Slide
-        function saveSlide() {
-            const slide = {
-                image: document.getElementById('editImage').value,
-                title: document.getElementById('editTitle').value,
-                subtitle: document.getElementById('editSubtitle').value,
-                cta1: { 
-                    text: document.getElementById('editBtn1Text').value, 
-                    action: document.getElementById('editBtn1Action').value 
-                },
-                cta2: { 
-                    text: document.getElementById('editBtn2Text').value, 
-                    action: document.getElementById('editBtn2Action').value 
-                }
-            };
-
-            slides[currentEditIndex] = slide;
-            saveToStorage();
-            showStatus('✅ Slide đã được cập nhật!', 'success');
-            cancelEdit();
-        }
-
-        // Delete Slide
-        function deleteSlide() {
-            if (confirm('Bạn chắc chắn muốn xóa slide này?')) {
-                slides.splice(currentEditIndex, 1);
-                saveToStorage();
-                showStatus('✅ Slide đã được xóa!', 'success');
-                cancelEdit();
-                renderSlidesList();
-                updatePreview();
-                updateExportData();
-            }
-        }
-
-        // Cancel Edit
-        function cancelEdit() {
-            currentEditIndex = -1;
-            document.getElementById('editForm').style.display = 'none';
-            renderSlidesList();
-        }
-
-        // Preview
-        function updatePreview() {
-            if (slides.length === 0) {
-                document.getElementById('previewContainer').innerHTML = `
-                    <p>Chưa có slide nào. Hãy thêm slide mới ở bên trái.</p>
-                `;
+            if (!title || !subtitle || !image || !btn1Text || !btn2Text) {
+                showMessage('slideMessage', '❌ Vui lòng điền đầy đủ', 'error');
                 return;
             }
 
-            const slide = slides[previewIndex];
-            document.getElementById('previewContainer').innerHTML = `
-                <img src="${slide.image}" alt="" style="position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center;">
-                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.35);"></div>
-                <div style="position: relative; z-index: 1; text-align: center;">
-                    <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">${slide.title}</h2>
-                    <p style="font-size: 1.2rem; margin-bottom: 2rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); max-width: 500px;">${slide.subtitle}</p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <button class="preview-btn" onclick="alert('Action: ${slide.cta1.action}')">${slide.cta1.text}</button>
-                        <button class="preview-btn success" onclick="alert('Action: ${slide.cta2.action}')">${slide.cta2.text}</button>
+            slides.push({
+                id: Date.now(),
+                image, title, subtitle,
+                cta1: { text: btn1Text, action: btn1Action },
+                cta2: { text: btn2Text, action: btn2Action }
+            });
+            localStorage.setItem('bannerSlides', JSON.stringify(slides));
+            clearSlideForm();
+            renderSlides();
+            updatePreview();
+            showMessage('slideMessage', '✅ Thêm thành công!', 'success');
+        }
+
+        function deleteSlide(id) {
+            slides = slides.filter(s => s.id !== id);
+            localStorage.setItem('bannerSlides', JSON.stringify(slides));
+            renderSlides();
+            updatePreview();
+        }
+
+        function clearSlideForm() {
+            document.getElementById('slideTitle').value = '';
+            document.getElementById('slideSubtitle').value = '';
+            document.getElementById('slideImage').value = '';
+            document.getElementById('btn1Text').value = '';
+            document.getElementById('btn2Text').value = '';
+        }
+
+        function renderSlides() {
+            const html = slides.map(s => `
+                <div class="list-item">
+                    <div class="list-item-content">
+                        <div class="list-item-title">🎬 ${s.title}</div>
+                        <div class="list-item-meta">${s.subtitle.substring(0, 40)}...</div>
                     </div>
+                    <div class="list-item-actions">
+                        <button class="btn-danger btn-small" onclick="deleteSlide(${s.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('slidesList').innerHTML = html || '<p style="color: var(--text-light);">Chưa có slide</p>';
+        }
+
+        function updatePreview() {
+            const c = document.getElementById('previewContainer');
+            if (slides.length === 0) {
+                c.innerHTML = '<p style="color: #999;">Thêm slide để preview</p>';
+                return;
+            }
+            const s = slides[previewIndex];
+            c.innerHTML = `
+                <img src="${s.image}" style="position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: 1;"></div>
+                <div style="position: relative; z-index: 2; text-align: center; color: white;">
+                    <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${s.title}</h2>
+                    <p style="font-size: 0.95rem; margin-bottom: 1rem;">${s.subtitle}</p>
                 </div>
             `;
         }
@@ -831,87 +733,323 @@
             updatePreview();
         }
 
-        function autoPlayPreview() {
-            if (isAutoPlaying) {
-                clearInterval(autoPlayTimer);
-                isAutoPlaying = false;
-                document.getElementById('autoPlayBtn').textContent = '▶️ Auto Play';
-            } else {
-                isAutoPlaying = true;
-                document.getElementById('autoPlayBtn').textContent = '⏸️ Dừng';
-                autoPlayTimer = setInterval(() => {
-                    previewNext();
-                }, 5000);
+        // ============ BLOG POSTS ============
+        let blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+
+        function previewBlogImage() {
+            const file = document.getElementById('blogImageInput').files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById('blogImagePreview');
+                preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                document.getElementById('blogImageURL').value = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function addBlogPost() {
+            const title = document.getElementById('blogTitle').value.trim();
+            const excerpt = document.getElementById('blogExcerpt').value.trim();
+            const keyword = document.getElementById('blogKeyword').value.trim();
+            const content = document.getElementById('blogContent').value.trim();
+            const image = document.getElementById('blogImageURL').value.trim();
+
+            if (!title || !excerpt || !keyword || !content) {
+                showMessage('blogMessage', '❌ Vui lòng điền đầy đủ', 'error');
+                return;
             }
+
+            blogPosts.push({
+                id: Date.now(),
+                title, excerpt, keyword, content, image,
+                date: new Date().toLocaleDateString('vi-VN')
+            });
+            localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+            clearBlogForm();
+            renderBlogList();
+            updateBlogPreview();
+            showMessage('blogMessage', '✅ Thêm bài viết thành công!', 'success');
         }
 
-        // Storage
-        function saveToStorage() {
-            localStorage.setItem('bannerSlides', JSON.stringify(slides));
+        function deleteBlogPost(id) {
+            blogPosts = blogPosts.filter(p => p.id !== id);
+            localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+            renderBlogList();
+            updateBlogPreview();
         }
 
-        function loadSlides() {
-            const stored = localStorage.getItem('bannerSlides');
-            if (stored) {
-                slides = JSON.parse(stored);
+        function clearBlogForm() {
+            document.getElementById('blogTitle').value = '';
+            document.getElementById('blogExcerpt').value = '';
+            document.getElementById('blogKeyword').value = '';
+            document.getElementById('blogContent').value = '';
+            document.getElementById('blogImageInput').value = '';
+            document.getElementById('blogImageURL').value = '';
+            document.getElementById('blogImagePreview').innerHTML = '<span style="color: var(--text-light);">Hoặc paste URL ảnh dưới đây</span>';
+        }
+
+        function renderBlogList() {
+            const html = blogPosts.map(p => `
+                <div class="list-item">
+                    ${p.image ? `<div class="list-item-image"><img src="${p.image}" alt=""></div>` : ''}
+                    <div class="list-item-content">
+                        <div class="list-item-title">📝 ${p.title}</div>
+                        <div class="list-item-meta">📅 ${p.date} | 🔑 ${p.keyword}</div>
+                    </div>
+                    <div class="list-item-actions">
+                        <button class="btn-danger btn-small" onclick="deleteBlogPost(${p.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('blogList').innerHTML = html || '<p style="color: var(--text-light);">Chưa có bài viết</p>';
+        }
+
+        function updateBlogPreview() {
+            const c = document.getElementById('blogPreview');
+            if (blogPosts.length === 0) {
+                c.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">Thêm bài viết để preview</p>';
+                return;
             }
+            c.innerHTML = blogPosts.map(p => `
+                <div style="background: var(--bg-light); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                    ${p.image ? `<img src="${p.image}" alt="${p.title}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 0.75rem;">` : ''}
+                    <div style="font-weight: 600; margin-bottom: 0.25rem;">${p.title}</div>
+                    <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem;">📅 ${p.date}</div>
+                    <div style="font-size: 0.9rem; color: var(--text-dark);">${p.excerpt}</div>
+                </div>
+            `).join('');
         }
 
-        // Export/Import
-        function updateExportData() {
-            document.getElementById('exportData').value = JSON.stringify(slides, null, 2);
+        // ============ PRODUCTS/COURSES ============
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+
+        function previewProductImage() {
+            const file = document.getElementById('productImageInput').files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('productImagePreview').innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            };
+            reader.readAsDataURL(file);
         }
 
-        function exportSlides() {
-            document.getElementById('exportData').select();
-            document.execCommand('copy');
-            showStatus('✅ Đã copy vào clipboard!', 'success');
+        function addProduct() {
+            const name = document.getElementById('productName').value.trim();
+            const price = parseInt(document.getElementById('productPrice').value) || 0;
+            const desc = document.getElementById('productDesc').value.trim();
+            const btnText = document.getElementById('productBtnText').value.trim() || 'Tìm Hiểu Thêm';
+            const image = document.querySelector('#productImagePreview img')?.src || '';
+
+            if (!name || price === 0 || !desc) {
+                showMessage('productMessage', '❌ Vui lòng điền đầy đủ', 'error');
+                return;
+            }
+
+            products.push({
+                id: Date.now(),
+                name, price, desc, image, btnText
+            });
+            localStorage.setItem('products', JSON.stringify(products));
+            clearProductForm();
+            renderProducts();
+            updateProductPreview();
+            showMessage('productMessage', '✅ Thêm khóa học thành công!', 'success');
         }
 
-        function importSlides() {
-            try {
-                const data = document.getElementById('importData').value;
-                const imported = JSON.parse(data);
-                
-                if (Array.isArray(imported)) {
-                    slides = imported;
-                    saveToStorage();
-                    showStatus('✅ Slides đã được nhập thành công!', 'success');
-                    updatePreview();
-                    updateExportData();
-                } else {
-                    showStatus('❌ Dữ liệu không hợp lệ. Vui lòng kiểm tra lại JSON.', 'error');
+        function deleteProduct(id) {
+            products = products.filter(p => p.id !== id);
+            localStorage.setItem('products', JSON.stringify(products));
+            renderProducts();
+            updateProductPreview();
+        }
+
+        function clearProductForm() {
+            document.getElementById('productName').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productDesc').value = '';
+            document.getElementById('productImageInput').value = '';
+            document.getElementById('productBtnText').value = 'Tìm Hiểu Thêm';
+            document.getElementById('productImagePreview').innerHTML = '<span style="color: var(--text-light);">Upload ảnh</span>';
+        }
+
+        function renderProducts() {
+            const html = products.map(p => `
+                <div class="list-item">
+                    ${p.image ? `<div class="list-item-image"><img src="${p.image}" alt=""></div>` : ''}
+                    <div class="list-item-content">
+                        <div class="list-item-title">🛍️ ${p.name}</div>
+                        <div class="list-item-meta">💰 ${p.price.toLocaleString('vi-VN')} VND</div>
+                    </div>
+                    <div class="list-item-actions">
+                        <button class="btn-danger btn-small" onclick="deleteProduct(${p.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('productList').innerHTML = html || '<p style="color: var(--text-light);">Chưa có khóa học</p>';
+        }
+
+        function updateProductPreview() {
+            const c = document.getElementById('productPreview');
+            if (products.length === 0) {
+                c.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">Thêm khóa học để preview</p>';
+                return;
+            }
+            c.innerHTML = products.map(p => `
+                <div style="background: var(--bg-light); border-radius: 8px; overflow: hidden; margin-bottom: 1rem;">
+                    ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width: 100%; height: 120px; object-fit: cover;">` : ''}
+                    <div style="padding: 1rem;">
+                        <div style="font-weight: 600; margin-bottom: 0.25rem;">${p.name}</div>
+                        <div style="font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem;">💰 ${p.price.toLocaleString('vi-VN')} VND</div>
+                        <div style="font-size: 0.9rem; color: var(--text-dark); margin-bottom: 0.75rem;">${p.desc}</div>
+                        <button style="width: 100%; padding: 0.6rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer;">${p.btnText}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ============ CUSTOMERS & EMAIL ============
+        let customers = JSON.parse(localStorage.getItem('customers')) || [];
+        let emailLogs = JSON.parse(localStorage.getItem('emailLogs')) || [];
+
+        function importCustomers() {
+            const csv = document.getElementById('customerCSV').value.trim();
+            if (!csv) {
+                showMessage('customerMessage', '❌ Vui lòng paste dữ liệu', 'error');
+                return;
+            }
+
+            const lines = csv.split('\n');
+            lines.forEach(line => {
+                const [name, email, phone, course] = line.split('|').map(s => s.trim());
+                if (name && email) {
+                    customers.push({
+                        id: Date.now() + Math.random(),
+                        name, email, phone, course: course || 'Chưa xác định'
+                    });
                 }
-            } catch (e) {
-                showStatus('❌ Lỗi: ' + e.message, 'error');
+            });
+            localStorage.setItem('customers', JSON.stringify(customers));
+            document.getElementById('customerCSV').value = '';
+            renderCustomers();
+            updateStats();
+            showMessage('customerMessage', `✅ Thêm ${lines.length} khách hàng thành công!`, 'success');
+        }
+
+        function clearCustomers() {
+            if (confirm('Xóa tất cả khách hàng?')) {
+                customers = [];
+                localStorage.setItem('customers', JSON.stringify(customers));
+                renderCustomers();
+                updateStats();
+                showMessage('customerMessage', '✅ Đã xóa!', 'success');
             }
         }
 
-        function resetAllSlides() {
-            if (confirm('Bạn chắc chắn muốn reset TẤT CẢ slides? Hành động này không thể hoàn tác!')) {
-                slides = [
-                    {
-                        image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&h=600&fit=crop",
-                        title: "Hiểu Con Hơn",
-                        subtitle: "Khám phá con bạn thực sự cần gì - Xây dựng tương lai sáng",
-                        cta1: { text: "📅 Taster 99K", action: "openRegister()" },
-                        cta2: { text: "Xem Khóa Học", action: "goPage('courses')" }
-                    }
-                ];
-                saveToStorage();
-                showStatus('✅ Đã reset về default!', 'success');
-                updatePreview();
-                updateExportData();
-            }
+        function deleteCustomer(id) {
+            customers = customers.filter(c => c.id !== id);
+            localStorage.setItem('customers', JSON.stringify(customers));
+            renderCustomers();
+            updateStats();
         }
 
-        // Status Message
-        function showStatus(message, type = 'success') {
-            const el = document.getElementById('statusMessage');
-            el.textContent = message;
-            el.className = `status-message show ${type}`;
-            setTimeout(() => el.classList.remove('show'), 3000);
+        function renderCustomers() {
+            const tbody = document.getElementById('customerTable');
+            tbody.innerHTML = customers.map(c => `
+                <tr>
+                    <td>${c.name}</td>
+                    <td>${c.email}</td>
+                    <td>${c.phone || '-'}</td>
+                    <td>${c.course}</td>
+                    <td>
+                        <button class="btn-danger btn-small" onclick="deleteCustomer(${c.id})">🗑️ Xóa</button>
+                    </td>
+                </tr>
+            `).join('');
         }
+
+        function filterCustomers() {
+            const keyword = document.getElementById('customerSearch').value.toLowerCase();
+            const tbody = document.getElementById('customerTable');
+            tbody.innerHTML = customers.filter(c => 
+                c.name.toLowerCase().includes(keyword) || 
+                c.email.toLowerCase().includes(keyword)
+            ).map(c => `
+                <tr>
+                    <td>${c.name}</td>
+                    <td>${c.email}</td>
+                    <td>${c.phone || '-'}</td>
+                    <td>${c.course}</td>
+                    <td>
+                        <button class="btn-danger btn-small" onclick="deleteCustomer(${c.id})">🗑️ Xóa</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function sendBulkEmail() {
+            const subject = document.getElementById('emailSubject').value.trim();
+            const template = document.getElementById('emailTemplate').value.trim();
+            const filter = document.getElementById('filterCourse').value.trim().toLowerCase();
+
+            if (!subject || !template) {
+                showMessage('customerMessage', '❌ Vui lòng điền tiêu đề và nội dung', 'error');
+                return;
+            }
+
+            let toSend = customers;
+            if (filter) {
+                toSend = customers.filter(c => c.course.toLowerCase().includes(filter));
+            }
+
+            if (toSend.length === 0) {
+                showMessage('customerMessage', '❌ Không tìm thấy khách hàng phù hợp', 'error');
+                return;
+            }
+
+            // Ghi log
+            toSend.forEach(c => {
+                emailLogs.push({
+                    id: Date.now() + Math.random(),
+                    to: c.email,
+                    subject,
+                    time: new Date().toLocaleString('vi-VN')
+                });
+            });
+            localStorage.setItem('emailLogs', JSON.stringify(emailLogs));
+            updateStats();
+
+            showMessage('customerMessage', `✅ Đã gửi email cho ${toSend.length} khách hàng!`, 'success');
+            alert(`Lưu ý: Để gửi email thực tế, bạn cần:
+1. Kết nối với Gmail API
+2. Hoặc dùng Email Service (SendGrid, Mailchimp)
+3. Hiện tại chỉ có log gửi\n\nGửi cho:\n${toSend.map(c => c.email).join('\\n')}`);
+        }
+
+        function updateStats() {
+            document.getElementById('totalCustomers').textContent = customers.length;
+            document.getElementById('totalEmails').textContent = emailLogs.length;
+        }
+
+        // ============ UTILITIES ============
+        function showMessage(id, text, type) {
+            const msg = document.getElementById(id);
+            msg.textContent = text;
+            msg.className = `message show ${type}`;
+            setTimeout(() => msg.classList.remove('show'), 3000);
+        }
+
+        // ============ INIT ============
+        window.addEventListener('load', () => {
+            renderSlides();
+            updatePreview();
+            renderBlogList();
+            updateBlogPreview();
+            renderProducts();
+            updateProductPreview();
+            renderCustomers();
+            updateStats();
+        });
     </script>
 </body>
 </html>
