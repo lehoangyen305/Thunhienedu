@@ -201,8 +201,12 @@
 
         /* Header */
         header {
-            background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 25%, #3b82f6 75%, #60a5fa 100%);
-            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, 
+                rgba(30, 64, 175, 1) 0%,
+                rgba(30, 64, 175, 0.8) 20%,
+                rgba(30, 64, 175, 0.5) 50%,
+                rgba(30, 64, 175, 0) 100%);
+            border-bottom: none;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -212,7 +216,7 @@
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0.5rem 2rem;
+            padding: 0.75rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
