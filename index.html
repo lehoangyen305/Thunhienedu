@@ -425,6 +425,32 @@
             }
         }
 
+        /* Benefits Grid - Responsive Grid (not carousel) */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+        }
+
         .card {
             background: var(--white);
             border: 2px solid var(--border);
@@ -1052,7 +1078,7 @@
                 <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
                 <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
                 
-                <div class="grid">
+                <div class="benefits-grid">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon">
@@ -1098,7 +1124,7 @@
                 <h2 class="section-title">Các Khóa Học</h2>
                 <p class="section-subtitle">Chương trình phù hợp cho mọi nhu cầu</p>
                 
-                <div class="grid" id="coursesList"></div>
+                <div class="benefits-grid" id="coursesList"></div>
             </div>
         </div>
 
