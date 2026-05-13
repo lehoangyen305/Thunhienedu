@@ -660,13 +660,18 @@
             const idx = slides.findIndex(s => s.id === id);
             if (idx === -1) return;
             
+            // Swap items in array
             if (direction === 'up' && idx > 0) {
-                [slides[idx].order, slides[idx-1].order] = [slides[idx-1].order, slides[idx].order];
+                [slides[idx], slides[idx-1]] = [slides[idx-1], slides[idx]];
             } else if (direction === 'down' && idx < slides.length - 1) {
-                [slides[idx].order, slides[idx+1].order] = [slides[idx+1].order, slides[idx].order];
+                [slides[idx], slides[idx+1]] = [slides[idx+1], slides[idx]];
+            } else {
+                return;
             }
             
-            slides.sort((a, b) => a.order - b.order);
+            // Re-number order
+            slides.forEach((item, i) => item.order = i);
+            
             localStorage.setItem('bannerSlides', JSON.stringify(slides));
             renderSlides();
         }
@@ -747,13 +752,24 @@
             const idx = blogPosts.findIndex(p => p.id === id);
             if (idx === -1) return;
             
+            // Swap items in array
             if (direction === 'up' && idx > 0) {
-                [blogPosts[idx].order, blogPosts[idx-1].order] = [blogPosts[idx-1].order, blogPosts[idx].order];
+                [blogPosts[idx], blogPosts[idx-1]] = [blogPosts[idx-1], blogPosts[idx]];
             } else if (direction === 'down' && idx < blogPosts.length - 1) {
-                [blogPosts[idx].order, blogPosts[idx+1].order] = [blogPosts[idx+1].order, blogPosts[idx].order];
+                [blogPosts[idx], blogPosts[idx+1]] = [blogPosts[idx+1], blogPosts[idx]];
+            } else {
+                return; // Can't move up/down
             }
             
-            sortBlogPosts();
+            // Re-number order based on new position (respecting pinned status)
+            let order = 0;
+            blogPosts.forEach(post => {
+                if (post.pinned) post.order = order++;
+            });
+            blogPosts.forEach(post => {
+                if (!post.pinned) post.order = order++;
+            });
+            
             localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
             renderBlogList();
         }
@@ -851,13 +867,18 @@
             const idx = products.findIndex(p => p.id === id);
             if (idx === -1) return;
             
+            // Swap items in array
             if (direction === 'up' && idx > 0) {
-                [products[idx].order, products[idx-1].order] = [products[idx-1].order, products[idx].order];
+                [products[idx], products[idx-1]] = [products[idx-1], products[idx]];
             } else if (direction === 'down' && idx < products.length - 1) {
-                [products[idx].order, products[idx+1].order] = [products[idx+1].order, products[idx].order];
+                [products[idx], products[idx+1]] = [products[idx+1], products[idx]];
+            } else {
+                return;
             }
             
-            products.sort((a, b) => a.order - b.order);
+            // Re-number order
+            products.forEach((item, i) => item.order = i);
+            
             localStorage.setItem('products', JSON.stringify(products));
             renderProducts();
         }
@@ -970,7 +991,16 @@
             customers = JSON.parse(localStorage.getItem('customers')) || [];
             emailLogs = JSON.parse(localStorage.getItem('emailLogs')) || [];
 
+            // Ensure order property exists
+            slides.forEach((item, idx) => { if (!item.order) item.order = idx; });
+            products.forEach((item, idx) => { if (!item.order) item.order = idx; });
+            blogPosts.forEach((item, idx) => { if (!item.order) item.order = idx; });
+
+            // Sort
+            slides.sort((a, b) => a.order - b.order);
+            products.sort((a, b) => a.order - b.order);
             sortBlogPosts();
+            
             renderSlides();
             renderBlogList();
             renderProducts();
