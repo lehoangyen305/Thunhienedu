@@ -756,13 +756,53 @@
 
         /* Blog */
         .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            display: flex;
             gap: 2rem;
+            overflow-x: auto;
+            padding: 2rem 0;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
             margin-top: 2rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 100%;
+        }
+
+        .carousel-item {
+            flex: 0 0 300px;
+            display: flex;
+            flex-direction: column;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .carousel-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .blog-grid {
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+
+            .carousel-item {
+                flex: 0 0 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-grid {
+                gap: 0.75rem;
+            }
+
+            .carousel-item {
+                flex: 0 0 200px;
+            }
         }
 
         .blog-card {
@@ -1021,13 +1061,16 @@
                     return;
                 }
                 
-                if (products.length === 0) {
+                // Sort by order
+                const sorted = [...products].sort((a, b) => (a.order || 0) - (b.order || 0));
+                
+                if (sorted.length === 0) {
                     coursesList.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-light);">Hiện chưa có khóa học nào. Vui lòng quay lại sau.</p>';
                     console.log('No products found');
                     return;
                 }
                 
-                coursesList.innerHTML = products.map(p => `
+                coursesList.innerHTML = sorted.map(p => `
                     <div class="card">
                         ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px 8px 0 0;">` : ''}
                         <div class="card-header">
@@ -1055,6 +1098,66 @@
             
             // Reload when storage changes (from admin dashboard)
             window.addEventListener('storage', loadCourses);
+
+            // ============ LOAD BLOG POSTS (CAROUSEL) ============
+            function loadBlog() {
+                console.log('Loading blog posts...');
+                const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+                console.log('Blog posts found:', blogPosts);
+                const blogGrid = document.getElementById('blogGrid');
+                const noBlogMsg = document.getElementById('noBlogMsg');
+                
+                if (!blogGrid) {
+                    console.log('blogGrid element not found');
+                    return;
+                }
+                
+                // Sort: pinned first, then by order
+                const sorted = blogPosts.sort((a, b) => {
+                    if (a.pinned !== b.pinned) return b.pinned ? 1 : -1;
+                    return a.order - b.order;
+                });
+                
+                if (sorted.length === 0) {
+                    blogGrid.style.display = 'none';
+                    noBlogMsg.style.display = 'block';
+                    console.log('No blog posts found');
+                    return;
+                }
+                
+                blogGrid.style.display = 'flex';
+                noBlogMsg.style.display = 'none';
+                
+                blogGrid.innerHTML = sorted.map((post, idx) => `
+                    <div class="carousel-item" onclick="goPage('blog-post', ${post.id})">
+                        ${post.image ? `<img src="${post.image}" alt="${post.title}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px 8px 0 0;">` : ''}
+                        <div class="card-header">
+                            <div class="card-title">${post.pinned ? '⭐ ' : ''}${post.title}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;">📅 ${post.date}</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">${post.excerpt}</p>
+                            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                                <small style="color: var(--primary); font-weight: 600;">🔑 ${post.keyword}</small>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                console.log('Blog posts loaded successfully');
+            }
+            
+            // Load blog immediately
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadBlog);
+            } else {
+                loadBlog();
+            }
+            
+            // Also load on window load
+            window.addEventListener('load', loadBlog);
+            
+            // Reload when storage changes (from admin dashboard)
+            window.addEventListener('storage', loadBlog);
         </script>
         </script>
 
@@ -1418,13 +1521,39 @@
             window.open('https://thunhienedu.vercel.app/admin', '_blank', 'width=1400,height=800');
         }
 
-        function goPage(page) {
+        function goPage(page, postId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const targetPage = document.getElementById(page);
             if (targetPage) {
                 targetPage.classList.add('active');
                 window.scrollTo(0, 0);
+                
+                // If blog post page, show specific post
+                if (page === 'blog-post' && postId) {
+                    showBlogPost(postId);
+                }
             }
+        }
+
+        function showBlogPost(postId) {
+            const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+            const post = blogPosts.find(p => p.id === postId);
+            
+            if (!post) {
+                document.getElementById('postContent').innerHTML = '<p>Bài viết không tìm thấy</p>';
+                return;
+            }
+            
+            document.getElementById('postContent').innerHTML = `
+                <h1 style="color: var(--primary); margin-bottom: 1rem;">${post.title}</h1>
+                <div style="color: var(--text-light); margin-bottom: 2rem; font-size: 0.9rem;">
+                    📅 ${post.date} | 🔑 ${post.keyword}
+                </div>
+                ${post.image ? `<img src="${post.image}" alt="${post.title}" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 2rem;">` : ''}
+                <div style="line-height: 1.8; font-size: 1rem; color: var(--text-dark);">
+                    ${post.content}
+                </div>
+            `;
         }
 
         function renderCalendar() {
