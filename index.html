@@ -216,30 +216,34 @@
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0.75rem 2rem;
+            padding: 1.2rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 2rem;
         }
 
         .logo {
             display: flex;
             align-items: center;
             gap: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--white);
             text-decoration: none;
             cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .logo-icon {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: visible;
+            flex-shrink: 0;
         }
 
         .logo-icon img {
@@ -386,12 +390,39 @@
 
         /* Grid */
         .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: flex;
             gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            overflow-x: auto;
+            padding: 2rem 0;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+        }
+
+        .grid .card {
+            flex: 0 0 320px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                gap: 1.5rem;
+                padding: 1.5rem 0;
+            }
+
+            .grid .card {
+                flex: 0 0 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid {
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+
+            .grid .card {
+                flex: 0 0 220px;
+            }
         }
 
         .card {
@@ -803,6 +834,29 @@
             .carousel-item {
                 flex: 0 0 200px;
             }
+
+            .header-content {
+                padding: 1rem 1rem;
+                gap: 1rem;
+            }
+
+            .logo-icon {
+                width: 80px;
+                height: 80px;
+            }
+
+            .logo {
+                font-size: 1.1rem;
+                gap: 0.75rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+
+            nav button {
+                font-size: 0.85rem;
+            }
         }
 
         .blog-card {
@@ -1052,8 +1106,43 @@
             // Load courses from localStorage
             function loadCourses() {
                 console.log('Loading courses...');
-                const products = JSON.parse(localStorage.getItem('products')) || [];
+                let products = JSON.parse(localStorage.getItem('products')) || [];
                 console.log('Products found:', products);
+                
+                // Add default courses if empty
+                if (products.length === 0) {
+                    products = [
+                        {
+                            id: 1,
+                            order: 0,
+                            name: '99K - HÀNH TRÌNH HIỂU CON HƠN',
+                            price: 99000,
+                            desc: 'Bạn có bao giờ tự hỏi: "Tại sao mình rất yêu con nhưng lại không biết cách xử lý khi con bực bội?',
+                            image: 'https://i.ibb.co/YVndtzQ/BM7-12.png',
+                            btnText: 'Tìm Hiểu Thêm'
+                        },
+                        {
+                            id: 2,
+                            order: 1,
+                            name: 'NHÀ THAM VẤN TÂM TÀI GIA',
+                            price: 5999999,
+                            desc: 'Đừng để những rào cản con bạn thu mình lại! Khóa học "Nhà Tham Vấn Tâm Tài Gia" được thiết kế để trang bị cho cha me 5 năng lực cốt lõi',
+                            image: 'https://i.ibb.co/YVndtzQ/BM7-12.png',
+                            btnText: 'Tìm Hiểu Thêm'
+                        },
+                        {
+                            id: 3,
+                            order: 2,
+                            name: 'NPL 4TEENS - HACK NÃO TUỔI TEEN',
+                            price: 24999999,
+                            desc: 'Tuổi 13-17 là giai đoạn vàng nhưng cũng đầy biến động. Khóa học NPL 4Teens giúp các bạn trẻ "hack" lộ trình tư duy để thành công.',
+                            image: 'https://i.ibb.co/YVndtzQ/BM7-12.png',
+                            btnText: 'Tìm Hiểu Thêm'
+                        }
+                    ];
+                    localStorage.setItem('products', JSON.stringify(products));
+                }
+                
                 const coursesList = document.getElementById('coursesList');
                 
                 if (!coursesList) {
@@ -1065,7 +1154,7 @@
                 const sorted = [...products].sort((a, b) => (a.order || 0) - (b.order || 0));
                 
                 if (sorted.length === 0) {
-                    coursesList.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-light);">Hiện chưa có khóa học nào. Vui lòng quay lại sau.</p>';
+                    coursesList.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem; width: 100%;">Hiện chưa có khóa học nào. Vui lòng quay lại sau.</p>';
                     console.log('No products found');
                     return;
                 }
