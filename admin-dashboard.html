@@ -596,13 +596,18 @@
 
         // ============ LOGIN ============
         function login() {
-            const password = document.getElementById('passwordInput').value;
+            const password = document.getElementById('passwordInput').value.trim();
+            console.log('Attempting login with password:', password);
+            console.log('Expected password:', ADMIN_PASSWORD);
+            
             if (password === ADMIN_PASSWORD) {
+                console.log('Login successful!');
                 sessionStorage.setItem('adminLogged', 'true');
                 document.getElementById('loginScreen').classList.add('hidden');
                 document.getElementById('adminContainer').style.display = 'block';
                 initAdmin();
             } else {
+                console.log('Login failed - password mismatch');
                 const errorEl = document.getElementById('loginError');
                 errorEl.classList.add('show');
                 setTimeout(() => errorEl.classList.remove('show'), 3000);
@@ -613,6 +618,26 @@
             if (confirm('Đăng xuất?')) {
                 sessionStorage.removeItem('adminLogged');
                 location.reload();
+            }
+        }
+
+        // Check login on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('DOMContentLoaded - checking auth');
+            checkAuth();
+        });
+
+        function checkAuth() {
+            const isLogged = sessionStorage.getItem('adminLogged') === 'true';
+            console.log('Auth check:', isLogged);
+            
+            if (isLogged) {
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('adminContainer').style.display = 'block';
+                initAdmin();
+            } else {
+                document.getElementById('loginScreen').classList.remove('hidden');
+                document.getElementById('adminContainer').style.display = 'none';
             }
         }
 
@@ -988,16 +1013,6 @@
             updateStats();
         }
 
-        window.addEventListener('load', () => {
-            if (sessionStorage.getItem('adminLogged') === 'true') {
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('adminContainer').style.display = 'block';
-                initAdmin();
-            } else {
-                document.getElementById('loginScreen').classList.remove('hidden');
-                document.getElementById('adminContainer').style.display = 'none';
-            }
-        });
     </script>
 </body>
 </html>
