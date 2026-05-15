@@ -500,9 +500,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Ảnh Đại Diện (URL hoặc upload)</label>
-                    <input type="file" id="blogImageInput" accept="image/*" onchange="previewBlogImage()">
-                    <div id="blogImagePreview" style="margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-light); border-radius: 6px; text-align: center; color: var(--text-light);">Không có ảnh</div>
+                    <label>Ảnh Đại Diện (URL link)</label>
+                    <input type="text" id="blogImageURL" placeholder="https://i.ibb.co/...">
+                    <small style="color: var(--text-light);">Dùng link Imgur hoặc Imgbb</small>
                 </div>
 
                 <button class="btn-primary" onclick="addBlogPost()" style="width: 100%;">✍️ Thêm Bài Viết</button>
@@ -537,9 +537,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Ảnh Khóa Học (300×200px)</label>
-                    <input type="file" id="productImageInput" accept="image/*" onchange="previewProductImage()">
-                    <div id="productImagePreview" style="margin-top: 0.5rem; padding: 0.5rem; background: var(--bg-light); border-radius: 6px; text-align: center; color: var(--text-light);">Không có ảnh</div>
+                    <label>Ảnh Khóa Học (300×200px - URL link)</label>
+                    <input type="text" id="productImageURL" placeholder="https://i.ibb.co/...">
                 </div>
 
                 <button class="btn-primary" onclick="addProduct()" style="width: 100%;">➕ Thêm Khóa Học</button>
@@ -710,23 +709,12 @@
         // ============ BLOG ============
         let blogPosts = [];
 
-        function previewBlogImage() {
-            const file = document.getElementById('blogImageInput').files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                document.getElementById('blogImagePreview').innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 4px;">`;
-                document.getElementById('blogImagePreview').dataset.image = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
         function addBlogPost() {
             const title = document.getElementById('blogTitle').value.trim();
             const excerpt = document.getElementById('blogExcerpt').value.trim();
             const keyword = document.getElementById('blogKeyword').value.trim();
             const content = document.getElementById('blogContent').value.trim();
-            const image = document.getElementById('blogImagePreview').dataset.image || '';
+            const image = document.getElementById('blogImageURL').value.trim() || '';
 
             console.log('Adding blog post:', { title, excerpt, keyword, content: content.substring(0, 50) });
 
@@ -808,9 +796,7 @@
             document.getElementById('blogExcerpt').value = '';
             document.getElementById('blogKeyword').value = '';
             document.getElementById('blogContent').value = '';
-            document.getElementById('blogImageInput').value = '';
-            document.getElementById('blogImagePreview').innerHTML = 'Không có ảnh';
-            document.getElementById('blogImagePreview').dataset.image = '';
+            document.getElementById('blogImageURL').value = '';
         }
 
         function renderBlogList() {
@@ -835,21 +821,11 @@
         let products = [];
 
         function previewProductImage() {
-            const file = document.getElementById('productImageInput').files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                document.getElementById('productImagePreview').innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width: 100%; max-height: 150px; border-radius: 4px;">`;
-                document.getElementById('productImagePreview').dataset.image = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
         function addProduct() {
             const name = document.getElementById('productName').value.trim();
             const price = parseInt(document.getElementById('productPrice').value) || 0;
             const desc = document.getElementById('productDesc').value.trim();
-            const image = document.getElementById('productImagePreview').dataset.image || '';
+            const image = document.getElementById('productImageURL').value.trim() || '';
 
             if (!name || price === 0 || !desc) {
                 showMessage('productMessage', '❌ Vui lòng điền đầy đủ', 'error');
@@ -899,9 +875,7 @@
             document.getElementById('productName').value = '';
             document.getElementById('productPrice').value = '';
             document.getElementById('productDesc').value = '';
-            document.getElementById('productImageInput').value = '';
-            document.getElementById('productImagePreview').innerHTML = 'Không có ảnh';
-            document.getElementById('productImagePreview').dataset.image = '';
+            document.getElementById('productImageURL').value = '';
         }
 
         function renderProducts() {
