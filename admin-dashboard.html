@@ -728,7 +728,10 @@
             const content = document.getElementById('blogContent').value.trim();
             const image = document.getElementById('blogImagePreview').dataset.image || '';
 
+            console.log('Adding blog post:', { title, excerpt, keyword, content: content.substring(0, 50) });
+
             if (!title || !excerpt || !keyword || !content) {
+                console.error('Missing fields!', { title, excerpt, keyword, content });
                 showMessage('blogMessage', '❌ Vui lòng điền đầy đủ', 'error');
                 return;
             }
@@ -741,8 +744,11 @@
                 date: new Date().toLocaleDateString('vi-VN')
             });
             
+            console.log('Blog posts after add:', blogPosts.length);
             sortBlogPosts();
             localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+            console.log('Saved to localStorage:', localStorage.getItem('blogPosts'));
+            
             clearBlogForm();
             renderBlogList();
             showMessage('blogMessage', '✅ Thêm bài viết thành công!', 'success');
