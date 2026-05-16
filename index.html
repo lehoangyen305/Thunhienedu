@@ -1355,43 +1355,7 @@
                 <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
                 <p class="section-subtitle">Các kỹ năng tâm lý quan trọng cho sự phát triển toàn diện</p>
                 
-                <div class="benefits-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <img src="https://PLACEHOLDER-BENEFIT1-URL-HERE.png" alt="Thay Đổi Niềm Tin" title="Thay URL này bằng GitHub link">
-                            </div>
-                            <div class="card-title">Thay Đổi Niềm Tin</div>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-description">Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai</p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <img src="https://PLACEHOLDER-BENEFIT2-URL-HERE.png" alt="Giảm Lo Âu" title="Thay URL này bằng GitHub link">
-                            </div>
-                            <div class="card-title">Giảm Lo Âu</div>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-description">Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring</p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">
-                                <img src="https://PLACEHOLDER-BENEFIT3-URL-HERE.png" alt="Cắt Cơn Hoảng Loạn" title="Thay URL này bằng GitHub link">
-                            </div>
-                            <div class="card-title">Cắt Cơn Hoảng Loạn</div>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-description">Cắt Cơn Hoảng Loạn Bằng Chánh Niệm - kỹ năng tự điều chỉnh cảm xúc</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="benefits-grid" id="benefitsGrid"></div>
             </section>
 
             <!-- Blog Section on Homepage -->
@@ -1414,6 +1378,57 @@
         </div>
 
         <script>
+            // Load benefits from localStorage
+            function loadBenefits() {
+                const benefits = JSON.parse(localStorage.getItem('benefits')) || [
+                    {
+                        id: 1,
+                        icon: 'Thay',
+                        title: 'Thay Đổi Niềm Tin',
+                        desc: 'Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai',
+                        image: ''
+                    },
+                    {
+                        id: 2,
+                        icon: 'Giảm',
+                        title: 'Giảm Lo Âu',
+                        desc: 'Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring',
+                        image: ''
+                    },
+                    {
+                        id: 3,
+                        icon: 'Cắt',
+                        title: 'Cắt Cơn Hoảng Loạn',
+                        desc: 'Cắt Cơn Hoảng Loạn Bằng Chánh Niệm - kỹ năng tự điều chỉnh cảm xúc',
+                        image: ''
+                    }
+                ];
+                
+                const html = benefits.map(b => `
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                ${b.image ? 
+                                    `<img src="${b.image}" alt="${b.title}">` : 
+                                    `<div style="font-size: 3rem; font-weight: bold;">${b.icon}</div>`
+                                }
+                            </div>
+                            <div class="card-title">${b.title}</div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">${b.desc}</p>
+                        </div>
+                    </div>
+                `).join('');
+                
+                const benefitsGrid = document.getElementById('benefitsGrid');
+                if (benefitsGrid) {
+                    benefitsGrid.innerHTML = html;
+                }
+                
+                console.log('Benefits loaded:', benefits.length);
+            }
+
             // Load courses from localStorage
             function loadCourses() {
                 console.log('Loading courses...');
@@ -1493,10 +1508,15 @@
                 loadCourses();
             }
             
+            // Load benefits on page load
+            loadBenefits();
+            
             // Also load on window load
+            window.addEventListener('load', loadBenefits);
             window.addEventListener('load', loadCourses);
             
             // Reload when storage changes (from admin dashboard)
+            window.addEventListener('storage', loadBenefits);
             window.addEventListener('storage', loadCourses);
 
             // ============ LOAD BLOG POSTS (CAROUSEL) ============
