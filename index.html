@@ -929,6 +929,73 @@
             transform: translateX(4px);
         }
 
+        /* Testimonials Carousel */
+        .testimonials-carousel {
+            width: 100%;
+            overflow: hidden;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .testimonials-track {
+            display: flex;
+            gap: 2rem;
+            animation: scroll 60s linear infinite;
+            width: fit-content;
+        }
+
+        .testimonials-track:hover {
+            animation-play-state: paused;
+        }
+
+        .testimonial-item {
+            flex-shrink: 0;
+            width: 400px;
+            height: auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .testimonial-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .testimonial-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-item {
+                width: 300px;
+            }
+            
+            .testimonials-track {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .testimonial-item {
+                width: 250px;
+            }
+        }
+
         @media (max-width: 768px) {
             .blog-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -1226,6 +1293,66 @@
                 <p class="section-subtitle">Chia sẻ kiến thức và kinh nghiệm nuôi dạy con</p>
                 
                 <div id="blogGridHome" class="blog-grid"></div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section style="background: var(--white); padding: 5rem 2rem; overflow: hidden;">
+                <h2 class="section-title">💬 Cảm Nhận Từ Thân Chủ</h2>
+                <p class="section-subtitle">Những phản hồi chân thành từ gia đình đã đồng hành cùng chúng tôi</p>
+                
+                <div class="testimonials-carousel">
+                    <div class="testimonials-track">
+                        <!-- First set of images -->
+                        <div class="testimonial-item"><img src="https://i.ibb.co/cX1KRZfF/2.jpg" alt="Phản hồi 1"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/N679VtfX/3.jpg" alt="Phản hồi 2"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/tP80cs2r/4.jpg" alt="Phản hồi 3"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/20sGsLwF/5.jpg" alt="Phản hồi 4"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/8D4RY2wy/6.jpg" alt="Phản hồi 5"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/7x6C5pSP/7.jpg" alt="Phản hồi 6"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/4Z8Thzb8/8.jpg" alt="Phản hồi 7"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/GvgnhQNK/9.jpg" alt="Phản hồi 8"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/d4FshHwJ/10.jpg" alt="Phản hồi 9"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/PvmMG687/11.jpg" alt="Phản hồi 10"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/WNJY6C34/12.jpg" alt="Phản hồi 11"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/zVjJ1gFQ/13.jpg" alt="Phản hồi 12"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/5Wp20WcQ/14.jpg" alt="Phản hồi 13"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/w9TfSzC/15.jpg" alt="Phản hồi 14"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/hJdhvw0R/16.jpg" alt="Phản hồi 15"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/MkfP755D/17.jpg" alt="Phản hồi 16"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/B5s6nCtT/18.jpg" alt="Phản hồi 17"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/99pZyhvF/19.jpg" alt="Phản hồi 18"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/YFYpHfQG/20.jpg" alt="Phản hồi 19"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/bgnYxnWz/21.jpg" alt="Phản hồi 20"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/dsdMJDVX/23.jpg" alt="Phản hồi 21"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/0pCFkqMt/24.jpg" alt="Phản hồi 22"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/0yWtxm12/nh-gi-1.jpg" alt="Phản hồi 23"></div>
+                        
+                        <!-- Duplicate set for seamless loop -->
+                        <div class="testimonial-item"><img src="https://i.ibb.co/cX1KRZfF/2.jpg" alt="Phản hồi 1"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/N679VtfX/3.jpg" alt="Phản hồi 2"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/tP80cs2r/4.jpg" alt="Phản hồi 3"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/20sGsLwF/5.jpg" alt="Phản hồi 4"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/8D4RY2wy/6.jpg" alt="Phản hồi 5"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/7x6C5pSP/7.jpg" alt="Phản hồi 6"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/4Z8Thzb8/8.jpg" alt="Phản hồi 7"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/GvgnhQNK/9.jpg" alt="Phản hồi 8"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/d4FshHwJ/10.jpg" alt="Phản hồi 9"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/PvmMG687/11.jpg" alt="Phản hồi 10"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/WNJY6C34/12.jpg" alt="Phản hồi 11"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/zVjJ1gFQ/13.jpg" alt="Phản hồi 12"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/5Wp20WcQ/14.jpg" alt="Phản hồi 13"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/w9TfSzC/15.jpg" alt="Phản hồi 14"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/hJdhvw0R/16.jpg" alt="Phản hồi 15"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/MkfP755D/17.jpg" alt="Phản hồi 16"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/B5s6nCtT/18.jpg" alt="Phản hồi 17"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/99pZyhvF/19.jpg" alt="Phản hồi 18"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/YFYpHfQG/20.jpg" alt="Phản hồi 19"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/bgnYxnWz/21.jpg" alt="Phản hồi 20"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/dsdMJDVX/23.jpg" alt="Phản hồi 21"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/0pCFkqMt/24.jpg" alt="Phản hồi 22"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/0yWtxm12/nh-gi-1.jpg" alt="Phản hồi 23"></div>
+                    </div>
+                </div>
             </section>
         </div>
 
