@@ -1324,19 +1324,19 @@
                     <div class="portfolio-carousel" id="portfolioCarousel">
                         <!-- Slide 1: Profile -->
                         <div class="portfolio-slide">
-                            <img src="https://i.ibb.co/qYDptWVH/Portfolio-1.jpg" alt="Hoàng Thị Thu Nhiên - Chuyên Gia Tâm Lý" 
+                            <img src="PORTFOLIO-PAGE-1-URL-HERE.jpg" alt="Hoàng Thị Thu Nhiên - Chuyên Gia Tâm Lý" 
                                  style="width: 100%; max-width: 900px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
                         </div>
                         
                         <!-- Slide 2: Credentials -->
                         <div class="portfolio-slide">
-                            <img src="https://i.ibb.co/mCBpZSB7/Portfolio-2.jpg" alt="NLP Trainer - Master Coach - Founder Better Minds" 
+                            <img src="PORTFOLIO-PAGE-2-URL-HERE.jpg" alt="NLP Trainer - Master Coach - Founder Better Minds" 
                                  style="width: 100%; max-width: 900px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
                         </div>
                         
                         <!-- Slide 3: Achievements -->
                         <div class="portfolio-slide">
-                            <img src="https://i.ibb.co/jkpm73CT/Portfolio-3.jpg" alt="500+ gia đình, 1000+ thân chủ" 
+                            <img src="PORTFOLIO-PAGE-3-URL-HERE.jpg" alt="500+ gia đình, 1000+ thân chủ" 
                                  style="width: 100%; max-width: 900px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
                         </div>
                     </div>
@@ -1464,6 +1464,9 @@
                 
                 const coursesList = document.getElementById('coursesList');
                 const coursesListHome = document.getElementById('coursesListHome');
+                
+                // Sort courses by order
+                const sorted = products.sort((a, b) => a.order - b.order);
                 
                 // Build HTML
                 const html = sorted.map(p => `
@@ -2176,15 +2179,24 @@
             const slides = document.querySelectorAll('.portfolio-slide');
             const dots = document.querySelectorAll('.portfolio-dot');
             
-            if (n >= slides.length) currentPortfolioSlide = 0;
-            if (n < 0) currentPortfolioSlide = slides.length - 1;
-            else currentPortfolioSlide = n;
+            // Fix loop logic
+            if (n >= slides.length) {
+                currentPortfolioSlide = 0;
+            } else if (n < 0) {
+                currentPortfolioSlide = slides.length - 1;
+            } else {
+                currentPortfolioSlide = n;
+            }
             
             slides.forEach(slide => slide.classList.remove('active'));
             dots.forEach(dot => dot.classList.remove('active'));
             
-            slides[currentPortfolioSlide].classList.add('active');
-            dots[currentPortfolioSlide].classList.add('active');
+            if (slides[currentPortfolioSlide]) {
+                slides[currentPortfolioSlide].classList.add('active');
+            }
+            if (dots[currentPortfolioSlide]) {
+                dots[currentPortfolioSlide].classList.add('active');
+            }
         }
         
         function movePortfolioSlide(direction) {
