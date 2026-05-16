@@ -389,6 +389,9 @@
             margin-top: 0.5rem;
         }
     </style>
+    <!-- Quill.js Visual Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 </head>
 <body>
     <!-- LOGIN -->
@@ -493,11 +496,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Nội Dung Bài Viết (HTML) *</label>
-                    <div class="html-hint">
-                        💡 Bạn có thể dùng HTML: &lt;p&gt;, &lt;strong&gt;, &lt;br&gt;, &lt;h2&gt;, etc.
-                    </div>
-                    <textarea id="blogContent" placeholder="&lt;p&gt;Nội dung bài viết...&lt;/p&gt;" style="min-height: 180px;"></textarea>
+                    <label>Nội Dung Bài Viết (Visual Editor) *</label>
+                    <div id="blogContent" style="background: white; min-height: 250px; border: 1px solid var(--border); border-radius: 8px;"></div>
                 </div>
 
                 <div class="form-group">
@@ -594,6 +594,9 @@
 
     <script>
         const ADMIN_PASSWORD = 'admin123';
+        
+        // Quill editor instance (global)
+        let quillEditor = null;
 
         // ============ LOGIN ============
         function login() {
@@ -614,6 +617,7 @@
                     document.getElementById('loginScreen').style.display = 'none';
                     document.getElementById('adminContainer').style.display = 'block';
                     initAdmin();
+                    initQuillEditor(); // Initialize visual editor
                 } else {
                     console.log('❌ Wrong password');
                     const err = document.getElementById('loginError');
@@ -645,11 +649,31 @@
                 document.getElementById('loginScreen').style.display = 'none';
                 document.getElementById('adminContainer').style.display = 'block';
                 initAdmin();
+                initQuillEditor(); // Initialize Quill after login
             } else {
                 document.getElementById('loginScreen').style.display = 'block';
                 document.getElementById('adminContainer').style.display = 'none';
             }
         });
+        
+        // Initialize Quill.js Visual Editor
+        function initQuillEditor() {
+            if (quillEditor) return; // Already initialized
+            
+            quillEditor = new Quill('#blogContent', {
+                theme: 'snow',
+                placeholder: 'Viết nội dung bài viết ở đây...',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [2, 3, false] }],
+                        ['bold', 'italic', 'underline'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'image'],
+                        ['clean']
+                    ]
+                }
+            });
+        }
 
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -748,12 +772,12 @@
             const title = document.getElementById('blogTitle').value.trim();
             const excerpt = document.getElementById('blogExcerpt').value.trim();
             const keyword = document.getElementById('blogKeyword').value.trim();
-            const content = document.getElementById('blogContent').value.trim();
+            const content = quillEditor ? quillEditor.root.innerHTML.trim() : '';
             const image = document.getElementById('blogImageURL').value.trim() || '';
 
             console.log('Adding blog post:', { title, excerpt, keyword, content: content.substring(0, 50) });
 
-            if (!title || !excerpt || !keyword || !content) {
+            if (!title || !excerpt || !keyword || !content || content === '<p><br></p>') {
                 console.error('Missing fields!', { title, excerpt, keyword, content });
                 showMessage('blogMessage', '❌ Vui lòng điền đầy đủ', 'error');
                 return;
@@ -830,7 +854,7 @@
             document.getElementById('blogTitle').value = '';
             document.getElementById('blogExcerpt').value = '';
             document.getElementById('blogKeyword').value = '';
-            document.getElementById('blogContent').value = '';
+            if (quillEditor) quillEditor.setText(''); // Clear Quill editor
             document.getElementById('blogImageURL').value = '';
         }
 
