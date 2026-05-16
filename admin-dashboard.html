@@ -261,6 +261,15 @@
             color: var(--white);
         }
 
+        .btn-secondary {
+            background: #6c757d;
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
         .btn-small {
             padding: 0.4rem 0.8rem;
             font-size: 0.8rem;
@@ -506,7 +515,10 @@
                     <small style="color: var(--text-light);">Dùng link Imgur hoặc Imgbb</small>
                 </div>
 
-                <button class="btn-primary" onclick="addBlogPost()" style="width: 100%;">✍️ Thêm Bài Viết</button>
+                <div style="display: flex; gap: 1rem;">
+                    <button id="blogSubmitBtn" class="btn-primary" onclick="addBlogPost()" style="flex: 1;">✍️ Thêm Bài Viết</button>
+                    <button id="blogCancelBtn" class="btn-secondary" onclick="cancelEditBlog()" style="display: none;">❌ Hủy</button>
+                </div>
 
                 <h3>📋 Danh Sách Bài Viết (Sắp Xếp & Ghim)</h3>
                 <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 1rem;">⭐ = Ghim lên đầu | ⬆️⬇️ = Sắp xếp thứ tự</p>
@@ -767,6 +779,7 @@
 
         // ============ BLOG ============
         let blogPosts = [];
+        let editingBlogId = null; // Track which blog post is being edited
 
         function addBlogPost() {
             const title = document.getElementById('blogTitle').value.trim();
@@ -783,22 +796,47 @@
                 return;
             }
 
-            blogPosts.push({
-                id: Date.now(),
-                order: blogPosts.length,
-                pinned: false,
-                title, excerpt, keyword, content, image,
-                date: new Date().toLocaleDateString('vi-VN')
-            });
+            // Check if we're in edit mode
+            if (editingBlogId !== null) {
+                // UPDATE existing post
+                const post = blogPosts.find(p => p.id === editingBlogId);
+                if (post) {
+                    post.title = title;
+                    post.excerpt = excerpt;
+                    post.keyword = keyword;
+                    post.content = content;
+                    post.image = image;
+                    post.date = new Date().toLocaleDateString('vi-VN'); // Update date
+                    
+                    console.log('Updated blog post:', post);
+                    showMessage('blogMessage', '✅ Cập nhật bài viết thành công!', 'success');
+                }
+                
+                // Exit edit mode
+                editingBlogId = null;
+                document.getElementById('blogSubmitBtn').textContent = '➕ Thêm Bài Viết';
+                document.getElementById('blogCancelBtn').style.display = 'none';
+                
+            } else {
+                // ADD new post
+                blogPosts.push({
+                    id: Date.now(),
+                    order: blogPosts.length,
+                    pinned: false,
+                    title, excerpt, keyword, content, image,
+                    date: new Date().toLocaleDateString('vi-VN')
+                });
+                
+                console.log('Blog posts after add:', blogPosts.length);
+                showMessage('blogMessage', '✅ Thêm bài viết thành công!', 'success');
+            }
             
-            console.log('Blog posts after add:', blogPosts.length);
             sortBlogPosts();
             localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
             console.log('Saved to localStorage:', localStorage.getItem('blogPosts'));
             
             clearBlogForm();
             renderBlogList();
-            showMessage('blogMessage', '✅ Thêm bài viết thành công!', 'success');
         }
 
         function moveBlog(id, direction) {
@@ -850,12 +888,56 @@
             renderBlogList();
         }
 
+        function editBlogPost(id) {
+            const post = blogPosts.find(p => p.id === id);
+            if (!post) return;
+            
+            // Load post data into form
+            document.getElementById('blogTitle').value = post.title;
+            document.getElementById('blogExcerpt').value = post.excerpt;
+            document.getElementById('blogKeyword').value = post.keyword;
+            document.getElementById('blogImageURL').value = post.image || '';
+            
+            // Load content into Quill editor
+            if (quillEditor) {
+                quillEditor.root.innerHTML = post.content;
+            }
+            
+            // Set edit mode
+            editingBlogId = id;
+            
+            // Change button text
+            document.getElementById('blogSubmitBtn').textContent = '💾 Cập Nhật Bài Viết';
+            document.getElementById('blogCancelBtn').style.display = 'inline-block';
+            
+            // Scroll to form
+            document.getElementById('blogTitle').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            document.getElementById('blogTitle').focus();
+            
+            showMessage('blogMessage', '✏️ Đang chỉnh sửa bài viết...', 'success');
+        }
+
+        function cancelEditBlog() {
+            editingBlogId = null;
+            clearBlogForm();
+            document.getElementById('blogSubmitBtn').textContent = '➕ Thêm Bài Viết';
+            document.getElementById('blogCancelBtn').style.display = 'none';
+            showMessage('blogMessage', '❌ Đã hủy chỉnh sửa', 'error');
+        }
+
         function clearBlogForm() {
             document.getElementById('blogTitle').value = '';
             document.getElementById('blogExcerpt').value = '';
             document.getElementById('blogKeyword').value = '';
             if (quillEditor) quillEditor.setText(''); // Clear Quill editor
             document.getElementById('blogImageURL').value = '';
+            
+            // Reset edit mode
+            editingBlogId = null;
+            document.getElementById('blogSubmitBtn').textContent = '➕ Thêm Bài Viết';
+            if (document.getElementById('blogCancelBtn')) {
+                document.getElementById('blogCancelBtn').style.display = 'none';
+            }
         }
 
         function renderBlogList() {
@@ -869,6 +951,7 @@
                         <button class="btn-warning btn-small" onclick="togglePin(${p.id})">${p.pinned ? '✓ Ghim' : '○ Ghim'}</button>
                         ${idx > 0 ? `<button class="btn-primary btn-order" onclick="moveBlog(${p.id}, 'up')">⬆️</button>` : ''}
                         ${idx < blogPosts.length - 1 ? `<button class="btn-primary btn-order" onclick="moveBlog(${p.id}, 'down')">⬇️</button>` : ''}
+                        <button class="btn-primary btn-small" onclick="editBlogPost(${p.id})">✏️ Sửa</button>
                         <button class="btn-danger btn-small" onclick="deleteBlogPost(${p.id})">🗑️</button>
                     </div>
                 </div>
