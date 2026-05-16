@@ -1826,36 +1826,7 @@
 
     <script>
         // ========== BANNER SLIDER - LOAD TỪ LOCALSTORAGE ==========
-        let bannerSlides = JSON.parse(localStorage.getItem('bannerSlides')) || [
-            {
-                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&h=600&fit=crop",
-                title: "Hiểu Con Hơn",
-                subtitle: "Khám phá con bạn thực sự cần gì - Xây dựng tương lai sáng",
-                cta1: { text: "📅 Taster 99K", action: "openRegister()" },
-                cta2: { text: "Xem Khóa Học", action: "goPage('courses')" }
-            },
-            {
-                image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1400&h=600&fit=crop",
-                title: "Khóa Học 4.5M",
-                subtitle: "Transformation hoàn chỉnh cho gia đình bạn",
-                cta1: { text: "Tìm Hiểu Thêm", action: "openRegister()" },
-                cta2: { text: "Tư Vấn Miễn Phí", action: "openConsultation()" }
-            },
-            {
-                image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1400&h=600&fit=crop",
-                title: "Đồng Hành Teen",
-                subtitle: "Hỗ trợ liên tục cho con tuổi 13-18",
-                cta1: { text: "Đăng Ký Ngay", action: "openRegister()" },
-                cta2: { text: "Liên Hệ", action: "goPage('contact')" }
-            },
-            {
-                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&h=600&fit=crop",
-                title: "Tư Vấn Miễn Phí",
-                subtitle: "Đặt lịch ngay với Coach - Thứ 2 & 4",
-                cta1: { text: "Đặt Lịch Ngay", action: "openConsultation()" },
-                cta2: { text: "Liên Hệ Zalo", action: "window.location='https://zalo.me/0987654321'" }
-            }
-        ];
+        let bannerSlides = JSON.parse(localStorage.getItem('bannerSlides')) || [];
 
         let currentBannerIndex = 0;
         let bannerAutoPlay;
