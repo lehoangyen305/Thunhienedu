@@ -1394,14 +1394,6 @@
                 </div>
             </section>
 
-            <!-- Courses Section on Homepage -->
-            <section style="background: var(--white); padding: 5rem 2rem;">
-                <h2 class="section-title">Khóa Học Nổi Bật</h2>
-                <p class="section-subtitle">Chương trình đồng hành cùng cha mẹ và con</p>
-                
-                <div class="benefits-grid" id="coursesListHome"></div>
-            </section>
-
             <!-- Blog Section on Homepage -->
             <section style="background: var(--bg-light); padding: 5rem 2rem;">
                 <h2 class="section-title">Blog & Bài Viết</h2>
@@ -1463,7 +1455,6 @@
                 }
                 
                 const coursesList = document.getElementById('coursesList');
-                const coursesListHome = document.getElementById('coursesListHome');
                 
                 // Sort courses by order
                 const sorted = products.sort((a, b) => a.order - b.order);
@@ -1489,14 +1480,6 @@
                         coursesList.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem; width: 100%;">Hiện chưa có khóa học nào. Vui lòng quay lại sau.</p>';
                     } else {
                         coursesList.innerHTML = html;
-                    }
-                }
-                
-                if (coursesListHome) {
-                    if (sorted.length === 0) {
-                        coursesListHome.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem; width: 100%;">Hiện chưa có khóa học nào. Vui lòng quay lại sau.</p>';
-                    } else {
-                        coursesListHome.innerHTML = html;
                     }
                 }
                 
