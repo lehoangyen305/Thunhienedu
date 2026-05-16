@@ -426,6 +426,7 @@
         <!-- TABS -->
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="switchTab('slides')">🎬 Slides</button>
+            <button class="tab-btn" onclick="switchTab('benefits')">✨ Lợi Ích</button>
             <button class="tab-btn" onclick="switchTab('blog')">📝 Blog</button>
             <button class="tab-btn" onclick="switchTab('products')">🛍️ Khóa Học</button>
             <button class="tab-btn" onclick="switchTab('customers')">👥 Khách Hàng</button>
@@ -481,7 +482,48 @@
             </div>
         </div>
 
-        <!-- TAB 2: BLOG -->
+        <!-- TAB 2: BENEFITS -->
+        <div id="benefits" class="tab-content">
+            <div class="panel">
+                <h2>✨ Quản Lý Lợi Ích</h2>
+                <div id="benefitsMessage" class="message"></div>
+
+                <h3>➕ Thêm Lợi Ích Mới</h3>
+                
+                <div class="form-group">
+                    <label>Icon (Emoji hoặc Text):</label>
+                    <input type="text" id="benefitIcon" placeholder="✨ hoặc Thay" maxlength="50">
+                    <small style="color: var(--text-light);">Ví dụ: ✨, 🎯, Thay, Giảm, Cắt</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Tiêu Đề:</label>
+                    <input type="text" id="benefitTitle" placeholder="Thay Đổi Niềm Tin">
+                </div>
+
+                <div class="form-group">
+                    <label>Mô Tả:</label>
+                    <textarea id="benefitDesc" rows="3" placeholder="Reframing & Future Pacing giúp con tự tin học tập..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Icon URL (Ảnh):</label>
+                    <input type="text" id="benefitImageURL" placeholder="https://i.ibb.co/...">
+                    <small style="color: var(--text-light);">Link ảnh từ Imgbb (tùy chọn - nếu không dùng emoji)</small>
+                </div>
+
+                <div style="display: flex; gap: 1rem;">
+                    <button id="benefitSubmitBtn" class="btn-primary" onclick="addBenefit()" style="flex: 1;">➕ Thêm Lợi Ích</button>
+                    <button id="benefitCancelBtn" class="btn-secondary" onclick="cancelEditBenefit()" style="display: none;">❌ Hủy</button>
+                </div>
+
+                <h3>📋 Danh Sách Lợi Ích (Tối đa 3-4 mục)</h3>
+                <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 1rem;">⬆️⬇️ = Sắp xếp thứ tự hiển thị</p>
+                <div id="benefitsList"></div>
+            </div>
+        </div>
+
+        <!-- TAB 3: BLOG -->
         <div id="blog" class="tab-content">
             <div class="panel">
                 <h2>📝 Quản Lý Blog Posts</h2>
@@ -775,6 +817,135 @@
                 </div>
             `).join('');
             document.getElementById('slidesList').innerHTML = html || '<p style="color: var(--text-light);">Chưa có slide</p>';
+        }
+
+        // ============ BENEFITS ============
+        let benefits = [];
+        let editingBenefitId = null;
+
+        function addBenefit() {
+            const icon = document.getElementById('benefitIcon').value.trim();
+            const title = document.getElementById('benefitTitle').value.trim();
+            const desc = document.getElementById('benefitDesc').value.trim();
+            const image = document.getElementById('benefitImageURL').value.trim() || '';
+
+            if (!icon || !title || !desc) {
+                showMessage('benefitsMessage', '❌ Vui lòng điền đầy đủ thông tin', 'error');
+                return;
+            }
+
+            if (editingBenefitId !== null) {
+                // UPDATE existing benefit
+                const benefit = benefits.find(b => b.id === editingBenefitId);
+                if (benefit) {
+                    benefit.icon = icon;
+                    benefit.title = title;
+                    benefit.desc = desc;
+                    benefit.image = image;
+                    showMessage('benefitsMessage', '✅ Cập nhật lợi ích thành công!', 'success');
+                }
+                
+                editingBenefitId = null;
+                document.getElementById('benefitSubmitBtn').textContent = '➕ Thêm Lợi Ích';
+                document.getElementById('benefitCancelBtn').style.display = 'none';
+                
+            } else {
+                // ADD new benefit
+                benefits.push({
+                    id: Date.now(),
+                    order: benefits.length,
+                    icon, title, desc, image
+                });
+                showMessage('benefitsMessage', '✅ Thêm lợi ích thành công!', 'success');
+            }
+
+            localStorage.setItem('benefits', JSON.stringify(benefits));
+            clearBenefitForm();
+            renderBenefitsList();
+        }
+
+        function editBenefit(id) {
+            const benefit = benefits.find(b => b.id === id);
+            if (!benefit) return;
+            
+            document.getElementById('benefitIcon').value = benefit.icon;
+            document.getElementById('benefitTitle').value = benefit.title;
+            document.getElementById('benefitDesc').value = benefit.desc;
+            document.getElementById('benefitImageURL').value = benefit.image || '';
+            
+            editingBenefitId = id;
+            document.getElementById('benefitSubmitBtn').textContent = '💾 Cập Nhật Lợi Ích';
+            document.getElementById('benefitCancelBtn').style.display = 'inline-block';
+            
+            document.getElementById('benefitIcon').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            document.getElementById('benefitIcon').focus();
+            
+            showMessage('benefitsMessage', '✏️ Đang chỉnh sửa lợi ích...', 'success');
+        }
+
+        function cancelEditBenefit() {
+            editingBenefitId = null;
+            clearBenefitForm();
+            document.getElementById('benefitSubmitBtn').textContent = '➕ Thêm Lợi Ích';
+            document.getElementById('benefitCancelBtn').style.display = 'none';
+            showMessage('benefitsMessage', '❌ Đã hủy chỉnh sửa', 'error');
+        }
+
+        function clearBenefitForm() {
+            document.getElementById('benefitIcon').value = '';
+            document.getElementById('benefitTitle').value = '';
+            document.getElementById('benefitDesc').value = '';
+            document.getElementById('benefitImageURL').value = '';
+            
+            editingBenefitId = null;
+            document.getElementById('benefitSubmitBtn').textContent = '➕ Thêm Lợi Ích';
+            if (document.getElementById('benefitCancelBtn')) {
+                document.getElementById('benefitCancelBtn').style.display = 'none';
+            }
+        }
+
+        function moveBenefit(id, direction) {
+            const idx = benefits.findIndex(b => b.id === id);
+            if (idx === -1) return;
+            
+            if (direction === 'up' && idx > 0) {
+                [benefits[idx], benefits[idx-1]] = [benefits[idx-1], benefits[idx]];
+            } else if (direction === 'down' && idx < benefits.length - 1) {
+                [benefits[idx], benefits[idx+1]] = [benefits[idx+1], benefits[idx]];
+            } else {
+                return;
+            }
+            
+            benefits.forEach((b, i) => b.order = i);
+            localStorage.setItem('benefits', JSON.stringify(benefits));
+            renderBenefitsList();
+        }
+
+        function deleteBenefit(id) {
+            if (!confirm('Xóa lợi ích này?')) return;
+            benefits = benefits.filter(b => b.id !== id);
+            benefits.forEach((b, i) => b.order = i);
+            localStorage.setItem('benefits', JSON.stringify(benefits));
+            renderBenefitsList();
+            showMessage('benefitsMessage', '✅ Đã xóa lợi ích', 'success');
+        }
+
+        function renderBenefitsList() {
+            const html = benefits.map((b, idx) => `
+                <div class="list-item">
+                    <div class="list-item-content">
+                        <div class="list-item-title">${b.icon} ${b.title}</div>
+                        <div class="list-item-meta">${b.desc.substring(0, 60)}...</div>
+                    </div>
+                    <div class="list-item-actions">
+                        ${idx > 0 ? `<button class="btn-primary btn-order" onclick="moveBenefit(${b.id}, 'up')">⬆️</button>` : ''}
+                        ${idx < benefits.length - 1 ? `<button class="btn-primary btn-order" onclick="moveBenefit(${b.id}, 'down')">⬇️</button>` : ''}
+                        <button class="btn-primary btn-small" onclick="editBenefit(${b.id})">✏️ Sửa</button>
+                        <button class="btn-danger btn-small" onclick="deleteBenefit(${b.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('benefitsList').innerHTML = html || '<p style="color: var(--text-light);">Chưa có lợi ích nào. Thêm mới để bắt đầu!</p>';
         }
 
         // ============ BLOG ============
@@ -1111,6 +1282,7 @@
 
         function initAdmin() {
             slides = JSON.parse(localStorage.getItem('bannerSlides')) || [];
+            benefits = JSON.parse(localStorage.getItem('benefits')) || [];
             blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
             products = JSON.parse(localStorage.getItem('products')) || [];
             customers = JSON.parse(localStorage.getItem('customers')) || [];
@@ -1118,15 +1290,18 @@
 
             // Ensure order property exists
             slides.forEach((item, idx) => { if (!item.order) item.order = idx; });
+            benefits.forEach((item, idx) => { if (!item.order) item.order = idx; });
             products.forEach((item, idx) => { if (!item.order) item.order = idx; });
             blogPosts.forEach((item, idx) => { if (!item.order) item.order = idx; });
 
             // Sort
             slides.sort((a, b) => a.order - b.order);
+            benefits.sort((a, b) => a.order - b.order);
             products.sort((a, b) => a.order - b.order);
             sortBlogPosts();
             
             renderSlides();
+            renderBenefitsList();
             renderBlogList();
             renderProducts();
             renderCustomers();
