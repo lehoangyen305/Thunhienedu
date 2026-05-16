@@ -6,6 +6,41 @@
     <meta name="description" content="Thu Nhiên Education - Giáo dục tâm lý giúp con tự tin, vượt qua lo âu, phát triển bản thân.">
     <title>Thu Nhiên Education - Phát Triển Tâm Trí Con</title>
     
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="coaching tâm lý, NLP, parenting, teen, giáo dục con, lo âu, hoảng loạn, tự tin, phát triển bản thân">
+    <meta name="author" content="Thu Nhiên Education">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thunhienedu.vercel.app/">
+    <meta property="og:title" content="Thu Nhiên Education - Coaching Tâm Lý Cho Phụ Huynh & Trẻ">
+    <meta property="og:description" content="Giáo dục tâm lý giúp con tự tin, vượt qua lo âu, phát triển bản thân.">
+    <meta property="og:image" content="https://i.ibb.co/YVndtzQ/BM7-12.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://thunhienedu.vercel.app/">
+    <meta name="twitter:title" content="Thu Nhiên Education">
+    <meta name="twitter:description" content="Coaching tâm lý chuyên nghiệp cho phụ huynh và trẻ em">
+    <meta name="twitter:image" content="https://i.ibb.co/YVndtzQ/BM7-12.png">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Thu Nhiên Education",
+      "url": "https://thunhienedu.vercel.app",
+      "logo": "https://i.ibb.co/YVndtzQ/BM7-12.png",
+      "description": "Coaching tâm lý chuyên nghiệp cho phụ huynh và trẻ em, giúp phát triển tâm trí và vượt qua thách thức",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "dangky@thunhienedu.vn",
+        "contactType": "Customer Service"
+      }
+    }
+    </script>
+    
     <style>
         * {
             margin: 0;
@@ -440,6 +475,100 @@
                 grid-template-columns: 1fr;
                 gap: 2rem;
                 text-align: center;
+            }
+        }
+
+        /* Portfolio Carousel */
+        .portfolio-carousel-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+        
+        .portfolio-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .portfolio-slide {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .portfolio-slide.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .portfolio-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(30, 64, 175, 0.8);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .portfolio-nav:hover {
+            background: var(--primary);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .portfolio-prev {
+            left: -60px;
+        }
+        
+        .portfolio-next {
+            right: -60px;
+        }
+        
+        .portfolio-dots {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .portfolio-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            margin: 0 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .portfolio-dot.active {
+            background: var(--primary);
+            width: 40px;
+            border-radius: 6px;
+        }
+        
+        @media (max-width: 768px) {
+            .portfolio-nav {
+                font-size: 1.5rem;
+                padding: 0.75rem 1rem;
+            }
+            
+            .portfolio-prev {
+                left: 10px;
+            }
+            
+            .portfolio-next {
+                right: 10px;
             }
         }
 
@@ -1186,31 +1315,38 @@
                 </div>
             </div>
 
-            <!-- About Coach Section -->
-            <section style="background: var(--white); padding: 5rem 2rem;">
+            <!-- About Coach Section - Portfolio Carousel -->
+            <section style="background: var(--bg-light); padding: 5rem 2rem;">
                 <h2 class="section-title">Giới Thiệu Coach Thu Nhiên</h2>
-                <p class="section-subtitle">Đồng Hành Cùng Hành Trình Nuôi Dạy Con</p>
+                <p class="section-subtitle">Chuyên Gia Tâm Lý - NLP Trainer - Master Coach</p>
                 
-                <div class="coach-grid">
-                    <!-- Coach Image -->
-                    <div style="text-align: center;">
-                        <img src="https://i.ibb.co/YVndtzQ/BM7-12.png" alt="Coach Thu Nhiên" 
-                             style="width: 100%; max-width: 300px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);">
+                <div class="portfolio-carousel-container">
+                    <div class="portfolio-carousel" id="portfolioCarousel">
+                        <!-- Slide 1: Profile -->
+                        <div class="portfolio-slide">
+                            <img src="PORTFOLIO-PAGE-1-URL-HERE.jpg" alt="Hoàng Thị Thu Nhiên - Chuyên Gia Tâm Lý" 
+                                 style="width: 100%; max-width: 900px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+                        </div>
+                        
+                        <!-- Slide 2: Credentials -->
+                        <div class="portfolio-slide">
+                            <img src="PORTFOLIO-PAGE-2-URL-HERE.jpg" alt="NLP Trainer - Master Coach - Founder Better Minds" 
+                                 style="width: 100%; max-width: 900px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+                        </div>
+                        
+                        <!-- Slide 3: Achievements -->
+                        <div class="portfolio-slide">
+                            <img src="PORTFOLIO-PAGE-3-URL-HERE.jpg" alt="500+ gia đình, 1000+ thân chủ" 
+                                 style="width: 100%; max-width: 900px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
+                        </div>
                     </div>
                     
-                    <!-- Coach Info -->
-                    <div>
-                        <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1rem;">
-                            [Tên Coach - Đang Chờ Nội Dung]
-                        </h3>
-                        <p style="line-height: 1.8; color: var(--text-dark); margin-bottom: 1.5rem;">
-                            [Tiểu sử, học vấn, chứng chỉ - 200-300 chữ]<br><br>
-                            <em>Placeholder: Đang chờ bạn cung cấp nội dung giới thiệu coach.</em>
-                        </p>
-                        <blockquote style="border-left: 4px solid var(--gold); padding-left: 1.5rem; font-style: italic; color: var(--text-light); margin: 1.5rem 0;">
-                            "[Quote/Tâm huyết của coach - Đang chờ nội dung]"
-                        </blockquote>
-                    </div>
+                    <!-- Navigation Arrows -->
+                    <button class="portfolio-nav portfolio-prev" onclick="movePortfolioSlide(-1)">❮</button>
+                    <button class="portfolio-nav portfolio-next" onclick="movePortfolioSlide(1)">❯</button>
+                    
+                    <!-- Dots Indicator -->
+                    <div class="portfolio-dots" id="portfolioDots"></div>
                 </div>
             </section>
 
@@ -1851,6 +1987,9 @@
                 return;
             }
             
+            // Track blog view
+            trackBlogView(postId, post.title);
+            
             document.getElementById('postContent').innerHTML = `
                 <h1 style="color: var(--primary); margin-bottom: 1rem;">${post.title}</h1>
                 <div style="color: var(--text-light); margin-bottom: 2rem; font-size: 0.9rem;">
@@ -2015,52 +2154,47 @@
             }
         });
 
-        function renderBlogPosts() {
-            const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
-            const grid = document.getElementById('blogGrid');
-            const noMsg = document.getElementById('noBlogMsg');
-            if (blogPosts.length === 0) {
-                grid.style.display = 'none';
-                noMsg.style.display = 'block';
-                return;
-            }
-            grid.style.display = 'grid';
-            noMsg.style.display = 'none';
-            grid.innerHTML = blogPosts.map(post => `
-                <article class="blog-card" onclick="viewBlogPost(${post.id})">
-                    <div class="blog-image">
-                        ${post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}">` : post.icon || '📚'}
-                    </div>
-                    <div class="blog-content">
-                        <time class="blog-date">${post.date}</time>
-                        <h3 class="blog-title">${post.title}</h3>
-                        <p class="blog-excerpt">${post.excerpt}</p>
-                    </div>
-                </article>
-            `).join('');
+        // ============ PORTFOLIO CAROUSEL ============
+        let currentPortfolioSlide = 0;
+        
+        function initPortfolioCarousel() {
+            const slides = document.querySelectorAll('.portfolio-slide');
+            const dotsContainer = document.getElementById('portfolioDots');
+            
+            // Create dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'portfolio-dot';
+                dot.onclick = () => showPortfolioSlide(index);
+                dotsContainer.appendChild(dot);
+            });
+            
+            showPortfolioSlide(0);
         }
-
-        function viewBlogPost(postId) {
-            const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
-            const post = blogPosts.find(p => p.id === postId);
-            if (!post) return;
-            let imageHtml = '';
-            if (post.imageUrl) {
-                imageHtml = `<img src="${post.imageUrl}" alt="${post.title}" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 2rem;">`;
-            }
-            document.getElementById('postContent').innerHTML = `
-                ${imageHtml}
-                <h1>${post.icon} ${post.title}</h1>
-                <div class="blog-meta">
-                    <span>📅 ${post.date}</span>
-                    <span>🔑 ${post.keyword}</span>
-                </div>
-                <div style="line-height: 1.8; font-size: 1.05rem; color: var(--text-dark);">
-                    ${post.content}
-                </div>
-            `;
-            goPage('blog-post');
+        
+        function showPortfolioSlide(n) {
+            const slides = document.querySelectorAll('.portfolio-slide');
+            const dots = document.querySelectorAll('.portfolio-dot');
+            
+            if (n >= slides.length) currentPortfolioSlide = 0;
+            if (n < 0) currentPortfolioSlide = slides.length - 1;
+            else currentPortfolioSlide = n;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[currentPortfolioSlide].classList.add('active');
+            dots[currentPortfolioSlide].classList.add('active');
         }
+        
+        function movePortfolioSlide(direction) {
+            showPortfolioSlide(currentPortfolioSlide + direction);
+        }
+        
+        // Auto-play portfolio carousel (optional)
+        setInterval(() => {
+            movePortfolioSlide(1);
+        }, 5000); // Change slide every 5 seconds
 
         // ============ ANALYTICS TRACKING ============
         function trackPageView() {
@@ -2097,7 +2231,8 @@
 
         window.addEventListener('load', () => {
             initBannerSlider();
-            renderBlogPosts();
+            loadBlog(); // Use the correct function
+            initPortfolioCarousel(); // Initialize portfolio carousel
         });
 
         // Listen for storage changes (khi admin thay đổi slides)
