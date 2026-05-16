@@ -425,6 +425,24 @@
             }
         }
 
+        /* About Coach Section */
+        .coach-grid {
+            max-width: 1000px;
+            margin: 3rem auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .coach-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+
         /* Benefits Grid - Responsive Grid (not carousel) */
         .benefits-grid {
             display: grid;
@@ -813,18 +831,17 @@
 
         /* Blog */
         .blog-grid {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
-            overflow-x: auto;
             padding: 2rem 0;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
             margin-top: 2rem;
-            max-width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .carousel-item {
-            flex: 0 0 300px;
             display: flex;
             flex-direction: column;
             background: var(--white);
@@ -843,7 +860,8 @@
 
         /* Blog specific styling */
         .carousel-item.blog-post-card {
-            flex: 0 0 300px;
+            width: 100%;
+            height: 100%;
         }
 
         .blog-post-content {
@@ -922,12 +940,9 @@
 
         @media (max-width: 768px) {
             .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
                 padding: 1rem 0;
-            }
-
-            .carousel-item {
-                flex: 0 0 260px;
             }
 
             .blog-post-title {
@@ -941,12 +956,9 @@
 
         @media (max-width: 480px) {
             .blog-grid {
-                gap: 0.75rem;
+                grid-template-columns: 1fr;
+                gap: 1rem;
                 padding: 0.75rem 0;
-            }
-
-            .carousel-item {
-                flex: 0 0 220px;
             }
 
             .blog-post-content {
@@ -1174,6 +1186,34 @@
                 </div>
             </div>
 
+            <!-- About Coach Section -->
+            <section style="background: var(--white); padding: 5rem 2rem;">
+                <h2 class="section-title">Giới Thiệu Coach Thu Nhiên</h2>
+                <p class="section-subtitle">Đồng Hành Cùng Hành Trình Nuôi Dạy Con</p>
+                
+                <div class="coach-grid">
+                    <!-- Coach Image -->
+                    <div style="text-align: center;">
+                        <img src="https://i.ibb.co/YVndtzQ/BM7-12.png" alt="Coach Thu Nhiên" 
+                             style="width: 100%; max-width: 300px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);">
+                    </div>
+                    
+                    <!-- Coach Info -->
+                    <div>
+                        <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1rem;">
+                            [Tên Coach - Đang Chờ Nội Dung]
+                        </h3>
+                        <p style="line-height: 1.8; color: var(--text-dark); margin-bottom: 1.5rem;">
+                            [Tiểu sử, học vấn, chứng chỉ - 200-300 chữ]<br><br>
+                            <em>Placeholder: Đang chờ bạn cung cấp nội dung giới thiệu coach.</em>
+                        </p>
+                        <blockquote style="border-left: 4px solid var(--gold); padding-left: 1.5rem; font-style: italic; color: var(--text-light); margin: 1.5rem 0;">
+                            "[Quote/Tâm huyết của coach - Đang chờ nội dung]"
+                        </blockquote>
+                    </div>
+                </div>
+            </section>
+
             <!-- Benefits Section -->
             <section style="background: var(--bg-light); padding: 5rem 2rem;">
                 <h2 class="section-title">Chúng Tôi Giúp Gì Cho Con?</h2>
@@ -1217,6 +1257,22 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Courses Section on Homepage -->
+            <section style="background: var(--white); padding: 5rem 2rem;">
+                <h2 class="section-title">Khóa Học Nổi Bật</h2>
+                <p class="section-subtitle">Chương trình đồng hành cùng cha mẹ và con</p>
+                
+                <div class="benefits-grid" id="coursesListHome"></div>
+            </section>
+
+            <!-- Blog Section on Homepage -->
+            <section style="background: var(--bg-light); padding: 5rem 2rem;">
+                <h2 class="section-title">Blog & Bài Viết</h2>
+                <p class="section-subtitle">Chia sẻ kiến thức và kinh nghiệm nuôi dạy con</p>
+                
+                <div id="blogGridHome" class="blog-grid"></div>
+            </section>
         </div>
 
         <!-- Courses Page -->
@@ -1246,7 +1302,7 @@
                             price: 99000,
                             desc: 'Bạn có bao giờ tự hỏi: "Tại sao mình rất yêu con nhưng lại không biết cách xử lý khi con bực bội?',
                             image: 'https://i.ibb.co/YVndtzQ/BM7-12.png',
-                            btnText: 'Tìm Hiểu Thêm'
+                            btnText: 'Đăng Ký'
                         },
                         {
                             id: 2,
@@ -1255,7 +1311,7 @@
                             price: 5999999,
                             desc: 'Đừng để những rào cản con bạn thu mình lại! Khóa học "Nhà Tham Vấn Tâm Tài Gia" được thiết kế để trang bị cho cha me 5 năng lực cốt lõi',
                             image: 'https://i.ibb.co/YVndtzQ/BM7-12.png',
-                            btnText: 'Tìm Hiểu Thêm'
+                            btnText: 'Đăng Ký'
                         },
                         {
                             id: 3,
@@ -1264,29 +1320,17 @@
                             price: 24999999,
                             desc: 'Tuổi 13-17 là giai đoạn vàng nhưng cũng đầy biến động. Khóa học NPL 4Teens giúp các bạn trẻ "hack" lộ trình tư duy để thành công.',
                             image: 'https://i.ibb.co/YVndtzQ/BM7-12.png',
-                            btnText: 'Tìm Hiểu Thêm'
+                            btnText: 'Đăng Ký'
                         }
                     ];
                     localStorage.setItem('products', JSON.stringify(products));
                 }
                 
                 const coursesList = document.getElementById('coursesList');
+                const coursesListHome = document.getElementById('coursesListHome');
                 
-                if (!coursesList) {
-                    console.log('coursesList element not found');
-                    return;
-                }
-                
-                // Sort by order
-                const sorted = [...products].sort((a, b) => (a.order || 0) - (b.order || 0));
-                
-                if (sorted.length === 0) {
-                    coursesList.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem; width: 100%;">Hiện chưa có khóa học nào. Vui lòng quay lại sau.</p>';
-                    console.log('No products found');
-                    return;
-                }
-                
-                coursesList.innerHTML = sorted.map(p => `
+                // Build HTML
+                const html = sorted.map(p => `
                     <div class="card">
                         ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 8px 8px 0 0;">` : ''}
                         <div class="card-header">
@@ -1295,10 +1339,28 @@
                         </div>
                         <div class="card-body">
                             <p class="card-description">${p.desc}</p>
-                            <button class="card-btn" onclick="openRegister()">${p.btnText}</button>
+                            <button class="card-btn" onclick="openRegister('${p.name.replace(/'/g, "\\'")}')">${p.btnText}</button>
                         </div>
                     </div>
                 `).join('');
+                
+                // Populate both lists
+                if (coursesList) {
+                    if (sorted.length === 0) {
+                        coursesList.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem; width: 100%;">Hiện chưa có khóa học nào. Vui lòng quay lại sau.</p>';
+                    } else {
+                        coursesList.innerHTML = html;
+                    }
+                }
+                
+                if (coursesListHome) {
+                    if (sorted.length === 0) {
+                        coursesListHome.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem; width: 100%;">Hiện chưa có khóa học nào. Vui lòng quay lại sau.</p>';
+                    } else {
+                        coursesListHome.innerHTML = html;
+                    }
+                }
+                
                 console.log('Courses loaded successfully');
             }
             
@@ -1321,12 +1383,8 @@
                 const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
                 console.log('Blog posts found:', blogPosts);
                 const blogGrid = document.getElementById('blogGrid');
+                const blogGridHome = document.getElementById('blogGridHome');
                 const noBlogMsg = document.getElementById('noBlogMsg');
-                
-                if (!blogGrid) {
-                    console.log('blogGrid element not found');
-                    return;
-                }
                 
                 // Sort: pinned first, then by order
                 const sorted = blogPosts.sort((a, b) => {
@@ -1334,17 +1392,8 @@
                     return a.order - b.order;
                 });
                 
-                if (sorted.length === 0) {
-                    blogGrid.style.display = 'none';
-                    noBlogMsg.style.display = 'block';
-                    console.log('No blog posts found');
-                    return;
-                }
-                
-                blogGrid.style.display = 'flex';
-                noBlogMsg.style.display = 'none';
-                
-                blogGrid.innerHTML = sorted.map((post, idx) => `
+                // Build HTML
+                const html = sorted.map((post, idx) => `
                     <div class="carousel-item blog-post-card" onclick="goPage('blog-post', ${post.id})">
                         ${post.image ? `<img src="${post.image}" alt="${post.title}" style="width: 100%; height: 200px; object-fit: cover;">` : '<div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--primary), var(--primary-light));"></div>'}
                         <div class="blog-post-content">
@@ -1360,6 +1409,31 @@
                         </div>
                     </div>
                 `).join('');
+                
+                const emptyMsg = '<p style="text-align: center; color: var(--text-light); padding: 3rem; grid-column: 1/-1;">Chưa có bài viết nào. Vui lòng quay lại sau.</p>';
+                
+                // Populate blog page
+                if (blogGrid) {
+                    if (sorted.length === 0) {
+                        blogGrid.style.display = 'grid';
+                        blogGrid.innerHTML = emptyMsg;
+                        if (noBlogMsg) noBlogMsg.style.display = 'block';
+                    } else {
+                        blogGrid.style.display = 'grid';
+                        blogGrid.innerHTML = html;
+                        if (noBlogMsg) noBlogMsg.style.display = 'none';
+                    }
+                }
+                
+                // Populate homepage
+                if (blogGridHome) {
+                    if (sorted.length === 0) {
+                        blogGridHome.innerHTML = emptyMsg;
+                    } else {
+                        blogGridHome.innerHTML = html;
+                    }
+                }
+                
                 console.log('Blog posts loaded successfully');
             }
             
@@ -1376,17 +1450,32 @@
             // Reload when storage changes (from admin dashboard)
             window.addEventListener('storage', loadBlog);
         </script>
-        </script>
 
         <!-- Contact Page -->
+        <!-- Contact Page -->
         <div id="contact" class="page">
-            <div style="max-width: 600px; margin: 3rem auto; padding: 2rem;">
+            <div style="max-width: 900px; margin: 3rem auto; padding: 2rem;">
                 <h2 class="section-title">Liên Hệ Chúng Tôi</h2>
-                <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px; text-align: center;">
+                <p class="section-subtitle">Gửi thông tin để chúng tôi liên lạc lại</p>
+                
+                <!-- Contact Info -->
+                <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px; text-align: center; margin-bottom: 2rem;">
                     <p style="margin-bottom: 1rem;">📧 Email: <strong><a href="mailto:dangky@thunhienedu.vn" style="color: var(--primary);">dangky@thunhienedu.vn</a></strong></p>
                     <p style="margin-bottom: 1rem;">💬 Zalo: <strong><a href="https://zalo.me/0987654321" target="_blank" style="color: var(--primary);">0987654321</a></strong></p>
-                    <p style="margin-bottom: 2rem;">📱 TikTok: <strong><a href="https://tiktok.com/@thunhienbetterminds" target="_blank" style="color: var(--primary);">@thunhienbetterminds</a></strong></p>
-                    <button class="btn" onclick="openRegister()" style="margin-top: 1rem;">Gửi Thông Tin</button>
+                    <p style="margin-bottom: 0;">📱 TikTok: <strong><a href="https://tiktok.com/@thunhienbetterminds" target="_blank" style="color: var(--primary);">@thunhienbetterminds</a></strong></p>
+                </div>
+                
+                <!-- Google Form Embed -->
+                <div style="background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <iframe 
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSdXccAHdLnmCY3LBrPPdsfjggs8jSeBQjED6XKIZSjEokIXyg/viewform?embedded=true" 
+                        width="100%" 
+                        height="800" 
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0">
+                        Đang tải…
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -1833,8 +1922,12 @@
             document.getElementById('consultationForm').style.display = 'block';
         }
 
-        function openRegister() {
-            document.getElementById('registerModal').classList.add('active');
+        function openRegister(courseName = 'General') {
+            // Track course click
+            trackCourseClick(courseName);
+            
+            // Open Google Form in new tab
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLSdXccAHdLnmCY3LBrPPdsfjggs8jSeBQjED6XKIZSjEokIXyg/viewform', '_blank');
         }
 
         function closeModal() {
@@ -1968,6 +2061,39 @@
             `;
             goPage('blog-post');
         }
+
+        // ============ ANALYTICS TRACKING ============
+        function trackPageView() {
+            let views = parseInt(localStorage.getItem('totalPageViews') || '0');
+            views++;
+            localStorage.setItem('totalPageViews', views);
+            
+            // Track unique visitors (by session)
+            if (!sessionStorage.getItem('hasVisited')) {
+                let uniqueVisitors = parseInt(localStorage.getItem('uniqueVisitors') || '0');
+                uniqueVisitors++;
+                localStorage.setItem('uniqueVisitors', uniqueVisitors);
+                sessionStorage.setItem('hasVisited', 'true');
+            }
+        }
+        
+        function trackCourseClick(courseName) {
+            const clicks = JSON.parse(localStorage.getItem('courseClicks') || '{}');
+            clicks[courseName] = (clicks[courseName] || 0) + 1;
+            localStorage.setItem('courseClicks', JSON.stringify(clicks));
+        }
+        
+        function trackBlogView(postId, postTitle) {
+            const views = JSON.parse(localStorage.getItem('blogViews') || '{}');
+            views[postId] = {
+                title: postTitle,
+                count: (views[postId]?.count || 0) + 1
+            };
+            localStorage.setItem('blogViews', JSON.stringify(views));
+        }
+        
+        // Track on page load
+        trackPageView();
 
         window.addEventListener('load', () => {
             initBannerSlider();
