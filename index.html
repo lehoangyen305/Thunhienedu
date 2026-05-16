@@ -679,144 +679,6 @@
             transform: translateY(-2px);
         }
 
-        /* Calendar */
-        .calendar-container {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .calendar-nav {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .calendar-nav button {
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .calendar-nav button:hover {
-            background: var(--primary-dark);
-        }
-
-        .calendar-month {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .weekday {
-            text-align: center;
-            font-weight: 600;
-            color: var(--primary);
-            padding: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.5rem;
-        }
-
-        .calendar-day {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            background: var(--white);
-        }
-
-        .calendar-day:hover:not(.disabled) {
-            background: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
-        }
-
-        .calendar-day.disabled {
-            color: #ccc;
-            cursor: not-allowed;
-            background: var(--bg-light);
-        }
-
-        .calendar-day.selected {
-            background: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
-        }
-
-        .slots-container {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            margin-bottom: 2rem;
-        }
-
-        .slots-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 1.5rem;
-        }
-
-        .slots-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 1rem;
-        }
-
-        .slot-btn {
-            padding: 1rem;
-            border: 2px solid var(--border);
-            border-radius: 6px;
-            background: var(--white);
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .slot-btn:hover {
-            border-color: var(--primary);
-            background: var(--bg-light);
-        }
-
-        .slot-btn.selected {
-            background: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
-        }
-
         /* Modal */
         .modal {
             display: none;
@@ -1769,64 +1631,6 @@
         </div>
     </div>
 
-    <!-- Consultation Modal -->
-    <div class="modal" id="consultationModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>👋 Tư Vấn 1:1 Miễn Phí</h2>
-                <button class="modal-close" onclick="closeConsultation()">&times;</button>
-            </div>
-            <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                <p><strong>📅 Lịch:</strong> Thứ 2 & Thứ 4 hàng tuần</p>
-                <p><strong>🕖 Giờ:</strong> 7:30 PM - 8:30 PM</p>
-                <p><strong>💬 Hình thức:</strong> Zoom Video Call</p>
-                <p><strong>💰 Giá:</strong> <span style="color: var(--success); font-weight: bold;">MIỄN PHÍ</span></p>
-            </div>
-            <div class="calendar-container">
-                <div class="calendar-header">
-                    <div class="calendar-month" id="calendarMonth">Tháng 4, 2025</div>
-                    <div class="calendar-nav">
-                        <button onclick="prevMonth()">← Trước</button>
-                        <button onclick="nextMonth()">Sau →</button>
-                    </div>
-                </div>
-                <div class="weekdays">
-                    <div class="weekday">T2</div>
-                    <div class="weekday">T3</div>
-                    <div class="weekday">T4</div>
-                    <div class="weekday">T5</div>
-                    <div class="weekday">T6</div>
-                    <div class="weekday">T7</div>
-                    <div class="weekday">CN</div>
-                </div>
-                <div class="calendar-grid" id="calendarGrid"></div>
-            </div>
-            <div class="slots-container" id="slotsContainer" style="display: none;">
-                <div class="slots-title" id="slotsTitle">Chọn giờ</div>
-                <div class="slots-grid" id="slotsGrid"></div>
-            </div>
-            <form id="consultationForm" onsubmit="submitConsultation(event)" style="display: none;">
-                <div class="form-group">
-                    <label>Tên của bạn *</label>
-                    <input type="text" id="cons-name" required placeholder="Nguyễn Văn A">
-                </div>
-                <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" id="cons-email" required placeholder="abc@example.com">
-                </div>
-                <div class="form-group">
-                    <label>Số Điện Thoại *</label>
-                    <input type="tel" id="cons-phone" required placeholder="0912345678">
-                </div>
-                <div class="form-group">
-                    <label>Vấn Đề Cần Tư Vấn *</label>
-                    <textarea id="cons-issue" required placeholder="Mô tả vấn đề..."></textarea>
-                </div>
-                <button type="submit" class="form-submit">Xác Nhận Đặt Lịch</button>
-            </form>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer>
         <div class="footer-links">
@@ -1931,11 +1735,6 @@
         }
 
         // ========== PAGE NAVIGATION ==========
-        let currentDate = new Date(2025, 3, 1);
-        let selectedDate = null;
-        let selectedSlot = null;
-        const availableSlots = ['19:30 - 20:00', '20:00 - 20:30'];
-
         function openAdmin() {
             window.open('https://thunhienedu.vercel.app/admin', '_blank', 'width=1400,height=800');
         }
@@ -1979,65 +1778,6 @@
             `;
         }
 
-        function renderCalendar() {
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            document.getElementById('calendarMonth').textContent = `Tháng ${month + 1}, ${year}`;
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            let html = '';
-            for (let i = 0; i < (firstDay || 7) - 1; i++) {
-                html += '<div class="calendar-day disabled"></div>';
-            }
-            for (let day = 1; day <= daysInMonth; day++) {
-                const date = new Date(year, month, day);
-                const dayOfWeek = date.getDay();
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const isAvailable = dayOfWeek === 2 || dayOfWeek === 4;
-                const isSelected = selectedDate === dateStr;
-                let className = 'calendar-day';
-                if (!isAvailable) className += ' disabled';
-                if (isSelected) className += ' selected';
-                html += `<div class="${className}" onclick="selectDate('${dateStr}')" ${!isAvailable ? 'style="cursor:not-allowed"' : ''}>${day}</div>`;
-            }
-            document.getElementById('calendarGrid').innerHTML = html;
-        }
-
-        function prevMonth() {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
-        }
-
-        function nextMonth() {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
-        }
-
-        function selectDate(dateStr) {
-            const date = new Date(dateStr);
-            const dayOfWeek = date.getDay();
-            if (dayOfWeek !== 2 && dayOfWeek !== 4) return;
-            selectedDate = dateStr;
-            selectedSlot = null;
-            document.getElementById('slotsContainer').style.display = 'block';
-            document.getElementById('consultationForm').style.display = 'none';
-            const dayName = dayOfWeek === 2 ? 'Thứ 3' : 'Thứ 5';
-            document.getElementById('slotsTitle').textContent = `Chọn giờ - ${dayName} (${dateStr})`;
-            let slotsHtml = '';
-            availableSlots.forEach(slot => {
-                slotsHtml += `<button type="button" class="slot-btn ${selectedSlot === slot ? 'selected' : ''}" onclick="selectSlot('${slot}')">${slot}</button>`;
-            });
-            document.getElementById('slotsGrid').innerHTML = slotsHtml;
-            renderCalendar();
-        }
-
-        function selectSlot(slot) {
-            selectedSlot = slot;
-            document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
-            event.target.classList.add('selected');
-            document.getElementById('consultationForm').style.display = 'block';
-        }
-
         function openRegister(courseName = 'General') {
             // Track course click
             trackCourseClick(courseName);
@@ -2049,18 +1789,6 @@
         function closeModal() {
             document.getElementById('registerModal').classList.remove('active');
             document.getElementById('registerForm').reset();
-        }
-
-        function openConsultation() {
-            renderCalendar();
-            document.getElementById('consultationModal').classList.add('active');
-        }
-
-        function closeConsultation() {
-            document.getElementById('consultationModal').classList.remove('active');
-            selectedDate = null;
-            selectedSlot = null;
-            document.getElementById('consultationForm').reset();
         }
 
         function submitRegister(e) {
@@ -2091,43 +1819,13 @@
             });
         }
 
-        function submitConsultation(e) {
-            e.preventDefault();
-            const consultation = {
-                id: Date.now(),
-                name: document.getElementById('cons-name').value,
-                email: document.getElementById('cons-email').value,
-                phone: document.getElementById('cons-phone').value,
-                issue: document.getElementById('cons-issue').value,
-                date: selectedDate,
-                time: selectedSlot,
-                type: 'consultation',
-                createdDate: new Date().toLocaleDateString('vi-VN'),
-                status: 'chờ xác nhận'
-            };
-            const scriptUrl = 'https://script.google.com/macros/s/AKfycbzXfueXIUdEuK3iU08vWz97aCaJWqFZkoHE61hBkP_rmOg4Llh65YBsHR0Py9Xejfj5/exec';
-            fetch(scriptUrl, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify(consultation)
-            }).then(() => {
-                alert('✅ Thông tin đã được ghi nhận! Coach sẽ liên hệ bạn trong 2 giờ.');
-                closeConsultation();
-            });
-        }
-
         document.getElementById('registerModal').addEventListener('click', (e) => {
             if (e.target.id === 'registerModal') closeModal();
-        });
-
-        document.getElementById('consultationModal').addEventListener('click', (e) => {
-            if (e.target.id === 'consultationModal') closeConsultation();
         });
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeModal();
-                closeConsultation();
             }
         });
 
