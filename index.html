@@ -1490,40 +1490,6 @@
                 let products = JSON.parse(localStorage.getItem('products')) || [];
                 console.log('Products found:', products);
                 
-                // Add default courses if empty
-                if (products.length === 0) {
-                    products = [
-                        {
-                            id: 1,
-                            order: 0,
-                            name: '99K - HÀNH TRÌNH HIỂU CON HƠN',
-                            price: 99000,
-                            desc: 'Bạn có bao giờ tự hỏi: "Tại sao mình rất yêu con nhưng lại không biết cách xử lý khi con bực bội?',
-                            image: 'https://i.ibb.co/6cXrNgxz/BM8-13.jpg',
-                            btnText: 'Đăng Ký'
-                        },
-                        {
-                            id: 2,
-                            order: 1,
-                            name: 'NHÀ THAM VẤN TÂM TÀI GIA',
-                            price: 5999999,
-                            desc: 'Đừng để những rào cản con bạn thu mình lại! Khóa học "Nhà Tham Vấn Tâm Tài Gia" được thiết kế để trang bị cho cha me 5 năng lực cốt lõi',
-                            image: 'https://i.ibb.co/6cXrNgxz/BM8-13.jpg',
-                            btnText: 'Đăng Ký'
-                        },
-                        {
-                            id: 3,
-                            order: 2,
-                            name: 'NPL 4TEENS - HACK NÃO TUỔI TEEN',
-                            price: 24999999,
-                            desc: 'Tuổi 13-17 là giai đoạn vàng nhưng cũng đầy biến động. Khóa học NPL 4Teens giúp các bạn trẻ "hack" lộ trình tư duy để thành công.',
-                            image: 'https://i.ibb.co/6cXrNgxz/BM8-13.jpg',
-                            btnText: 'Đăng Ký'
-                        }
-                    ];
-                    localStorage.setItem('products', JSON.stringify(products));
-                }
-                
                 const coursesList = document.getElementById('coursesList');
                 
                 // Sort courses by order
@@ -1575,22 +1541,6 @@
             window.addEventListener('storage', loadCourses);
 
             // ============ LOAD BLOG POSTS (CAROUSEL) ============
-            // Initialize default blog posts if empty
-            if (!localStorage.getItem('blogPosts')) {
-                const defaultBlog = [{
-                    id: Date.now(),
-                    order: 1,
-                    pinned: true,
-                    title: 'Chào Mừng Bạn Đến Thu Nhiên Education',
-                    excerpt: 'Khám phá hành trình phát triển bản thân cùng chúng tôi',
-                    keyword: 'Giới thiệu',
-                    content: '<p>Chào mừng bạn đến với Thu Nhiên Education! Đây là nơi bạn có thể tìm thấy những khóa học, bài viết hữu ích về phát triển bản thân, tâm lý học và kỹ năng sống.</p><p>Hãy khám phá các khóa học của chúng tôi để bắt đầu hành trình của bạn!</p>',
-                    image: 'https://i.ibb.co/qYDptWVH/Portfolio-1.jpg',
-                    date: new Date().toISOString()
-                }];
-                localStorage.setItem('blogPosts', JSON.stringify(defaultBlog));
-            }
-
             function loadBlog() {
                 console.log('Loading blog posts...');
                 const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
@@ -1868,20 +1818,6 @@
 
     <script>
         // ========== BANNER SLIDER - LOAD TỪ LOCALSTORAGE ==========
-        // Initialize default banner if empty
-        if (!localStorage.getItem('bannerSlides')) {
-            const defaultBanner = [{
-                id: Date.now(),
-                order: 1,
-                image: 'https://i.ibb.co/qYDptWVH/Portfolio-1.jpg',
-                title: 'Chào Mừng Đến Thu Nhiên Education',
-                subtitle: 'Đồng hành cùng bạn trên hành trình phát triển bản thân',
-                cta1: { text: 'Đăng Ký Ngay', action: 'openRegister()' },
-                cta2: { text: 'Xem Khóa Học', action: "goPage('courses')" }
-            }];
-            localStorage.setItem('bannerSlides', JSON.stringify(defaultBanner));
-        }
-
         let bannerSlides = JSON.parse(localStorage.getItem('bannerSlides')) || [];
 
         let currentBannerIndex = 0;
