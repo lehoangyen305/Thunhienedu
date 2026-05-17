@@ -1332,8 +1332,7 @@
             <!-- About Coach Section - Portfolio Carousel -->
             <section style="background: var(--bg-light); padding: 5rem 2rem;">
                 <h2 class="section-title">Giới Thiệu Coach Thu Nhiên</h2>
-                <p class="section-subtitle">Chuyên Gia Tâm Trí - NLP Trainer - Master Coach 
-                <br>Chuyên gia huấn luyện phát triển cá nhân trên VTV1 sống khoẻ</p>
+                <p class="section-subtitle">Chuyên Gia Tâm Lý - NLP Trainer - Master Coach</p>
                 
                 <div class="portfolio-carousel-container">
                     <div class="portfolio-carousel" id="portfolioCarousel">
@@ -1434,6 +1433,28 @@
         </div>
 
         <script>
+            // 🔧 CACHE BUSTING - Clear old localStorage on version change
+            const CACHE_VERSION = '2.0.0';
+            const storedVersion = localStorage.getItem('appVersion');
+            
+            if (storedVersion !== CACHE_VERSION) {
+                console.log('Version mismatch. Clearing old data...');
+                localStorage.removeItem('bannerSlides');
+                localStorage.removeItem('benefits');
+                localStorage.removeItem('blogPosts');
+                localStorage.removeItem('products');
+                localStorage.removeItem('customers');
+                localStorage.removeItem('quizLeads');
+                localStorage.removeItem('appVersion');
+                localStorage.setItem('appVersion', CACHE_VERSION);
+                console.log('✅ Cache cleared. Reloading...');
+                // Visual indicator for mobile
+                alert('🔄 Đang cập nhật dữ liệu mới...');
+                location.reload();
+            } else {
+                console.log('✅ Cache version matched. Loading normally...');
+            }
+            
             // Load benefits from localStorage
             function loadBenefits() {
                 const benefits = JSON.parse(localStorage.getItem('benefits')) || [
