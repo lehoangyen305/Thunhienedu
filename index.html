@@ -1849,26 +1849,45 @@
             const bannerSlider = document.getElementById('bannerSlider');
             const indicatorsContainer = document.getElementById('bannerIndicators');
 
+            if (!bannerSlider || !indicatorsContainer) return;
+
             // Clear previous slides
             bannerSlider.innerHTML = '';
             indicatorsContainer.innerHTML = '';
 
+            // If no banner slides, show placeholder
+            if (!bannerSlides || bannerSlides.length === 0) {
+                console.log('No banner slides found');
+                bannerSlider.innerHTML = '<div class="banner-slide active" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; height: 400px;"><p>Chưa có banner. Vui lòng thêm từ Admin Panel.</p></div>';
+                return;
+            }
+
             // Create slides from localStorage
             bannerSlides.forEach((slide, index) => {
-                const slideElement = document.createElement('div');
-                slideElement.className = `banner-slide ${index === 0 ? 'active' : ''}`;
-                slideElement.innerHTML = `
-                    <img src="${slide.image}" alt="${slide.title}" class="banner-slide-image">
-                    <div class="banner-slide-overlay">
-                        <h2 class="banner-slide-title">${slide.title}</h2>
-                        <p class="banner-slide-subtitle">${slide.subtitle}</p>
-                        <div class="banner-slide-cta">
-                            <button class="btn btn-secondary" onclick="${slide.cta1.action}">${slide.cta1.text}</button>
-                            <button class="btn btn-success" onclick="${slide.cta2.action}">${slide.cta2.text}</button>
+                try {
+                    const slideElement = document.createElement('div');
+                    slideElement.className = `banner-slide ${index === 0 ? 'active' : ''}`;
+                    
+                    const cta1Text = slide.cta1?.text || 'CTA 1';
+                    const cta1Action = slide.cta1?.action || 'javascript:void(0)';
+                    const cta2Text = slide.cta2?.text || 'CTA 2';
+                    const cta2Action = slide.cta2?.action || 'javascript:void(0)';
+                    
+                    slideElement.innerHTML = `
+                        <img src="${slide.image}" alt="${slide.title}" class="banner-slide-image" onerror="this.src='https://via.placeholder.com/800x400'">
+                        <div class="banner-slide-overlay">
+                            <h2 class="banner-slide-title">${slide.title}</h2>
+                            <p class="banner-slide-subtitle">${slide.subtitle}</p>
+                            <div class="banner-slide-cta">
+                                <button class="btn btn-secondary" onclick="${cta1Action}">${cta1Text}</button>
+                                <button class="btn btn-success" onclick="${cta2Action}">${cta2Text}</button>
+                            </div>
                         </div>
-                    </div>
-                `;
-                bannerSlider.appendChild(slideElement);
+                    `;
+                    bannerSlider.appendChild(slideElement);
+                } catch(e) {
+                    console.error('Error rendering banner slide:', e);
+                }
             });
 
             // Create indicators
