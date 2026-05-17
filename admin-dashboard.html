@@ -435,7 +435,10 @@
             <div>
                 <h1>🎨 Thu Nhiên Admin</h1>
             </div>
-            <button class="logout-btn" onclick="logout()">🚪 Đăng Xuất</button>
+            <div style="display: flex; gap: 1rem;">
+                <button class="btn-success" onclick="exportToJSON()" style="padding: 0.5rem 1rem; border-radius: 6px; border: none; cursor: pointer; font-weight: 600;">📥 Export to JSON</button>
+                <button class="logout-btn" onclick="logout()">🚪 Đăng Xuất</button>
+            </div>
         </header>
 
         <!-- TABS -->
@@ -1321,6 +1324,100 @@
             renderProducts();
             renderCustomers();
             updateStats();
+        }
+
+        // ========== EXPORT TO JSON ==========
+        function exportToJSON() {
+            try {
+                // Get all data from localStorage
+                const data = {
+                    banners: JSON.parse(localStorage.getItem('bannerSlides') || '[]'),
+                    benefits: JSON.parse(localStorage.getItem('benefits') || '[]'),
+                    blog: JSON.parse(localStorage.getItem('blogPosts') || '[]'),
+                    products: JSON.parse(localStorage.getItem('products') || '[]'),
+                    customers: JSON.parse(localStorage.getItem('customers') || '[]')
+                };
+                
+                // Create formatted JSON
+                const jsonString = JSON.stringify(data, null, 2);
+                
+                // Create modal to show JSON
+                const modal = document.createElement('div');
+                modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 10000; padding: 2rem;';
+                
+                modal.innerHTML = `
+                    <div style="background: white; border-radius: 16px; padding: 2rem; max-width: 800px; width: 100%; max-height: 80vh; overflow: auto;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h2 style="color: #1f2937; margin: 0;">📥 Export to data.json</h2>
+                            <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: #dc2626; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600;">✕ Close</button>
+                        </div>
+                        
+                        <div style="background: #f9fafb; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <p style="margin: 0; color: #374151;"><strong>📋 Hướng dẫn:</strong></p>
+                            <ol style="margin: 0.5rem 0 0 1.5rem; color: #6b7280;">
+                                <li>Click "Copy JSON" để copy</li>
+                                <li>Vào GitHub → mở file data.json</li>
+                                <li>Paste JSON vào (thay thế toàn bộ)</li>
+                                <li>Commit & Push</li>
+                                <li>Vercel auto-deploy → Website update!</li>
+                            </ol>
+                        </div>
+                        
+                        <div style="background: #dbeafe; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <p style="margin: 0; color: #1e40af; font-size: 0.9rem;">
+                                <strong>📊 Data Summary:</strong><br>
+                                ${data.banners.length} Banners | ${data.benefits.length} Benefits | ${data.blog.length} Blog Posts | ${data.products.length} Products
+                            </p>
+                        </div>
+                        
+                        <textarea readonly style="width: 100%; min-height: 300px; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; font-family: monospace; font-size: 0.85rem; margin-bottom: 1rem; background: #f9fafb;" id="exportJSON">${jsonString}</textarea>
+                        
+                        <div style="display: flex; gap: 1rem;">
+                            <button onclick="copyExportJSON()" style="flex: 1; background: #10b981; color: white; border: none; padding: 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1rem;">📋 Copy JSON</button>
+                            <button onclick="downloadDataJSON()" style="flex: 1; background: #3b82f6; color: white; border: none; padding: 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1rem;">💾 Download File</button>
+                        </div>
+                        
+                        <div id="copySuccess" style="display: none; background: #d1fae5; color: #065f46; padding: 0.75rem; border-radius: 6px; margin-top: 1rem; text-align: center; font-weight: 600;">
+                            ✅ Copied! Giờ paste vào GitHub data.json
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+                // Focus on textarea for easy manual copy
+                setTimeout(() => {
+                    document.getElementById('exportJSON').select();
+                }, 100);
+                
+            } catch (error) {
+                alert('❌ Export error: ' + error.message);
+                console.error('Export error:', error);
+            }
+        }
+        
+        function copyExportJSON() {
+            const textarea = document.getElementById('exportJSON');
+            textarea.select();
+            navigator.clipboard.writeText(textarea.value).then(() => {
+                document.getElementById('copySuccess').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('copySuccess').style.display = 'none';
+                }, 3000);
+            }).catch(err => {
+                alert('Copy failed: ' + err);
+            });
+        }
+        
+        function downloadDataJSON() {
+            const textarea = document.getElementById('exportJSON');
+            const blob = new Blob([textarea.value], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.json';
+            a.click();
+            URL.revokeObjectURL(url);
         }
 
     </script>
