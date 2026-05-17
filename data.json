@@ -1,0 +1,98 @@
+{
+  "banners": [
+    {
+      "id": 1,
+      "title": "Chào Mừng Đến Thu Nhiên Education",
+      "subtitle": "Coaching Tâm Lý Chuyên Nghiệp Cho Phụ Huynh & Trẻ Em",
+      "image": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=1200&h=600&fit=crop",
+      "cta1": {
+        "text": "Xem Khóa Học",
+        "action": "goPage('courses')"
+      },
+      "cta2": {
+        "text": "Đọc Blog",
+        "action": "goPage('blog')"
+      },
+      "order": 1
+    }
+  ],
+  "benefits": [
+    {
+      "id": 1,
+      "icon": "🔄",
+      "title": "Thay Đổi Niềm Tin",
+      "desc": "Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai",
+      "image": "",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "icon": "😌",
+      "title": "Giảm Lo Âu",
+      "desc": "Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring",
+      "image": "",
+      "order": 2
+    },
+    {
+      "id": 3,
+      "icon": "💪",
+      "title": "Tăng Động Lực",
+      "desc": "Meta Model & Value Elicitation giúp con tìm ra động lực học tập từ bên trong",
+      "image": "",
+      "order": 3
+    },
+    {
+      "id": 4,
+      "icon": "🎯",
+      "title": "Tập Trung Cao Độ",
+      "desc": "Timeline Therapy giúp con quản lý thời gian hiệu quả và tập trung vào mục tiêu",
+      "image": "",
+      "order": 4
+    }
+  ],
+  "blog": [
+    {
+      "id": 1,
+      "title": "5 Câu Hỏi Giúp Con Tự Tin Hơn",
+      "excerpt": "Những câu hỏi đơn giản nhưng mạnh mẽ để xây dựng lòng tự tin cho trẻ",
+      "content": "Lòng tự tin là nền tảng quan trọng giúp trẻ phát triển toàn diện. Dưới đây là 5 câu hỏi bạn có thể dùng hàng ngày:\n\n1. 'Hôm nay con tự hào về điều gì?'\n2. 'Con đã giúp được ai hôm nay?'\n3. 'Con học được gì mới?'\n4. 'Điều gì khiến con mỉm cười hôm nay?'\n5. 'Ngày mai con muốn làm gì?'\n\nNhững câu hỏi này giúp trẻ nhận ra giá trị bản thân và phát triển tư duy tích cực.",
+      "image": "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=500&fit=crop",
+      "date": "2024-05-15",
+      "keyword": "tự tin, parenting, NLP",
+      "pinned": true,
+      "order": 1
+    },
+    {
+      "id": 2,
+      "title": "Cách Giúp Con Vượt Qua Lo Âu Học Tập",
+      "excerpt": "Kỹ thuật NLP đơn giản để giảm stress và lo âu cho trẻ",
+      "content": "Lo âu học tập là vấn đề phổ biến ở trẻ em. Với kỹ thuật NLP, bạn có thể giúp con:\n\n• Nhận diện cảm xúc lo âu\n• Thay đổi góc nhìn về áp lực\n• Tạo anchoring tích cực\n• Hình dung thành công\n\nHãy luyện tập cùng con mỗi ngày 5-10 phút để thấy hiệu quả.",
+      "image": "https://images.unsplash.com/photo-1544776193-352d25ca82cd?w=800&h=500&fit=crop",
+      "date": "2024-05-10",
+      "keyword": "lo âu, học tập, kỹ thuật NLP",
+      "pinned": false,
+      "order": 2
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Khóa Học NLP Cho Phụ Huynh",
+      "price": 2999000,
+      "desc": "Học những kỹ năng NLP chuyên nghiệp để hiểu con hơn, giao tiếp hiệu quả và xây dựng mối quan hệ tích cực với con",
+      "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=500&fit=crop",
+      "btnText": "Đăng Ký Ngay",
+      "order": 1
+    },
+    {
+      "id": 2,
+      "name": "Workshop: Giảm Lo Âu Cho Teen",
+      "price": 1500000,
+      "desc": "Workshop 1 ngày giúp teen học cách quản lý cảm xúc, giảm lo âu và tăng cường sức khỏe tâm lý",
+      "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=500&fit=crop",
+      "btnText": "Tìm Hiểu Thêm",
+      "order": 2
+    }
+  ],
+  "customers": []
+}
