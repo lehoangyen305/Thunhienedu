@@ -1433,53 +1433,41 @@
         </div>
 
         <script>
-            // 🔧 CACHE BUSTING - Clear old localStorage on version change
-            const CACHE_VERSION = '2.0.0';
-            const storedVersion = localStorage.getItem('appVersion');
+            // 🌐 CENTRALIZED DATA - Fetch from data.json
+            let appData = {
+                banners: [],
+                benefits: [],
+                blog: [],
+                products: [],
+                customers: []
+            };
             
-            if (storedVersion !== CACHE_VERSION) {
-                console.log('Version mismatch. Clearing old data...');
-                localStorage.removeItem('bannerSlides');
-                localStorage.removeItem('benefits');
-                localStorage.removeItem('blogPosts');
-                localStorage.removeItem('products');
-                localStorage.removeItem('customers');
-                localStorage.removeItem('quizLeads');
-                localStorage.removeItem('appVersion');
-                localStorage.setItem('appVersion', CACHE_VERSION);
-                console.log('✅ Cache cleared. Reloading...');
-                // Visual indicator for mobile
-                alert('🔄 Đang cập nhật dữ liệu mới...');
-                location.reload();
-            } else {
-                console.log('✅ Cache version matched. Loading normally...');
+            // Fetch data from data.json on load
+            async function loadAppData() {
+                try {
+                    const response = await fetch('/data.json');
+                    if (!response.ok) throw new Error('Failed to fetch data.json');
+                    appData = await response.json();
+                    console.log('✅ Data loaded from data.json:', appData);
+                    
+                    // Initialize all sections after data loads
+                    loadBenefits();
+                    loadCourses();
+                    loadBlog();
+                    initBannerSlider();
+                } catch (error) {
+                    console.error('❌ Error loading data.json:', error);
+                    // Fallback to empty data if fetch fails
+                    loadBenefits();
+                    loadCourses();
+                    loadBlog();
+                    initBannerSlider();
+                }
             }
             
-            // Load benefits from localStorage
+            // Load benefits from appData
             function loadBenefits() {
-                const benefits = JSON.parse(localStorage.getItem('benefits')) || [
-                    {
-                        id: 1,
-                        icon: 'Thay',
-                        title: 'Thay Đổi Niềm Tin',
-                        desc: 'Reframing & Future Pacing giúp con tự tin học tập, phát triển hình dung tích cực về tương lai',
-                        image: ''
-                    },
-                    {
-                        id: 2,
-                        icon: 'Giảm',
-                        title: 'Giảm Lo Âu',
-                        desc: 'Giúp con giảm lo âu học tập chỉ trong 5 phút bằng Mirroring & Anchoring',
-                        image: ''
-                    },
-                    {
-                        id: 3,
-                        icon: 'Cắt',
-                        title: 'Cắt Cơn Hoảng Loạn',
-                        desc: 'Cắt Cơn Hoảng Loạn Bằng Chánh Niệm - kỹ năng tự điều chỉnh cảm xúc',
-                        image: ''
-                    }
-                ];
+                const benefits = appData.benefits || [];
                 
                 const html = benefits.map(b => `
                     <div class="card">
@@ -1509,7 +1497,7 @@
             // Load courses from localStorage
             function loadCourses() {
                 console.log('Loading courses...');
-                let products = JSON.parse(localStorage.getItem('products')) || [];
+                let products = appData.products || [];
                 console.log('Products found:', products);
                 
                 const coursesList = document.getElementById('coursesList');
@@ -1544,28 +1532,15 @@
                 console.log('Courses loaded successfully');
             }
             
-            // Load immediately after page load
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', loadCourses);
-            } else {
-                loadCourses();
-            }
-            
-            // Load benefits on page load
-            loadBenefits();
-            
-            // Also load on window load
-            window.addEventListener('load', loadBenefits);
-            window.addEventListener('load', loadCourses);
-            
-            // Reload when storage changes (from admin dashboard)
-            window.addEventListener('storage', loadBenefits);
-            window.addEventListener('storage', loadCourses);
+            // Initialize app - Load data from data.json
+            window.addEventListener('load', () => {
+                loadAppData();
+            });
 
             // ============ LOAD BLOG POSTS (CAROUSEL) ============
             function loadBlog() {
                 console.log('Loading blog posts...');
-                const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+                const blogPosts = appData.blog || [];
                 console.log('Blog posts found:', blogPosts);
                 const blogGrid = document.getElementById('blogGrid');
                 const blogGridHome = document.getElementById('blogGridHome');
@@ -1630,10 +1605,6 @@
             }
             
             // Also load on window load
-            window.addEventListener('load', loadBlog);
-            
-            // Reload when storage changes (from admin dashboard)
-            window.addEventListener('storage', loadBlog);
         </script>
 
         <!-- Contact Page -->
@@ -1839,13 +1810,16 @@
     </footer>
 
     <script>
-        // ========== BANNER SLIDER - LOAD TỪ LOCALSTORAGE ==========
-        let bannerSlides = JSON.parse(localStorage.getItem('bannerSlides')) || [];
+        // ========== BANNER SLIDER - LOAD FROM DATA.JSON ==========
+        let bannerSlides = [];
 
         let currentBannerIndex = 0;
         let bannerAutoPlay;
 
         function initBannerSlider() {
+            // Get banners from appData
+            bannerSlides = appData.banners || [];
+            
             const bannerSlider = document.getElementById('bannerSlider');
             const indicatorsContainer = document.getElementById('bannerIndicators');
 
@@ -1858,7 +1832,7 @@
             // If no banner slides, show placeholder
             if (!bannerSlides || bannerSlides.length === 0) {
                 console.log('No banner slides found');
-                bannerSlider.innerHTML = '<div class="banner-slide active" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; height: 400px;"><p>Chưa có banner. Vui lòng thêm từ Admin Panel.</p></div>';
+                bannerSlider.innerHTML = '<div class="banner-slide active" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; height: 400px; color: white; text-align: center; padding: 2rem;"><div><h2>Chào Mừng Đến Thu Nhiên Education</h2><p style="margin-top: 1rem;">Coaching Tâm Lý Chuyên Nghiệp</p></div></div>';
                 return;
             }
 
@@ -2144,20 +2118,6 @@
         
         // Track on page load
         trackPageView();
-
-        window.addEventListener('load', () => {
-            initBannerSlider();
-            loadBlog(); // Use the correct function
-            initPortfolioCarousel(); // Initialize portfolio carousel
-        });
-
-        // Listen for storage changes (khi admin thay đổi slides)
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'bannerSlides') {
-                bannerSlides = JSON.parse(e.newValue);
-                initBannerSlider();
-            }
-        });
     </script>
 </body>
 </html>
