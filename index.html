@@ -940,8 +940,11 @@
         .testimonials-track {
             display: flex;
             gap: 2rem;
-            animation: scroll 60s linear infinite;
+            animation: scroll 40s linear infinite;
             width: fit-content;
+            will-change: transform;
+            backface-visibility: hidden;
+            perspective: 1000px;
         }
 
         .testimonials-track:hover {
@@ -950,17 +953,18 @@
 
         .testimonial-item {
             flex-shrink: 0;
-            width: 400px;
+            width: 350px;
             height: auto;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             background: var(--white);
+            will-change: transform;
         }
 
         .testimonial-item:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) translateZ(0);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
 
@@ -969,14 +973,16 @@
             height: auto;
             display: block;
             object-fit: cover;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
 
         @keyframes scroll {
             0% {
-                transform: translateX(0);
+                transform: translate3d(0, 0, 0);
             }
             100% {
-                transform: translateX(-50%);
+                transform: translate3d(-50%, 0, 0);
             }
         }
 
@@ -1254,18 +1260,21 @@
                         <!-- Slide 1: Profile -->
                         <div class="portfolio-slide">
                             <img src="https://i.ibb.co/qYDptWVH/Portfolio-1.jpg" alt="Hoàng Thị Thu Nhiên - Chuyên Gia Tâm Lý" 
+                                 loading="eager" decoding="async" width="900" height="600"
                                  style="width: 100%; max-width: 900px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
                         </div>
                         
                         <!-- Slide 2: Credentials -->
                         <div class="portfolio-slide">
                             <img src="https://i.ibb.co/mCBpZSB7/Portfolio-2.jpg" alt="NLP Trainer - Master Coach - Founder Better Minds" 
+                                 loading="lazy" decoding="async" width="900" height="600"
                                  style="width: 100%; max-width: 900px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
                         </div>
                         
                         <!-- Slide 3: Achievements -->
                         <div class="portfolio-slide">
                             <img src="https://i.ibb.co/jkpm73CT/Portfolio-3.jpg" alt="500+ gia đình, 1000+ thân chủ" 
+                                 loading="lazy" decoding="async" width="900" height="600"
                                  style="width: 100%; max-width: 900px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);">
                         </div>
                     </div>
@@ -1302,55 +1311,33 @@
                 
                 <div class="testimonials-carousel">
                     <div class="testimonials-track">
-                        <!-- First set of images -->
-                        <div class="testimonial-item"><img src="https://i.ibb.co/cX1KRZfF/2.jpg" alt="Phản hồi 1"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/N679VtfX/3.jpg" alt="Phản hồi 2"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/tP80cs2r/4.jpg" alt="Phản hồi 3"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/20sGsLwF/5.jpg" alt="Phản hồi 4"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/8D4RY2wy/6.jpg" alt="Phản hồi 5"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/7x6C5pSP/7.jpg" alt="Phản hồi 6"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/4Z8Thzb8/8.jpg" alt="Phản hồi 7"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/GvgnhQNK/9.jpg" alt="Phản hồi 8"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/d4FshHwJ/10.jpg" alt="Phản hồi 9"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/PvmMG687/11.jpg" alt="Phản hồi 10"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/WNJY6C34/12.jpg" alt="Phản hồi 11"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/zVjJ1gFQ/13.jpg" alt="Phản hồi 12"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/5Wp20WcQ/14.jpg" alt="Phản hồi 13"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/w9TfSzC/15.jpg" alt="Phản hồi 14"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/hJdhvw0R/16.jpg" alt="Phản hồi 15"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/MkfP755D/17.jpg" alt="Phản hồi 16"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/B5s6nCtT/18.jpg" alt="Phản hồi 17"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/99pZyhvF/19.jpg" alt="Phản hồi 18"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/YFYpHfQG/20.jpg" alt="Phản hồi 19"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/bgnYxnWz/21.jpg" alt="Phản hồi 20"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/dsdMJDVX/23.jpg" alt="Phản hồi 21"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/0pCFkqMt/24.jpg" alt="Phản hồi 22"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/0yWtxm12/nh-gi-1.jpg" alt="Phản hồi 23"></div>
+                        <!-- Optimized: 12 selected images -->
+                        <div class="testimonial-item"><img src="https://i.ibb.co/cX1KRZfF/2.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/N679VtfX/3.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/tP80cs2r/4.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/8D4RY2wy/6.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/GvgnhQNK/9.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/WNJY6C34/12.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/5Wp20WcQ/14.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/hJdhvw0R/16.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/B5s6nCtT/18.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/YFYpHfQG/20.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/dsdMJDVX/23.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/0yWtxm12/nh-gi-1.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
                         
-                        <!-- Duplicate set for seamless loop -->
-                        <div class="testimonial-item"><img src="https://i.ibb.co/cX1KRZfF/2.jpg" alt="Phản hồi 1"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/N679VtfX/3.jpg" alt="Phản hồi 2"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/tP80cs2r/4.jpg" alt="Phản hồi 3"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/20sGsLwF/5.jpg" alt="Phản hồi 4"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/8D4RY2wy/6.jpg" alt="Phản hồi 5"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/7x6C5pSP/7.jpg" alt="Phản hồi 6"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/4Z8Thzb8/8.jpg" alt="Phản hồi 7"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/GvgnhQNK/9.jpg" alt="Phản hồi 8"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/d4FshHwJ/10.jpg" alt="Phản hồi 9"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/PvmMG687/11.jpg" alt="Phản hồi 10"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/WNJY6C34/12.jpg" alt="Phản hồi 11"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/zVjJ1gFQ/13.jpg" alt="Phản hồi 12"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/5Wp20WcQ/14.jpg" alt="Phản hồi 13"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/w9TfSzC/15.jpg" alt="Phản hồi 14"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/hJdhvw0R/16.jpg" alt="Phản hồi 15"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/MkfP755D/17.jpg" alt="Phản hồi 16"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/B5s6nCtT/18.jpg" alt="Phản hồi 17"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/99pZyhvF/19.jpg" alt="Phản hồi 18"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/YFYpHfQG/20.jpg" alt="Phản hồi 19"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/bgnYxnWz/21.jpg" alt="Phản hồi 20"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/dsdMJDVX/23.jpg" alt="Phản hồi 21"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/0pCFkqMt/24.jpg" alt="Phản hồi 22"></div>
-                        <div class="testimonial-item"><img src="https://i.ibb.co/0yWtxm12/nh-gi-1.jpg" alt="Phản hồi 23"></div>
+                        <!-- Duplicate for loop -->
+                        <div class="testimonial-item"><img src="https://i.ibb.co/cX1KRZfF/2.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/N679VtfX/3.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/tP80cs2r/4.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/8D4RY2wy/6.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/GvgnhQNK/9.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/WNJY6C34/12.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/5Wp20WcQ/14.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/hJdhvw0R/16.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/B5s6nCtT/18.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/YFYpHfQG/20.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/dsdMJDVX/23.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
+                        <div class="testimonial-item"><img src="https://i.ibb.co/0yWtxm12/nh-gi-1.jpg" alt="Feedback" loading="lazy" decoding="async" width="400" height="533"></div>
                     </div>
                 </div>
             </section>
