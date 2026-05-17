@@ -15,7 +15,7 @@
     <meta property="og:url" content="https://thunhienedu.vercel.app/">
     <meta property="og:title" content="Thu Nhiên Education - Coaching Tâm Lý Cho Phụ Huynh & Trẻ">
     <meta property="og:description" content="Giáo dục tâm lý giúp con tự tin, vượt qua lo âu, phát triển bản thân.">
-    <meta property="og:image" content="https://i.ibb.co/Pvp5YhzZ/BM7-12-1.png">
+    <meta property="og:image" content="https://i.ibb.co/6cXrNgxz/BM8-13.jpg">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -327,6 +327,38 @@
             background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
         }
 
         .admin-btn {
@@ -1198,8 +1230,43 @@
         }
 
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
             nav {
-                display: none;
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - 80px);
+                background: var(--primary-dark);
+                flex-direction: column;
+                padding: 2rem 1.5rem;
+                gap: 1.5rem;
+                align-items: flex-start;
+                transition: right 0.3s ease;
+                z-index: 1000;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav button {
+                font-size: 1.1rem;
+                padding: 0.5rem 0;
+                width: 100%;
+                text-align: left;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            nav .cta-btn {
+                width: 100%;
+                text-align: center;
+                margin-top: 1rem;
+                border-bottom: none;
             }
 
             .section-title {
@@ -1227,7 +1294,14 @@
                 </div>
             </a>
             
-            <nav>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav id="mainNav">
                 <button onclick="goPage('home')">Trang Chủ</button>
                 <button onclick="goPage('courses')">Khóa Học</button>
                 <button onclick="goPage('blog')">Blog</button>
@@ -1501,6 +1575,22 @@
             window.addEventListener('storage', loadCourses);
 
             // ============ LOAD BLOG POSTS (CAROUSEL) ============
+            // Initialize default blog posts if empty
+            if (!localStorage.getItem('blogPosts')) {
+                const defaultBlog = [{
+                    id: Date.now(),
+                    order: 1,
+                    pinned: true,
+                    title: 'Chào Mừng Bạn Đến Thu Nhiên Education',
+                    excerpt: 'Khám phá hành trình phát triển bản thân cùng chúng tôi',
+                    keyword: 'Giới thiệu',
+                    content: '<p>Chào mừng bạn đến với Thu Nhiên Education! Đây là nơi bạn có thể tìm thấy những khóa học, bài viết hữu ích về phát triển bản thân, tâm lý học và kỹ năng sống.</p><p>Hãy khám phá các khóa học của chúng tôi để bắt đầu hành trình của bạn!</p>',
+                    image: 'https://i.ibb.co/qYDptWVH/Portfolio-1.jpg',
+                    date: new Date().toISOString()
+                }];
+                localStorage.setItem('blogPosts', JSON.stringify(defaultBlog));
+            }
+
             function loadBlog() {
                 console.log('Loading blog posts...');
                 const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
@@ -1583,9 +1673,9 @@
                 
                 <!-- Contact Info -->
                 <div style="background: var(--bg-light); padding: 2rem; border-radius: 12px; text-align: center; margin-bottom: 2rem;">
-                    <p style="margin-bottom: 1rem;">📧 Email: <strong><a href="mailto:dangky@thunhienedu.vn" style="color: var(--primary);">dangky@thunhienedu.vn</a></strong></p>
-                    <p style="margin-bottom: 1rem;">💬 Zalo: <strong><a href="https://zalo.me/0987654321" target="_blank" style="color: var(--primary);">0987654321</a></strong></p>
-                    <p style="margin-bottom: 0;">📱 TikTok: <strong><a href="https://tiktok.com/@thunhienbetterminds" target="_blank" style="color: var(--primary);">@thunhienbetterminds</a></strong></p>
+                    <p style="margin-bottom: 1rem;">📧 Email: <strong><a href="mailto:nhienhtt@gmail.com" style="color: var(--primary);">nhienhtt@gmail.com</a></strong></p>
+                    <p style="margin-bottom: 1rem;">💬 Zalo: <strong><a href="https://zalo.me/0917216246" target="_blank" style="color: var(--primary);">091 721 62 46</a></strong></p>
+                    <p style="margin-bottom: 0;">👤 Facebook: <strong><a href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank" style="color: var(--primary);">ThuNhien.BetterMinds</a></strong></p>
                 </div>
                 
                 <!-- Google Form Embed -->
@@ -1761,6 +1851,15 @@
             <a onclick="goPage('terms')">Điều Khoản</a>
             <a onclick="goPage('disclaimer')">Miễn Trừ</a>
         </div>
+        
+        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p style="margin-bottom: 0.75rem; font-size: 0.95rem;">
+                📧 <a href="mailto:nhienhtt@gmail.com" style="color: var(--white); text-decoration: none;">nhienhtt@gmail.com</a> | 
+                💬 <a href="https://zalo.me/0917216246" target="_blank" style="color: var(--white); text-decoration: none;">091 721 62 46</a> | 
+                👤 <a href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank" style="color: var(--white); text-decoration: none;">Facebook</a>
+            </p>
+        </div>
+        
         <p>&copy; 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</p>
         <div style="margin-top: 1.5rem; text-align: center;">
             <button class="admin-btn" onclick="openAdmin()" title="🔐 Admin Dashboard">⚙️ Admin Dashboard</button>
@@ -1769,6 +1868,20 @@
 
     <script>
         // ========== BANNER SLIDER - LOAD TỪ LOCALSTORAGE ==========
+        // Initialize default banner if empty
+        if (!localStorage.getItem('bannerSlides')) {
+            const defaultBanner = [{
+                id: Date.now(),
+                order: 1,
+                image: 'https://i.ibb.co/qYDptWVH/Portfolio-1.jpg',
+                title: 'Chào Mừng Đến Thu Nhiên Education',
+                subtitle: 'Đồng hành cùng bạn trên hành trình phát triển bản thân',
+                cta1: { text: 'Đăng Ký Ngay', action: 'openRegister()' },
+                cta2: { text: 'Xem Khóa Học', action: "goPage('courses')" }
+            }];
+            localStorage.setItem('bannerSlides', JSON.stringify(defaultBanner));
+        }
+
         let bannerSlides = JSON.parse(localStorage.getItem('bannerSlides')) || [];
 
         let currentBannerIndex = 0;
@@ -1857,6 +1970,29 @@
         function openAdmin() {
             window.open('https://thunhienedu.vercel.app/admin', '_blank', 'width=1400,height=800');
         }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mainNav');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            nav.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking nav buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('#mainNav button');
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const nav = document.getElementById('mainNav');
+                    const toggle = document.querySelector('.mobile-menu-toggle');
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                        toggle.classList.remove('active');
+                    }
+                });
+            });
+        });
 
         function goPage(page, postId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
