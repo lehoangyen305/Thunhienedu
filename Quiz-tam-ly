@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm Tra Sức Khỏe Tâm Lý Gia Đình | Thu Nhiên Education</title>
+    <meta name="description" content="Bài kiểm tra miễn phí giúp đánh giá sức khỏe tâm lý gia đình. 10 câu hỏi - 3 phút - Kết quả chi tiết ngay lập tức.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #e67e50;
+            --secondary: #8b9d83;
+            --accent: #ff9a8b;
+            --neutral: #f5f1ed;
+            --dark: #2d2d2d;
+            --gray: #6b6b6b;
+            --light: #fefdfb;
+            --success: #6fbb9c;
+            --warning: #f0a651;
+            --danger: #e85d75;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-sub {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, var(--neutral) 0%, var(--light) 100%);
+            border-radius: 24px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefits {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .benefit {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        .benefit-icon {
+            font-size: 1.5rem;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(230, 126, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(230, 126, 80, 0.4);
+        }
+
+        .start-btn:active {
+            transform: translateY(0);
+        }
+
+        /* QUIZ SECTION */
+        .quiz-section {
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        .progress-container {
+            margin-bottom: 3rem;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--neutral);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .question-number {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: var(--neutral);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            background: white;
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .option.selected {
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(230, 126, 80, 0.15);
+        }
+
+        .option-radio {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--gray);
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .option.selected .option-radio {
+            border-color: var(--primary);
+        }
+
+        .option.selected .option-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 1rem;
+            color: var(--dark);
+        }
+
+        .option-points {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-secondary {
+            background: var(--neutral);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: #e8e4dd;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(230, 126, 80, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(230, 126, 80, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* RESULT SECTION */
+        .result-section {
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: bounce 0.6s ease;
+        }
+
+        .result-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .result-score {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .result-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .result-recommendations {
+            background: var(--neutral);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .recommendations-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .recommendation-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .recommendation-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .recommendation-text {
+            flex: 1;
+        }
+
+        /* LEAD FORM */
+        .lead-form {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .form-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-subtitle {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: white;
+            background: rgba(255,255,255,0.25);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.125rem;
+            background: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .privacy-note {
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 1rem;
+            opacity: 0.9;
+        }
+
+        /* SHARE BUTTONS */
+        .share-section {
+            text-align: center;
+            padding: 2rem;
+            background: var(--neutral);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .share-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .share-facebook {
+            background: #1877f2;
+            color: white;
+        }
+
+        .share-zalo {
+            background: #0068ff;
+            color: white;
+        }
+
+        .share-copy {
+            background: var(--dark);
+            color: white;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            color: var(--gray);
+        }
+
+        .footer-logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact {
+            margin: 1.5rem 0;
+        }
+
+        .footer-contact a {
+            color: var(--gray);
+            text-decoration: none;
+            margin: 0 0.75rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: var(--primary);
+        }
+
+        .footer-copyright {
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .benefits {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .question-card {
+                padding: 1.75rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .result-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .score-number {
+                font-size: 2.5rem;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+            }
+
+            .share-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🧠 Thu Nhiên</div>
+        <div class="logo-sub">Education</div>
+    </header>
+
+    <div class="container">
+        <!-- HERO SECTION -->
+        <section class="hero" id="heroSection">
+            <h1 class="hero-title">Kiểm Tra Sức Khỏe<br>Tâm Lý Gia Đình</h1>
+            <p class="hero-subtitle">Chỉ 3 phút để hiểu rõ tình trạng tâm lý của gia đình bạn. Nhận kết quả chi tiết và giải pháp cụ thể ngay lập tức.</p>
+            
+            <div class="benefits">
+                <div class="benefit">
+                    <span class="benefit-icon">✅</span>
+                    <span>Hoàn toàn miễn phí</span>
+                </div>
+                <div class="benefit">
+                    <span class="benefit-icon">⚡</span>
+                    <span>Kết quả ngay lập tức</span>
+                </div>
+                <div class="benefit">
+                    <span class="benefit-icon">🎁</span>
+                    <span>Tư vấn miễn phí</span>
+                </div>
+            </div>
+
+            <button class="start-btn" onclick="startQuiz()">🚀 Bắt Đầu Kiểm Tra Ngay</button>
+        </section>
+
+        <!-- QUIZ SECTION -->
+        <section class="quiz-section" id="quizSection">
+            <div class="progress-container">
+                <div class="progress-text">
+                    <span>Câu <span id="currentQuestion">1</span>/10</span>
+                    <span><span id="progressPercent">10</span>%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 10%"></div>
+                </div>
+            </div>
+
+            <div id="questionContainer"></div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="previousQuestion()" id="prevBtn" style="display: none;">← Câu trước</button>
+                <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn" disabled>Tiếp theo →</button>
+            </div>
+        </section>
+
+        <!-- RESULT SECTION -->
+        <section class="result-section" id="resultSection">
+            <!-- Result will be populated by JavaScript -->
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-logo">Thu Nhiên Education</div>
+        <div class="footer-contact">
+            <a href="mailto:nhienhtt@gmail.com">📧 nhienhtt@gmail.com</a>
+            <a href="https://zalo.me/0917216246" target="_blank">💬 091 721 62 46</a>
+            <a href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank">👤 Facebook</a>
+        </div>
+        <div class="footer-copyright">© 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</div>
+    </footer>
+
+    <script>
+        // QUIZ DATA
+        const questions = [
+            {
+                id: 1,
+                text: "Con chủ động nhận lỗi với bạn khi làm sai mà không có biểu hiện giấu giếm hay sợ hãi.",
+                options: [
+                    { text: "Không bao giờ / Không đúng", points: 0 },
+                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
+                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
+                ]
+            },
+            {
+                id: 2,
+                text: "Khi con mắc lỗi, bạn giữ được bình tĩnh để lắng nghe con giải thích trước khi đưa ra hình phạt.",
+                options: [
+                    { text: "Không bao giờ / Không đúng", points: 0 },
+                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
+                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
+                ]
+            },
+            {
+                id: 3,
+                text: "Các bữa cơm gia đình diễn ra trong không khí thoải mái, không có sự trách móc hay phán xét.",
+                options: [
+                    { text: "Không bao giờ / Không đúng", points: 0 },
+                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
+                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
+                ]
+            },
+            {
+                id: 4,
+                text: "Bạn nói lời ghi nhận, khen ngợi những nỗ lực nhỏ của con mỗi ngày.",
+                options: [
+                    { text: "Không bao giờ / Không đúng", points: 0 },
+                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
+                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
+                ]
+            },
+            {
+                id: 5,
+                text: "Bạn chủ động chia sẻ với gia đình khi bạn đang mệt mỏi hoặc buồn bã để mọi người thấu hiểu.",
+                options: [
+                    { text: "Không bao giờ / Không đúng", points: 0 },
+                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
+                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
+                ]
+            },
+            {
+                id: 6,
+                text: "Bạn kiểm soát được cảm xúc, không trút sự bực tức từ công việc hay bên ngoài lên các con.",
+                options: [
+                    { text: "Không bao giờ / Không đúng", points: 0 },
+                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
+                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
+                ]
+            },
+            {
+                id: 7,
+                text: "Bạn có thể kể tên ngay lập tức ít nhất 3 người bạn thân nhất của con hiện tại.",
+                options: [
+                    { text: "Không bao giờ / Không đúng", points: 0 },
+                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
+                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
+                ]
+            },
+            {
+                id: 8,
+                text: "Bạn biết rõ điều gì đang khiến con cảm thấy lo lắng hoặc áp lực nhất trong giai đoạn này.",
+                options: [
+                    { text: "Không bao giờ / Không đúng", points: 0 },
+                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
+                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
+                ]
+            },
+            {
+                id: 9,
+                text: "Khi vợ chồng có bất đồng, hai người giải quyết bằng cách thẳng thắn ngồi lại thảo luận.",
+                options: [
+                    { text: "Không bao giờ / Không đúng", points: 0 },
+                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
+                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
+                ]
+            },
+            {
+                id: 10,
+                text: "Gia đình bạn không ai sử dụng sự \"im lặng độc hại\" để trừng phạt nhau sau những cuộc cãi vã.",
+                options: [
+                    { text: "Không bao giờ / Không đúng", points: 0 },
+                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
+                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let answers = [];
+        let totalScore = 0;
+
+        function startQuiz() {
+            document.getElementById('heroSection').style.display = 'none';
+            document.getElementById('quizSection').classList.add('active');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('questionContainer');
+            
+            container.innerHTML = `
+                <div class="question-card">
+                    <div class="question-number">Câu ${currentQuestionIndex + 1} / 10</div>
+                    <div class="question-text">${question.text}</div>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index}, ${option.points})">
+                                <div class="option-radio"></div>
+                                <div class="option-text">${option.text}</div>
+                                <div class="option-points">${option.points} điểm</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Restore previous selection if any
+            if (answers[currentQuestionIndex] !== undefined) {
+                const selectedIndex = answers[currentQuestionIndex].optionIndex;
+                const options = container.querySelectorAll('.option');
+                options[selectedIndex].classList.add('selected');
+                document.getElementById('nextBtn').disabled = false;
+            } else {
+                document.getElementById('nextBtn').disabled = true;
+            }
+
+            // Update progress
+            updateProgress();
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').style.display = currentQuestionIndex > 0 ? 'block' : 'none';
+        }
+
+        function selectOption(optionIndex, points) {
+            // Remove all selections
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            // Save answer
+            answers[currentQuestionIndex] = {
+                questionId: questions[currentQuestionIndex].id,
+                optionIndex: optionIndex,
+                points: points
+            };
+            
+            // Enable next button
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            document.getElementById('progressPercent').textContent = Math.round(progress);
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                // Quiz completed
+                calculateResult();
+            }
+        }
+
+        function calculateResult() {
+            totalScore = answers.reduce((sum, answer) => sum + answer.points, 0);
+            showResult();
+        }
+
+        function showResult() {
+            document.getElementById('quizSection').classList.remove('active');
+            
+            let resultData;
+            
+            if (totalScore >= 16) {
+                resultData = {
+                    icon: '🌟',
+                    title: '"TRẠM SẠC" BÌNH AN',
+                    color: '#6fbb9c',
+                    description: 'Chúc mừng anh chị! Gia đình đang thực sự là một hệ sinh thái an toàn. Ở đó, các thành viên được phép sai lầm, được thấu cảm và tôn trọng. Hãy tiếp tục duy trì dòng chảy giao tiếp tuyệt vời này!',
+                    recommendations: [
+                        { icon: '📚', text: 'Khám phá khóa học nâng cao để duy trì và phát triển thêm' },
+                        { icon: '💬', text: 'Chia sẻ bí quyết của bạn với cộng đồng phụ huynh' },
+                        { icon: '🎯', text: 'Đặt mục tiêu mới cho sự phát triển của gia đình' }
+                    ]
+                };
+            } else if (totalScore >= 10) {
+                resultData = {
+                    icon: '⚠️',
+                    title: 'DẤU HIỆU CẢNH BÁO',
+                    color: '#f0a651',
+                    description: 'Mối quan hệ gia đình vẫn có sự gắn kết, nhưng "bộ lọc" cảm xúc đã bắt đầu có rác. Sự thấu hiểu đôi lúc bị gián đoạn bởi cái tôi hoặc áp lực cuộc sống. Anh chị cần dọn dẹp và điều chỉnh lại cách dùng ngôn từ ngay để tránh sự đứt gãy lớn hơn trong tương lai.',
+                    recommendations: [
+                        { icon: '📖', text: 'Tham gia khóa học "Hành Trình Hiểu Con Hơn" để cải thiện giao tiếp' },
+                        { icon: '👨‍👩‍👧', text: 'Đặt lịch tư vấn 1:1 miễn phí với Coach Thu Nhiên' },
+                        { icon: '💡', text: 'Đọc bài viết: "15 Câu Hỏi Để Teen Mở Lòng"' }
+                    ]
+                };
+            } else {
+                resultData = {
+                    icon: '🚨',
+                    title: 'BÁO ĐỘNG ĐỎ',
+                    color: '#e85d75',
+                    description: 'Ngôi nhà đang là nơi chứa nhiều "bão tố" ngầm. Con cái (hoặc chính anh chị) đang cảm thấy cô đơn, thiếu an toàn và phải dùng cơ chế phòng vệ để đối phó với người thân. Hệ thống gia đình đang bị tổn thương và cần được can thiệp, chữa lành tâm lý càng sớm càng tốt.',
+                    recommendations: [
+                        { icon: '🆘', text: 'ĐẶT LỊCH TƯ VẤN KHẨN CẤP - Tư vấn 1 giờ miễn phí' },
+                        { icon: '📚', text: 'Tham gia khóa "Nhà Tham Vấn Tâm Tài Gia" (Ưu đãi 50%)' },
+                        { icon: '🎁', text: 'Nhận PDF: "15 Câu Hỏi Để Teen Mở Lòng" ngay' }
+                    ]
+                };
+            }
+
+            const resultHTML = `
+                <div class="result-card">
+                    <div class="result-icon">${resultData.icon}</div>
+                    <h2 class="result-title" style="color: ${resultData.color}">${resultData.title}</h2>
+                    <div class="result-score">
+                        Điểm số của bạn: <span class="score-number" style="color: ${resultData.color}">${totalScore}/20</span>
+                    </div>
+                    <div class="result-description">${resultData.description}</div>
+                    
+                    <div class="result-recommendations">
+                        <h3 class="recommendations-title">💡 Giải pháp đề xuất:</h3>
+                        ${resultData.recommendations.map(rec => `
+                            <div class="recommendation-item">
+                                <div class="recommendation-icon">${rec.icon}</div>
+                                <div class="recommendation-text">${rec.text}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="lead-form">
+                    <h3 class="form-title">🎁 Nhận Tư Vấn Miễn Phí</h3>
+                    <p class="form-subtitle">Để lại thông tin để nhận báo cáo chi tiết và được Coach Thu Nhiên tư vấn trực tiếp!</p>
+                    
+                    <form onsubmit="submitLead(event)">
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Họ và tên *" required id="leadName">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" placeholder="Email *" required id="leadEmail">
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-input" placeholder="Số điện thoại *" required id="leadPhone">
+                        </div>
+                        <button type="submit" class="submit-btn">📧 Nhận Tư Vấn Ngay</button>
+                        <p class="privacy-note">🔒 Thông tin của bạn được bảo mật tuyệt đối</p>
+                    </form>
+                </div>
+
+                <div class="share-section">
+                    <h3 class="share-title">Chia sẻ kết quả với bạn bè:</h3>
+                    <div class="share-buttons">
+                        <button class="share-btn share-facebook" onclick="shareToFacebook()">
+                            📘 Facebook
+                        </button>
+                        <button class="share-btn share-zalo" onclick="shareToZalo()">
+                            💬 Zalo
+                        </button>
+                        <button class="share-btn share-copy" onclick="copyLink()">
+                            🔗 Copy Link
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('resultSection').innerHTML = resultHTML;
+            document.getElementById('resultSection').classList.add('active');
+            
+            // Scroll to result
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function submitLead(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('leadName').value;
+            const email = document.getElementById('leadEmail').value;
+            const phone = document.getElementById('leadPhone').value;
+            
+            // Determine level based on score
+            let level;
+            if (totalScore >= 16) {
+                level = '🌟 Trạm Sạc Bình An (16-20 điểm)';
+            } else if (totalScore >= 10) {
+                level = '⚠️ Dấu Hiệu Cảnh Báo (10-15 điểm)';
+            } else {
+                level = '🚨 Báo Động Đỏ (<10 điểm)';
+            }
+            
+            // Format answers detail
+            const answersDetail = answers.map((answer, index) => {
+                const question = questions[index];
+                const option = question.options.find(opt => opt.points === answer.points);
+                return `Câu ${index + 1}: ${question.text}\n→ ${option.text} (${answer.points} điểm)`;
+            }).join('\n\n');
+            
+            const timestamp = new Date().toLocaleString('vi-VN');
+            
+            // ⚠️ THAY ĐỔI CÁC GIÁ TRỊ NÀY BẰNG GOOGLE FORM CỦA BẠN
+            const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+            const ENTRY_IDS = {
+                name: 'entry.123456789',      // ← Thay bằng entry ID của "Họ và Tên"
+                email: 'entry.987654321',     // ← Thay bằng entry ID của "Email"
+                phone: 'entry.111222333',     // ← Thay bằng entry ID của "Số điện thoại"
+                score: 'entry.444555666',     // ← Thay bằng entry ID của "Điểm số"
+                level: 'entry.777888999',     // ← Thay bằng entry ID của "Mức độ"
+                timestamp: 'entry.101010101', // ← Thay bằng entry ID của "Timestamp"
+                detail: 'entry.202020202'     // ← Thay bằng entry ID của "Chi tiết"
+            };
+            
+            // Create form data
+            const formData = new FormData();
+            formData.append(ENTRY_IDS.name, name);
+            formData.append(ENTRY_IDS.email, email);
+            formData.append(ENTRY_IDS.phone, phone);
+            formData.append(ENTRY_IDS.score, `${totalScore}/20`);
+            formData.append(ENTRY_IDS.level, level);
+            formData.append(ENTRY_IDS.timestamp, timestamp);
+            formData.append(ENTRY_IDS.detail, answersDetail);
+            
+            // Submit to Google Form
+            fetch(GOOGLE_FORM_ACTION, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            }).then(() => {
+                // Also save to localStorage as backup
+                const leadData = {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    score: totalScore,
+                    level: level,
+                    timestamp: timestamp,
+                    answers: answers
+                };
+                
+                let leads = JSON.parse(localStorage.getItem('quizLeads') || '[]');
+                leads.push(leadData);
+                localStorage.setItem('quizLeads', JSON.stringify(leads));
+                
+                // Show success message
+                alert('✅ Cảm ơn bạn! Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ.\n\n📧 Kiểm tra email để nhận báo cáo chi tiết và tài liệu hỗ trợ!');
+                
+                // Scroll to share section
+                document.querySelector('.share-section').scrollIntoView({ behavior: 'smooth' });
+            }).catch((error) => {
+                console.error('Error:', error);
+                // Still save locally if Google Form fails
+                alert('⚠️ Đã lưu thông tin! Chúng tôi sẽ liên hệ với bạn sớm.');
+            });
+        }
+
+        function shareToFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`Tôi vừa hoàn thành bài kiểm tra sức khỏe tâm lý gia đình và đạt ${totalScore}/20 điểm! Bạn cũng thử xem nhé!`);
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+        }
+
+        function shareToZalo() {
+            const url = encodeURIComponent(window.location.href);
+            window.open(`https://zalo.me/share?url=${url}`, '_blank');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('✅ Đã copy link! Bạn có thể chia sẻ với bạn bè.');
+            });
+        }
+
+        // Track page views
+        if (!localStorage.getItem('quizPageViews')) {
+            localStorage.setItem('quizPageViews', '0');
+        }
+        let views = parseInt(localStorage.getItem('quizPageViews')) + 1;
+        localStorage.setItem('quizPageViews', views.toString());
+    </script>
+</body>
+</html>
