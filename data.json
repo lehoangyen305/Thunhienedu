@@ -89,6 +89,61 @@
       "date": "17/5/2026"
     }
   ],
-  "products": [],
+  "products": [
+    {
+      "id": 1779031932606,
+      "order": 0,
+      "name": "\"99k, học trải nghiệm HIỂU CON HƠN\"",
+      "price": 99000,
+      "desc": "Hiểu sự phát triển của con\nThấu cảm với con hơn\nBiết những sai lầm trong giao tiếp và khắc phục",
+      "image": "",
+      "btnText": "Tìm Hiểu Thêm"
+    },
+    {
+      "id": 1779031965690,
+      "order": 1,
+      "name": "NHÀ THAM VẤN TẠI GIA",
+      "price": 6000000,
+      "desc": "1, Năng lực Quản trị cảm xúc (Dừng việc làm tổn thương con)\n2, Năng lực Ngôn từ (Nói để con muốn nghe)\n3, Năng lực Phản hồi (Góp ý để con thay đổi)\n4, Năng lực Thấu cảm (Hiểu được \"\"lãnh thổ\"\" của con)\n5, Năng lực Đồng hành (Một lộ trình có sẵn)",
+      "image": "",
+      "btnText": "Tìm Hiểu Thêm"
+    },
+    {
+      "id": 1779032005089,
+      "order": 2,
+      "name": "NPL 4TEENS Hack não tuổi teen",
+      "price": 25000000,
+      "desc": "1, Thấu hiểu mình để hiểu người khác để giao tiếp tốt hơn\n2, Không còn nỗi sợ bị phán xét, bị đánh giá (áp lựng đồng trang lứa)\n3, Tự tin, biết năng lực và giá trị bản thân\n4, Biết góp ý cho người khác một cách tinh tế\n5, Nhận ra những tổn thương của bản thân, và học cách giải phóng nó",
+      "image": "",
+      "btnText": "Tìm Hiểu Thêm"
+    },
+    {
+      "id": 1779032163844,
+      "order": 3,
+      "name": "CHƯƠNG TRÌNH ĐỒNG HÀNH TÂM TRÍ",
+      "price": 2500000,
+      "desc": "1, Khỏi bệnh 85-90% thành công, không còn phụ thuộc vào thuốc, ít có khả năng tái bệnh\n2, Hiểu bản thân, biết kiểm soát cảm xúc, biết đối diện với nghịch cảnh\n3, Phát huy năng lực tiềm ẩn, bẻ gãy các niềm tin độc hại, giới hạn, có nhiều cơ hội phát triển mạnh hơn phiên bản cũ\n4, Biết lập mục tiêu, theo đuổi mục tiêu",
+      "image": "",
+      "btnText": "Tìm Hiểu Thêm"
+    },
+    {
+      "id": 1779032206267,
+      "order": 4,
+      "name": "Chương trình NLP đặc biệt cho thân chủ/học sinh",
+      "price": 2500000,
+      "desc": "Bổ sung cho quá trình chữa lành triệt để hơn",
+      "image": "",
+      "btnText": "Tìm Hiểu Thêm"
+    },
+    {
+      "id": 1779032237095,
+      "order": 5,
+      "name": "Nhà huấn luyện tâm trí",
+      "price": 59999999,
+      "desc": "1, Nhà thực hành NLP\n2, Nhà thực hành thôi miên\n3, Nhà thực hành liệu pháp Dòng thời gian",
+      "image": "",
+      "btnText": "Tìm Hiểu Thêm"
+    }
+  ],
   "customers": []
 }
