@@ -31,7 +31,32 @@
       }
     }
   ],
-  "benefits": [],
+  "benefits": [
+    {
+      "id": 1779032499785,
+      "order": 0,
+      "icon": "✨",
+      "title": "Thay đổi góc nhìn",
+      "desc": "Biến những thất bại tạm thời thành bài học kinh nghiệm.",
+      "image": ""
+    },
+    {
+      "id": 1779032540801,
+      "order": 1,
+      "icon": "🎯",
+      "title": "Làm chủ cảm xúc và hành vi",
+      "desc": "Giúp con \"neo\" lại những cảm giác bình tĩnh, thư giãn. Khi cơn giận ập đến (cơn bão cảm xúc), con có thể kích hoạt điểm neo này để lấy lại sự kiểm soát thay vì bùng nổ.",
+      "image": ""
+    },
+    {
+      "id": 1779032575001,
+      "order": 2,
+      "icon": "✨",
+      "title": "Cải thiện kỹ năng giao tiếp và xây dựng mối quan hệ",
+      "desc": "Con học được cách quan sát và điều chỉnh tông giọng, ngôn ngữ cơ thể để kết nối tốt hơn với bạn bè và cha mẹ, tránh những xung đột vô nghĩa.",
+      "image": ""
+    }
+  ],
   "blog": [
     {
       "id": 1779028228564,
