@@ -1979,7 +1979,7 @@
         }
 
         function showBlogPost(postId) {
-            const blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+            const blogPosts = appData.blog || [];
             postId = parseInt(postId); // Ensure it's a number
             const post = blogPosts.find(p => p.id === postId);
             
