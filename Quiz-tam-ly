@@ -1070,15 +1070,15 @@
             const timestamp = new Date().toLocaleString('vi-VN');
             
             // ⚠️ THAY ĐỔI CÁC GIÁ TRỊ NÀY BẰNG GOOGLE FORM CỦA BẠN
-            const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+            const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScmtqe8VQuuy6vXlCNgEusnZe0FwDIbznUSwAw6RAbnx8wXdw/viewform?usp=header';
             const ENTRY_IDS = {
-                name: 'entry.123456789',      // ← Thay bằng entry ID của "Họ và Tên"
-                email: 'entry.987654321',     // ← Thay bằng entry ID của "Email"
-                phone: 'entry.111222333',     // ← Thay bằng entry ID của "Số điện thoại"
-                score: 'entry.444555666',     // ← Thay bằng entry ID của "Điểm số"
-                level: 'entry.777888999',     // ← Thay bằng entry ID của "Mức độ"
-                timestamp: 'entry.101010101', // ← Thay bằng entry ID của "Timestamp"
-                detail: 'entry.202020202'     // ← Thay bằng entry ID của "Chi tiết"
+                name: 'entry.2113918905',      // ← Thay bằng entry ID của "Họ và Tên"
+                email: 'entry.1992230588',     // ← Thay bằng entry ID của "Email"
+                phone: 'entry.1447887329',     // ← Thay bằng entry ID của "Số điện thoại"
+                score: 'entry.1883031995',     // ← Thay bằng entry ID của "Điểm số"
+                level: 'entry.429200156',     // ← Thay bằng entry ID của "Mức độ"
+                timestamp: 'entry.807548649', // ← Thay bằng entry ID của "Timestamp"
+                detail: 'entry.1648281170'     // ← Thay bằng entry ID của "Chi tiết"
             };
             
             // Create form data
