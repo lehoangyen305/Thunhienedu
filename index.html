@@ -277,15 +277,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: visible;
+            overflow: hidden;
             flex-shrink: 0;
+            background: transparent;
         }
 
         .logo-icon img {
-            width: 150%;
+            width: auto;
             height: 100%;
+            max-width: 150px;
             object-fit: contain;
-            padding: 4px;
+            padding: 2px;
+            display: block;
         }
 
         nav {
@@ -1044,7 +1047,7 @@
             }
 
             .logo-icon {
-                width: 80px;
+                width: 120px;
                 height: 80px;
             }
 
