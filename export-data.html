@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚨 Emergency Data Export - Thu Nhiên</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #dc2626;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .alert {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #dc2626;
+        }
+        
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #10b981;
+            display: none;
+        }
+        
+        button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-export {
+            background: #dc2626;
+            color: white;
+        }
+        
+        .btn-export:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+        
+        .btn-download {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-download:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 400px;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        
+        .info {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-card {
+            background: #f9fafb;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚨 Emergency Data Export</h1>
+        
+        <div class="alert">
+            <strong>⚠️ Khẩn cấp!</strong> Website đã chuyển sang data.json. Hãy export dữ liệu cũ của bạn từ localStorage trước khi mất!
+        </div>
+        
+        <div class="stats" id="stats"></div>
+        
+        <div class="info">
+            <strong>📋 Hướng dẫn:</strong>
+            <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Click "🚨 Export My Data" để lấy dữ liệu</li>
+                <li>Copy JSON xuất hiện ở dưới</li>
+                <li>Gửi cho Claude để tạo data.json đúng</li>
+                <li>Hoặc download file data.json</li>
+            </ol>
+        </div>
+        
+        <button class="btn-export" onclick="exportLocalStorage()">🚨 Export My Data NOW</button>
+        
+        <textarea id="output" placeholder="Dữ liệu của bạn sẽ xuất hiện ở đây..." readonly></textarea>
+        
+        <button class="btn-download" onclick="downloadJSON()" style="display: none;" id="downloadBtn">💾 Download data.json</button>
+        
+        <div class="success" id="successMsg">
+            ✅ Đã export thành công! Copy JSON ở trên và gửi cho Claude.
+        </div>
+    </div>
+    
+    <script>
+        let exportedData = null;
+        
+        // Check localStorage on load
+        window.addEventListener('load', () => {
+            checkLocalStorageData();
+        });
+        
+        function checkLocalStorageData() {
+            const banners = localStorage.getItem('bannerSlides');
+            const blog = localStorage.getItem('blogPosts');
+            const products = localStorage.getItem('products');
+            const benefits = localStorage.getItem('benefits');
+            
+            const stats = {
+                banners: banners ? JSON.parse(banners).length : 0,
+                blog: blog ? JSON.parse(blog).length : 0,
+                products: products ? JSON.parse(products).length : 0,
+                benefits: benefits ? JSON.parse(benefits).length : 0
+            };
+            
+            const statsHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${stats.banners}</div>
+                    <div class="stat-label">Banners</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.blog}</div>
+                    <div class="stat-label">Blog Posts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.products}</div>
+                    <div class="stat-label">Courses</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.benefits}</div>
+                    <div class="stat-label">Benefits</div>
+                </div>
+            `;
+            
+            document.getElementById('stats').innerHTML = statsHTML;
+            
+            console.log('📊 Data found in localStorage:', stats);
+        }
+        
+        function exportLocalStorage() {
+            try {
+                // Get all data from localStorage
+                const data = {
+                    banners: JSON.parse(localStorage.getItem('bannerSlides') || '[]'),
+                    benefits: JSON.parse(localStorage.getItem('benefits') || '[]'),
+                    blog: JSON.parse(localStorage.getItem('blogPosts') || '[]'),
+                    products: JSON.parse(localStorage.getItem('products') || '[]'),
+                    customers: JSON.parse(localStorage.getItem('customers') || '[]')
+                };
+                
+                // Format as proper data.json structure
+                const jsonString = JSON.stringify(data, null, 2);
+                
+                // Display in textarea
+                document.getElementById('output').value = jsonString;
+                
+                // Store for download
+                exportedData = data;
+                
+                // Show success message
+                document.getElementById('successMsg').style.display = 'block';
+                document.getElementById('downloadBtn').style.display = 'block';
+                
+                // Auto copy to clipboard
+                navigator.clipboard.writeText(jsonString).then(() => {
+                    console.log('✅ Copied to clipboard!');
+                }).catch(err => {
+                    console.error('Copy failed:', err);
+                });
+                
+                console.log('✅ Data exported:', data);
+                
+            } catch (error) {
+                alert('❌ Lỗi export: ' + error.message);
+                console.error('Export error:', error);
+            }
+        }
+        
+        function downloadJSON() {
+            if (!exportedData) {
+                alert('Vui lòng export data trước!');
+                return;
+            }
+            
+            const jsonString = JSON.stringify(exportedData, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            console.log('📥 Downloaded data.json');
+        }
+    </script>
+</body>
+</html>
