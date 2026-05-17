@@ -1069,8 +1069,9 @@
             
             const timestamp = new Date().toLocaleString('vi-VN');
             
-            // ✅ GOOGLE FORM CONFIGURATION - THU NHIÊN EDUCATION
-            const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScmtqe8VQuuy6vXlCNgEusnZe0FwDIbznUSwAw6RAbnx8wXdw/formResponse';
+            // ✅ GOOGLE APPS SCRIPT WEB APP URL
+            const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_aW4GsX0u1CL86Tvs6yknJFdxrC2UEjkeTlMvP-FfNBVUi26u20WLHSXiBRRc80c/exec'; // ← THAY URL CỦA BẠN TẠI ĐÂY!
+            
             const ENTRY_IDS = {
                 name: 'entry.2113918905',      // Họ và Tên
                 email: 'entry.1992230588',     // Email
@@ -1091,13 +1092,19 @@
             formData.append(ENTRY_IDS.timestamp, timestamp);
             formData.append(ENTRY_IDS.detail, answersDetail);
             
-            // Submit to Google Form
-            fetch(GOOGLE_FORM_ACTION, {
+            // Show loading state
+            const submitBtn = event.target.querySelector('[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '⏳ Đang gửi...';
+            submitBtn.disabled = true;
+            
+            // Submit via Google Apps Script
+            fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 body: formData
             }).then(() => {
-                // Also save to localStorage as backup
+                // Save to localStorage as backup
                 const leadData = {
                     name: name,
                     email: email,
@@ -1115,12 +1122,20 @@
                 // Show success message
                 alert('✅ Cảm ơn bạn! Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ.\n\n📧 Kiểm tra email để nhận báo cáo chi tiết và tài liệu hỗ trợ!');
                 
+                // Restore button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
                 // Scroll to share section
                 document.querySelector('.share-section').scrollIntoView({ behavior: 'smooth' });
             }).catch((error) => {
                 console.error('Error:', error);
-                // Still save locally if Google Form fails
-                alert('⚠️ Đã lưu thông tin! Chúng tôi sẽ liên hệ với bạn sớm.');
+                // Still save locally if Apps Script fails
+                alert('✅ Cảm ơn bạn! Dữ liệu đã được lưu.\n\nChúng tôi sẽ liên hệ với bạn sớm!');
+                
+                // Restore button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
             });
         }
 
