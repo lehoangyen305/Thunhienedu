@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist Phone-Based Childhood | Thu Nhiên Education</title>
+    <meta name="description" content="10 dấu hiệu con đang bị ảnh hưởng bởi điện thoại & mạng xã hội. Kiểm tra ngay để bảo vệ con kịp thời.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #e67e50;
+            --accent:  #ff9a8b;
+            --neutral: #f5f1ed;
+            --dark:    #2d2d2d;
+            --gray:    #6b6b6b;
+            --light:   #fefdfb;
+            --success: #6fbb9c;
+            --warning: #f0a651;
+            --danger:  #e85d75;
+            --purple:  #9b72cf;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--light); color: var(--dark);
+            line-height: 1.6; overflow-x: hidden;
+        }
+
+        .container { max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        /* HEADER */
+        header { text-align: center; padding: 2rem 0 1rem; animation: fadeInDown 0.8s ease; }
+        .logo { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--primary); margin-bottom: 0.25rem; }
+        .logo-sub { font-size: 0.9rem; color: var(--gray); font-weight: 500; }
+
+        /* HERO */
+        .hero {
+            text-align: center; padding: 3rem 1.5rem;
+            background: linear-gradient(135deg, #fff5f0 0%, #f5f0ff 100%);
+            border-radius: 24px; margin-bottom: 2rem;
+            position: relative; overflow: hidden;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -50%; right: -20%;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, var(--purple) 0%, transparent 70%);
+            opacity: 0.08; animation: float 8s ease-in-out infinite;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--purple), #b794f4);
+            color: white; font-size: 0.8rem; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            padding: 0.35rem 1rem; border-radius: 50px; margin-bottom: 1.25rem;
+        }
+        .hero-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem; color: var(--dark);
+            margin-bottom: 1rem; line-height: 1.2;
+        }
+        .hero-title span { color: var(--purple); }
+        .hero-desc {
+            font-size: 1.05rem; color: var(--gray);
+            max-width: 580px; margin: 0 auto 1.5rem;
+        }
+        .hero-source {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(155,114,207,0.1); border: 1px solid rgba(155,114,207,0.2);
+            border-radius: 50px; padding: 0.4rem 1rem;
+            font-size: 0.82rem; color: var(--purple); font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        .hero-stats {
+            display: flex; justify-content: center;
+            gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;
+        }
+        .stat { text-align: center; }
+        .stat-num { font-size: 1.6rem; font-weight: 700; color: var(--purple); display: block; }
+        .stat-label { font-size: 0.82rem; color: var(--gray); }
+        .start-btn {
+            background: linear-gradient(135deg, var(--purple) 0%, #b794f4 100%);
+            color: white; padding: 1rem 3rem;
+            border: none; border-radius: 50px;
+            font-size: 1.1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(155,114,207,0.35);
+            font-family: inherit;
+        }
+        .start-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(155,114,207,0.45); }
+
+        /* CHECKLIST SECTION */
+        .checklist-section { display: none; animation: fadeInUp 0.6s ease; }
+        .checklist-section.active { display: block; }
+
+        .checklist-header {
+            background: white; border-radius: 20px;
+            padding: 1.75rem 2rem; margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .checklist-header-icon { font-size: 2rem; }
+        .checklist-header-text h2 { font-size: 1.1rem; font-weight: 700; color: var(--dark); }
+        .checklist-header-text p { font-size: 0.9rem; color: var(--gray); margin-top: 0.25rem; }
+
+        /* COUNTER */
+        .counter-bar {
+            background: white; border-radius: 16px;
+            padding: 1.25rem 1.75rem; margin-bottom: 1.5rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        }
+        .counter-left { display: flex; align-items: center; gap: 0.75rem; }
+        .counter-num {
+            font-size: 2.5rem; font-weight: 800; color: var(--purple);
+            line-height: 1; transition: all 0.3s ease;
+        }
+        .counter-label { font-size: 0.88rem; color: var(--gray); }
+        .counter-label strong { display: block; font-size: 1rem; color: var(--dark); }
+        .severity-badge {
+            padding: 0.5rem 1.25rem; border-radius: 50px;
+            font-size: 0.88rem; font-weight: 700;
+            transition: all 0.4s ease;
+        }
+        .sev-0 { background: #f0fdf4; color: #16a34a; }
+        .sev-1 { background: #fefce8; color: #ca8a04; }
+        .sev-2 { background: #fff7ed; color: #ea580c; }
+        .sev-3 { background: #fff1f2; color: #e11d48; }
+
+        /* SIGN ITEMS */
+        .signs-list { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+
+        .sign-item {
+            background: white; border-radius: 16px;
+            border: 2px solid transparent;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer; transition: all 0.25s ease;
+            display: flex; align-items: flex-start; gap: 1rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            user-select: none;
+        }
+        .sign-item:hover { border-color: rgba(155,114,207,0.3); transform: translateX(4px); }
+        .sign-item.checked {
+            border-color: var(--purple);
+            background: linear-gradient(135deg, #faf5ff, #f5f0ff);
+            box-shadow: 0 4px 16px rgba(155,114,207,0.15);
+        }
+
+        .sign-checkbox {
+            width: 26px; height: 26px; border-radius: 8px;
+            border: 2px solid #ddd; background: var(--neutral);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.25s ease; flex-shrink: 0; margin-top: 2px;
+            font-size: 0.9rem;
+        }
+        .sign-item.checked .sign-checkbox {
+            background: var(--purple); border-color: var(--purple); color: white;
+        }
+
+        .sign-content { flex: 1; }
+        .sign-num {
+            font-size: 0.72rem; font-weight: 700; color: var(--purple);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem;
+        }
+        .sign-title { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.35rem; }
+        .sign-desc { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+        .sign-item.checked .sign-title { color: var(--purple); }
+
+        /* CTA */
+        .checklist-cta {
+            background: linear-gradient(135deg, var(--purple), #b794f4);
+            border-radius: 20px; padding: 2rem;
+            color: white; text-align: center; margin-bottom: 1.5rem;
+        }
+        .cta-text { font-size: 1rem; opacity: 0.9; margin-bottom: 1.25rem; }
+        .see-result-btn {
+            background: white; color: var(--purple);
+            padding: 1rem 3rem; border: none; border-radius: 50px;
+            font-size: 1.05rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; font-family: inherit;
+        }
+        .see-result-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+
+        /* RESULT */
+        .result-section { display: none; animation: fadeInUp 0.6s ease; }
+        .result-section.active { display: block; }
+
+        .result-hero {
+            text-align: center; padding: 3rem 2rem;
+            background: white; border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08); margin-bottom: 2rem;
+        }
+        .result-icon-wrap {
+            width: 100px; height: 100px; border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; animation: bounce 0.6s ease;
+        }
+        .result-title { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 0.5rem; }
+        .result-subtitle { font-size: 1.05rem; color: var(--gray); margin-bottom: 1.5rem; }
+        .score-display {
+            display: inline-flex; align-items: baseline; gap: 0.4rem;
+            border-radius: 20px; padding: 1rem 2rem; margin-bottom: 2rem;
+        }
+        .score-big { font-size: 3.5rem; font-weight: 800; line-height: 1; }
+        .score-out { font-size: 1.2rem; font-weight: 600; color: var(--gray); }
+        .result-desc {
+            font-size: 1.05rem; line-height: 1.8; color: var(--gray);
+            text-align: left; max-width: 600px; margin: 0 auto;
+        }
+
+        /* CHECKED SIGNS SUMMARY */
+        .signs-summary {
+            background: white; border-radius: 20px;
+            padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 2rem;
+        }
+        .summary-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--dark); }
+        .summary-item {
+            display: flex; gap: 0.75rem; align-items: flex-start;
+            padding: 0.75rem 0; border-bottom: 1px solid var(--neutral);
+        }
+        .summary-item:last-child { border-bottom: none; }
+        .summary-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--purple); flex-shrink: 0; margin-top: 7px;
+        }
+        .summary-text { font-size: 0.92rem; color: var(--dark); }
+
+        /* SOLUTIONS */
+        .solutions-card {
+            background: white; border-radius: 20px;
+            padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 2rem;
+        }
+        .solutions-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--dark); }
+        .solutions-sub { font-size: 0.9rem; color: var(--gray); margin-bottom: 1.5rem; }
+        .solution-item {
+            background: linear-gradient(135deg, #faf5ff, #f5f0ff);
+            border: 1px solid rgba(155,114,207,0.2);
+            border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem;
+            display: flex; gap: 1rem; align-items: flex-start;
+        }
+        .solution-item:last-child { margin-bottom: 0; }
+        .sol-num {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: var(--purple); color: white;
+            font-size: 0.82rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .sol-content { flex: 1; }
+        .sol-title { font-weight: 700; font-size: 0.97rem; color: var(--purple); margin-bottom: 0.3rem; }
+        .sol-desc { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+
+        /* RECO */
+        .reco-card {
+            border-radius: 20px; padding: 2.25rem; margin-bottom: 2rem;
+            color: white;
+            background: linear-gradient(135deg, var(--purple), #b794f4);
+        }
+        .reco-title { font-family: 'DM Serif Display', serif; font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .reco-sub { font-size: 0.95rem; opacity: 0.9; margin-bottom: 1.75rem; }
+        .reco-items { display: flex; flex-direction: column; gap: 1rem; }
+        .reco-item {
+            background: rgba(255,255,255,0.18); border-radius: 14px;
+            padding: 1rem 1.25rem; display: flex; gap: 1rem; align-items: flex-start;
+        }
+        .reco-icon { font-size: 1.4rem; flex-shrink: 0; }
+        .reco-text { font-size: 0.97rem; line-height: 1.5; }
+
+        /* LEAD FORM */
+        .lead-form {
+            background: white; border-radius: 20px;
+            border: 2px solid var(--neutral);
+            padding: 2.25rem; margin-bottom: 2rem;
+        }
+        .lead-form-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .lead-form-sub { font-size: 0.95rem; color: var(--gray); margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-input {
+            width: 100%; padding: 0.9rem 1.1rem;
+            border: 2px solid var(--neutral); border-radius: 12px;
+            font-size: 0.97rem; background: var(--light); color: var(--dark);
+            transition: all 0.25s ease; font-family: inherit;
+        }
+        .form-input:focus { outline: none; border-color: var(--purple); background: white; }
+        .form-input::placeholder { color: #aaa; }
+        .submit-btn {
+            width: 100%; padding: 1.1rem;
+            background: linear-gradient(135deg, var(--purple), #b794f4);
+            color: white; border: none; border-radius: 12px;
+            font-size: 1.05rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; font-family: inherit;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(155,114,207,0.35); }
+        .privacy-note { font-size: 0.82rem; text-align: center; color: var(--gray); margin-top: 0.75rem; }
+
+        /* SHARE */
+        .share-section {
+            text-align: center; padding: 2rem;
+            background: var(--neutral); border-radius: 16px; margin-bottom: 2rem;
+        }
+        .share-title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
+        .share-buttons { display: flex; gap: 0.875rem; justify-content: center; flex-wrap: wrap; }
+        .share-btn {
+            padding: 0.7rem 1.4rem; border: none; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 0.4rem;
+            font-family: inherit;
+        }
+        .share-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .share-facebook { background: #1877f2; color: white; }
+        .share-zalo     { background: #0068ff; color: white; }
+        .share-copy     { background: var(--dark); color: white; }
+
+        .retry-section { text-align: center; padding: 1rem; margin-bottom: 2rem; }
+        .retry-btn {
+            background: var(--neutral); color: var(--dark);
+            padding: 0.875rem 2.5rem; border: none; border-radius: 50px;
+            font-size: 0.97rem; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease; font-family: inherit;
+        }
+        .retry-btn:hover { background: #e8e4dd; transform: translateY(-2px); }
+
+        footer { text-align: center; padding: 3rem 1rem 2rem; color: var(--gray); }
+        .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--primary); margin-bottom: 1rem; }
+        .footer-contact { margin: 1rem 0; }
+        .footer-contact a { color: var(--gray); text-decoration: none; margin: 0 0.75rem; transition: color 0.3s; }
+        .footer-contact a:hover { color: var(--primary); }
+        .footer-copyright { font-size: 0.85rem; margin-top: 1rem; }
+
+        @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeInUp   { from{opacity:0;transform:translateY(20px)}  to{opacity:1;transform:translateY(0)} }
+        @keyframes float { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-20px) rotate(5deg)} }
+        @keyframes bounce { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+        @keyframes countPop { 0%{transform:scale(1)} 50%{transform:scale(1.3)} 100%{transform:scale(1)} }
+
+        @media (max-width: 640px) {
+            .hero-title { font-size: 2rem; }
+            .counter-bar { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+            .share-buttons { flex-direction: column; }
+            .share-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">🧠 Thu Nhiên</div>
+    <div class="logo-sub">Education</div>
+</header>
+
+<div class="container">
+
+    <!-- HERO -->
+    <section class="hero" id="heroSection">
+        <div class="hero-badge">Checklist Thực Chiến</div>
+        <h1 class="hero-title">Con Bạn Có Đang Bị<br><span>Phone-Based Childhood?</span></h1>
+        <p class="hero-desc">10 dấu hiệu cảnh báo từ nghiên cứu của Jonathan Haidt & kinh nghiệm đồng hành thực tế. Kiểm tra ngay để bảo vệ con kịp thời.</p>
+        <div class="hero-source">📖 Nguồn: The Anxious Generation – Jonathan Haidt</div>
+        <div class="hero-stats">
+            <div class="stat"><span class="stat-num">10</span><span class="stat-label">Dấu hiệu</span></div>
+            <div class="stat"><span class="stat-num">2'</span><span class="stat-label">Hoàn thành</span></div>
+            <div class="stat"><span class="stat-num">6</span><span class="stat-label">Giải pháp NLP</span></div>
+        </div>
+        <button class="start-btn" onclick="startChecklist()">🔍 Kiểm Tra Ngay</button>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section class="checklist-section" id="checklistSection">
+
+        <div class="checklist-header">
+            <div class="checklist-header-icon">☑️</div>
+            <div class="checklist-header-text">
+                <h2>Đánh dấu những dấu hiệu con bạn đang gặp</h2>
+                <p>Nhấn vào từng dấu hiệu để chọn/bỏ chọn — Nếu có 4 dấu hiệu trở lên, cần chú ý ngay</p>
+            </div>
+        </div>
+
+        <!-- COUNTER -->
+        <div class="counter-bar">
+            <div class="counter-left">
+                <div class="counter-num" id="counterNum">0</div>
+                <div class="counter-label">
+                    <strong>dấu hiệu đã chọn</strong>
+                    trên tổng số 10
+                </div>
+            </div>
+            <div class="severity-badge sev-0" id="severityBadge">✅ Chưa chọn dấu hiệu nào</div>
+        </div>
+
+        <!-- SIGNS -->
+        <div class="signs-list" id="signsList"></div>
+
+        <!-- CTA -->
+        <div class="checklist-cta">
+            <p class="cta-text">Đã đánh dấu xong? Nhận kết quả chi tiết và giải pháp NLP thực chiến ngay!</p>
+            <button class="see-result-btn" onclick="showResult()">📊 Xem Kết Quả & Giải Pháp →</button>
+        </div>
+
+    </section>
+
+    <!-- RESULT -->
+    <section class="result-section" id="resultSection"></section>
+
+</div>
+
+<footer>
+    <div class="footer-logo">Thu Nhiên Education</div>
+    <div class="footer-contact">
+        <a href="mailto:nhienhtt@gmail.com">📧 nhienhtt@gmail.com</a>
+        <a href="https://zalo.me/0917216246" target="_blank">💬 091 721 62 46</a>
+        <a href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank">👤 Facebook</a>
+    </div>
+    <div class="footer-copyright">© 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</div>
+</footer>
+
+<script>
+// ============================================================
+// ⚙️ CẤU HÌNH
+// ============================================================
+const APPS_SCRIPT_URL = 'PASTE_URL_APPS_SCRIPT_CỦA_BẠN_VÀO_ĐÂY';
+const QUIZ_TYPE       = 'Phone-Based Childhood Checklist';
+
+// ============================================================
+// DATA
+// ============================================================
+const signs = [
+    {
+        id: 1,
+        title: "Dành quá nhiều thời gian trên điện thoại",
+        desc: "Con dành hầu hết thời gian rảnh để cầm điện thoại, khó rời mắt ra, và trở nên cáu gắt khi bị yêu cầu bỏ điện thoại xuống (hơn 4–5 giờ/ngày)."
+    },
+    {
+        id: 2,
+        title: "Rối loạn giấc ngủ, thức khuya lướt mạng",
+        desc: "Con thức khuya chơi điện thoại, khó ngủ hoặc ngủ không ngon, sáng dậy thường mệt mỏi, uể oải và hay cáu kỉnh."
+    },
+    {
+        id: 3,
+        title: "Giảm tương tác xã hội thực tế",
+        desc: "Con ít muốn gặp bạn bè trực tiếp, ít tham gia hoạt động gia đình, thích chat online hoặc chơi game hơn là nói chuyện thật."
+    },
+    {
+        id: 4,
+        title: "Tăng lo âu và so sánh bản thân",
+        desc: "Con hay tự ti, lo lắng về ngoại hình, thành tích, hoặc dễ buồn, ghen tị khi xem cuộc sống của người khác trên mạng."
+    },
+    {
+        id: 5,
+        title: "Giảm khả năng tập trung và chú ý",
+        desc: "Con khó ngồi học lâu, hay bị phân tâm, quên bài vở, điểm số giảm dù trước đây con học khá tốt."
+    },
+    {
+        id: 6,
+        title: "Thay đổi tâm trạng thất thường, dễ cáu gắt",
+        desc: "Tâm trạng con lên xuống rất nhanh, dễ nổi nóng, buồn bã hoặc cáu kỉnh mà không có lý do rõ ràng."
+    },
+    {
+        id: 7,
+        title: "Giảm hoạt động thể chất và chơi ngoài trời",
+        desc: "Con ít vận động, ít ra ngoài chơi, thích nằm một chỗ lướt mạng hoặc chơi game hơn là chạy nhảy, thể thao."
+    },
+    {
+        id: 8,
+        title: "Tự trọng thấp, hình ảnh bản thân méo mó",
+        desc: "Con hay tự chê bai mình ("Con xấu", "Con kém", "Không ai thích con"), quá chú trọng vào like, comment và ngoại hình."
+    },
+    {
+        id: 9,
+        title: "Rút lui vào thế giới ảo",
+        desc: "Con sống nhiều hơn trong game, TikTok, Instagram; kể chuyện online nhiều hơn là chia sẻ cuộc sống thật với gia đình."
+    },
+    {
+        id: 10,
+        title: "Khó khăn trong giao tiếp với gia đình",
+        desc: "Con ít tâm sự, trả lời qua loa, hay bực bội khi cha mẹ hỏi han, tạo khoảng cách rõ rệt với bố mẹ."
+    }
+];
+
+const solutions = [
+    {
+        title: "Mirroring thụ động",
+        desc: "Ngồi gần con, giữ bình tĩnh, thở cùng nhịp. Nói nhẹ: \"Con đang rất khó chịu vì chuyện điện thoại phải không?\" → Im lặng 20–30 giây, không giảng đạo."
+    },
+    {
+        title: "Lắng nghe tích cực + Soi gương",
+        desc: "Khi con bắt đầu mở lòng: phản ánh cảm xúc trước, sau đó mới chuyển sang giải pháp. Không vội khuyên bảo hay biện minh ngay."
+    },
+    {
+        title: "Đổi khung nhìn",
+        desc: "Thay vì \"Bỏ điện thoại đi!\", hãy nói: \"Não con đang cần nghỉ ngơi. Từ tối nay 8h30–9h30 là thời gian không dùng điện thoại.\""
+    },
+    {
+        title: "Anchoring – Neo trạng thái bình tĩnh",
+        desc: "Dạy con nhớ lại khoảnh khắc bình an nhất → nắm chặt tay phải + hít thở sâu 3–5 lần → tạo \"neo\" để tự kích hoạt khi thèm điện thoại."
+    },
+    {
+        title: "Future Pacing – Hình dung tương lai tích cực",
+        desc: "Hỏi con: \"2 tuần nữa, nếu kiểm soát tốt điện thoại, con sẽ cảm thấy thế nào?\" → Để con tự nói ra lợi ích, sau đó khẳng định: \"Mẹ tin con làm được.\""
+    },
+    {
+        title: "Collaborative Choice – Trao quyền lựa chọn",
+        desc: "\"Buổi tối chỉ được dùng đến 9h hoặc 9h30. Con chọn khung giờ nào? Nhưng sau đó phải để điện thoại ngoài phòng khách.\" → Con được chọn, ranh giới vẫn rõ ràng."
+    }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let checkedSigns = new Set();
+
+// ============================================================
+// INIT
+// ============================================================
+function startChecklist() {
+    document.getElementById('heroSection').style.display = 'none';
+    document.getElementById('checklistSection').classList.add('active');
+    renderSigns();
+}
+
+function renderSigns() {
+    const list = document.getElementById('signsList');
+    list.innerHTML = signs.map(s => `
+        <div class="sign-item" id="sign-${s.id}" onclick="toggleSign(${s.id})">
+            <div class="sign-checkbox" id="cb-${s.id}"></div>
+            <div class="sign-content">
+                <div class="sign-num">Dấu hiệu ${s.id}</div>
+                <div class="sign-title">${s.title}</div>
+                <div class="sign-desc">${s.desc}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function toggleSign(id) {
+    if (checkedSigns.has(id)) {
+        checkedSigns.delete(id);
+        document.getElementById('sign-' + id).classList.remove('checked');
+        document.getElementById('cb-' + id).textContent = '';
+    } else {
+        checkedSigns.add(id);
+        document.getElementById('sign-' + id).classList.add('checked');
+        document.getElementById('cb-' + id).textContent = '✓';
+    }
+    updateCounter();
+}
+
+function updateCounter() {
+    const count = checkedSigns.size;
+    const numEl = document.getElementById('counterNum');
+    const badgeEl = document.getElementById('severityBadge');
+
+    numEl.textContent = count;
+    numEl.style.animation = 'none';
+    setTimeout(() => numEl.style.animation = 'countPop 0.3s ease', 10);
+
+    if (count === 0) {
+        badgeEl.className = 'severity-badge sev-0';
+        badgeEl.textContent = '✅ Chưa chọn dấu hiệu nào';
+    } else if (count <= 3) {
+        badgeEl.className = 'severity-badge sev-1';
+        badgeEl.textContent = '🟡 Cảnh báo nhẹ (0–3)';
+    } else if (count <= 6) {
+        badgeEl.className = 'severity-badge sev-2';
+        badgeEl.textContent = '🟠 Trung bình – cần điều chỉnh ngay (4–6)';
+    } else {
+        badgeEl.className = 'severity-badge sev-3';
+        badgeEl.textContent = '🔴 Nghiêm trọng – cần chuyên gia (7–10)';
+    }
+}
+
+// ============================================================
+// RESULT
+// ============================================================
+function showResult() {
+    const count = checkedSigns.size;
+    document.getElementById('checklistSection').classList.remove('active');
+
+    let rd;
+    if (count <= 3) {
+        rd = {
+            icon: '✅', iconBg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)',
+            color: '#16a34a',
+            title: 'Cảnh Báo Nhẹ',
+            subtitle: `Con bạn có ${count}/10 dấu hiệu`,
+            scoreBg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)',
+            desc: count === 0
+                ? 'Tuyệt vời! Hiện tại con chưa có dấu hiệu đáng lo ngại nào về Phone-Based Childhood. Hãy tiếp tục duy trì thói quen lành mạnh và xây dựng môi trường gia đình không phụ thuộc vào màn hình.'
+                : 'Con đang ở mức cảnh báo nhẹ. Đây là thời điểm lý tưởng để thiết lập những thói quen lành mạnh trước khi vấn đề trở nên nghiêm trọng hơn. Phòng ngừa luôn dễ hơn chữa trị!',
+            recos: [
+                { icon: '🏃', text: 'Duy trì ít nhất 1 hoạt động ngoài trời/ngày cùng con để tăng kết nối thực tế' },
+                { icon: '📋', text: 'Thiết lập "Gia đình quy tắc sử dụng điện thoại" ngay từ bây giờ' },
+                { icon: '📚', text: 'Tham khảo khóa học phòng ngừa sớm của Thu Nhiên Education' }
+            ]
+        };
+    } else if (count <= 6) {
+        rd = {
+            icon: '⚠️', iconBg: 'linear-gradient(135deg,#fffbeb,#fef3c7)',
+            color: '#d97706',
+            title: 'Trung Bình – Cần Điều Chỉnh Ngay',
+            subtitle: `Con bạn có ${count}/10 dấu hiệu`,
+            scoreBg: 'linear-gradient(135deg,#fffbeb,#fef3c7)',
+            desc: `Con đang bị ảnh hưởng đáng kể bởi Phone-Based Childhood. ${count} dấu hiệu bạn chọn cho thấy điện thoại đang dần chiếm lấy những khoảng thời gian quan trọng của con. Cần điều chỉnh thói quen ngay — càng sớm càng tốt trước khi não bộ con bị lập trình lại theo hướng tiêu cực.`,
+            recos: [
+                { icon: '🛠️', text: 'Áp dụng ngay 6 kỹ thuật NLP bên dưới — bắt đầu từ Mirroring Thụ Động mỗi ngày' },
+                { icon: '📅', text: 'Đặt lịch tư vấn 1:1 miễn phí với Coach Thu Nhiên để có lộ trình cụ thể' },
+                { icon: '👨‍👩‍👧', text: 'Cùng con xây dựng "Gia đình không màn hình 30 phút/ngày" ngay tuần này' }
+            ]
+        };
+    } else {
+        rd = {
+            icon: '🚨', iconBg: 'linear-gradient(135deg,#fff1f2,#ffe4e6)',
+            color: '#e11d48',
+            title: 'Nghiêm Trọng – Cần Hỗ Trợ Sớm',
+            subtitle: `Con bạn có ${count}/10 dấu hiệu`,
+            scoreBg: 'linear-gradient(135deg,#fff1f2,#ffe4e6)',
+            desc: `${count} dấu hiệu là mức độ nghiêm trọng. Điện thoại và mạng xã hội đang lấy mất tuổi thơ của con — ảnh hưởng đến não bộ, cảm xúc, giấc ngủ và các mối quan hệ thực tế. Đây không phải lỗi của con hay bạn, nhưng cần được can thiệp bởi chuyên gia càng sớm càng tốt.`,
+            recos: [
+                { icon: '🆘', text: 'ĐẶT LỊCH TƯ VẤN KHẨN CẤP – 1 giờ miễn phí với Coach Thu Nhiên ngay hôm nay' },
+                { icon: '📚', text: 'Tham gia khóa "Nhà Tham Vấn Tâm Tài Gia" – có module chuyên sâu về Phone Addiction' },
+                { icon: '🎁', text: 'Nhận ngay tài liệu: "Kế Hoạch 21 Ngày Giúp Con Cai Nghiện Màn Hình"' }
+            ]
+        };
+    }
+
+    // Build checked signs list
+    const checkedList = signs.filter(s => checkedSigns.has(s.id));
+    const checkedHTML = checkedList.length > 0
+        ? checkedList.map(s => `
+            <div class="summary-item">
+                <div class="summary-dot"></div>
+                <div class="summary-text"><strong>${s.title}</strong></div>
+            </div>
+          `).join('')
+        : '<div class="summary-item"><div class="summary-text" style="color:var(--success)">✅ Không có dấu hiệu nào được chọn</div></div>';
+
+    // Solutions to show (all 6 if severe, top 3 if mild)
+    const solsToShow = count >= 4 ? solutions : solutions.slice(0, 3);
+
+    const html = `
+        <div class="result-hero">
+            <div class="result-icon-wrap" style="background:${rd.iconBg}">${rd.icon}</div>
+            <h2 class="result-title" style="color:${rd.color}">${rd.title}</h2>
+            <p class="result-subtitle">${rd.subtitle}</p>
+            <div class="score-display" style="background:${rd.scoreBg}">
+                <span class="score-big" style="color:${rd.color}">${count}</span>
+                <span class="score-out">/ 10 dấu hiệu</span>
+            </div>
+            <p class="result-desc">${rd.desc}</p>
+        </div>
+
+        ${checkedList.length > 0 ? `
+        <div class="signs-summary">
+            <div class="summary-title">📋 Dấu hiệu con bạn đang gặp (${count} dấu hiệu)</div>
+            ${checkedHTML}
+        </div>` : ''}
+
+        <div class="solutions-card">
+            <div class="solutions-title">🧠 Giải Pháp NLP Thực Chiến</div>
+            <div class="solutions-sub">Áp dụng ngay tại nhà — không cần chuyên môn, chỉ cần kiên trì:</div>
+            ${solsToShow.map((s, i) => `
+                <div class="solution-item">
+                    <div class="sol-num">${i + 1}</div>
+                    <div class="sol-content">
+                        <div class="sol-title">${s.title}</div>
+                        <div class="sol-desc">${s.desc}</div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+
+        <div class="reco-card">
+            <div class="reco-title">🎯 Bước Tiếp Theo Cho Ba Mẹ</div>
+            <div class="reco-sub">Dựa trên ${count} dấu hiệu bạn chọn, Thu Nhiên gợi ý:</div>
+            <div class="reco-items">
+                ${rd.recos.map(r => `
+                    <div class="reco-item">
+                        <div class="reco-icon">${r.icon}</div>
+                        <div class="reco-text">${r.text}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <div class="lead-form" id="leadFormWrap">
+            <h3 class="lead-form-title">🎁 Nhận Tư Vấn Miễn Phí</h3>
+            <p class="lead-form-sub">Để lại thông tin để nhận kế hoạch hành động chi tiết và được Coach Thu Nhiên tư vấn trực tiếp!</p>
+            <div class="form-group">
+                <input type="text"  class="form-input" placeholder="Họ và tên *"     id="leadName">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="Email *"          id="leadEmail">
+            </div>
+            <div class="form-group">
+                <input type="tel"   class="form-input" placeholder="Số điện thoại *" id="leadPhone">
+            </div>
+            <button class="submit-btn" onclick="submitLead()">📧 Nhận Tư Vấn Ngay</button>
+            <p class="privacy-note">🔒 Thông tin của bạn được bảo mật tuyệt đối</p>
+        </div>
+
+        <div class="share-section">
+            <div class="share-title">Chia sẻ với các phụ huynh khác:</div>
+            <div class="share-buttons">
+                <button class="share-btn share-facebook" onclick="shareFB()">📘 Facebook</button>
+                <button class="share-btn share-zalo"     onclick="shareZalo()">💬 Zalo</button>
+                <button class="share-btn share-copy"     onclick="copyLink()">🔗 Copy Link</button>
+            </div>
+        </div>
+
+        <div class="retry-section">
+            <button class="retry-btn" onclick="retryChecklist()">🔄 Làm lại checklist</button>
+        </div>
+    `;
+
+    document.getElementById('resultSection').innerHTML = html;
+    document.getElementById('resultSection').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// RETRY
+// ============================================================
+function retryChecklist() {
+    checkedSigns.clear();
+    document.getElementById('resultSection').innerHTML = '';
+    document.getElementById('resultSection').classList.remove('active');
+    document.getElementById('checklistSection').classList.add('active');
+    renderSigns();
+    updateCounter();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// LEAD FORM
+// ============================================================
+function submitLead() {
+    const name  = document.getElementById('leadName').value.trim();
+    const email = document.getElementById('leadEmail').value.trim();
+    const phone = document.getElementById('leadPhone').value.trim();
+
+    if (!name || !email || !phone) {
+        alert('⚠️ Vui lòng điền đầy đủ họ tên, email và số điện thoại!');
+        return;
+    }
+
+    if (APPS_SCRIPT_URL.includes('PASTE_URL')) {
+        alert('⚠️ Chưa cấu hình APPS_SCRIPT_URL!\n\nLiên hệ admin để được hỗ trợ.');
+        return;
+    }
+
+    const count = checkedSigns.size;
+    let level;
+    if (count <= 3)      level = count === 0 ? '✅ Không có dấu hiệu (0)' : '🟡 Cảnh Báo Nhẹ (' + count + '/10)';
+    else if (count <= 6) level = '🟠 Trung Bình – Cần Điều Chỉnh (' + count + '/10)';
+    else                 level = '🔴 Nghiêm Trọng – Cần Chuyên Gia (' + count + '/10)';
+
+    const checkedTitles = signs.filter(s => checkedSigns.has(s.id)).map(s => s.id + '. ' + s.title).join(' | ');
+
+    const submitBtn = document.querySelector('.submit-btn');
+    submitBtn.textContent = '⏳ Đang gửi...';
+    submitBtn.disabled    = true;
+
+    const formData = new FormData();
+    formData.append('entry.2113918905', name);
+    formData.append('entry.1992230588', email);
+    formData.append('entry.1447887329', phone);
+    formData.append('entry.1883031995', count + '/10');
+    formData.append('entry.429200156',  level);
+    formData.append('entry.807548649',  QUIZ_TYPE);
+
+    fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: formData })
+        .then(() => {
+            const leads = JSON.parse(localStorage.getItem('quizLeadsPhone') || '[]');
+            leads.push({ name, email, phone, score: count + '/10', level, signs: checkedTitles, type: QUIZ_TYPE, time: new Date().toLocaleString('vi-VN') });
+            localStorage.setItem('quizLeadsPhone', JSON.stringify(leads));
+            showSuccessForm();
+        })
+        .catch(() => showSuccessForm());
+}
+
+function showSuccessForm() {
+    document.getElementById('leadFormWrap').innerHTML = `
+        <div style="text-align:center; padding:1.5rem 0">
+            <div style="font-size:3rem; margin-bottom:1rem">🎉</div>
+            <h3 style="font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--dark); margin-bottom:0.75rem">Đã nhận thông tin!</h3>
+            <p style="color:var(--gray); font-size:0.97rem; line-height:1.8">
+                Cảm ơn bạn đã tin tưởng Thu Nhiên!<br>
+                Chúng tôi sẽ liên hệ trong vòng <strong>24 giờ</strong> để tư vấn chi tiết.<br><br>
+                📧 Kiểm tra email để nhận kế hoạch hành động miễn phí nhé!
+            </p>
+        </div>
+    `;
+}
+
+// ============================================================
+// SHARE
+// ============================================================
+function shareFB() {
+    const url  = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('Con tôi có ' + checkedSigns.size + '/10 dấu hiệu Phone-Based Childhood! Ba mẹ cùng kiểm tra xem nhé!');
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + url + '&quote=' + text, '_blank');
+}
+function shareZalo() {
+    window.open('https://zalo.me/share?url=' + encodeURIComponent(window.location.href), '_blank');
+}
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href)
+        .then(() => alert('✅ Đã copy link! Bạn có thể chia sẻ với bạn bè.'));
+}
+</script>
+</body>
+</html>
