@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bạn Là Người Dẫn Đường Hay Cai Ngục? | Thu Nhiên Education</title>
+    <meta name="description" content="Tự đánh giá mức độ kiểm soát trong quan hệ cha mẹ - con cái. 10 câu hỏi thật lòng - kết quả thật sự.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary:  #3d6b8f;
+            --accent:   #5b9bbf;
+            --warm:     #e67e50;
+            --neutral:  #f2f5f8;
+            --dark:     #1e2d3d;
+            --gray:     #5a6a7a;
+            --light:    #f8fafc;
+            --success:  #4caf82;
+            --warning:  #e8a840;
+            --danger:   #d95f5f;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--light); color: var(--dark);
+            line-height: 1.6; overflow-x: hidden;
+        }
+
+        .container { max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        /* HEADER */
+        header { text-align: center; padding: 2rem 0 1rem; animation: fadeInDown 0.8s ease; }
+        .logo { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--warm); margin-bottom: 0.25rem; }
+        .logo-sub { font-size: 0.9rem; color: var(--gray); font-weight: 500; }
+
+        /* HERO */
+        .hero {
+            padding: 3.5rem 2rem;
+            background: linear-gradient(150deg, #1e2d3d 0%, #2d4a65 60%, #3d6b8f 100%);
+            border-radius: 24px; margin-bottom: 2rem;
+            position: relative; overflow: hidden;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+            text-align: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; top: -30%; left: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(91,155,191,0.25) 0%, transparent 70%);
+            animation: float 10s ease-in-out infinite;
+        }
+        .hero::after {
+            content: '';
+            position: absolute; bottom: -20%; right: -10%;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(230,126,80,0.2) 0%, transparent 70%);
+        }
+        .hero-badge {
+            display: inline-block; position: relative;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: rgba(255,255,255,0.9); font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            padding: 0.4rem 1.1rem; border-radius: 50px; margin-bottom: 1.5rem;
+        }
+        .hero-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.6rem; color: white;
+            margin-bottom: 0.75rem; line-height: 1.2;
+            position: relative;
+        }
+        .hero-title span { color: #f4c56a; }
+        .hero-vs {
+            display: inline-flex; align-items: center; gap: 1rem;
+            margin-bottom: 1.5rem; position: relative;
+        }
+        .vs-badge {
+            padding: 0.5rem 1.25rem; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 700;
+        }
+        .vs-good { background: rgba(76,175,130,0.25); color: #7dd4a8; border: 1px solid rgba(76,175,130,0.3); }
+        .vs-bad  { background: rgba(217,95,95,0.25);  color: #f4a0a0; border: 1px solid rgba(217,95,95,0.3); }
+        .vs-sep  { color: rgba(255,255,255,0.4); font-size: 1.1rem; font-weight: 700; }
+        .hero-desc {
+            font-size: 1rem; color: rgba(255,255,255,0.75);
+            max-width: 560px; margin: 0 auto 1rem; line-height: 1.7;
+        }
+        .hero-note {
+            font-size: 0.85rem; color: rgba(255,255,255,0.55);
+            font-style: italic; margin-bottom: 2rem;
+        }
+        .hero-stats {
+            display: flex; justify-content: center;
+            gap: 2.5rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+            position: relative;
+        }
+        .stat { text-align: center; }
+        .stat-num { font-size: 1.8rem; font-weight: 800; color: #f4c56a; display: block; }
+        .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+        .start-btn {
+            background: linear-gradient(135deg, var(--warm) 0%, #f4a060 100%);
+            color: white; padding: 1.1rem 3rem;
+            border: none; border-radius: 50px;
+            font-size: 1.1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(230,126,80,0.45);
+            font-family: inherit; position: relative;
+        }
+        .start-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(230,126,80,0.55); }
+
+        /* QUIZ */
+        .quiz-section { display: none; animation: fadeInUp 0.6s ease; }
+        .quiz-section.active { display: block; }
+
+        .progress-container { margin-bottom: 2.5rem; }
+        .progress-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .progress-label { font-size: 0.88rem; color: var(--gray); font-weight: 600; }
+        .progress-dots { display: flex; gap: 5px; }
+        .dot {
+            width: 9px; height: 9px; border-radius: 50%;
+            background: var(--neutral); border: 2px solid #ccd6dd;
+            transition: all 0.4s ease;
+        }
+        .dot.done { background: var(--success); border-color: var(--success); }
+        .dot.active { background: var(--primary); border-color: var(--primary); transform: scale(1.3); }
+        .progress-bar { height: 8px; background: var(--neutral); border-radius: 10px; overflow: hidden; }
+        .progress-fill {
+            height: 100%; border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            transition: width 0.5s cubic-bezier(.4,0,.2,1);
+        }
+
+        /* QUESTION CARD */
+        .q-topic {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase;
+            padding: 0.3rem 0.9rem; border-radius: 50px; margin-bottom: 1.25rem;
+        }
+        .question-card {
+            background: white; border-radius: 20px;
+            padding: 2.25rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            margin-bottom: 1.75rem;
+            border-top: 4px solid var(--primary);
+        }
+        .question-num { font-size: 0.78rem; font-weight: 700; color: var(--primary); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.75rem; }
+        .question-text { font-size: 1.15rem; font-weight: 700; color: var(--dark); margin-bottom: 1.75rem; line-height: 1.55; }
+
+        .options { display: flex; flex-direction: column; gap: 0.875rem; }
+        .option {
+            background: var(--neutral); border: 2px solid transparent;
+            border-radius: 14px; padding: 1.1rem 1.25rem;
+            cursor: pointer; transition: all 0.25s ease;
+            display: flex; align-items: flex-start; gap: 1rem;
+        }
+        .option:hover { background: white; border-color: var(--primary); transform: translateX(4px); }
+        .option.selected { background: white; border-color: var(--primary); box-shadow: 0 4px 16px rgba(61,107,143,0.15); }
+
+        .opt-label {
+            min-width: 30px; height: 30px; border-radius: 8px;
+            background: white; border: 2px solid #ccd6dd;
+            font-size: 0.82rem; font-weight: 800; color: var(--gray);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; transition: all 0.25s ease;
+        }
+        .option.selected .opt-label { background: var(--primary); border-color: var(--primary); color: white; }
+        .opt-text { flex: 1; font-size: 0.97rem; color: var(--dark); line-height: 1.55; }
+        .opt-pts {
+            font-size: 0.78rem; font-weight: 700; color: var(--gray);
+            background: rgba(0,0,0,0.05); padding: 0.2rem 0.6rem; border-radius: 20px;
+            flex-shrink: 0; align-self: flex-start; margin-top: 2px;
+        }
+        .option.selected .opt-pts { background: rgba(61,107,143,0.1); color: var(--primary); }
+
+        .nav-buttons { display: flex; gap: 1rem; }
+        .btn {
+            padding: 0.9rem 2rem; border: none; border-radius: 50px;
+            font-size: 1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; font-family: inherit;
+        }
+        .btn-secondary { background: var(--neutral); color: var(--dark); flex: 0.6; }
+        .btn-secondary:hover { background: #e2e8ee; }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white; flex: 1;
+            box-shadow: 0 4px 14px rgba(61,107,143,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(61,107,143,0.4); }
+        .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+        /* RESULT */
+        .result-section { display: none; animation: fadeInUp 0.6s ease; }
+        .result-section.active { display: block; }
+
+        .result-hero {
+            border-radius: 24px; padding: 3rem 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            margin-bottom: 2rem; text-align: center;
+        }
+        .result-icon-wrap {
+            width: 100px; height: 100px; border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; animation: bounce 0.6s ease;
+        }
+        .result-title { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 0.5rem; }
+        .result-zone { font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.25rem; }
+        .score-display {
+            display: inline-flex; align-items: baseline; gap: 0.3rem;
+            border-radius: 20px; padding: 1rem 2rem; margin-bottom: 2rem;
+        }
+        .score-big { font-size: 3.5rem; font-weight: 800; line-height: 1; }
+        .score-out { font-size: 1.2rem; font-weight: 600; color: var(--gray); }
+        .result-desc {
+            font-size: 1.05rem; line-height: 1.85; color: var(--gray);
+            text-align: left; max-width: 600px; margin: 0 auto;
+        }
+
+        /* ZONE SCALE */
+        .zone-scale {
+            background: white; border-radius: 20px;
+            padding: 1.75rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 2rem;
+        }
+        .zone-scale-title { font-size: 1rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--dark); }
+        .zones-bar { display: flex; border-radius: 12px; overflow: hidden; height: 16px; margin-bottom: 0.75rem; }
+        .zone-green { background: var(--success); flex: 7; }
+        .zone-yellow { background: var(--warning); flex: 7; }
+        .zone-red { background: var(--danger); flex: 7; }
+        .zone-needle-wrap { position: relative; height: 28px; margin-bottom: 0.5rem; }
+        .zone-needle {
+            position: absolute; top: 0;
+            font-size: 1.3rem; transform: translateX(-50%);
+            transition: left 1s cubic-bezier(.4,0,.2,1);
+        }
+        .zone-labels { display: flex; justify-content: space-between; font-size: 0.77rem; color: var(--gray); }
+
+        /* SAMPLE PHRASES */
+        .phrases-card {
+            background: white; border-radius: 20px;
+            padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 2rem;
+        }
+        .phrases-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .phrases-sub { font-size: 0.88rem; color: var(--gray); margin-bottom: 1.5rem; }
+        .phrase-item {
+            border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem;
+            border-left: 4px solid;
+        }
+        .phrase-item:last-child { margin-bottom: 0; }
+        .phrase-bad {
+            background: #fff8f8; border-color: var(--danger);
+        }
+        .phrase-good {
+            background: #f5fdf8; border-color: var(--success);
+        }
+        .phrase-label {
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px;
+            text-transform: uppercase; margin-bottom: 0.4rem;
+        }
+        .phrase-bad  .phrase-label { color: var(--danger); }
+        .phrase-good .phrase-label { color: var(--success); }
+        .phrase-text { font-size: 0.93rem; line-height: 1.6; color: var(--dark); }
+
+        /* RECO */
+        .reco-card {
+            border-radius: 20px; padding: 2.25rem; margin-bottom: 2rem; color: white;
+            background: linear-gradient(135deg, #1e2d3d, #3d6b8f);
+        }
+        .reco-title { font-family: 'DM Serif Display', serif; font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .reco-sub { font-size: 0.95rem; opacity: 0.85; margin-bottom: 1.75rem; }
+        .reco-items { display: flex; flex-direction: column; gap: 1rem; }
+        .reco-item {
+            background: rgba(255,255,255,0.12); border-radius: 14px;
+            padding: 1rem 1.25rem; display: flex; gap: 1rem; align-items: flex-start;
+        }
+        .reco-icon { font-size: 1.4rem; flex-shrink: 0; }
+        .reco-text { font-size: 0.97rem; line-height: 1.55; }
+
+        /* LEAD FORM */
+        .lead-form {
+            background: white; border-radius: 20px;
+            border: 2px solid var(--neutral);
+            padding: 2.25rem; margin-bottom: 2rem;
+        }
+        .lead-form-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--dark); }
+        .lead-form-sub { font-size: 0.95rem; color: var(--gray); margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-input {
+            width: 100%; padding: 0.9rem 1.1rem;
+            border: 2px solid var(--neutral); border-radius: 12px;
+            font-size: 0.97rem; background: var(--light); color: var(--dark);
+            transition: all 0.25s ease; font-family: inherit;
+        }
+        .form-input:focus { outline: none; border-color: var(--primary); background: white; }
+        .form-input::placeholder { color: #aaa; }
+        .submit-btn {
+            width: 100%; padding: 1.1rem;
+            background: linear-gradient(135deg, var(--warm), #f4a060);
+            color: white; border: none; border-radius: 12px;
+            font-size: 1.05rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; font-family: inherit;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(230,126,80,0.35); }
+        .privacy-note { font-size: 0.82rem; text-align: center; color: var(--gray); margin-top: 0.75rem; }
+
+        /* SHARE */
+        .share-section { text-align: center; padding: 2rem; background: var(--neutral); border-radius: 16px; margin-bottom: 2rem; }
+        .share-title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
+        .share-buttons { display: flex; gap: 0.875rem; justify-content: center; flex-wrap: wrap; }
+        .share-btn {
+            padding: 0.7rem 1.4rem; border: none; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 0.4rem;
+            font-family: inherit;
+        }
+        .share-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .share-facebook { background: #1877f2; color: white; }
+        .share-zalo     { background: #0068ff; color: white; }
+        .share-copy     { background: var(--dark); color: white; }
+
+        .retry-section { text-align: center; padding: 1rem; margin-bottom: 2rem; }
+        .retry-btn {
+            background: var(--neutral); color: var(--dark);
+            padding: 0.875rem 2.5rem; border: none; border-radius: 50px;
+            font-size: 0.97rem; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease; font-family: inherit;
+        }
+        .retry-btn:hover { background: #e2e8ee; transform: translateY(-2px); }
+
+        footer { text-align: center; padding: 3rem 1rem 2rem; color: var(--gray); }
+        .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--warm); margin-bottom: 1rem; }
+        .footer-contact { margin: 1rem 0; }
+        .footer-contact a { color: var(--gray); text-decoration: none; margin: 0 0.75rem; transition: color 0.3s; }
+        .footer-contact a:hover { color: var(--warm); }
+        .footer-copyright { font-size: 0.85rem; margin-top: 1rem; }
+
+        @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeInUp   { from{opacity:0;transform:translateY(20px)}  to{opacity:1;transform:translateY(0)} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-25px)} }
+        @keyframes bounce { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+
+        @media (max-width: 640px) {
+            .hero-title { font-size: 2rem; }
+            .hero-vs { flex-direction: column; gap: 0.5rem; }
+            .question-card { padding: 1.5rem; }
+            .nav-buttons { flex-direction: column-reverse; }
+            .btn { width: 100%; flex: unset; }
+            .result-hero { padding: 2rem 1.25rem; }
+            .score-big { font-size: 2.8rem; }
+            .share-buttons { flex-direction: column; }
+            .share-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">🧠 Thu Nhiên</div>
+    <div class="logo-sub">Education</div>
+</header>
+
+<div class="container">
+
+    <!-- HERO -->
+    <section class="hero" id="heroSection">
+        <div class="hero-badge">Bài Test Tự Đánh Giá</div>
+        <h1 class="hero-title">Bạn Là<br><span>"Người Dẫn Đường"</span><br>Hay "Cai Ngục"?</h1>
+        <div class="hero-vs">
+            <span class="vs-badge vs-good">🧭 Người Dẫn Đường</span>
+            <span class="vs-sep">VS</span>
+            <span class="vs-badge vs-bad">🔒 Cai Ngục</span>
+        </div>
+        <p class="hero-desc">Kiểm soát xuất phát từ tình yêu, nhưng kiểm soát thái quá là liều thuốc độc loại bỏ sự tự tin của con. Bài test giúp bạn nhận ra những hành vi vô thức đang đẩy con ra xa.</p>
+        <p class="hero-note">Hãy trả lời thật lòng nhất — không có câu trả lời đúng hay sai, chỉ có sự thật về bạn.</p>
+        <div class="hero-stats">
+            <div class="stat"><span class="stat-num">10</span><span class="stat-label">Câu hỏi</span></div>
+            <div class="stat"><span class="stat-num">~5'</span><span class="stat-label">Hoàn thành</span></div>
+            <div class="stat"><span class="stat-num">3</span><span class="stat-label">Mức độ</span></div>
+        </div>
+        <button class="start-btn" onclick="startQuiz()">🔍 Bắt Đầu Tự Đánh Giá</button>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="quiz-section" id="quizSection">
+        <div class="progress-container">
+            <div class="progress-header">
+                <span class="progress-label">Câu <span id="currentQ">1</span> / 10</span>
+                <div class="progress-dots" id="progressDots"></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width:10%"></div>
+            </div>
+        </div>
+        <div id="questionContainer"></div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="prevQ()" id="prevBtn" style="display:none">← Câu trước</button>
+            <button class="btn btn-primary"   onclick="nextQ()" id="nextBtn" disabled>Tiếp theo →</button>
+        </div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="result-section" id="resultSection"></section>
+
+</div>
+
+<footer>
+    <div class="footer-logo">Thu Nhiên Education</div>
+    <div class="footer-contact">
+        <a href="mailto:nhienhtt@gmail.com">📧 nhienhtt@gmail.com</a>
+        <a href="https://zalo.me/0917216246" target="_blank">💬 091 721 62 46</a>
+        <a href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank">👤 Facebook</a>
+    </div>
+    <div class="footer-copyright">© 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</div>
+</footer>
+
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_aW4GsX0u1CL86Tvs6yknJFdxrC2UEjkeTlMvP-FfNBVUi26u20WLHSXiBRRc80c/exec';
+const QUIZ_TYPE = 'Kiem Soat Cha Me - Nguoi Dan Duong vs Cai Nguc';
+
+// ============================================================
+// DATA — A=3pts, B=2pts, C=1pt (higher = more controlling)
+// ============================================================
+const questions = [
+    {
+        topic: 'Quyền riêng tư',
+        text: 'Bạn có lén kiểm tra điện thoại, tin nhắn, nhật ký hoặc lục lọi phòng của con khi con vắng mặt vì cảm giác bất an không?',
+        options: [
+            { label: 'A', text: 'Thường xuyên. Tôi phải biết nó làm gì để chặn ngay cái xấu.', pts: 3 },
+            { label: 'B', text: 'Thỉnh thoảng, khi thấy con có biểu hiện lạ.', pts: 2 },
+            { label: 'C', text: 'Không. Tôi tôn trọng quyền riêng tư và sẽ hỏi trực tiếp nếu nghi ngờ.', pts: 1 }
+        ]
+    },
+    {
+        topic: 'Sở thích cá nhân',
+        text: 'Khi con muốn cắt tóc kiểu lạ, mặc đồ "hầm hố" hoặc nghe nhạc/chơi game bạn không thích, bạn phản ứng thế nào?',
+        options: [
+            { label: 'A', text: 'Cấm đoán, chê bai gay gắt: "Trông như côn đồ", "Tắt ngay đi"...', pts: 3 },
+            { label: 'B', text: 'Cằn nhằn, tỏ thái độ khó chịu nhưng miễn cưỡng cho qua.', pts: 2 },
+            { label: 'C', text: 'Tôn trọng sở thích đó (miễn không vi phạm đạo đức) dù mình không thấy đẹp.', pts: 1 }
+        ]
+    },
+    {
+        topic: 'Ra quyết định',
+        text: 'Con muốn chọn trường/lớp hoặc môn học ngoại khóa khác ý bạn. Bạn sẽ làm gì?',
+        options: [
+            { label: 'A', text: 'Bác bỏ ngay. Tôi biết cái gì tốt nhất cho tương lai của nó.', pts: 3 },
+            { label: 'B', text: 'Thuyết phục con đổi ý theo mình bằng cách dọa dẫm/than khổ.', pts: 2 },
+            { label: 'C', text: 'Lắng nghe lý do của con. Phân tích thiệt hơn và để con tự chọn (và tự chịu trách nhiệm).', pts: 1 }
+        ]
+    },
+    {
+        topic: 'Bạn bè của con',
+        text: 'Bạn có hay phán xét bạn bè của con và cấm con chơi với những đứa trẻ bạn cho là "không chuẩn" không?',
+        options: [
+            { label: 'A', text: 'Có. Tôi cấm tiệt chơi với mấy đứa học dốt/nghịch ngợm/ham chơi...', pts: 3 },
+            { label: 'B', text: 'Tôi hay nói bóng gió chê bai bạn nó để nó tự nghỉ chơi.', pts: 2 },
+            { label: 'C', text: 'Tôi chào đón bạn của con đến nhà để quan sát và góp ý nhẹ nhàng nếu cần.', pts: 1 }
+        ]
+    },
+    {
+        topic: 'Khi con sai lầm',
+        text: 'Khi con bị điểm kém hoặc làm hỏng việc gì đó, phản ứng đầu tiên của bạn là?',
+        options: [
+            { label: 'A', text: 'Quát mắng, chỉ trích: "Đã bảo rồi không nghe", "Sao dốt thế".', pts: 3 },
+            { label: 'B', text: 'Thở dài thất vọng, im lặng tạo không khí nặng nề.', pts: 2 },
+            { label: 'C', text: 'Bình tĩnh hỏi: "Con học được bài học gì từ việc này?" và cùng con tìm giải pháp.', pts: 1 }
+        ]
+    },
+    {
+        topic: 'Khi con tranh luận',
+        text: 'Khi con cãi lại hoặc đưa ra ý kiến trái chiều, bạn cảm thấy thế nào?',
+        options: [
+            { label: 'A', text: 'Tức điên. Coi đó là "hỗn láo", "mất dạy", "trứng khôn hơn vịt".', pts: 3 },
+            { label: 'B', text: 'Cố gắng lắng nghe nhưng cuối cùng vẫn chốt: "Mẹ nói thì phải nghe".', pts: 2 },
+            { label: 'C', text: 'Vui vẻ lắng nghe. Nếu con đúng, sẵn sàng nhận sai. Nếu con chưa đúng, đặt câu hỏi để con tự nhận ra.', pts: 1 }
+        ]
+    },
+    {
+        topic: 'Sự bao bọc',
+        text: 'Bạn có thường xuyên làm hộ con những việc con có thể tự làm (dọn phòng, giặt đồ, nấu ăn, gọi dậy đi học) vì sợ con làm hỏng/muộn không?',
+        options: [
+            { label: 'A', text: 'Có, làm hết. Nó chỉ việc học thôi, việc khác tôi lo.', pts: 3 },
+            { label: 'B', text: 'Thỉnh thoảng làm hộ khi thấy nó lóng ngóng quá.', pts: 2 },
+            { label: 'C', text: 'Không. Lớn rồi phải tự làm. Muộn học hay đói thì tự chịu.', pts: 1 }
+        ]
+    },
+    {
+        topic: 'Cảm xúc của con',
+        text: 'Khi con khóc hoặc tỏ ra tức giận, bạn thường nói gì?',
+        options: [
+            { label: 'A', text: '"Nín ngay", "Cấm thái độ", "Có gì đâu mà khóc".', pts: 3 },
+            { label: 'B', text: '"Thôi nín đi, chuyện nhỏ mà".', pts: 2 },
+            { label: 'C', text: '"Con cứ khóc đi nếu buồn. Mẹ ở đây nghe con nói nếu con muốn kể".', pts: 1 }
+        ]
+    },
+    {
+        topic: 'Kỳ vọng & so sánh',
+        text: 'Bạn có thường xuyên so sánh con với "con nhà người ta" hoặc anh/chị/em của con để khích tướng không?',
+        options: [
+            { label: 'A', text: 'Thường xuyên. Phải so sánh nó mới biết nhục mà phấn đấu.', pts: 3 },
+            { label: 'B', text: 'Thỉnh thoảng lỡ miệng.', pts: 2 },
+            { label: 'C', text: 'Không bao giờ. Mỗi đứa trẻ là một cá thể độc lập.', pts: 1 }
+        ]
+    },
+    {
+        topic: 'Nỗi sợ của bạn',
+        text: 'Thành thật nhé — khi con rời khỏi tầm mắt của bạn, bạn cảm thấy thế nào?',
+        options: [
+            { label: 'A', text: 'Lo âu cực độ, phải gọi điện/check cam liên tục mới yên tâm.', pts: 3 },
+            { label: 'B', text: 'Hơi lo lắng, thỉnh thoảng nhắn tin hỏi.', pts: 2 },
+            { label: 'C', text: 'Tin tưởng con sẽ ổn, chỉ dặn dò những điều cần thiết.', pts: 1 }
+        ]
+    }
+];
+
+const samplePhrases = [
+    {
+        bad:  'Mẹ cấm con chơi với bạn A!',
+        good: 'Mẹ cảm thấy hơi lo lắng khi thấy bạn A có hành vi hút thuốc. Mẹ sợ con bị ảnh hưởng sức khỏe. Con nghĩ sao về việc này?'
+    },
+    {
+        bad:  'Học ngành Y đi cho ổn định!',
+        good: 'Con thích ngành gì? Mẹ thấy ngành Y ổn định, nhưng đó là góc nhìn của mẹ. Mẹ muốn nghe kế hoạch của con.'
+    },
+    {
+        bad:  'Vào thay ngay cái bộ đó ra! Mặc gì mà như mấy đứa hư hỏng thế?',
+        good: 'Mẹ thấy bộ này đúng là mốt của tuổi các con. Nhưng mẹ cảm thấy lo khi con ra đường với chiếc áo ngắn như thế. Con có cách nào phối thêm áo khoác để vừa đẹp theo ý con, mà mẹ cũng đỡ lo không?'
+    }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let quizQuestions = [];
+let currentIdx    = 0;
+let answers       = [];
+let totalScore    = 0;
+
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+// ============================================================
+// START
+// ============================================================
+function startQuiz() {
+    quizQuestions = shuffle(questions);
+    answers       = new Array(quizQuestions.length).fill(null);
+    currentIdx    = 0;
+    document.getElementById('heroSection').style.display = 'none';
+    document.getElementById('quizSection').classList.add('active');
+    buildDots();
+    renderQuestion();
+}
+
+function buildDots() {
+    const wrap = document.getElementById('progressDots');
+    wrap.innerHTML = '';
+    quizQuestions.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        d.id = 'dot-' + i;
+        wrap.appendChild(d);
+    });
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderQuestion() {
+    const q     = quizQuestions[currentIdx];
+    const saved = answers[currentIdx];
+    const total = quizQuestions.length;
+    const pct   = ((currentIdx + 1) / total) * 100;
+
+    document.getElementById('currentQ').textContent     = currentIdx + 1;
+    document.getElementById('progressFill').style.width = pct + '%';
+
+    quizQuestions.forEach((_, i) => {
+        const d = document.getElementById('dot-' + i);
+        d.className = 'dot';
+        if (answers[i] !== null) d.classList.add('done');
+        if (i === currentIdx)    d.classList.add('active');
+    });
+
+    document.getElementById('prevBtn').style.display = currentIdx > 0 ? 'block' : 'none';
+    const nextBtn = document.getElementById('nextBtn');
+    nextBtn.textContent = currentIdx === total - 1 ? 'Xem kết quả 🎯' : 'Tiếp theo →';
+    nextBtn.disabled    = saved === null;
+
+    document.getElementById('questionContainer').innerHTML = `
+        <div class="q-topic">Chủ đề: ${q.topic}</div>
+        <div class="question-card">
+            <div class="question-num">Câu ${currentIdx + 1} / ${total}</div>
+            <div class="question-text">${q.text}</div>
+            <div class="options">
+                ${q.options.map((opt, i) => `
+                    <div class="option ${saved !== null && saved.idx === i ? 'selected' : ''}"
+                         onclick="selectOption(${i}, ${opt.pts})">
+                        <div class="opt-label">${opt.label}</div>
+                        <div class="opt-text">${opt.text}</div>
+                        <div class="opt-pts">${opt.pts} điểm</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function selectOption(idx, pts) {
+    answers[currentIdx] = { idx, pts };
+    document.getElementById('nextBtn').disabled = false;
+    document.querySelectorAll('.option').forEach((el, i) => {
+        el.classList.toggle('selected', i === idx);
+    });
+}
+
+function nextQ() {
+    if (currentIdx < quizQuestions.length - 1) {
+        currentIdx++;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        showResult();
+    }
+}
+function prevQ() {
+    if (currentIdx > 0) {
+        currentIdx--;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+// ============================================================
+// RESULT
+// ============================================================
+function showResult() {
+    totalScore = answers.reduce((sum, a) => sum + (a ? a.pts : 0), 0);
+    document.getElementById('quizSection').classList.remove('active');
+
+    let rd;
+    if (totalScore <= 16) {
+        rd = {
+            icon: '🧭',
+            iconBg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)',
+            heroBg: 'background: white;',
+            color: '#16a34a',
+            zone: 'VUNG XANH',
+            zoneLabel: '✅ Vùng Xanh — Người Dẫn Đường Tin Cậy',
+            title: 'Người Dẫn Đường Tin Cậy',
+            scoreBg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)',
+            desc: 'Chúc mừng bạn! Bạn đang nuôi dạy con dựa trên sự tin tưởng và tôn trọng. Bạn đóng vai trò là huấn luyện viên hơn là bảo mẫu. Con bạn sẽ phát triển thành người tự tin, độc lập và dám chịu trách nhiệm.',
+            recos: [
+                { icon: '🌱', text: 'Duy trì phong độ này — bạn đang đi đúng hướng' },
+                { icon: '💬', text: 'Chia sẻ kinh nghiệm của bạn với cộng đồng phụ huynh' },
+                { icon: '📚', text: 'Khám phá các kỹ thuật coaching nâng cao để đồng hành cùng con tốt hơn nữa' }
+            ]
+        };
+    } else if (totalScore <= 23) {
+        rd = {
+            icon: '🚁',
+            iconBg: 'linear-gradient(135deg,#fffbeb,#fef3c7)',
+            heroBg: 'background: white;',
+            color: '#d97706',
+            zone: 'VUNG VANG',
+            zoneLabel: '⚠️ Vùng Vàng — Trực Thăng Lo Âu',
+            title: '"Trực Thăng Lo Âu"',
+            scoreBg: 'linear-gradient(135deg,#fffbeb,#fef3c7)',
+            desc: 'Bạn yêu con nhưng đang để nỗi lo âu lấn át lý trí. Bạn có xu hướng bao bọc và can thiệp hơi sâu vào đời sống của con. Con có thể trở nên thụ động, thiếu kỹ năng sống hoặc bắt đầu nói dối vặt để tránh bị cằn nhằn.',
+            recos: [
+                { icon: '⏸️', text: 'Học cách "Khoảng dừng 6 giây" trước khi can thiệp vào việc của con' },
+                { icon: '🔓', text: 'Tập buông tay từ những việc nhỏ — để con tự trải nghiệm hậu quả' },
+                { icon: '👨‍👩‍👧', text: 'Đặt lịch tư vấn 1:1 với Coach Thu Nhiên để có lộ trình cụ thể' }
+            ]
+        };
+    } else {
+        rd = {
+            icon: '🔒',
+            iconBg: 'linear-gradient(135deg,#fff1f2,#ffe4e6)',
+            heroBg: 'background: white;',
+            color: '#e11d48',
+            zone: 'VUNG DO',
+            zoneLabel: '🚨 Vùng Đỏ — Cai Quản Độc Hại',
+            title: '"Cai Ngục" Độc Hại',
+            scoreBg: 'linear-gradient(135deg,#fff1f2,#ffe4e6)',
+            desc: 'Cảnh báo: Mối quan hệ giữa bạn và con đang ở mức nguy hiểm. Sự kiểm soát của bạn đang bóp nghẹt con — nuôi dưỡng sự chống đối ngầm, nói dối, hoặc tạo ra một đứa trẻ tự ti, có thể trầm cảm, lo âu. Nhớ nhé, đây không phải lỗi của con, mà chính bạn đang cần được hỗ trợ.',
+            recos: [
+                { icon: '🆘', text: 'ĐẶT LỊCH TƯ VẤN KHẨN CẤP — Lộ trình Coaching 1:1 chuyên biệt cho cha mẹ' },
+                { icon: '💊', text: 'Chương trình "Cai Nghiện Kiểm Soát" — Chữa lành đứa trẻ bên trong chính bạn' },
+                { icon: '📞', text: 'Gọi ngay: 0917 216 246 — Thu Nhiên sẵn sàng lắng nghe bạn hôm nay' }
+            ]
+        };
+    }
+
+    // Needle position: score 10-30, map to 0-100%
+    const needlePct = ((totalScore - 10) / 20) * 100;
+
+    // Show 2 random sample phrases
+    const shuffledPhrases = shuffle(samplePhrases).slice(0, 2);
+
+    const phrasesHTML = shuffledPhrases.map(p => `
+        <div class="phrase-item phrase-bad">
+            <div class="phrase-label">❌ Thay vì nói</div>
+            <div class="phrase-text">${p.bad}</div>
+        </div>
+        <div class="phrase-item phrase-good">
+            <div class="phrase-label">✅ Hãy nói</div>
+            <div class="phrase-text">${p.good}</div>
+        </div>
+    `).join('<div style="height:0.5rem"></div>');
+
+    const html = `
+        <div class="result-hero" style="${rd.heroBg} border-radius:24px; padding:3rem 2rem; box-shadow:0 8px 32px rgba(0,0,0,0.08); margin-bottom:2rem; text-align:center;">
+            <div class="result-icon-wrap" style="background:${rd.iconBg}">${rd.icon}</div>
+            <div class="result-zone" style="color:${rd.color}">${rd.zoneLabel}</div>
+            <h2 class="result-title" style="color:${rd.color}">${rd.title}</h2>
+            <div class="score-display" style="background:${rd.scoreBg}">
+                <span class="score-big" style="color:${rd.color}">${totalScore}</span>
+                <span class="score-out">/ 30 điểm</span>
+            </div>
+            <p class="result-desc">${rd.desc}</p>
+        </div>
+
+        <div class="zone-scale">
+            <div class="zone-scale-title">📊 Bạn đang ở vùng nào?</div>
+            <div class="zone-needle-wrap">
+                <div class="zone-needle" id="needle" style="left:${needlePct}%">📍</div>
+            </div>
+            <div style="height:8px"></div>
+            <div class="zones-bar">
+                <div class="zone-green"></div>
+                <div class="zone-yellow"></div>
+                <div class="zone-red"></div>
+            </div>
+            <div class="zone-labels">
+                <span>10 – Người Dẫn Đường</span>
+                <span>17 – Trực Thăng</span>
+                <span>24 – Cai Ngục</span>
+                <span>30</span>
+            </div>
+        </div>
+
+        <div class="phrases-card">
+            <div class="phrases-title">💬 Thay Đổi Cách Nói Ngay Hôm Nay</div>
+            <div class="phrases-sub">Những mẫu câu thực chiến bạn có thể áp dụng ngay:</div>
+            ${phrasesHTML}
+        </div>
+
+        <div class="reco-card">
+            <div class="reco-title">🎯 Bước Tiếp Theo Cho Bạn</div>
+            <div class="reco-sub">Dựa trên kết quả ${totalScore}/30 điểm — ${rd.zoneLabel}:</div>
+            <div class="reco-items">
+                ${rd.recos.map(r => `
+                    <div class="reco-item">
+                        <div class="reco-icon">${r.icon}</div>
+                        <div class="reco-text">${r.text}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <div class="lead-form" id="leadFormWrap">
+            <h3 class="lead-form-title">🎁 Nhận Tư Vấn Miễn Phí</h3>
+            <p class="lead-form-sub">Để lại thông tin để nhận lộ trình cá nhân hóa và được Coach Thu Nhiên tư vấn trực tiếp!</p>
+            <div class="form-group">
+                <input type="text"  class="form-input" placeholder="Họ và tên *"     id="leadName">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="Email *"          id="leadEmail">
+            </div>
+            <div class="form-group">
+                <input type="tel"   class="form-input" placeholder="Số điện thoại *" id="leadPhone">
+            </div>
+            <button class="submit-btn" onclick="submitLead()">📧 Nhận Tư Vấn Ngay</button>
+            <p class="privacy-note">🔒 Thông tin của bạn được bảo mật tuyệt đối</p>
+        </div>
+
+        <div class="share-section">
+            <div class="share-title">Chia sẻ với các phụ huynh khác:</div>
+            <div class="share-buttons">
+                <button class="share-btn share-facebook" onclick="shareFB()">📘 Facebook</button>
+                <button class="share-btn share-zalo"     onclick="shareZalo()">💬 Zalo</button>
+                <button class="share-btn share-copy"     onclick="copyLink()">🔗 Copy Link</button>
+            </div>
+        </div>
+
+        <div class="retry-section">
+            <button class="retry-btn" onclick="retryQuiz()">🔄 Làm lại bài test</button>
+        </div>
+    `;
+
+    document.getElementById('resultSection').innerHTML = html;
+    document.getElementById('resultSection').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// RETRY
+// ============================================================
+function retryQuiz() {
+    document.getElementById('resultSection').innerHTML = '';
+    document.getElementById('resultSection').classList.remove('active');
+    startQuiz();
+}
+
+// ============================================================
+// LEAD FORM
+// ============================================================
+function submitLead() {
+    const name  = document.getElementById('leadName').value.trim();
+    const email = document.getElementById('leadEmail').value.trim();
+    const phone = document.getElementById('leadPhone').value.trim();
+
+    if (!name || !email || !phone) {
+        alert('Vui long dien day du ho ten, email va so dien thoai!');
+        return;
+    }
+    if (APPS_SCRIPT_URL.includes('PASTE_URL')) {
+        alert('Chua cau hinh APPS_SCRIPT_URL! Lien he admin de duoc ho tro.');
+        return;
+    }
+
+    let level;
+    if (totalScore <= 16)      level = 'Vung Xanh - Nguoi Dan Duong (' + totalScore + '/30)';
+    else if (totalScore <= 23) level = 'Vung Vang - Truc Thang Lo Au (' + totalScore + '/30)';
+    else                       level = 'Vung Do - Cai Quan Doc Hai (' + totalScore + '/30)';
+
+    const submitBtn = document.querySelector('.submit-btn');
+    submitBtn.textContent = 'Dang gui...';
+    submitBtn.disabled    = true;
+
+    const formData = new FormData();
+    formData.append('entry.2113918905', name);
+    formData.append('entry.1992230588', email);
+    formData.append('entry.1447887329', phone);
+    formData.append('entry.1883031995', totalScore + '/30');
+    formData.append('entry.429200156',  level);
+    formData.append('entry.807548649',  QUIZ_TYPE);
+
+    fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: formData })
+        .then(() => {
+            const leads = JSON.parse(localStorage.getItem('quizLeadsKiemSoat') || '[]');
+            leads.push({ name, email, phone, score: totalScore + '/30', level, type: QUIZ_TYPE, time: new Date().toLocaleString('vi-VN') });
+            localStorage.setItem('quizLeadsKiemSoat', JSON.stringify(leads));
+            showSuccessForm();
+        })
+        .catch(() => showSuccessForm());
+}
+
+function showSuccessForm() {
+    document.getElementById('leadFormWrap').innerHTML = `
+        <div style="text-align:center; padding:1.5rem 0">
+            <div style="font-size:3rem; margin-bottom:1rem">🎉</div>
+            <h3 style="font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--dark); margin-bottom:0.75rem">Da nhan thong tin!</h3>
+            <p style="color:var(--gray); font-size:0.97rem; line-height:1.8">
+                Cam on ban da tin tuong Thu Nhien!<br>
+                Chung toi se lien he trong vong <strong>24 gio</strong> de tu van chi tiet.<br><br>
+                Kiem tra email de nhan lo trinh hanh dong mien phi nhe!
+            </p>
+        </div>
+    `;
+}
+
+// ============================================================
+// SHARE
+// ============================================================
+function shareFB() {
+    const url  = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent('Toi vua lam bai test "Nguoi Dan Duong hay Cai Nguc?" va dat ' + totalScore + '/30 diem! Ba me thu kiem tra xem minh dang o vung nao nhe!');
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + url + '&quote=' + text, '_blank');
+}
+function shareZalo() {
+    window.open('https://zalo.me/share?url=' + encodeURIComponent(window.location.href), '_blank');
+}
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href)
+        .then(() => alert('Da copy link! Ban co the chia se voi ban be.'));
+}
+</script>
+</body>
+</html>
