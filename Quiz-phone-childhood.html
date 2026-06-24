@@ -433,83 +433,25 @@ const QUIZ_TYPE       = 'Phone-Based Childhood Checklist';
 // DATA
 // ============================================================
 const signs = [
-    {
-        id: 1,
-        title: "Dành quá nhiều thời gian trên điện thoại",
-        desc: "Con dành hầu hết thời gian rảnh để cầm điện thoại, khó rời mắt ra, và trở nên cáu gắt khi bị yêu cầu bỏ điện thoại xuống (hơn 4–5 giờ/ngày)."
-    },
-    {
-        id: 2,
-        title: "Rối loạn giấc ngủ, thức khuya lướt mạng",
-        desc: "Con thức khuya chơi điện thoại, khó ngủ hoặc ngủ không ngon, sáng dậy thường mệt mỏi, uể oải và hay cáu kỉnh."
-    },
-    {
-        id: 3,
-        title: "Giảm tương tác xã hội thực tế",
-        desc: "Con ít muốn gặp bạn bè trực tiếp, ít tham gia hoạt động gia đình, thích chat online hoặc chơi game hơn là nói chuyện thật."
-    },
-    {
-        id: 4,
-        title: "Tăng lo âu và so sánh bản thân",
-        desc: "Con hay tự ti, lo lắng về ngoại hình, thành tích, hoặc dễ buồn, ghen tị khi xem cuộc sống của người khác trên mạng."
-    },
-    {
-        id: 5,
-        title: "Giảm khả năng tập trung và chú ý",
-        desc: "Con khó ngồi học lâu, hay bị phân tâm, quên bài vở, điểm số giảm dù trước đây con học khá tốt."
-    },
-    {
-        id: 6,
-        title: "Thay đổi tâm trạng thất thường, dễ cáu gắt",
-        desc: "Tâm trạng con lên xuống rất nhanh, dễ nổi nóng, buồn bã hoặc cáu kỉnh mà không có lý do rõ ràng."
-    },
-    {
-        id: 7,
-        title: "Giảm hoạt động thể chất và chơi ngoài trời",
-        desc: "Con ít vận động, ít ra ngoài chơi, thích nằm một chỗ lướt mạng hoặc chơi game hơn là chạy nhảy, thể thao."
-    },
-    {
-        id: 8,
-        title: "Tự trọng thấp, hình ảnh bản thân méo mó",
-        desc: "Con hay tự chê bai mình ('Con xấu', 'Con kém', 'Không ai thích con'), quá chú trọng vào like, comment và ngoại hình."
-    },
-    {
-        id: 9,
-        title: "Rút lui vào thế giới ảo",
-        desc: "Con sống nhiều hơn trong game, TikTok, Instagram; kể chuyện online nhiều hơn là chia sẻ cuộc sống thật với gia đình."
-    },
-    {
-        id: 10,
-        title: "Khó khăn trong giao tiếp với gia đình",
-        desc: "Con ít tâm sự, trả lời qua loa, hay bực bội khi cha mẹ hỏi han, tạo khoảng cách rõ rệt với bố mẹ."
-    }
+    { id: 1,  title: 'Dành quá nhiều thời gian trên điện thoại',       desc: 'Con dành hầu hết thời gian rảnh để cầm điện thoại, khó rời mắt ra, và trở nên cáu gắt khi bị yêu cầu bỏ điện thoại xuống (hơn 4-5 giờ/ngày).' },
+    { id: 2,  title: 'Rối loạn giấc ngủ, thức khuya lướt mạng',        desc: 'Con thức khuya chơi điện thoại, khó ngủ hoặc ngủ không ngon, sáng dậy thường mệt mỏi, uể oải và hay cáu kỉnh.' },
+    { id: 3,  title: 'Giảm tương tác xã hội thực tế',                   desc: 'Con ít muốn gặp bạn bè trực tiếp, ít tham gia hoạt động gia đình, thích chat online hoặc chơi game hơn là nói chuyện thật.' },
+    { id: 4,  title: 'Tăng lo âu và so sánh bản thân',                  desc: 'Con hay tự ti, lo lắng về ngoại hình, thành tích, hoặc dễ buồn, ghen tị khi xem cuộc sống của người khác trên mạng.' },
+    { id: 5,  title: 'Giảm khả năng tập trung và chú ý',                desc: 'Con khó ngồi học lâu, hay bị phân tâm, quên bài vở, điểm số giảm dù trước đây con học khá tốt.' },
+    { id: 6,  title: 'Thay đổi tâm trạng thất thường, dễ cáu gắt',     desc: 'Tâm trạng con lên xuống rất nhanh, dễ nổi nóng, buồn bã hoặc cáu kỉnh mà không có lý do rõ ràng.' },
+    { id: 7,  title: 'Giảm hoạt động thể chất và chơi ngoài trời',      desc: 'Con ít vận động, ít ra ngoài chơi, thích nằm một chỗ lướt mạng hoặc chơi game hơn là chạy nhảy, thể thao.' },
+    { id: 8,  title: 'Tự trọng thấp, hình ảnh bản thân méo mó',         desc: 'Con hay tự chê bai mình (Con xấu, Con kém, Không ai thích con), quá chú trọng vào like, comment và ngoại hình.' },
+    { id: 9,  title: 'Rút lui vào thế giới ảo',                         desc: 'Con sống nhiều hơn trong game, TikTok, Instagram; kể chuyện online nhiều hơn là chia sẻ cuộc sống thật với gia đình.' },
+    { id: 10, title: 'Khó khăn trong giao tiếp với gia đình',           desc: 'Con ít tâm sự, trả lời qua loa, hay bực bội khi cha mẹ hỏi han, tạo khoảng cách rõ rệt với bố mẹ.' }
 ];
 
 const solutions = [
-    {
-        title: "Mirroring thụ động",
-        desc: "Ngồi gần con, giữ bình tĩnh, thở cùng nhịp. Nói nhẹ: \"Con đang rất khó chịu vì chuyện điện thoại phải không?\" → Im lặng 20–30 giây, không giảng đạo."
-    },
-    {
-        title: "Lắng nghe tích cực + Soi gương",
-        desc: "Khi con bắt đầu mở lòng: phản ánh cảm xúc trước, sau đó mới chuyển sang giải pháp. Không vội khuyên bảo hay biện minh ngay."
-    },
-    {
-        title: "Đổi khung nhìn",
-        desc: "Thay vì \"Bỏ điện thoại đi!\", hãy nói: \"Não con đang cần nghỉ ngơi. Từ tối nay 8h30–9h30 là thời gian không dùng điện thoại.\""
-    },
-    {
-        title: "Anchoring – Neo trạng thái bình tĩnh",
-        desc: "Dạy con nhớ lại khoảnh khắc bình an nhất → nắm chặt tay phải + hít thở sâu 3–5 lần → tạo \"neo\" để tự kích hoạt khi thèm điện thoại."
-    },
-    {
-        title: "Future Pacing – Hình dung tương lai tích cực",
-        desc: "Hỏi con: \"2 tuần nữa, nếu kiểm soát tốt điện thoại, con sẽ cảm thấy thế nào?\" → Để con tự nói ra lợi ích, sau đó khẳng định: \"Mẹ tin con làm được.\""
-    },
-    {
-        title: "Collaborative Choice – Trao quyền lựa chọn",
-        desc: "\"Buổi tối chỉ được dùng đến 9h hoặc 9h30. Con chọn khung giờ nào? Nhưng sau đó phải để điện thoại ngoài phòng khách.\" → Con được chọn, ranh giới vẫn rõ ràng."
-    }
+    { title: 'Mirroring thụ động',                        desc: 'Ngồi gần con, giữ bình tĩnh, thở cùng nhịp. Nói nhẹ: Con đang rất khó chịu vì chuyện điện thoại phải không? Im lặng 20-30 giây, không giảng đạo.' },
+    { title: 'Lắng nghe tích cực + Soi gương',            desc: 'Khi con bắt đầu mở lòng: phản ánh cảm xúc trước, sau đó mới chuyển sang giải pháp. Không vội khuyên bảo hay biện minh ngay.' },
+    { title: 'Đổi khung nhìn',                            desc: 'Thay vì quát con bỏ điện thoại, hãy nói: Não con đang cần nghỉ ngơi. Từ tối nay 8h30-9h30 là thời gian không dùng điện thoại.' },
+    { title: 'Anchoring - Neo trạng thái bình tĩnh',      desc: 'Dạy con nhớ lại khoảnh khắc bình an nhất, rồi nắm chặt tay phải + hít thở sâu 3-5 lần để tạo neo tự kích hoạt khi thèm điện thoại.' },
+    { title: 'Future Pacing - Hình dung tương lai',       desc: 'Hỏi con: 2 tuần nữa, nếu kiểm soát tốt điện thoại, con sẽ cảm thấy thế nào? Để con tự nói ra lợi ích, sau đó khẳng định: Mẹ tin con làm được.' },
+    { title: 'Collaborative Choice - Trao quyền chọn',   desc: 'Buổi tối chỉ được dùng đến 9h hoặc 9h30 - con chọn khung giờ nào? Nhưng sau đó phải để điện thoại ngoài phòng khách. Con được chọn, ranh giới vẫn rõ ràng.' }
 ];
 
 // ============================================================
