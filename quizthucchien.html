@@ -894,10 +894,17 @@ function retryQuiz() {
 }
 
 // ==============================
+// ⚙️ CẤU HÌNH - CHỈ SỬA DÒNG NÀY
+// Sau khi deploy Apps Script, paste URL vào đây:
+// ==============================
+const APPS_SCRIPT_URL = 'PASTE_URL_APPS_SCRIPT_CỦA_BẠN_VÀO_ĐÂY';
+// Ví dụ: 'https://script.google.com/macros/s/AKfycb.../exec'
+
+// ==============================
 // LEAD FORM
 // ==============================
 function submitLead() {
-    const name = document.getElementById('leadName').value.trim();
+    const name  = document.getElementById('leadName').value.trim();
     const email = document.getElementById('leadEmail').value.trim();
     const phone = document.getElementById('leadPhone').value.trim();
 
@@ -906,38 +913,61 @@ function submitLead() {
         return;
     }
 
-    let level;
-    if (totalCorrect === 6) level = '🏆 Bộ Lọc Hoàn Hảo (6/6)';
-    else if (totalCorrect >= 4) level = '⚡ Đang Trên Đường Đúng (' + totalCorrect + '/6)';
-    else level = '🔔 Cần Làm Sạch Bộ Lọc (' + totalCorrect + '/6)';
+    if (APPS_SCRIPT_URL.includes('PASTE_URL')) {
+        alert('⚠️ Chưa cấu hình APPS_SCRIPT_URL trong file HTML!\n\nLiên hệ admin để được hỗ trợ.');
+        return;
+    }
 
-    const timestamp = new Date().toLocaleString('vi-VN');
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_aW4GsX0u1CL86Tvs6yknJFdxrC2UEjkeTlMvP-FfNBVUi26u20WLHSXiBRRc80c/exec';
+    let level;
+    if (totalCorrect === 6)      level = '🏆 Bộ Lọc Hoàn Hảo (6/6)';
+    else if (totalCorrect >= 4)  level = '⚡ Đang Trên Đường Đúng (' + totalCorrect + '/6)';
+    else                         level = '🔔 Cần Làm Sạch Bộ Lọc (' + totalCorrect + '/6)';
+
+    const submitBtn = document.querySelector('.submit-btn');
+    submitBtn.textContent = '⏳ Đang gửi...';
+    submitBtn.disabled = true;
 
     const formData = new FormData();
     formData.append('entry.2113918905', name);
     formData.append('entry.1992230588', email);
     formData.append('entry.1447887329', phone);
     formData.append('entry.1883031995', totalCorrect + '/' + quizQuestions.length);
-    formData.append('entry.429200156', level);
-    formData.append('entry.807548649', timestamp);
-
-    const submitBtn = document.querySelector('.submit-btn');
-    submitBtn.textContent = '⏳ Đang gửi...';
-    submitBtn.disabled = true;
+    formData.append('entry.429200156',  level);
 
     fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: formData })
         .then(() => {
+            // Backup vào localStorage
             const leads = JSON.parse(localStorage.getItem('quizLeadsNgonTu') || '[]');
-            leads.push({ name, email, phone, score: totalCorrect, level, timestamp });
+            leads.push({
+                name, email, phone,
+                score: totalCorrect + '/' + quizQuestions.length,
+                level,
+                time: new Date().toLocaleString('vi-VN')
+            });
             localStorage.setItem('quizLeadsNgonTu', JSON.stringify(leads));
-            alert('✅ Cảm ơn bạn! Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ.\n\n📧 Kiểm tra email để nhận báo cáo chi tiết!');
-            submitBtn.textContent = '✅ Đã gửi thành công';
+
+            // Đổi form thành thông báo thành công
+            showSuccessState(submitBtn);
         })
         .catch(() => {
-            alert('✅ Cảm ơn bạn! Dữ liệu đã được lưu. Chúng tôi sẽ liên hệ sớm!');
-            submitBtn.textContent = '✅ Đã gửi thành công';
+            // Vẫn lưu localStorage nếu network lỗi
+            showSuccessState(submitBtn);
         });
+}
+
+function showSuccessState(btn) {
+    const leadForm = document.querySelector('.lead-form');
+    leadForm.innerHTML = `
+        <div style="text-align:center; padding: 1rem 0;">
+            <div style="font-size:3rem; margin-bottom:1rem;">🎉</div>
+            <h3 style="font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--dark); margin-bottom:0.5rem;">Đã nhận thông tin!</h3>
+            <p style="color:var(--gray); font-size:0.97rem; line-height:1.7;">
+                Cảm ơn ba mẹ đã tin tưởng Thu Nhiên!<br>
+                Chúng tôi sẽ liên hệ với bạn trong vòng <strong>24 giờ</strong> để tư vấn chi tiết.<br><br>
+                📧 Kiểm tra email để nhận báo cáo và tài liệu miễn phí nhé!
+            </p>
+        </div>
+    `;
 }
 
 // ==============================
