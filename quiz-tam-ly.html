@@ -4,31 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kiểm Tra Sức Khỏe Tâm Lý Gia Đình | Thu Nhiên Education</title>
-    <meta name="description" content="Bài kiểm tra miễn phí giúp đánh giá sức khỏe tâm lý gia đình. 10 câu hỏi - 3 phút - Kết quả chi tiết ngay lập tức.">
-    
-    <!-- Fonts -->
+    <meta name="description" content="10 câu hỏi – 3 phút – Nhận kết quả chi tiết về sức khỏe tâm lý gia đình bạn ngay lập tức.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary: #e67e50;
-            --secondary: #8b9d83;
-            --accent: #ff9a8b;
+            --accent:  #ff9a8b;
             --neutral: #f5f1ed;
-            --dark: #2d2d2d;
-            --gray: #6b6b6b;
-            --light: #fefdfb;
+            --dark:    #2d2d2d;
+            --gray:    #6b6b6b;
+            --light:   #fefdfb;
             --success: #6fbb9c;
             --warning: #f0a651;
-            --danger: #e85d75;
+            --danger:  #e85d75;
         }
 
         body {
@@ -39,1129 +33,807 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
+        .container { max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem; }
 
         /* HEADER */
-        header {
-            text-align: center;
-            padding: 2rem 0 1rem;
-            animation: fadeInDown 0.8s ease;
-        }
+        header { text-align: center; padding: 2rem 0 1rem; animation: fadeInDown 0.8s ease; }
+        .logo { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--primary); margin-bottom: 0.25rem; }
+        .logo-sub { font-size: 0.9rem; color: var(--gray); font-weight: 500; }
 
-        .logo {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .logo-sub {
-            font-size: 0.9rem;
-            color: var(--gray);
-            font-weight: 500;
-        }
-
-        /* HERO SECTION */
+        /* HERO */
         .hero {
             text-align: center;
-            padding: 3rem 1rem;
-            background: linear-gradient(135deg, var(--neutral) 0%, var(--light) 100%);
+            padding: 3rem 1.5rem;
+            background: linear-gradient(135deg, var(--neutral) 0%, #fff5f0 100%);
             border-radius: 24px;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
             animation: fadeInUp 0.8s ease 0.2s backwards;
         }
-
         .hero::before {
             content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
+            position: absolute; top: -50%; right: -20%;
+            width: 400px; height: 400px;
             background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-            opacity: 0.1;
+            opacity: 0.12;
             animation: float 8s ease-in-out infinite;
         }
-
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white; font-size: 0.8rem; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            padding: 0.35rem 1rem; border-radius: 50px; margin-bottom: 1.25rem;
+        }
         .hero-title {
             font-family: 'DM Serif Display', serif;
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            position: relative;
+            font-size: 2.6rem; color: var(--dark);
+            margin-bottom: 1rem; line-height: 1.2;
         }
-
-        .hero-subtitle {
-            font-size: 1.1rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .hero-title span { color: var(--primary); }
+        .hero-desc {
+            font-size: 1.05rem; color: var(--gray);
+            max-width: 580px; margin: 0 auto 2rem;
         }
-
-        .benefits {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
+        .hero-stats {
+            display: flex; justify-content: center;
+            gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;
         }
-
-        .benefit {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
-            color: var(--dark);
-        }
-
-        .benefit-icon {
-            font-size: 1.5rem;
-        }
-
+        .stat { text-align: center; }
+        .stat-num { font-size: 1.6rem; font-weight: 700; color: var(--primary); display: block; }
+        .stat-label { font-size: 0.82rem; color: var(--gray); }
         .start-btn {
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-            padding: 1rem 3rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(230, 126, 80, 0.3);
-            position: relative;
-            overflow: hidden;
+            color: white; padding: 1rem 3rem;
+            border: none; border-radius: 50px;
+            font-size: 1.1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(230,126,80,0.35);
+            font-family: inherit;
         }
+        .start-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(230,126,80,0.45); }
 
-        .start-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(230, 126, 80, 0.4);
+        /* QUIZ */
+        .quiz-section { display: none; animation: fadeInUp 0.6s ease; }
+        .quiz-section.active { display: block; }
+
+        .progress-container { margin-bottom: 2.5rem; }
+        .progress-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 0.75rem;
         }
-
-        .start-btn:active {
-            transform: translateY(0);
+        .progress-label { font-size: 0.88rem; color: var(--gray); font-weight: 600; }
+        .progress-dots { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+        .dot {
+            width: 9px; height: 9px; border-radius: 50%;
+            background: var(--neutral); border: 2px solid #ddd;
+            transition: all 0.4s ease;
         }
-
-        /* QUIZ SECTION */
-        .quiz-section {
-            display: none;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .quiz-section.active {
-            display: block;
-        }
-
-        .progress-container {
-            margin-bottom: 3rem;
-        }
-
-        .progress-text {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: var(--neutral);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
+        .dot.done { background: var(--success); border-color: var(--success); }
+        .dot.active { background: var(--primary); border-color: var(--primary); transform: scale(1.3); }
+        .progress-bar { height: 8px; background: var(--neutral); border-radius: 10px; overflow: hidden; }
         .progress-fill {
-            height: 100%;
+            height: 100%; border-radius: 10px;
             background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 10px;
-            transition: width 0.4s ease;
-            position: relative;
+            transition: width 0.5s cubic-bezier(.4,0,.2,1);
         }
 
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-
+        /* QUESTION CARD */
         .question-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
+            background: white; border-radius: 20px;
+            padding: 2.25rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            margin-bottom: 1.75rem;
+            border-left: 4px solid var(--primary);
         }
-
-        .question-number {
-            font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .question-num-tag {
+            font-size: 0.78rem; font-weight: 700; color: var(--primary);
+            text-transform: uppercase; letter-spacing: 1.5px;
+            margin-bottom: 1rem; display: block;
         }
-
         .question-text {
-            font-size: 1.25rem;
-            color: var(--dark);
-            margin-bottom: 2rem;
-            line-height: 1.5;
+            font-size: 1.2rem; font-weight: 600;
+            color: var(--dark); margin-bottom: 1.75rem; line-height: 1.55;
         }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
+        .options { display: flex; flex-direction: column; gap: 0.875rem; }
         .option {
-            background: var(--neutral);
-            border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 1.25rem 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            background: var(--neutral); border: 2px solid transparent;
+            border-radius: 14px; padding: 1.1rem 1.25rem;
+            cursor: pointer; transition: all 0.25s ease;
+            display: flex; align-items: center; gap: 1rem;
         }
-
-        .option:hover {
-            background: white;
-            border-color: var(--primary);
-            transform: translateX(4px);
-        }
-
+        .option:hover { background: white; border-color: var(--primary); transform: translateX(4px); }
         .option.selected {
-            background: white;
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(230, 126, 80, 0.15);
+            background: white; border-color: var(--primary);
+            box-shadow: 0 4px 16px rgba(230,126,80,0.15);
         }
-
         .option-radio {
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--gray);
-            border-radius: 50%;
-            position: relative;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
+            width: 22px; height: 22px;
+            border: 2px solid #ccc; border-radius: 50%;
+            position: relative; transition: all 0.25s ease; flex-shrink: 0;
         }
-
-        .option.selected .option-radio {
-            border-color: var(--primary);
-        }
-
+        .option.selected .option-radio { border-color: var(--primary); }
         .option.selected .option-radio::after {
             content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 12px;
-            height: 12px;
-            background: var(--primary);
-            border-radius: 50%;
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+            width: 11px; height: 11px;
+            background: var(--primary); border-radius: 50%;
         }
-
-        .option-text {
-            flex: 1;
-            font-size: 1rem;
-            color: var(--dark);
+        .option-text { flex: 1; font-size: 0.97rem; color: var(--dark); }
+        .option-pts {
+            font-size: 0.8rem; font-weight: 700;
+            color: var(--gray); background: rgba(0,0,0,0.05);
+            padding: 0.2rem 0.6rem; border-radius: 20px;
         }
+        .option.selected .option-pts { background: rgba(230,126,80,0.1); color: var(--primary); }
 
-        .option-points {
-            font-size: 0.85rem;
-            color: var(--gray);
-            font-weight: 600;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: space-between;
-        }
-
+        .nav-buttons { display: flex; gap: 1rem; }
         .btn {
-            padding: 0.875rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex: 1;
+            padding: 0.9rem 2rem; border: none; border-radius: 50px;
+            font-size: 1rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; font-family: inherit;
         }
-
-        .btn-secondary {
-            background: var(--neutral);
-            color: var(--dark);
-        }
-
-        .btn-secondary:hover {
-            background: #e8e4dd;
-        }
-
+        .btn-secondary { background: var(--neutral); color: var(--dark); flex: 0.6; }
+        .btn-secondary:hover { background: #e8e4dd; }
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white; flex: 1;
+            box-shadow: 0 4px 14px rgba(230,126,80,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(230,126,80,0.4); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        /* RESULT */
+        .result-section { display: none; animation: fadeInUp 0.6s ease; }
+        .result-section.active { display: block; }
+
+        .result-hero {
+            text-align: center; padding: 3rem 2rem;
+            background: white; border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+        .result-icon-wrap {
+            width: 100px; height: 100px; border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; animation: bounce 0.6s ease;
+        }
+        .result-title { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 0.5rem; }
+        .result-subtitle { font-size: 1.05rem; color: var(--gray); margin-bottom: 1.5rem; }
+        .score-display {
+            display: inline-flex; align-items: baseline; gap: 0.25rem;
+            background: var(--neutral); border-radius: 20px;
+            padding: 1rem 2rem; margin-bottom: 2rem;
+        }
+        .score-big { font-size: 3.5rem; font-weight: 800; line-height: 1; }
+        .score-out { font-size: 1.5rem; font-weight: 600; color: var(--gray); }
+        .result-desc {
+            font-size: 1.05rem; line-height: 1.8; color: var(--gray);
+            text-align: left; max-width: 600px; margin: 0 auto;
+        }
+
+        /* SCORE BAR */
+        .score-breakdown {
+            background: white; border-radius: 20px;
+            padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 2rem;
+        }
+        .breakdown-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .score-zones { display: flex; gap: 0; border-radius: 12px; overflow: hidden; margin-bottom: 1rem; height: 14px; }
+        .zone { flex: 1; transition: opacity 0.3s; }
+        .zone-red   { background: var(--danger); }
+        .zone-amber { background: var(--warning); }
+        .zone-green { background: var(--success); }
+        .score-marker {
+            position: relative; margin-bottom: 0.5rem;
+        }
+        .score-needle {
+            position: absolute; top: -20px;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            transition: left 0.8s cubic-bezier(.4,0,.2,1);
+        }
+        .zone-labels {
+            display: flex; justify-content: space-between;
+            font-size: 0.78rem; color: var(--gray);
+        }
+
+        /* RECOMMENDATIONS */
+        .reco-card {
+            border-radius: 20px; padding: 2.25rem; margin-bottom: 2rem;
             color: white;
-            box-shadow: 0 4px 12px rgba(230, 126, 80, 0.3);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
         }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(230, 126, 80, 0.4);
+        .reco-title { font-family: 'DM Serif Display', serif; font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .reco-sub { font-size: 0.95rem; opacity: 0.9; margin-bottom: 1.75rem; }
+        .reco-items { display: flex; flex-direction: column; gap: 1rem; }
+        .reco-item {
+            background: rgba(255,255,255,0.18); border-radius: 14px;
+            padding: 1rem 1.25rem; display: flex; gap: 1rem; align-items: flex-start;
         }
-
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* RESULT SECTION */
-        .result-section {
-            display: none;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .result-section.active {
-            display: block;
-        }
-
-        .result-card {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem 2.5rem;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .result-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            animation: bounce 0.6s ease;
-        }
-
-        .result-title {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .result-score {
-            font-size: 1.25rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
-        }
-
-        .score-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .result-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--gray);
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-
-        .result-recommendations {
-            background: var(--neutral);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: left;
-            margin-bottom: 2rem;
-        }
-
-        .recommendations-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
-
-        .recommendation-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .recommendation-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .recommendation-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .recommendation-text {
-            flex: 1;
-        }
+        .reco-icon { font-size: 1.4rem; flex-shrink: 0; }
+        .reco-text { font-size: 0.97rem; line-height: 1.5; }
 
         /* LEAD FORM */
         .lead-form {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 20px;
-            padding: 2.5rem;
-            color: white;
-            margin-bottom: 2rem;
+            background: white; border-radius: 20px;
+            border: 2px solid var(--neutral);
+            padding: 2.25rem; margin-bottom: 2rem;
         }
-
-        .form-title {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .form-subtitle {
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
+        .lead-form-title { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .lead-form-sub { font-size: 0.95rem; color: var(--gray); margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1rem; }
         .form-input {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 12px;
-            font-size: 1rem;
-            background: rgba(255,255,255,0.15);
-            color: white;
-            transition: all 0.3s ease;
+            width: 100%; padding: 0.9rem 1.1rem;
+            border: 2px solid var(--neutral); border-radius: 12px;
+            font-size: 0.97rem; background: var(--light); color: var(--dark);
+            transition: all 0.25s ease; font-family: inherit;
         }
-
-        .form-input::placeholder {
-            color: rgba(255,255,255,0.7);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: white;
-            background: rgba(255,255,255,0.25);
-        }
-
+        .form-input:focus { outline: none; border-color: var(--primary); background: white; }
+        .form-input::placeholder { color: #aaa; }
         .submit-btn {
-            width: 100%;
-            padding: 1.125rem;
-            background: white;
-            color: var(--primary);
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            width: 100%; padding: 1.1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white; border: none; border-radius: 12px;
+            font-size: 1.05rem; font-weight: 700;
+            cursor: pointer; transition: all 0.3s ease; font-family: inherit;
         }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(230,126,80,0.35); }
+        .privacy-note { font-size: 0.82rem; text-align: center; color: var(--gray); margin-top: 0.75rem; }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-
-        .privacy-note {
-            font-size: 0.85rem;
-            text-align: center;
-            margin-top: 1rem;
-            opacity: 0.9;
-        }
-
-        /* SHARE BUTTONS */
+        /* SHARE */
         .share-section {
-            text-align: center;
-            padding: 2rem;
-            background: var(--neutral);
-            border-radius: 16px;
-            margin-bottom: 2rem;
+            text-align: center; padding: 2rem;
+            background: var(--neutral); border-radius: 16px; margin-bottom: 2rem;
         }
-
-        .share-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .share-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
+        .share-title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
+        .share-buttons { display: flex; gap: 0.875rem; justify-content: center; flex-wrap: wrap; }
         .share-btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            padding: 0.7rem 1.4rem; border: none; border-radius: 50px;
+            font-size: 0.9rem; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 0.4rem;
+            font-family: inherit;
         }
+        .share-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .share-facebook { background: #1877f2; color: white; }
+        .share-zalo     { background: #0068ff; color: white; }
+        .share-copy     { background: var(--dark); color: white; }
 
-        .share-facebook {
-            background: #1877f2;
-            color: white;
+        .retry-section { text-align: center; padding: 1rem; margin-bottom: 2rem; }
+        .retry-btn {
+            background: var(--neutral); color: var(--dark);
+            padding: 0.875rem 2.5rem; border: none; border-radius: 50px;
+            font-size: 0.97rem; font-weight: 600;
+            cursor: pointer; transition: all 0.3s ease; font-family: inherit;
         }
+        .retry-btn:hover { background: #e8e4dd; transform: translateY(-2px); }
 
-        .share-zalo {
-            background: #0068ff;
-            color: white;
-        }
+        footer { text-align: center; padding: 3rem 1rem 2rem; color: var(--gray); }
+        .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--primary); margin-bottom: 1rem; }
+        .footer-contact { margin: 1rem 0; }
+        .footer-contact a { color: var(--gray); text-decoration: none; margin: 0 0.75rem; transition: color 0.3s; }
+        .footer-contact a:hover { color: var(--primary); }
+        .footer-copyright { font-size: 0.85rem; margin-top: 1rem; }
 
-        .share-copy {
-            background: var(--dark);
-            color: white;
-        }
+        @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeInUp   { from{opacity:0;transform:translateY(20px)}  to{opacity:1;transform:translateY(0)} }
+        @keyframes float { 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(-20px) rotate(5deg)} }
+        @keyframes bounce { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
 
-        .share-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 3rem 1rem 2rem;
-            color: var(--gray);
-        }
-
-        .footer-logo {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .footer-contact {
-            margin: 1.5rem 0;
-        }
-
-        .footer-contact a {
-            color: var(--gray);
-            text-decoration: none;
-            margin: 0 0.75rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-contact a:hover {
-            color: var(--primary);
-        }
-
-        .footer-copyright {
-            font-size: 0.9rem;
-            margin-top: 1.5rem;
-        }
-
-        /* ANIMATIONS */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(5deg);
-            }
-        }
-
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(100%);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .benefits {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .question-card {
-                padding: 1.75rem;
-            }
-
-            .question-text {
-                font-size: 1.1rem;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-
-            .result-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .score-number {
-                font-size: 2.5rem;
-            }
-
-            .share-buttons {
-                flex-direction: column;
-            }
-
-            .share-btn {
-                width: 100%;
-                justify-content: center;
-            }
+        @media (max-width: 640px) {
+            .hero-title { font-size: 2rem; }
+            .question-card { padding: 1.5rem; }
+            .nav-buttons { flex-direction: column-reverse; }
+            .btn { width: 100%; flex: unset; }
+            .result-hero { padding: 2rem 1.25rem; }
+            .score-big { font-size: 2.8rem; }
+            .share-buttons { flex-direction: column; }
+            .share-btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">🧠 Thu Nhiên</div>
-        <div class="logo-sub">Education</div>
-    </header>
 
-    <div class="container">
-        <!-- HERO SECTION -->
-        <section class="hero" id="heroSection">
-            <h1 class="hero-title">Kiểm Tra Sức Khỏe<br>Tâm Lý Gia Đình</h1>
-            <p class="hero-subtitle">Chỉ 3 phút để hiểu rõ tình trạng tâm lý của gia đình bạn. Nhận kết quả chi tiết và giải pháp cụ thể ngay lập tức.</p>
-            
-            <div class="benefits">
-                <div class="benefit">
-                    <span class="benefit-icon">✅</span>
-                    <span>Hoàn toàn miễn phí</span>
-                </div>
-                <div class="benefit">
-                    <span class="benefit-icon">⚡</span>
-                    <span>Kết quả ngay lập tức</span>
-                </div>
-                <div class="benefit">
-                    <span class="benefit-icon">🎁</span>
-                    <span>Tư vấn miễn phí</span>
-                </div>
-            </div>
+<header>
+    <div class="logo">🧠 Thu Nhiên</div>
+    <div class="logo-sub">Education</div>
+</header>
 
-            <button class="start-btn" onclick="startQuiz()">🚀 Bắt Đầu Kiểm Tra Ngay</button>
-        </section>
+<div class="container">
 
-        <!-- QUIZ SECTION -->
-        <section class="quiz-section" id="quizSection">
-            <div class="progress-container">
-                <div class="progress-text">
-                    <span>Câu <span id="currentQuestion">1</span>/10</span>
-                    <span><span id="progressPercent">10</span>%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 10%"></div>
-                </div>
-            </div>
-
-            <div id="questionContainer"></div>
-
-            <div class="nav-buttons">
-                <button class="btn btn-secondary" onclick="previousQuestion()" id="prevBtn" style="display: none;">← Câu trước</button>
-                <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn" disabled>Tiếp theo →</button>
-            </div>
-        </section>
-
-        <!-- RESULT SECTION -->
-        <section class="result-section" id="resultSection">
-            <!-- Result will be populated by JavaScript -->
-        </section>
-    </div>
-
-    <footer>
-        <div class="footer-logo">Thu Nhiên Education</div>
-        <div class="footer-contact">
-            <a href="mailto:nhienhtt@gmail.com">📧 nhienhtt@gmail.com</a>
-            <a href="https://zalo.me/0917216246" target="_blank">💬 091 721 62 46</a>
-            <a href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank">👤 Facebook</a>
+    <!-- HERO -->
+    <section class="hero" id="heroSection">
+        <div class="hero-badge">Bài Kiểm Tra Miễn Phí</div>
+        <h1 class="hero-title">Sức Khỏe Tâm Lý<br><span>Gia Đình Bạn</span></h1>
+        <p class="hero-desc">Chỉ 3 phút để hiểu rõ tình trạng tâm lý của gia đình. Nhận kết quả chi tiết và giải pháp cụ thể ngay lập tức.</p>
+        <div class="hero-stats">
+            <div class="stat"><span class="stat-num">10</span><span class="stat-label">Câu hỏi</span></div>
+            <div class="stat"><span class="stat-num">~3'</span><span class="stat-label">Hoàn thành</span></div>
+            <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Miễn phí</span></div>
         </div>
-        <div class="footer-copyright">© 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</div>
-    </footer>
+        <button class="start-btn" onclick="startQuiz()">🚀 Bắt Đầu Kiểm Tra Ngay</button>
+    </section>
 
-    <script>
-        // QUIZ DATA
-        const questions = [
-            {
-                id: 1,
-                text: "Con chủ động nhận lỗi với bạn khi làm sai mà không có biểu hiện giấu giếm hay sợ hãi.",
-                options: [
-                    { text: "Không bao giờ / Không đúng", points: 0 },
-                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
-                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
-                ]
-            },
-            {
-                id: 2,
-                text: "Khi con mắc lỗi, bạn giữ được bình tĩnh để lắng nghe con giải thích trước khi đưa ra hình phạt.",
-                options: [
-                    { text: "Không bao giờ / Không đúng", points: 0 },
-                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
-                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
-                ]
-            },
-            {
-                id: 3,
-                text: "Các bữa cơm gia đình diễn ra trong không khí thoải mái, không có sự trách móc hay phán xét.",
-                options: [
-                    { text: "Không bao giờ / Không đúng", points: 0 },
-                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
-                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
-                ]
-            },
-            {
-                id: 4,
-                text: "Bạn nói lời ghi nhận, khen ngợi những nỗ lực nhỏ của con mỗi ngày.",
-                options: [
-                    { text: "Không bao giờ / Không đúng", points: 0 },
-                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
-                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
-                ]
-            },
-            {
-                id: 5,
-                text: "Bạn chủ động chia sẻ với gia đình khi bạn đang mệt mỏi hoặc buồn bã để mọi người thấu hiểu.",
-                options: [
-                    { text: "Không bao giờ / Không đúng", points: 0 },
-                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
-                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
-                ]
-            },
-            {
-                id: 6,
-                text: "Bạn kiểm soát được cảm xúc, không trút sự bực tức từ công việc hay bên ngoài lên các con.",
-                options: [
-                    { text: "Không bao giờ / Không đúng", points: 0 },
-                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
-                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
-                ]
-            },
-            {
-                id: 7,
-                text: "Bạn có thể kể tên ngay lập tức ít nhất 3 người bạn thân nhất của con hiện tại.",
-                options: [
-                    { text: "Không bao giờ / Không đúng", points: 0 },
-                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
-                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
-                ]
-            },
-            {
-                id: 8,
-                text: "Bạn biết rõ điều gì đang khiến con cảm thấy lo lắng hoặc áp lực nhất trong giai đoạn này.",
-                options: [
-                    { text: "Không bao giờ / Không đúng", points: 0 },
-                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
-                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
-                ]
-            },
-            {
-                id: 9,
-                text: "Khi vợ chồng có bất đồng, hai người giải quyết bằng cách thẳng thắn ngồi lại thảo luận.",
-                options: [
-                    { text: "Không bao giờ / Không đúng", points: 0 },
-                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
-                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
-                ]
-            },
-            {
-                id: 10,
-                text: "Gia đình bạn không ai sử dụng sự \"im lặng độc hại\" để trừng phạt nhau sau những cuộc cãi vã.",
-                options: [
-                    { text: "Không bao giờ / Không đúng", points: 0 },
-                    { text: "Thỉnh thoảng / Đúng một phần", points: 1 },
-                    { text: "Thường xuyên / Hoàn toàn đúng", points: 2 }
-                ]
-            }
-        ];
+    <!-- QUIZ -->
+    <section class="quiz-section" id="quizSection">
+        <div class="progress-container">
+            <div class="progress-header">
+                <span class="progress-label">Câu <span id="currentQ">1</span> / 10</span>
+                <div class="progress-dots" id="progressDots"></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width:10%"></div>
+            </div>
+        </div>
+        <div id="questionContainer"></div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="prevQ()" id="prevBtn" style="display:none">← Câu trước</button>
+            <button class="btn btn-primary"   onclick="nextQ()" id="nextBtn" disabled>Tiếp theo →</button>
+        </div>
+    </section>
 
-        let currentQuestionIndex = 0;
-        let answers = [];
-        let totalScore = 0;
+    <!-- RESULT -->
+    <section class="result-section" id="resultSection"></section>
 
-        function startQuiz() {
-            document.getElementById('heroSection').style.display = 'none';
-            document.getElementById('quizSection').classList.add('active');
-            renderQuestion();
-        }
+</div>
 
-        function renderQuestion() {
-            const question = questions[currentQuestionIndex];
-            const container = document.getElementById('questionContainer');
-            
-            container.innerHTML = `
-                <div class="question-card">
-                    <div class="question-number">Câu ${currentQuestionIndex + 1} / 10</div>
-                    <div class="question-text">${question.text}</div>
-                    <div class="options">
-                        ${question.options.map((option, index) => `
-                            <div class="option" onclick="selectOption(${index}, ${option.points})">
-                                <div class="option-radio"></div>
-                                <div class="option-text">${option.text}</div>
-                                <div class="option-points">${option.points} điểm</div>
-                            </div>
-                        `).join('')}
+<footer>
+    <div class="footer-logo">Thu Nhiên Education</div>
+    <div class="footer-contact">
+        <a href="mailto:nhienhtt@gmail.com">📧 nhienhtt@gmail.com</a>
+        <a href="https://zalo.me/0917216246" target="_blank">💬 091 721 62 46</a>
+        <a href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank">👤 Facebook</a>
+    </div>
+    <div class="footer-copyright">© 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</div>
+</footer>
+
+<script>
+// ============================================================
+// ⚙️ CẤU HÌNH — chỉ sửa dòng này sau khi deploy Apps Script
+// ============================================================
+const APPS_SCRIPT_URL = 'PASTE_URL_APPS_SCRIPT_CỦA_BẠN_VÀO_ĐÂY';
+const QUIZ_TYPE       = 'Sức Khỏe Tâm Lý Gia Đình';   // ghi vào sheet để phân biệt
+
+// ============================================================
+// QUESTION BANK
+// ============================================================
+const questionBank = [
+    {
+        id: 1,
+        text: "Con chủ động nhận lỗi với bạn khi làm sai mà không có biểu hiện giấu giếm hay sợ hãi.",
+        options: [
+            { text: "Không bao giờ / Không đúng",       points: 0 },
+            { text: "Thỉnh thoảng / Đúng một phần",     points: 1 },
+            { text: "Thường xuyên / Hoàn toàn đúng",    points: 2 }
+        ]
+    },
+    {
+        id: 2,
+        text: "Khi con mắc lỗi, bạn giữ được bình tĩnh để lắng nghe con giải thích trước khi đưa ra hình phạt.",
+        options: [
+            { text: "Không bao giờ / Không đúng",       points: 0 },
+            { text: "Thỉnh thoảng / Đúng một phần",     points: 1 },
+            { text: "Thường xuyên / Hoàn toàn đúng",    points: 2 }
+        ]
+    },
+    {
+        id: 3,
+        text: "Các bữa cơm gia đình diễn ra trong không khí thoải mái, không có sự trách móc hay phán xét.",
+        options: [
+            { text: "Không bao giờ / Không đúng",       points: 0 },
+            { text: "Thỉnh thoảng / Đúng một phần",     points: 1 },
+            { text: "Thường xuyên / Hoàn toàn đúng",    points: 2 }
+        ]
+    },
+    {
+        id: 4,
+        text: "Bạn nói lời ghi nhận, khen ngợi những nỗ lực nhỏ của con mỗi ngày.",
+        options: [
+            { text: "Không bao giờ / Không đúng",       points: 0 },
+            { text: "Thỉnh thoảng / Đúng một phần",     points: 1 },
+            { text: "Thường xuyên / Hoàn toàn đúng",    points: 2 }
+        ]
+    },
+    {
+        id: 5,
+        text: "Bạn chủ động chia sẻ với gia đình khi bạn đang mệt mỏi hoặc buồn bã để mọi người thấu hiểu.",
+        options: [
+            { text: "Không bao giờ / Không đúng",       points: 0 },
+            { text: "Thỉnh thoảng / Đúng một phần",     points: 1 },
+            { text: "Thường xuyên / Hoàn toàn đúng",    points: 2 }
+        ]
+    },
+    {
+        id: 6,
+        text: "Bạn kiểm soát được cảm xúc, không trút sự bực tức từ công việc hay bên ngoài lên các con.",
+        options: [
+            { text: "Không bao giờ / Không đúng",       points: 0 },
+            { text: "Thỉnh thoảng / Đúng một phần",     points: 1 },
+            { text: "Thường xuyên / Hoàn toàn đúng",    points: 2 }
+        ]
+    },
+    {
+        id: 7,
+        text: "Bạn có thể kể tên ngay lập tức ít nhất 3 người bạn thân nhất của con hiện tại.",
+        options: [
+            { text: "Không bao giờ / Không đúng",       points: 0 },
+            { text: "Thỉnh thoảng / Đúng một phần",     points: 1 },
+            { text: "Thường xuyên / Hoàn toàn đúng",    points: 2 }
+        ]
+    },
+    {
+        id: 8,
+        text: "Bạn biết rõ điều gì đang khiến con cảm thấy lo lắng hoặc áp lực nhất trong giai đoạn này.",
+        options: [
+            { text: "Không bao giờ / Không đúng",       points: 0 },
+            { text: "Thỉnh thoảng / Đúng một phần",     points: 1 },
+            { text: "Thường xuyên / Hoàn toàn đúng",    points: 2 }
+        ]
+    },
+    {
+        id: 9,
+        text: "Khi vợ chồng có bất đồng, hai người giải quyết bằng cách thẳng thắn ngồi lại thảo luận.",
+        options: [
+            { text: "Không bao giờ / Không đúng",       points: 0 },
+            { text: "Thỉnh thoảng / Đúng một phần",     points: 1 },
+            { text: "Thường xuyên / Hoàn toàn đúng",    points: 2 }
+        ]
+    },
+    {
+        id: 10,
+        text: "Gia đình bạn không ai sử dụng sự \"im lặng độc hại\" để trừng phạt nhau sau những cuộc cãi vã.",
+        options: [
+            { text: "Không bao giờ / Không đúng",       points: 0 },
+            { text: "Thỉnh thoảng / Đúng một phần",     points: 1 },
+            { text: "Thường xuyên / Hoàn toàn đúng",    points: 2 }
+        ]
+    }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let quizQuestions   = [];
+let currentIdx      = 0;
+let answers         = [];
+let totalScore      = 0;
+
+// ============================================================
+// SHUFFLE
+// ============================================================
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+// ============================================================
+// START
+// ============================================================
+function startQuiz() {
+    quizQuestions = shuffle(questionBank);
+    answers       = new Array(quizQuestions.length).fill(null);
+    currentIdx    = 0;
+
+    document.getElementById('heroSection').style.display = 'none';
+    document.getElementById('quizSection').classList.add('active');
+
+    buildDots();
+    renderQuestion();
+}
+
+function buildDots() {
+    const wrap = document.getElementById('progressDots');
+    wrap.innerHTML = '';
+    quizQuestions.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        d.id = 'dot-' + i;
+        wrap.appendChild(d);
+    });
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderQuestion() {
+    const q     = quizQuestions[currentIdx];
+    const saved = answers[currentIdx];
+    const total = quizQuestions.length;
+
+    // Progress
+    const pct = ((currentIdx + 1) / total) * 100;
+    document.getElementById('currentQ').textContent      = currentIdx + 1;
+    document.getElementById('progressFill').style.width  = pct + '%';
+
+    quizQuestions.forEach((_, i) => {
+        const d = document.getElementById('dot-' + i);
+        d.className = 'dot';
+        if (answers[i] !== null) d.classList.add('done');
+        if (i === currentIdx)    d.classList.add('active');
+    });
+
+    // Nav
+    document.getElementById('prevBtn').style.display = currentIdx > 0 ? 'block' : 'none';
+    const nextBtn = document.getElementById('nextBtn');
+    nextBtn.textContent = currentIdx === total - 1 ? 'Xem kết quả 🎯' : 'Tiếp theo →';
+    nextBtn.disabled    = saved === null;
+
+    // Card
+    document.getElementById('questionContainer').innerHTML = `
+        <div class="question-card">
+            <span class="question-num-tag">Câu ${currentIdx + 1} / ${total}</span>
+            <div class="question-text">${q.text}</div>
+            <div class="options">
+                ${q.options.map((opt, i) => `
+                    <div class="option ${saved !== null && saved.optionIndex === i ? 'selected' : ''}"
+                         onclick="selectOption(${i}, ${opt.points})">
+                        <div class="option-radio"></div>
+                        <div class="option-text">${opt.text}</div>
+                        <div class="option-pts">${opt.points} điểm</div>
                     </div>
-                </div>
-            `;
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
 
-            // Restore previous selection if any
-            if (answers[currentQuestionIndex] !== undefined) {
-                const selectedIndex = answers[currentQuestionIndex].optionIndex;
-                const options = container.querySelectorAll('.option');
-                options[selectedIndex].classList.add('selected');
-                document.getElementById('nextBtn').disabled = false;
-            } else {
-                document.getElementById('nextBtn').disabled = true;
-            }
+// ============================================================
+// SELECT
+// ============================================================
+function selectOption(idx, pts) {
+    answers[currentIdx] = { optionIndex: idx, points: pts };
+    document.getElementById('nextBtn').disabled = false;
 
-            // Update progress
-            updateProgress();
-            
-            // Update navigation buttons
-            document.getElementById('prevBtn').style.display = currentQuestionIndex > 0 ? 'block' : 'none';
-        }
+    document.querySelectorAll('.option').forEach((el, i) => {
+        el.classList.toggle('selected', i === idx);
+    });
+}
 
-        function selectOption(optionIndex, points) {
-            // Remove all selections
-            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
-            
-            // Add selection to clicked option
-            event.currentTarget.classList.add('selected');
-            
-            // Save answer
-            answers[currentQuestionIndex] = {
-                questionId: questions[currentQuestionIndex].id,
-                optionIndex: optionIndex,
-                points: points
-            };
-            
-            // Enable next button
-            document.getElementById('nextBtn').disabled = false;
-        }
+// ============================================================
+// NAV
+// ============================================================
+function nextQ() {
+    if (currentIdx < quizQuestions.length - 1) {
+        currentIdx++;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        showResult();
+    }
+}
+function prevQ() {
+    if (currentIdx > 0) {
+        currentIdx--;
+        renderQuestion();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
 
-        function updateProgress() {
-            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
-            document.getElementById('progressPercent').textContent = Math.round(progress);
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
+// ============================================================
+// RESULT
+// ============================================================
+function showResult() {
+    totalScore = answers.reduce((sum, a) => sum + (a ? a.points : 0), 0);
+    const maxScore = quizQuestions.length * 2; // 20
 
-        function previousQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                renderQuestion();
-            }
-        }
+    document.getElementById('quizSection').classList.remove('active');
 
-        function nextQuestion() {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                renderQuestion();
-            } else {
-                // Quiz completed
-                calculateResult();
-            }
-        }
+    let rd;
+    if (totalScore >= 16) {
+        rd = {
+            icon: '🌟', iconBg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)',
+            color: '#16a34a',
+            title: '"Trạm Sạc" Bình An',
+            subtitle: `Điểm của bạn: ${totalScore}/${maxScore}`,
+            desc: 'Chúc mừng! Gia đình đang thực sự là một hệ sinh thái an toàn — nơi các thành viên được phép sai lầm, được thấu cảm và tôn trọng. Hãy tiếp tục duy trì dòng chảy giao tiếp tuyệt vời này và lan tỏa nó đến những gia đình xung quanh!',
+            recos: [
+                { icon: '📚', text: 'Khám phá khóa học nâng cao để duy trì và phát triển thêm kỹ năng giao tiếp gia đình' },
+                { icon: '💬', text: 'Chia sẻ bí quyết của bạn với cộng đồng phụ huynh – nhiều gia đình cần học hỏi từ bạn' },
+                { icon: '🎯', text: 'Đặt mục tiêu mới: trở thành "neo cảm xúc" cho cả gia đình trong những lúc khủng hoảng' }
+            ]
+        };
+    } else if (totalScore >= 10) {
+        rd = {
+            icon: '⚠️', iconBg: 'linear-gradient(135deg,#fffbeb,#fef3c7)',
+            color: '#d97706',
+            title: 'Dấu Hiệu Cảnh Báo',
+            subtitle: `Điểm của bạn: ${totalScore}/${maxScore}`,
+            desc: 'Mối quan hệ gia đình vẫn có sự gắn kết, nhưng "bộ lọc" cảm xúc đã bắt đầu có rác. Sự thấu hiểu đôi lúc bị gián đoạn bởi cái tôi hoặc áp lực cuộc sống. Bạn cần điều chỉnh lại cách giao tiếp ngay để tránh sự đứt gãy lớn hơn trong tương lai.',
+            recos: [
+                { icon: '📖', text: 'Tham gia khóa học "Hành Trình Hiểu Con Hơn" để cải thiện giao tiếp gia đình' },
+                { icon: '👨‍👩‍👧', text: 'Đặt lịch tư vấn 1:1 miễn phí với Coach Thu Nhiên' },
+                { icon: '💡', text: 'Đọc ngay: "15 Câu Hỏi Để Teen Mở Lòng" – miễn phí khi để lại thông tin bên dưới' }
+            ]
+        };
+    } else {
+        rd = {
+            icon: '🚨', iconBg: 'linear-gradient(135deg,#fff1f2,#ffe4e6)',
+            color: '#e85d75',
+            title: 'Báo Động Đỏ',
+            subtitle: `Điểm của bạn: ${totalScore}/${maxScore}`,
+            desc: 'Ngôi nhà đang là nơi chứa nhiều "bão tố" ngầm. Các thành viên đang cảm thấy cô đơn, thiếu an toàn và phải dùng cơ chế phòng vệ để đối phó với nhau. Hệ thống gia đình đang bị tổn thương và cần được can thiệp, chữa lành tâm lý càng sớm càng tốt.',
+            recos: [
+                { icon: '🆘', text: 'ĐẶT LỊCH TƯ VẤN KHẨN CẤP – 1 giờ tư vấn miễn phí với Coach Thu Nhiên' },
+                { icon: '📚', text: 'Tham gia khóa "Nhà Tham Vấn Tâm Tài Gia" (Ưu đãi 50% tháng này)' },
+                { icon: '🎁', text: 'Nhận PDF: "15 Câu Hỏi Để Teen Mở Lòng" ngay khi để lại thông tin bên dưới' }
+            ]
+        };
+    }
 
-        function calculateResult() {
-            totalScore = answers.reduce((sum, answer) => sum + answer.points, 0);
-            showResult();
-        }
+    // Score bar needle position (0–100%)
+    const needlePct = (totalScore / maxScore) * 100;
 
-        function showResult() {
-            document.getElementById('quizSection').classList.remove('active');
-            
-            let resultData;
-            
-            if (totalScore >= 16) {
-                resultData = {
-                    icon: '🌟',
-                    title: '"TRẠM SẠC" BÌNH AN',
-                    color: '#6fbb9c',
-                    description: 'Chúc mừng anh chị! Gia đình đang thực sự là một hệ sinh thái an toàn. Ở đó, các thành viên được phép sai lầm, được thấu cảm và tôn trọng. Hãy tiếp tục duy trì dòng chảy giao tiếp tuyệt vời này!',
-                    recommendations: [
-                        { icon: '📚', text: 'Khám phá khóa học nâng cao để duy trì và phát triển thêm' },
-                        { icon: '💬', text: 'Chia sẻ bí quyết của bạn với cộng đồng phụ huynh' },
-                        { icon: '🎯', text: 'Đặt mục tiêu mới cho sự phát triển của gia đình' }
-                    ]
-                };
-            } else if (totalScore >= 10) {
-                resultData = {
-                    icon: '⚠️',
-                    title: 'DẤU HIỆU CẢNH BÁO',
-                    color: '#f0a651',
-                    description: 'Mối quan hệ gia đình vẫn có sự gắn kết, nhưng "bộ lọc" cảm xúc đã bắt đầu có rác. Sự thấu hiểu đôi lúc bị gián đoạn bởi cái tôi hoặc áp lực cuộc sống. Anh chị cần dọn dẹp và điều chỉnh lại cách dùng ngôn từ ngay để tránh sự đứt gãy lớn hơn trong tương lai.',
-                    recommendations: [
-                        { icon: '📖', text: 'Tham gia khóa học "Hành Trình Hiểu Con Hơn" để cải thiện giao tiếp' },
-                        { icon: '👨‍👩‍👧', text: 'Đặt lịch tư vấn 1:1 miễn phí với Coach Thu Nhiên' },
-                        { icon: '💡', text: 'Đọc bài viết: "15 Câu Hỏi Để Teen Mở Lòng"' }
-                    ]
-                };
-            } else {
-                resultData = {
-                    icon: '🚨',
-                    title: 'BÁO ĐỘNG ĐỎ',
-                    color: '#e85d75',
-                    description: 'Ngôi nhà đang là nơi chứa nhiều "bão tố" ngầm. Con cái (hoặc chính anh chị) đang cảm thấy cô đơn, thiếu an toàn và phải dùng cơ chế phòng vệ để đối phó với người thân. Hệ thống gia đình đang bị tổn thương và cần được can thiệp, chữa lành tâm lý càng sớm càng tốt.',
-                    recommendations: [
-                        { icon: '🆘', text: 'ĐẶT LỊCH TƯ VẤN KHẨN CẤP - Tư vấn 1 giờ miễn phí' },
-                        { icon: '📚', text: 'Tham gia khóa "Nhà Tham Vấn Tâm Tài Gia" (Ưu đãi 50%)' },
-                        { icon: '🎁', text: 'Nhận PDF: "15 Câu Hỏi Để Teen Mở Lòng" ngay' }
-                    ]
-                };
-            }
+    const html = `
+        <div class="result-hero">
+            <div class="result-icon-wrap" style="background:${rd.iconBg}">${rd.icon}</div>
+            <h2 class="result-title" style="color:${rd.color}">${rd.title}</h2>
+            <p class="result-subtitle">${rd.subtitle}</p>
+            <div class="score-display">
+                <span class="score-big" style="color:${rd.color}">${totalScore}</span>
+                <span class="score-out">/ ${maxScore} điểm</span>
+            </div>
+            <p class="result-desc">${rd.desc}</p>
+        </div>
 
-            const resultHTML = `
-                <div class="result-card">
-                    <div class="result-icon">${resultData.icon}</div>
-                    <h2 class="result-title" style="color: ${resultData.color}">${resultData.title}</h2>
-                    <div class="result-score">
-                        Điểm số của bạn: <span class="score-number" style="color: ${resultData.color}">${totalScore}/20</span>
+        <div class="score-breakdown">
+            <div class="breakdown-title">📊 Bạn đang ở vùng nào?</div>
+            <div class="score-marker">
+                <div class="score-needle" id="needle" style="left:${needlePct}%">📍</div>
+            </div>
+            <div style="height:24px"></div>
+            <div class="score-zones">
+                <div class="zone zone-red"   style="flex:9"></div>
+                <div class="zone zone-amber" style="flex:6"></div>
+                <div class="zone zone-green" style="flex:5"></div>
+            </div>
+            <div class="zone-labels">
+                <span>0 – Báo động đỏ</span>
+                <span>10 – Cảnh báo</span>
+                <span>16 – Bình an ✨</span>
+                <span>20</span>
+            </div>
+        </div>
+
+        <div class="reco-card">
+            <div class="reco-title">🎯 Giải pháp cho bạn</div>
+            <div class="reco-sub">Dựa trên kết quả ${totalScore}/${maxScore} điểm, Thu Nhiên gợi ý:</div>
+            <div class="reco-items">
+                ${rd.recos.map(r => `
+                    <div class="reco-item">
+                        <div class="reco-icon">${r.icon}</div>
+                        <div class="reco-text">${r.text}</div>
                     </div>
-                    <div class="result-description">${resultData.description}</div>
-                    
-                    <div class="result-recommendations">
-                        <h3 class="recommendations-title">💡 Giải pháp đề xuất:</h3>
-                        ${resultData.recommendations.map(rec => `
-                            <div class="recommendation-item">
-                                <div class="recommendation-icon">${rec.icon}</div>
-                                <div class="recommendation-text">${rec.text}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
+                `).join('')}
+            </div>
+        </div>
 
-                <div class="lead-form">
-                    <h3 class="form-title">🎁 Nhận Tư Vấn Miễn Phí</h3>
-                    <p class="form-subtitle">Để lại thông tin để nhận báo cáo chi tiết và được Coach Thu Nhiên tư vấn trực tiếp!</p>
-                    
-                    <form onsubmit="submitLead(event)">
-                        <div class="form-group">
-                            <input type="text" class="form-input" placeholder="Họ và tên *" required id="leadName">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-input" placeholder="Email *" required id="leadEmail">
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" class="form-input" placeholder="Số điện thoại *" required id="leadPhone">
-                        </div>
-                        <button type="submit" class="submit-btn">📧 Nhận Tư Vấn Ngay</button>
-                        <p class="privacy-note">🔒 Thông tin của bạn được bảo mật tuyệt đối</p>
-                    </form>
-                </div>
+        <div class="lead-form" id="leadFormWrap">
+            <h3 class="lead-form-title">🎁 Nhận Tư Vấn Miễn Phí</h3>
+            <p class="lead-form-sub">Để lại thông tin để nhận báo cáo chi tiết và được Coach Thu Nhiên tư vấn trực tiếp!</p>
+            <div class="form-group">
+                <input type="text"  class="form-input" placeholder="Họ và tên *"       id="leadName">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="Email *"            id="leadEmail">
+            </div>
+            <div class="form-group">
+                <input type="tel"   class="form-input" placeholder="Số điện thoại *"   id="leadPhone">
+            </div>
+            <button class="submit-btn" onclick="submitLead()">📧 Nhận Tư Vấn Ngay</button>
+            <p class="privacy-note">🔒 Thông tin của bạn được bảo mật tuyệt đối</p>
+        </div>
 
-                <div class="share-section">
-                    <h3 class="share-title">Chia sẻ kết quả với bạn bè:</h3>
-                    <div class="share-buttons">
-                        <button class="share-btn share-facebook" onclick="shareToFacebook()">
-                            📘 Facebook
-                        </button>
-                        <button class="share-btn share-zalo" onclick="shareToZalo()">
-                            💬 Zalo
-                        </button>
-                        <button class="share-btn share-copy" onclick="copyLink()">
-                            🔗 Copy Link
-                        </button>
-                    </div>
-                </div>
-            `;
+        <div class="share-section">
+            <div class="share-title">Chia sẻ kết quả với bạn bè:</div>
+            <div class="share-buttons">
+                <button class="share-btn share-facebook" onclick="shareFB()">📘 Facebook</button>
+                <button class="share-btn share-zalo"     onclick="shareZalo()">💬 Zalo</button>
+                <button class="share-btn share-copy"     onclick="copyLink()">🔗 Copy Link</button>
+            </div>
+        </div>
 
-            document.getElementById('resultSection').innerHTML = resultHTML;
-            document.getElementById('resultSection').classList.add('active');
-            
-            // Scroll to result
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        <div class="retry-section">
+            <button class="retry-btn" onclick="retryQuiz()">🔄 Làm lại bài test (câu hỏi ngẫu nhiên)</button>
+        </div>
+    `;
 
-        function submitLead(event) {
-            event.preventDefault();
-            
-            const name = document.getElementById('leadName').value;
-            const email = document.getElementById('leadEmail').value;
-            const phone = document.getElementById('leadPhone').value;
-            
-            // Determine level based on score
-            let level;
-            if (totalScore >= 16) {
-                level = '🌟 Trạm Sạc Bình An (16-20 điểm)';
-            } else if (totalScore >= 10) {
-                level = '⚠️ Dấu Hiệu Cảnh Báo (10-15 điểm)';
-            } else {
-                level = '🚨 Báo Động Đỏ (<10 điểm)';
-            }
-            
-            // Format answers detail
-            const answersDetail = answers.map((answer, index) => {
-                const question = questions[index];
-                const option = question.options.find(opt => opt.points === answer.points);
-                return `Câu ${index + 1}: ${question.text}\n→ ${option.text} (${answer.points} điểm)`;
-            }).join('\n\n');
-            
-            const timestamp = new Date().toLocaleString('vi-VN');
-            
-            // ✅ GOOGLE APPS SCRIPT WEB APP URL
-            const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_aW4GsX0u1CL86Tvs6yknJFdxrC2UEjkeTlMvP-FfNBVUi26u20WLHSXiBRRc80c/exec';
-            
-            const ENTRY_IDS = {
-                name: 'entry.2113918905',      // Họ và Tên
-                email: 'entry.1992230588',     // Email
-                phone: 'entry.1447887329',     // Số điện thoại
-                score: 'entry.1883031995',     // Điểm số
-                level: 'entry.429200156',      // Mức độ
-                timestamp: 'entry.807548649',  // Timestamp
-                detail: 'entry.1648281170'     // Chi tiết câu trả lời
-            };
-            
-            // Create form data
-            const formData = new FormData();
-            formData.append(ENTRY_IDS.name, name);
-            formData.append(ENTRY_IDS.email, email);
-            formData.append(ENTRY_IDS.phone, phone);
-            formData.append(ENTRY_IDS.score, `${totalScore}/20`);
-            formData.append(ENTRY_IDS.level, level);
-            formData.append(ENTRY_IDS.timestamp, timestamp);
-            formData.append(ENTRY_IDS.detail, answersDetail);
-            
-            // Show loading state
-            const submitBtn = event.target.querySelector('[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = '⏳ Đang gửi...';
-            submitBtn.disabled = true;
-            
-            // Submit via Google Apps Script
-            fetch(APPS_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
-            }).then(() => {
-                // Save to localStorage as backup
-                const leadData = {
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    score: totalScore,
-                    level: level,
-                    timestamp: timestamp,
-                    answers: answers
-                };
-                
-                let leads = JSON.parse(localStorage.getItem('quizLeads') || '[]');
-                leads.push(leadData);
-                localStorage.setItem('quizLeads', JSON.stringify(leads));
-                
-                // Show success message
-                alert('✅ Cảm ơn bạn! Chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ.\n\n📧 Kiểm tra email để nhận báo cáo chi tiết và tài liệu hỗ trợ!');
-                
-                // Restore button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-                // Scroll to share section
-                document.querySelector('.share-section').scrollIntoView({ behavior: 'smooth' });
-            }).catch((error) => {
-                console.error('Error:', error);
-                // Still save locally if Apps Script fails
-                alert('✅ Cảm ơn bạn! Dữ liệu đã được lưu.\n\nChúng tôi sẽ liên hệ với bạn sớm!');
-                
-                // Restore button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            });
-        }
+    document.getElementById('resultSection').innerHTML = html;
+    document.getElementById('resultSection').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-        function shareToFacebook() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent(`Tôi vừa hoàn thành bài kiểm tra sức khỏe tâm lý gia đình và đạt ${totalScore}/20 điểm! Bạn cũng thử xem nhé!`);
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
-        }
+// ============================================================
+// RETRY
+// ============================================================
+function retryQuiz() {
+    document.getElementById('resultSection').innerHTML = '';
+    document.getElementById('resultSection').classList.remove('active');
+    startQuiz();
+}
 
-        function shareToZalo() {
-            const url = encodeURIComponent(window.location.href);
-            window.open(`https://zalo.me/share?url=${url}`, '_blank');
-        }
+// ============================================================
+// LEAD FORM
+// ============================================================
+function submitLead() {
+    const name  = document.getElementById('leadName').value.trim();
+    const email = document.getElementById('leadEmail').value.trim();
+    const phone = document.getElementById('leadPhone').value.trim();
 
-        function copyLink() {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                alert('✅ Đã copy link! Bạn có thể chia sẻ với bạn bè.');
-            });
-        }
+    if (!name || !email || !phone) {
+        alert('⚠️ Vui lòng điền đầy đủ họ tên, email và số điện thoại!');
+        return;
+    }
 
-        // Track page views
-        if (!localStorage.getItem('quizPageViews')) {
-            localStorage.setItem('quizPageViews', '0');
-        }
-        let views = parseInt(localStorage.getItem('quizPageViews')) + 1;
-        localStorage.setItem('quizPageViews', views.toString());
-    </script>
+    if (APPS_SCRIPT_URL.includes('PASTE_URL')) {
+        alert('⚠️ Chưa cấu hình APPS_SCRIPT_URL!\n\nLiên hệ admin để được hỗ trợ.');
+        return;
+    }
+
+    let level;
+    const maxScore = quizQuestions.length * 2;
+    if (totalScore >= 16)     level = '🌟 Trạm Sạc Bình An (16–20đ)';
+    else if (totalScore >= 10) level = '⚠️ Dấu Hiệu Cảnh Báo (10–15đ)';
+    else                       level = '🚨 Báo Động Đỏ (0–9đ)';
+
+    const submitBtn = document.querySelector('.submit-btn');
+    submitBtn.textContent = '⏳ Đang gửi...';
+    submitBtn.disabled    = true;
+
+    const formData = new FormData();
+    formData.append('entry.2113918905', name);
+    formData.append('entry.1992230588', email);
+    formData.append('entry.1447887329', phone);
+    formData.append('entry.1883031995', totalScore + '/' + maxScore);
+    formData.append('entry.429200156',  level);
+    formData.append('entry.807548649',  QUIZ_TYPE);   // dùng cột timestamp để ghi loại bài test
+
+    fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: formData })
+        .then(() => {
+            // Backup localStorage
+            const leads = JSON.parse(localStorage.getItem('quizLeadsTamLy') || '[]');
+            leads.push({ name, email, phone, score: totalScore + '/' + maxScore, level, type: QUIZ_TYPE, time: new Date().toLocaleString('vi-VN') });
+            localStorage.setItem('quizLeadsTamLy', JSON.stringify(leads));
+            showSuccessForm();
+        })
+        .catch(() => showSuccessForm());
+}
+
+function showSuccessForm() {
+    document.getElementById('leadFormWrap').innerHTML = `
+        <div style="text-align:center; padding:1.5rem 0">
+            <div style="font-size:3rem; margin-bottom:1rem">🎉</div>
+            <h3 style="font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--dark); margin-bottom:0.75rem">Đã nhận thông tin!</h3>
+            <p style="color:var(--gray); font-size:0.97rem; line-height:1.8">
+                Cảm ơn bạn đã tin tưởng Thu Nhiên!<br>
+                Chúng tôi sẽ liên hệ trong vòng <strong>24 giờ</strong> để tư vấn chi tiết.<br><br>
+                📧 Kiểm tra email để nhận báo cáo và tài liệu miễn phí nhé!
+            </p>
+        </div>
+    `;
+}
+
+// ============================================================
+// SHARE
+// ============================================================
+function shareFB() {
+    const url  = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`Tôi vừa kiểm tra sức khỏe tâm lý gia đình và đạt ${totalScore}/20 điểm! Bạn cũng thử xem nhé!`);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+}
+function shareZalo() {
+    window.open(`https://zalo.me/share?url=${encodeURIComponent(window.location.href)}`, '_blank');
+}
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href)
+        .then(() => alert('✅ Đã copy link! Bạn có thể chia sẻ với bạn bè.'));
+}
+</script>
 </body>
 </html>
