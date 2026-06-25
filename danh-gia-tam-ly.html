@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bộ Công Cụ Đánh Giá Tâm Lý | Thu Nhiên Education</title>
+    <meta name="description" content="8 bài kiểm tra tâm lý miễn phí – từ sức khỏe gia đình đến đánh giá lâm sàng DSM-5. Nhận kết quả chi tiết ngay lập tức.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --warm:    #e67e50;
+            --accent:  #ff9a8b;
+            --neutral: #f5f1ed;
+            --dark:    #1e2a38;
+            --gray:    #5a6a7a;
+            --light:   #fdfcfb;
+        }
+        body { font-family:"Plus Jakarta Sans",sans-serif; background:var(--light); color:var(--dark); line-height:1.6; overflow-x:hidden; }
+
+        /* ── HEADER ── */
+        header {
+            position:sticky; top:0; z-index:100;
+            background:rgba(253,252,251,0.92);
+            backdrop-filter:blur(12px);
+            border-bottom:1px solid rgba(0,0,0,0.07);
+            padding:1rem 2rem;
+            display:flex; align-items:center; justify-content:space-between;
+            animation:fadeInDown 0.6s ease;
+        }
+        .logo-wrap { display:flex; align-items:center; gap:0.75rem; text-decoration:none; }
+        .logo-icon { font-size:1.6rem; }
+        .logo-text { font-family:"DM Serif Display",serif; font-size:1.3rem; color:var(--warm); }
+        .logo-sub  { font-size:0.72rem; color:var(--gray); font-weight:500; display:block; margin-top:-3px; }
+        .header-cta {
+            background:linear-gradient(135deg,var(--warm),var(--accent));
+            color:white; padding:0.6rem 1.4rem; border-radius:50px;
+            font-size:0.88rem; font-weight:700; text-decoration:none;
+            transition:all 0.3s ease; box-shadow:0 4px 12px rgba(230,126,80,0.3);
+            white-space:nowrap;
+        }
+        .header-cta:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(230,126,80,0.4); }
+
+        /* ── HERO ── */
+        .hero {
+            text-align:center; padding:5rem 2rem 4rem;
+            background:linear-gradient(160deg,#1e2a38 0%,#2d4060 50%,#3d6080 100%);
+            position:relative; overflow:hidden;
+        }
+        .hero::before {
+            content:""; position:absolute; top:-30%; right:-10%;
+            width:600px; height:600px;
+            background:radial-gradient(circle,rgba(230,126,80,0.18) 0%,transparent 65%);
+            animation:float 12s ease-in-out infinite;
+        }
+        .hero::after {
+            content:""; position:absolute; bottom:-20%; left:-10%;
+            width:400px; height:400px;
+            background:radial-gradient(circle,rgba(111,160,200,0.15) 0%,transparent 65%);
+        }
+        .hero-eyebrow {
+            display:inline-block; position:relative;
+            background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);
+            color:rgba(255,255,255,0.85); font-size:0.75rem; font-weight:700;
+            letter-spacing:2.5px; text-transform:uppercase;
+            padding:0.4rem 1.1rem; border-radius:50px; margin-bottom:1.5rem;
+        }
+        .hero-title {
+            font-family:"DM Serif Display",serif;
+            font-size:clamp(2.2rem,5vw,3.4rem); color:white;
+            line-height:1.15; margin-bottom:1.25rem; position:relative;
+        }
+        .hero-title span { color:#f4c56a; }
+        .hero-desc {
+            font-size:1.1rem; color:rgba(255,255,255,0.7);
+            max-width:600px; margin:0 auto 2.5rem; line-height:1.75;
+        }
+        .hero-stats {
+            display:flex; justify-content:center; gap:3rem; flex-wrap:wrap;
+            margin-bottom:3rem; position:relative;
+        }
+        .hero-stat { text-align:center; }
+        .hero-stat-num { font-size:2rem; font-weight:800; color:#f4c56a; display:block; }
+        .hero-stat-label { font-size:0.8rem; color:rgba(255,255,255,0.6); }
+        .hero-scroll {
+            display:inline-flex; align-items:center; gap:0.5rem;
+            color:rgba(255,255,255,0.55); font-size:0.85rem;
+            animation:bounce-soft 2s ease-in-out infinite;
+        }
+
+        /* ── FILTER BAR ── */
+        .filter-section { padding:2rem 2rem 0; max-width:1100px; margin:0 auto; }
+        .filter-bar { display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; }
+        .filter-label { font-size:0.82rem; font-weight:700; color:var(--gray); margin-right:0.25rem; }
+        .filter-btn {
+            padding:0.45rem 1.1rem; border-radius:50px; border:2px solid #ddd;
+            background:white; font-size:0.82rem; font-weight:600; color:var(--gray);
+            cursor:pointer; transition:all 0.25s ease; font-family:inherit;
+        }
+        .filter-btn:hover { border-color:var(--warm); color:var(--warm); }
+        .filter-btn.active { background:var(--warm); border-color:var(--warm); color:white; }
+
+        /* ── GRID ── */
+        .grid-section { padding:2rem; max-width:1100px; margin:0 auto; }
+        .section-label { font-size:0.78rem; font-weight:700; color:var(--gray); letter-spacing:2px; text-transform:uppercase; margin-bottom:1.5rem; }
+        .cards-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+            gap:1.5rem;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background:white; border-radius:20px;
+            box-shadow:0 2px 16px rgba(0,0,0,0.07);
+            overflow:hidden; transition:all 0.3s ease;
+            display:flex; flex-direction:column;
+            text-decoration:none; color:inherit;
+            border:2px solid transparent;
+        }
+        .card:hover {
+            transform:translateY(-6px);
+            box-shadow:0 12px 32px rgba(0,0,0,0.12);
+            border-color:var(--card-color, #ddd);
+        }
+        .card-banner {
+            height:8px;
+            background:var(--card-color, #ddd);
+        }
+        .card-body { padding:1.75rem 1.75rem 1.25rem; flex:1; }
+        .card-tags { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem; }
+        .card-tag {
+            font-size:0.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+            padding:0.25rem 0.65rem; border-radius:50px;
+            background:var(--card-tag-bg, #f0f0f0);
+            color:var(--card-color, #666);
+        }
+        .card-tag-free {
+            font-size:0.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+            padding:0.25rem 0.65rem; border-radius:50px;
+            background:#f0fdf4; color:#16a34a;
+        }
+        .card-icon { font-size:2.2rem; margin-bottom:0.875rem; }
+        .card-title {
+            font-family:"DM Serif Display",serif;
+            font-size:1.3rem; color:var(--dark);
+            margin-bottom:0.6rem; line-height:1.3;
+        }
+        .card-desc { font-size:0.88rem; color:var(--gray); line-height:1.65; margin-bottom:1.25rem; }
+        .card-meta {
+            display:flex; gap:1.25rem; flex-wrap:wrap;
+            font-size:0.78rem; color:var(--gray);
+        }
+        .card-meta-item { display:flex; align-items:center; gap:0.35rem; }
+        .card-footer {
+            padding:1rem 1.75rem 1.5rem;
+            border-top:1px solid #f5f5f5;
+            display:flex; align-items:center; justify-content:space-between;
+        }
+        .card-audience { font-size:0.78rem; color:var(--gray); }
+        .card-btn {
+            padding:0.55rem 1.25rem; border-radius:50px;
+            background:var(--card-color, #888); color:white;
+            font-size:0.82rem; font-weight:700;
+            display:flex; align-items:center; gap:0.4rem;
+            transition:all 0.25s ease;
+        }
+        .card:hover .card-btn { filter:brightness(1.1); transform:scale(1.04); }
+
+        /* ── CLINICAL BADGE ── */
+        .badge-clinical {
+            font-size:0.7rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+            padding:0.25rem 0.65rem; border-radius:50px;
+            background:#f5f0ff; color:#7c3aed;
+        }
+
+        /* ── CTA SECTION ── */
+        .cta-section {
+            margin:0 2rem 3rem; max-width:1100px;
+            background:linear-gradient(135deg,#1e2a38,#3d6080);
+            border-radius:24px; padding:3rem 2.5rem;
+            text-align:center; overflow:hidden; position:relative;
+        }
+        .cta-section::before {
+            content:""; position:absolute; top:-40%; right:-10%;
+            width:400px; height:400px;
+            background:radial-gradient(circle,rgba(230,126,80,0.2) 0%,transparent 65%);
+        }
+        @media (max-width:900px) { .cta-section { margin:0 1rem 2rem; } }
+        .cta-title { font-family:"DM Serif Display",serif; font-size:2rem; color:white; margin-bottom:0.75rem; position:relative; }
+        .cta-desc { font-size:1rem; color:rgba(255,255,255,0.72); max-width:520px; margin:0 auto 2rem; line-height:1.75; position:relative; }
+        .cta-buttons { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; position:relative; }
+        .cta-btn-primary {
+            background:linear-gradient(135deg,var(--warm),var(--accent));
+            color:white; padding:0.9rem 2.25rem; border-radius:50px;
+            font-size:1rem; font-weight:700; text-decoration:none;
+            transition:all 0.3s ease; box-shadow:0 6px 20px rgba(230,126,80,0.35);
+        }
+        .cta-btn-primary:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(230,126,80,0.45); }
+        .cta-btn-secondary {
+            background:rgba(255,255,255,0.12); border:2px solid rgba(255,255,255,0.25);
+            color:white; padding:0.9rem 2.25rem; border-radius:50px;
+            font-size:1rem; font-weight:700; text-decoration:none;
+            transition:all 0.3s ease;
+        }
+        .cta-btn-secondary:hover { background:rgba(255,255,255,0.2); transform:translateY(-3px); }
+
+        /* ── FOOTER ── */
+        footer { text-align:center; padding:3rem 1rem 2rem; color:var(--gray); border-top:1px solid #eee; }
+        .footer-logo { font-family:"DM Serif Display",serif; font-size:1.5rem; color:var(--warm); margin-bottom:0.75rem; }
+        .footer-contact { margin:1.25rem 0; }
+        .footer-contact a { color:var(--gray); text-decoration:none; margin:0 0.75rem; transition:color 0.3s; font-size:0.9rem; }
+        .footer-contact a:hover { color:var(--warm); }
+        .footer-copyright { font-size:0.85rem; margin-top:1.25rem; }
+
+        @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeInUp   { from{opacity:0;transform:translateY(24px)}  to{opacity:1;transform:translateY(0)} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-30px)} }
+        @keyframes bounce-soft { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+
+        .card { animation:fadeInUp 0.5s ease backwards; }
+        .card:nth-child(1) { animation-delay:0.05s; }
+        .card:nth-child(2) { animation-delay:0.10s; }
+        .card:nth-child(3) { animation-delay:0.15s; }
+        .card:nth-child(4) { animation-delay:0.20s; }
+        .card:nth-child(5) { animation-delay:0.25s; }
+        .card:nth-child(6) { animation-delay:0.30s; }
+        .card:nth-child(7) { animation-delay:0.35s; }
+        .card:nth-child(8) { animation-delay:0.40s; }
+
+        @media (max-width:640px) {
+            .hero { padding:3.5rem 1.25rem 3rem; }
+            .hero-stats { gap:2rem; }
+            .filter-section, .grid-section { padding:1.5rem 1rem 0; }
+            .grid-section { padding:1.5rem 1rem; }
+            .cards-grid { grid-template-columns:1fr; }
+            header { padding:0.875rem 1.25rem; }
+            .header-cta { display:none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <a class="logo-wrap" href="#">
+        <div class="logo-icon">🧠</div>
+        <div>
+            <div class="logo-text">Thu Nhiên</div>
+            <span class="logo-sub">Education</span>
+        </div>
+    </a>
+    <a class="header-cta" href="https://zalo.me/0917216246" target="_blank">💬 Tư Vấn Miễn Phí</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-eyebrow">Bộ Công Cụ Tâm Lý Miễn Phí</div>
+    <h1 class="hero-title">Hiểu Rõ Bản Thân &<br><span>Gia Đình Của Bạn</span></h1>
+    <p class="hero-desc">8 bài kiểm tra tâm lý được xây dựng dựa trên tiêu chuẩn quốc tế — từ sức khỏe gia đình đến đánh giá lâm sàng DSM-5. Hoàn toàn miễn phí, kết quả ngay lập tức.</p>
+    <div class="hero-stats">
+        <div class="hero-stat"><span class="hero-stat-num">8</span><span class="hero-stat-label">Bài kiểm tra</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Miễn phí</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">DSM-5</span><span class="hero-stat-label">Tiêu chuẩn quốc tế</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">24h</span><span class="hero-stat-label">Tư vấn phản hồi</span></div>
+    </div>
+    <div class="hero-scroll">↓ &nbsp;Chọn bài kiểm tra phù hợp với bạn</div>
+</section>
+
+<!-- FILTER -->
+<div class="filter-section">
+    <div class="filter-bar">
+        <span class="filter-label">Lọc theo:</span>
+        <button class="filter-btn active" onclick="filterCards('all', this)">Tất cả</button>
+        <button class="filter-btn" onclick="filterCards('gia-dinh', this)">🏠 Gia đình</button>
+        <button class="filter-btn" onclick="filterCards('ca-nhan', this)">👤 Cá nhân</button>
+        <button class="filter-btn" onclick="filterCards('teen', this)">🧑‍🎓 Tuổi teen</button>
+        <button class="filter-btn" onclick="filterCards('lam-sang', this)">🏥 Lâm sàng</button>
+    </div>
+</div>
+
+<!-- GRID -->
+<div class="grid-section">
+    <div class="section-label">8 bài kiểm tra có sẵn</div>
+    <div class="cards-grid" id="cardsGrid">
+
+        <!-- Card 1 -->
+        <a class="card" href="https://thunhienedu.vercel.app/quizthucchien.html" target="_blank"
+           data-category="gia-dinh"
+           style="--card-color:#e67e50; --card-tag-bg:#fff5f0;">
+            <div class="card-banner"></div>
+            <div class="card-body">
+                <div class="card-tags">
+                    <span class="card-tag">Gia đình</span>
+                    <span class="card-tag">Ngôn từ</span>
+                    <span class="card-tag-free">Miễn phí</span>
+                </div>
+                <div class="card-icon">🗣️</div>
+                <div class="card-title">Làm Sạch Bộ Lọc Ngôn Từ</div>
+                <div class="card-desc">6 tình huống thực chiến chứa những cái bẫy tâm lý mà 90% cha mẹ đều mắc phải khi nói chuyện với con tuổi teen.</div>
+                <div class="card-meta">
+                    <span class="card-meta-item">📝 6 câu hỏi</span>
+                    <span class="card-meta-item">⏱ ~5 phút</span>
+                    <span class="card-meta-item">🔀 Câu hỏi ngẫu nhiên</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-audience">👨‍👩‍👧 Dành cho cha mẹ</span>
+                <span class="card-btn">Làm ngay →</span>
+            </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a class="card" href="https://thunhienedu.vercel.app/quiz-tam-ly.html" target="_blank"
+           data-category="gia-dinh"
+           style="--card-color:#5aaa7f; --card-tag-bg:#f0fdf4;">
+            <div class="card-banner"></div>
+            <div class="card-body">
+                <div class="card-tags">
+                    <span class="card-tag">Gia đình</span>
+                    <span class="card-tag">Tâm lý</span>
+                    <span class="card-tag-free">Miễn phí</span>
+                </div>
+                <div class="card-icon">🏠</div>
+                <div class="card-title">Sức Khỏe Tâm Lý Gia Đình</div>
+                <div class="card-desc">10 câu hỏi đánh giá toàn diện sức khỏe tâm lý gia đình — từ giao tiếp, cảm xúc đến mối quan hệ vợ chồng.</div>
+                <div class="card-meta">
+                    <span class="card-meta-item">📝 10 câu hỏi</span>
+                    <span class="card-meta-item">⏱ ~3 phút</span>
+                    <span class="card-meta-item">📊 Thang 20 điểm</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-audience">👨‍👩‍👧 Dành cho cha mẹ</span>
+                <span class="card-btn">Làm ngay →</span>
+            </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a class="card" href="https://thunhienedu.vercel.app/Quiz-phone-childhood.html" target="_blank"
+           data-category="gia-dinh teen"
+           style="--card-color:#9b72cf; --card-tag-bg:#f5f0ff;">
+            <div class="card-banner"></div>
+            <div class="card-body">
+                <div class="card-tags">
+                    <span class="card-tag">Tuổi teen</span>
+                    <span class="card-tag">Mạng xã hội</span>
+                    <span class="card-tag-free">Miễn phí</span>
+                </div>
+                <div class="card-icon">📱</div>
+                <div class="card-title">Phone-Based Childhood</div>
+                <div class="card-desc">10 dấu hiệu con đang bị ảnh hưởng bởi điện thoại & mạng xã hội. Dựa trên nghiên cứu của Jonathan Haidt.</div>
+                <div class="card-meta">
+                    <span class="card-meta-item">☑️ 10 dấu hiệu</span>
+                    <span class="card-meta-item">⏱ ~2 phút</span>
+                    <span class="card-meta-item">📖 Nguồn: The Anxious Generation</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-audience">👨‍👩‍👧 Dành cho cha mẹ</span>
+                <span class="card-btn">Làm ngay →</span>
+            </div>
+        </a>
+
+        <!-- Card 4 -->
+        <a class="card" href="https://thunhienedu.vercel.app/test-kiem-soat.html" target="_blank"
+           data-category="gia-dinh"
+           style="--card-color:#3d6b8f; --card-tag-bg:#f0f5fc;">
+            <div class="card-banner"></div>
+            <div class="card-body">
+                <div class="card-tags">
+                    <span class="card-tag">Gia đình</span>
+                    <span class="card-tag">Tự đánh giá</span>
+                    <span class="card-tag-free">Miễn phí</span>
+                </div>
+                <div class="card-icon">🧭</div>
+                <div class="card-title">Người Dẫn Đường Hay "Cai Ngục"?</div>
+                <div class="card-desc">Tự đánh giá mức độ kiểm soát trong quan hệ cha mẹ - con cái. 10 câu hỏi thật lòng để nhận ra những hành vi vô thức.</div>
+                <div class="card-meta">
+                    <span class="card-meta-item">📝 10 câu hỏi</span>
+                    <span class="card-meta-item">⏱ ~5 phút</span>
+                    <span class="card-meta-item">📊 Thang 30 điểm</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-audience">👨‍👩‍👧 Dành cho cha mẹ</span>
+                <span class="card-btn">Làm ngay →</span>
+            </div>
+        </a>
+
+        <!-- Card 5 -->
+        <a class="card" href="https://thunhienedu.vercel.app/suckhoetamtri.html" target="_blank"
+           data-category="ca-nhan lam-sang"
+           style="--card-color:#6366a3; --card-tag-bg:#f4f4ff;">
+            <div class="card-banner"></div>
+            <div class="card-body">
+                <div class="card-tags">
+                    <span class="card-tag">Lâm sàng</span>
+                    <span class="badge-clinical">PHQ-9</span>
+                    <span class="card-tag-free">Miễn phí</span>
+                </div>
+                <div class="card-icon">🩺</div>
+                <div class="card-title">Đánh Giá Sức Khỏe Tâm Trí PHQ-9</div>
+                <div class="card-desc">Bộ câu hỏi PHQ-9 – tiêu chuẩn quốc tế được các bác sĩ và chuyên gia tâm lý sử dụng để tầm soát trầm cảm.</div>
+                <div class="card-meta">
+                    <span class="card-meta-item">📝 9 câu hỏi</span>
+                    <span class="card-meta-item">⏱ ~3 phút</span>
+                    <span class="card-meta-item">📊 Thang 27 điểm</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-audience">🧑 Dành cho người lớn</span>
+                <span class="card-btn">Làm ngay →</span>
+            </div>
+        </a>
+
+        <!-- Card 6 -->
+        <a class="card" href="https://thunhienedu.vercel.app/Suc-khoe-tam-tri-thieu-nien.html" target="_blank"
+           data-category="teen lam-sang"
+           style="--card-color:#5b7fa6; --card-tag-bg:#f0f6fc;">
+            <div class="card-banner"></div>
+            <div class="card-body">
+                <div class="card-tags">
+                    <span class="card-tag">Tuổi teen</span>
+                    <span class="badge-clinical">DSM-5</span>
+                    <span class="card-tag-free">Miễn phí</span>
+                </div>
+                <div class="card-icon">🎓</div>
+                <div class="card-title">Sức Khỏe Tinh Thần Thiếu Niên</div>
+                <div class="card-desc">30 câu hỏi theo chuẩn DSM-5 đánh giá toàn diện 3 nhóm: Năng lượng & Thể chất, Cảm xúc & Hứng thú, Nhận thức & Hành vi.</div>
+                <div class="card-meta">
+                    <span class="card-meta-item">📝 30 câu hỏi</span>
+                    <span class="card-meta-item">⏱ ~8 phút</span>
+                    <span class="card-meta-item">📊 3 nhóm đánh giá</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-audience">🧑‍🎓 Dành cho thiếu niên 12–18</span>
+                <span class="card-btn">Làm ngay →</span>
+            </div>
+        </a>
+
+        <!-- Card 7 -->
+        <a class="card" href="https://thunhienedu.vercel.app/bien-dong-cam-xuc.html" target="_blank"
+           data-category="teen ca-nhan"
+           style="--card-color:#c0596b; --card-tag-bg:#fff5f6;">
+            <div class="card-banner"></div>
+            <div class="card-body">
+                <div class="card-tags">
+                    <span class="card-tag">Tuổi teen</span>
+                    <span class="card-tag">Cảm xúc</span>
+                    <span class="card-tag-free">Miễn phí</span>
+                </div>
+                <div class="card-icon">💗</div>
+                <div class="card-title">Biến Động Cảm Xúc Tuổi Teen</div>
+                <div class="card-desc">30 câu hỏi tự kiểm tra 3 nhóm: Bất ổn & Kích động, Cô lập & Rút lui, Tự ti & Nội tâm — phát hiện sớm rối loạn cảm xúc.</div>
+                <div class="card-meta">
+                    <span class="card-meta-item">📝 30 câu hỏi</span>
+                    <span class="card-meta-item">⏱ ~8 phút</span>
+                    <span class="card-meta-item">📊 3 nhóm đánh giá</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-audience">🧑‍🎓 Dành cho thiếu niên</span>
+                <span class="card-btn">Làm ngay →</span>
+            </div>
+        </a>
+
+        <!-- Card 8 -->
+        <a class="card" href="https://thunhienedu.vercel.app/danh-gia-tam-tri-than-chu.html" target="_blank"
+           data-category="ca-nhan lam-sang"
+           style="--card-color:#4e7fa8; --card-tag-bg:#f0f6fc;">
+            <div class="card-banner"></div>
+            <div class="card-body">
+                <div class="card-tags">
+                    <span class="card-tag">Cá nhân</span>
+                    <span class="badge-clinical">DSM-5</span>
+                    <span class="card-tag-free">Miễn phí</span>
+                </div>
+                <div class="card-icon">🧠</div>
+                <div class="card-title">Đánh Giá Tâm Trí Thân Chủ</div>
+                <div class="card-desc">30 câu hỏi theo chuẩn DSM-5 dành cho người lớn — đánh giá đa chiều về trạng thái trầm cảm qua 3 khía cạnh lâm sàng.</div>
+                <div class="card-meta">
+                    <span class="card-meta-item">📝 30 câu hỏi</span>
+                    <span class="card-meta-item">⏱ ~8 phút</span>
+                    <span class="card-meta-item">📊 3 nhóm đánh giá</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-audience">🧑 Dành cho người lớn</span>
+                <span class="card-btn">Làm ngay →</span>
+            </div>
+        </a>
+
+    </div>
+</div>
+
+<!-- CTA -->
+<div style="max-width:1100px;margin:0 auto;padding:0 2rem;">
+    <div class="cta-section">
+        <h2 class="cta-title">Không biết bắt đầu từ đâu?</h2>
+        <p class="cta-desc">Hãy để Thu Nhiên tư vấn trực tiếp — chỉ cần 15 phút chia sẻ, bạn sẽ biết bài kiểm tra nào phù hợp và bước tiếp theo cần làm gì.</p>
+        <div class="cta-buttons">
+            <a class="cta-btn-primary" href="https://zalo.me/0917216246" target="_blank">💬 Nhắn Zalo Ngay</a>
+            <a class="cta-btn-secondary" href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank">👤 Facebook</a>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">🧠 Thu Nhiên Education</div>
+    <p style="font-size:0.88rem;color:var(--gray);max-width:500px;margin:0.75rem auto;">Chuyên gia tâm trí — Trainer chương trình "Nuôi Dạy Con Tuổi Teen" trên VTV1 Sống Khoẻ</p>
+    <div class="footer-contact">
+        <a href="mailto:nhienhtt@gmail.com">📧 nhienhtt@gmail.com</a>
+        <a href="https://zalo.me/0917216246" target="_blank">💬 091 721 62 46</a>
+        <a href="https://www.facebook.com/ThuNhien.BetterMinds" target="_blank">👤 Facebook</a>
+    </div>
+    <div class="footer-copyright">© 2024 Thu Nhiên Education. Tất cả quyền được bảo lưu.</div>
+</footer>
+
+<script>
+function filterCards(category, btn) {
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        const cats = card.getAttribute('data-category') || '';
+        if (category === 'all' || cats.includes(category)) {
+            card.style.display = '';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(16px)';
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 30);
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    // Update count label
+    const visible = Array.from(cards).filter(c => c.style.display !== 'none').length;
+    document.querySelector('.section-label').textContent = visible + ' bài kiểm tra có sẵn';
+}
+</script>
+
+</body>
+</html>
