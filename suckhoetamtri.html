@@ -354,7 +354,6 @@
 
 <div class="container">
 
-    <!-- HERO -->
     <section class="hero" id="heroSection">
         <div class="hero-badge">Tiêu Chuẩn Quốc Tế PHQ-9</div>
         <h1 class="hero-title">Đánh Giá<br><span>Sức Khỏe Tâm Trí</span><br>Của Bạn</h1>
@@ -370,7 +369,6 @@
         <button class="start-btn" onclick="startQuiz()">💜 Bắt Đầu Đánh Giá</button>
     </section>
 
-    <!-- QUIZ -->
     <section class="quiz-section" id="quizSection">
 
         <div class="crisis-banner">
@@ -399,7 +397,6 @@
         </div>
     </section>
 
-    <!-- RESULT -->
     <section class="result-section" id="resultSection"></section>
 
 </div>
@@ -419,59 +416,22 @@
 // CONFIG
 // ============================================================
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_aW4GsX0u1CL86Tvs6yknJFdxrC2UEjkeTlMvP-FfNBVUi26u20WLHSXiBRRc80c/exec';
-const QUIZ_TYPE = 'PHQ9 - Danh Gia Suc Khoe Tam Tri';
+const QUIZ_TYPE = 'PHQ9 - Đánh Giá Sức Khỏe Tâm Trí';
 
 // ============================================================
 // PHQ-9 QUESTIONS — fixed order (clinical standard)
 // Score: 0=Khong bao gio, 1=Vai ngay, 2=Hon mot nua so ngay, 3=Gan nhu moi ngay
 // ============================================================
 const questions = [
-    {
-        id: 1,
-        text: 'It hung thu hoac khong con tim thay niem vui trong cac hoat dong thuong ngay',
-        textVi: 'Ít hứng thú hoặc không còn tìm thấy niềm vui trong các hoạt động thường ngày'
-    },
-    {
-        id: 2,
-        text: 'Cam thay buon rau, chan nan hoac tuyet vong',
-        textVi: 'Cảm thấy buồn rầu, chán nản hoặc tuyệt vọng'
-    },
-    {
-        id: 3,
-        text: 'Kho di vao giac ngu, ngu khong ngon giac hoac ngu qua nhieu',
-        textVi: 'Khó đi vào giấc ngủ, ngủ không ngon giấc hoặc ngủ quá nhiều'
-    },
-    {
-        id: 4,
-        text: 'Cam thay met moi hoac thieu nang luong',
-        textVi: 'Cảm thấy mệt mỏi hoặc thiếu năng lượng'
-    },
-    {
-        id: 5,
-        text: 'An khong ngon mieng hoac an qua nhieu',
-        textVi: 'Ăn không ngon miệng hoặc ăn quá nhiều'
-    },
-    {
-        id: 6,
-        text: 'Cam thay toi te ve ban than – thay minh la nguoi that bai hoac lam cho ban than va gia dinh that vong',
-        textVi: 'Cảm thấy tồi tệ về bản thân – thấy mình là người thất bại hoặc làm cho bản thân và gia đình thất vọng'
-    },
-    {
-        id: 7,
-        text: 'Kho tap trung vao viec gi do, chang han nhu khi doc bao hoac xem tivi',
-        textVi: 'Khó tập trung vào việc gì đó, chẳng hạn như khi đọc báo hoặc xem tivi'
-    },
-    {
-        id: 8,
-        text: 'Di chuyen hoac noi nang cham chap den muc nguoi khac co the nhan ra. Hoac nguoc lai: bon chon, di lai nhieu hon binh thuong',
-        textVi: 'Di chuyển hoặc nói năng chậm chạp đến mức người khác có thể nhận ra — hoặc ngược lại: bồn chồn, đi lại nhiều hơn bình thường'
-    },
-    {
-        id: 9,
-        text: 'Co y nghi rang minh tha chet di cho xong hoac muon tu lam hai ban than theo cach nao do',
-        textVi: 'Có ý nghĩ rằng mình thà chết đi cho xong hoặc muốn tự làm hại bản thân theo cách nào đó',
-        isSensitive: true
-    }
+    { id: 1, textVi: 'Ít hứng thú hoặc không còn tìm thấy niềm vui trong các hoạt động thường ngày' },
+    { id: 2, textVi: 'Cảm thấy buồn rầu, chán nản hoặc tuyệt vọng' },
+    { id: 3, textVi: 'Khó đi vào giấc ngủ, ngủ không ngon giấc hoặc ngủ quá nhiều' },
+    { id: 4, textVi: 'Cảm thấy mệt mỏi hoặc thiếu năng lượng' },
+    { id: 5, textVi: 'Ăn không ngon miệng hoặc ăn quá nhiều' },
+    { id: 6, textVi: 'Cảm thấy tồi tệ về bản thân – thấy mình là người thất bại hoặc làm cho bản thân và gia đình thất vọng' },
+    { id: 7, textVi: 'Khó tập trung vào việc gì đó, chẳng hạn như khi đọc báo hoặc xem tivi' },
+    { id: 8, textVi: 'Di chuyển hoặc nói năng chậm chạp đến mức người khác có thể nhận ra — hoặc ngược lại: bồn chồn, đi lại nhiều hơn bình thường' },
+    { id: 9, textVi: 'Có ý nghĩ rằng mình thà chết đi cho xong hoặc muốn tự làm hại bản thân theo cách nào đó', isSensitive: true }
 ];
 
 const scoreOptions = [
@@ -531,20 +491,20 @@ function renderQuestion() {
 
     document.getElementById('prevBtn').style.display = currentIdx > 0 ? 'block' : 'none';
     const nextBtn = document.getElementById('nextBtn');
-    nextBtn.textContent = currentIdx === total - 1 ? 'Xem ket qua' : 'Tiep theo';
+    nextBtn.textContent = currentIdx === total - 1 ? 'Xem kết quả' : 'Tiếp theo';
     nextBtn.disabled    = saved === null;
 
     const sensitiveNote = q.isSensitive ? `
         <div class="q9-note">
-            💙 Day la cau hoi quan trong de danh gia muc do. Neu ban dang co nhung suy nghi nay, xin hay goi <strong>1800 599 920</strong> hoac lien he Thu Nhien: <strong>0917 216 246</strong> ngay bay gio — ban khong phai mot minh.
+            💙 Đây là câu hỏi quan trọng để đánh giá mức độ. Nếu bạn đang có những suy nghĩ này, xin hãy gọi <strong>1800 599 920</strong> hoặc liên hệ Thu Nhiên: <strong>0917 216 246</strong> ngay bây giờ — bạn không phải một mình.
         </div>` : '';
 
     document.getElementById('questionContainer').innerHTML = `
         <div class="timeframe-note">
-            📅 Trong <strong>2 tuan qua</strong>, ban co thuong xuyen bi lam phien boi van de sau day khong?
+            📅 Trong <strong>2 tuần qua</strong>, bạn có thường xuyên bị làm phiền bởi vấn đề sau đây không?
         </div>
         <div class="question-card">
-            <div class="question-num">Cau ${currentIdx + 1} / ${total}</div>
+            <div class="question-num">Câu ${currentIdx + 1} / ${total}</div>
             ${sensitiveNote}
             <div class="question-text">${q.textVi}</div>
             <div class="options">
@@ -600,71 +560,71 @@ function showResult() {
         rd = {
             icon: '💚', iconBg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)',
             color: '#16a34a',
-            level: 'BINH THUONG',
-            title: 'Binh Thuong / Toi Thieu',
+            level: 'BÌNH THƯỜNG',
+            title: 'Bình Thường / Tối Thiểu',
             scoreBg: 'linear-gradient(135deg,#f0fdf4,#dcfce7)',
             segColors: ['#5aaa7f','#d4956a','#e8b560','#d4726e','#c15f6e'],
-            desc: 'Ket qua cho thay suc khoe tam tri cua ban dang o muc binh thuong hoac chi co nhung trieu chung toi thieu. Day la tin tuong vui! Hay tiep tuc duy tri cac thoi quen tot cho suc khoe tam than nhu ngu du giac, van dong the chat va ket noi voi nguoi than.',
+            desc: 'Kết quả cho thấy sức khỏe tâm trí của bạn đang ở mức bình thường hoặc chỉ có những triệu chứng tối thiểu. Đây là tin vui! Hãy tiếp tục duy trì các thói quen tốt cho sức khỏe tâm thần như ngủ đủ giấc, vận động thể chất và kết nối với người thân.',
             recos: [
-                { icon: '🌿', text: 'Duy tri cac thoi quen ngu du giac, an uong lanh manh va van dong deu dan' },
-                { icon: '🤝', text: 'Ket noi va chia se cam xuc voi nguoi than, ban be thuong xuyen' },
-                { icon: '📚', text: 'Tim hieu them ve ky nang quan ly cam xuc va cham soc suc khoe tam than' }
+                { icon: '🌿', text: 'Duy trì các thói quen ngủ đủ giấc, ăn uống lành mạnh và vận động đều đặn' },
+                { icon: '🤝', text: 'Kết nối và chia sẻ cảm xúc với người thân, bạn bè thường xuyên' },
+                { icon: '📚', text: 'Tìm hiểu thêm về kỹ năng quản lý cảm xúc và chăm sóc sức khỏe tâm thần' }
             ]
         };
     } else if (totalScore <= 9) {
         rd = {
             icon: '💛', iconBg: 'linear-gradient(135deg,#fffbeb,#fef3c7)',
             color: '#b45309',
-            level: 'TRAM CAM NHE',
-            title: 'Tram Cam Nhe',
+            level: 'TRẦM CẢM NHẸ',
+            title: 'Trầm Cảm Nhẹ',
             scoreBg: 'linear-gradient(135deg,#fffbeb,#fef3c7)',
-            desc: 'Ket qua cho thay ban dang co mot so trieu chung tram cam o muc nhe. Day la luc quan trong de chu y den cam xuc cua chinh minh. Can theo doi va tu cham soc them, danh gia lai sau 2 tuan.',
+            desc: 'Kết quả cho thấy bạn đang có một số triệu chứng trầm cảm ở mức nhẹ. Đây là lúc quan trọng để chú ý đến cảm xúc của chính mình. Cần theo dõi và tự chăm sóc thêm, đánh giá lại sau 2 tuần.',
             recos: [
-                { icon: '📋', text: 'Theo doi trang thai tam ly cua ban moi ngay bang nhat ky cam xuc' },
-                { icon: '🏃', text: 'Tang cuong hoat dong the chat — 30 phut di bo moi ngay co the cai thien tam trang dang ke' },
-                { icon: '💬', text: 'Dat lich tu van 1:1 mien phi voi Coach Thu Nhien de duoc ho tro som' }
+                { icon: '📋', text: 'Theo dõi trạng thái tâm lý của bạn mỗi ngày bằng nhật ký cảm xúc' },
+                { icon: '🏃', text: 'Tăng cường hoạt động thể chất — 30 phút đi bộ mỗi ngày có thể cải thiện tâm trạng đáng kể' },
+                { icon: '💬', text: 'Đặt lịch tư vấn 1:1 miễn phí với Coach Thu Nhiên để được hỗ trợ sớm' }
             ]
         };
     } else if (totalScore <= 14) {
         rd = {
             icon: '🧡', iconBg: 'linear-gradient(135deg,#fff7ed,#ffedd5)',
             color: '#c2410c',
-            level: 'TRAM CAM VUA',
-            title: 'Tram Cam Vua',
+            level: 'TRẦM CẢM VỪA',
+            title: 'Trầm Cảm Vừa',
             scoreBg: 'linear-gradient(135deg,#fff7ed,#ffedd5)',
-            desc: 'Ket qua cho thay ban dang trai qua tram cam o muc vua. Muc nay can duoc chu y nghiem tuc va nen tim den su ho tro tu chuyen gia tam ly som. Ban khong can phai chiu dung mot minh — co rat nhieu nguoi co the giup ban.',
+            desc: 'Kết quả cho thấy bạn đang trải qua trầm cảm ở mức vừa. Mức này cần được chú ý nghiêm túc và nên tìm đến sự hỗ trợ từ chuyên gia tâm lý sớm. Bạn không cần phải chịu đựng một mình — có rất nhiều người có thể giúp bạn.',
             recos: [
-                { icon: '👩‍⚕️', text: 'NEN tham van chuyen gia tam ly — dat lich gap Thu Nhien cang som cang tot' },
-                { icon: '🆘', text: 'Duong day ho tro 24/7 mien phi: 1800 599 920' },
-                { icon: '💊', text: 'Co the can ket hop tu van tam ly va ho tro y khoa — trao doi voi bac si' }
+                { icon: '👩‍⚕️', text: 'NÊN tham vấn chuyên gia tâm lý — đặt lịch gặp Thu Nhiên càng sớm càng tốt' },
+                { icon: '🆘', text: 'Đường dây hỗ trợ 24/7 miễn phí: 1800 599 920' },
+                { icon: '💊', text: 'Có thể cần kết hợp tư vấn tâm lý và hỗ trợ y khoa — trao đổi với bác sĩ' }
             ]
         };
     } else if (totalScore <= 19) {
         rd = {
             icon: '❤️', iconBg: 'linear-gradient(135deg,#fff1f2,#ffe4e6)',
             color: '#be123c',
-            level: 'TRAM CAM NANG VUA',
-            title: 'Tram Cam Nang Vua',
+            level: 'TRẦM CẢM NẶNG VỪA',
+            title: 'Trầm Cảm Nặng Vừa',
             scoreBg: 'linear-gradient(135deg,#fff1f2,#ffe4e6)',
-            desc: 'Ket qua cho thay ban dang trai qua tram cam o muc nang vua. Day la tinh trang can duoc can thiep tam ly va co the ket hop y khoa. Viec tim kiem su giup do la hanh dong dung dan va can dam nhat ban co the lam cho chinh minh.',
+            desc: 'Kết quả cho thấy bạn đang trải qua trầm cảm ở mức nặng vừa. Đây là tình trạng cần được can thiệp tâm lý và có thể kết hợp y khoa. Việc tìm kiếm sự giúp đỡ là hành động đúng đắn và can đảm nhất bạn có thể làm cho chính mình.',
             recos: [
-                { icon: '🆘', text: 'CAN gap chuyen gia tam ly NGAY — lien he Thu Nhien: 0917 216 246' },
-                { icon: '🏥', text: 'Nen trao doi voi bac si de co phuong an ket hop tam ly va y khoa' },
-                { icon: '💙', text: 'Duong day khung hoang 24/7: 1800 599 920 — ban khong phai mot minh' }
+                { icon: '🆘', text: 'CẦN gặp chuyên gia tâm lý NGAY — liên hệ Thu Nhiên: 0917 216 246' },
+                { icon: '🏥', text: 'Nên trao đổi với bác sĩ để có phương án kết hợp tâm lý và y khoa' },
+                { icon: '💙', text: 'Đường dây khủng hoảng 24/7: 1800 599 920 — bạn không phải một mình' }
             ]
         };
     } else {
         rd = {
             icon: '💜', iconBg: 'linear-gradient(135deg,#faf5ff,#ede9fe)',
             color: '#7c3aed',
-            level: 'TRAM CAM NANG',
-            title: 'Tram Cam Nang',
+            level: 'TRẦM CẢM NẶNG',
+            title: 'Trầm Cảm Nặng',
             scoreBg: 'linear-gradient(135deg,#faf5ff,#ede9fe)',
-            desc: 'Ket qua cho thay ban dang trai qua tram cam o muc nang. Viec ban hoan thanh bai danh gia nay cho thay ban dang co gang — do la buoc dau tien rat quan trong. Xin hay tim kiem su ho tro chuyen mon ngay hom nay. Ban xung dang duoc giup do va yeu thuong.',
+            desc: 'Kết quả cho thấy bạn đang trải qua trầm cảm ở mức nặng. Việc bạn hoàn thành bài đánh giá này cho thấy bạn đang cố gắng — đó là bước đầu tiên rất quan trọng. Xin hãy tìm kiếm sự hỗ trợ chuyên môn ngay hôm nay. Bạn xứng đáng được giúp đỡ và yêu thương.',
             recos: [
-                { icon: '🚨', text: 'CAN CAN THIEP Y KHOA VA TAM LY KHAN CAP — lien he ngay: 0917 216 246' },
-                { icon: '📞', text: 'Duong day khung hoang: 1800 599 920 (mien phi, 24/7)' },
-                { icon: '🏥', text: 'Nho ngay nguoi than hoac ban be tin tuong dua ban den co so y te gan nhat' }
+                { icon: '🚨', text: 'CẦN CAN THIỆP Y KHOA VÀ TÂM LÝ KHẨN CẤP — liên hệ ngay: 0917 216 246' },
+                { icon: '📞', text: 'Đường dây khủng hoảng: 1800 599 920 (miễn phí, 24/7)' },
+                { icon: '🏥', text: 'Nhờ ngay người thân hoặc bạn bè tin tưởng đưa bạn đến cơ sở y tế gần nhất' }
             ]
         };
     }
@@ -674,8 +634,8 @@ function showResult() {
         <div class="q9-result-banner">
             <div class="q9-result-icon">💙</div>
             <div class="q9-result-text">
-                <h4>Ban da co nhung suy nghi lien quan den tu hai</h4>
-                <p>Day la tin hieu quan trong can duoc ho tro ngay. Xin hay goi <strong>1800 599 920</strong> (duong day ho tro khung hoang, mien phi 24/7) hoac lien he truc tiep <strong>Thu Nhien: 0917 216 246</strong>. Ban khong can phai vuot qua dieu nay mot minh.</p>
+                <h4>Bạn đã có những suy nghĩ liên quan đến tự hại</h4>
+                <p>Đây là tín hiệu quan trọng cần được hỗ trợ ngay. Xin hãy gọi <strong>1800 599 920</strong> (đường dây hỗ trợ khủng hoảng, miễn phí 24/7) hoặc liên hệ trực tiếp <strong>Thu Nhiên: 0917 216 246</strong>. Bạn không cần phải vượt qua điều này một mình.</p>
             </div>
         </div>` : '';
 
@@ -691,13 +651,13 @@ function showResult() {
             <h2 class="result-title" style="color:${rd.color}">${rd.title}</h2>
             <div class="score-display" style="background:${rd.scoreBg}">
                 <span class="score-big" style="color:${rd.color}">${totalScore}</span>
-                <span class="score-out">/ 27 diem</span>
+                <span class="score-out">/ 27 điểm</span>
             </div>
             <p class="result-desc">${rd.desc}</p>
         </div>
 
         <div class="score-visual">
-            <div class="sv-title">📊 Vi tri cua ban tren thang do PHQ-9</div>
+            <div class="sv-title">📊 Vị trí của bạn trên thang đo PHQ-9</div>
             <div class="sv-needle-wrap">
                 <div class="sv-needle" id="svNeedle" style="left:${needlePct}%">📍</div>
             </div>
@@ -713,17 +673,17 @@ function showResult() {
                 <span>0</span><span>5</span><span>10</span><span>15</span><span>20</span><span>27</span>
             </div>
             <div class="sv-legend">
-                <div class="sv-leg-item"><div class="sv-dot" style="background:#5aaa7f"></div> 0-4: Binh thuong</div>
-                <div class="sv-leg-item"><div class="sv-dot" style="background:#93c47d"></div> 5-9: Nhe</div>
-                <div class="sv-leg-item"><div class="sv-dot" style="background:#e8b560"></div> 10-14: Vua</div>
-                <div class="sv-leg-item"><div class="sv-dot" style="background:#e06666"></div> 15-19: Nang vua</div>
-                <div class="sv-leg-item"><div class="sv-dot" style="background:#c15f6e"></div> 20-27: Nang</div>
+                <div class="sv-leg-item"><div class="sv-dot" style="background:#5aaa7f"></div> 0-4: Bình thường</div>
+                <div class="sv-leg-item"><div class="sv-dot" style="background:#93c47d"></div> 5-9: Nhẹ</div>
+                <div class="sv-leg-item"><div class="sv-dot" style="background:#e8b560"></div> 10-14: Vừa</div>
+                <div class="sv-leg-item"><div class="sv-dot" style="background:#e06666"></div> 15-19: Nặng vừa</div>
+                <div class="sv-leg-item"><div class="sv-dot" style="background:#c15f6e"></div> 20-27: Nặng</div>
             </div>
         </div>
 
         <div class="reco-card">
-            <div class="reco-title">Buoc Tiep Theo Cho Ban</div>
-            <div class="reco-sub">Dua tren ket qua ${totalScore}/27 diem — Thu Nhien khuyen nghi:</div>
+            <div class="reco-title">Bước Tiếp Theo Cho Bạn</div>
+            <div class="reco-sub">Dựa trên kết quả ${totalScore}/27 điểm — Thu Nhiên khuyến nghị:</div>
             <div class="reco-items">
                 ${rd.recos.map(r => `
                     <div class="reco-item">
@@ -735,23 +695,23 @@ function showResult() {
         </div>
 
         <div class="lead-form" id="leadFormWrap">
-            <h3 class="lead-form-title">Nhan Ho Tro Tu Chuyen Gia</h3>
-            <p class="lead-form-sub">De lai thong tin de duoc Coach Thu Nhien lien he tu van truc tiep va nhan bao cao danh gia chi tiet. Moi thong tin duoc bao mat tuyet doi.</p>
+            <h3 class="lead-form-title">Nhận Hỗ Trợ Từ Chuyên Gia</h3>
+            <p class="lead-form-sub">Để lại thông tin để được Coach Thu Nhiên liên hệ tư vấn trực tiếp và nhận báo cáo đánh giá chi tiết. Mọi thông tin được bảo mật tuyệt đối.</p>
             <div class="form-group">
-                <input type="text"  class="form-input" placeholder="Ho va ten (co the dung ten giau)" id="leadName">
+                <input type="text"  class="form-input" placeholder="Họ và tên (có thể dùng tên giả)" id="leadName">
             </div>
             <div class="form-group">
                 <input type="email" class="form-input" placeholder="Email *"          id="leadEmail">
             </div>
             <div class="form-group">
-                <input type="tel"   class="form-input" placeholder="So dien thoai *" id="leadPhone">
+                <input type="tel"   class="form-input" placeholder="Số điện thoại *" id="leadPhone">
             </div>
-            <button class="submit-btn" onclick="submitLead()">Nhan Tu Van Mien Phi</button>
-            <p class="privacy-note">Thong tin cua ban duoc bao mat tuyet doi va chi duoc su dung de lien he tu van</p>
+            <button class="submit-btn" onclick="submitLead()">Nhận Tư Vấn Miễn Phí</button>
+            <p class="privacy-note">Thông tin của bạn được bảo mật tuyệt đối và chỉ được sử dụng để liên hệ tư vấn</p>
         </div>
 
         <div class="share-section">
-            <div class="share-title">Chia se de nhieu nguoi biet den cong cu nay:</div>
+            <div class="share-title">Chia sẻ để nhiều người biết đến công cụ này:</div>
             <div class="share-buttons">
                 <button class="share-btn share-facebook" onclick="shareFB()">Facebook</button>
                 <button class="share-btn share-zalo"     onclick="shareZalo()">Zalo</button>
@@ -760,7 +720,7 @@ function showResult() {
         </div>
 
         <div class="retry-section">
-            <button class="retry-btn" onclick="retryQuiz()">Lam lai bai danh gia</button>
+            <button class="retry-btn" onclick="retryQuiz()">Làm lại bài đánh giá</button>
         </div>
     `;
 
@@ -792,27 +752,27 @@ function submitLead() {
     const phone = document.getElementById('leadPhone').value.trim();
 
     if (!email || !phone) {
-        alert('Vui long dien email va so dien thoai de duoc lien he!');
+        alert('Vui lòng điền email và số điện thoại để được liên hệ!');
         return;
     }
     if (APPS_SCRIPT_URL.includes('PASTE_URL')) {
-        alert('Chua cau hinh APPS_SCRIPT_URL! Lien he admin.');
+        alert('Chưa cấu hình APPS_SCRIPT_URL! Liên hệ admin.');
         return;
     }
 
     let level;
-    if      (totalScore <= 4)  level = 'Binh thuong / Toi thieu (' + totalScore + '/27)';
-    else if (totalScore <= 9)  level = 'Tram cam nhe (' + totalScore + '/27)';
-    else if (totalScore <= 14) level = 'Tram cam vua (' + totalScore + '/27)';
-    else if (totalScore <= 19) level = 'Tram cam nang vua (' + totalScore + '/27)';
-    else                       level = 'Tram cam nang (' + totalScore + '/27)';
+    if      (totalScore <= 4)  level = 'Bình thường / Tối thiểu (' + totalScore + '/27)';
+    else if (totalScore <= 9)  level = 'Trầm cảm nhẹ (' + totalScore + '/27)';
+    else if (totalScore <= 14) level = 'Trầm cảm vừa (' + totalScore + '/27)';
+    else if (totalScore <= 19) level = 'Trầm cảm nặng vừa (' + totalScore + '/27)';
+    else                       level = 'Trầm cảm nặng (' + totalScore + '/27)';
 
     const submitBtn = document.querySelector('.submit-btn');
-    submitBtn.textContent = 'Dang gui...';
+    submitBtn.textContent = 'Đang gửi...';
     submitBtn.disabled    = true;
 
     const formData = new FormData();
-    formData.append('entry.2113918905', name || 'An danh');
+    formData.append('entry.2113918905', name || 'Ẩn danh');
     formData.append('entry.1992230588', email);
     formData.append('entry.1447887329', phone);
     formData.append('entry.1883031995', totalScore + '/27');
@@ -828,10 +788,10 @@ function showSuccessForm() {
     document.getElementById('leadFormWrap').innerHTML = `
         <div style="text-align:center; padding:1.5rem 0">
             <div style="font-size:3rem; margin-bottom:1rem">💜</div>
-            <h3 style="font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--dark); margin-bottom:0.75rem">Da nhan thong tin!</h3>
+            <h3 style="font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--dark); margin-bottom:0.75rem">Đã nhận thông tin!</h3>
             <p style="color:var(--gray); font-size:0.95rem; line-height:1.85">
-                Cam on ban da can dam chia se. Thu Nhien se lien he trong vong <strong>24 gio</strong>.<br><br>
-                Neu ban can ho tro khan cap ngay bay gio, goi: <strong>1800 599 920</strong> (mien phi, 24/7)
+                Cảm ơn bạn đã can đảm chia sẻ. Thu Nhiên sẽ liên hệ trong vòng <strong>24 giờ</strong>.<br><br>
+                Nếu bạn cần hỗ trợ khẩn cấp ngay bây giờ, gọi: <strong>1800 599 920</strong> (miễn phí, 24/7)
             </p>
         </div>
     `;
@@ -842,7 +802,7 @@ function showSuccessForm() {
 // ============================================================
 function shareFB() {
     const url  = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent('Toi vua hoan thanh danh gia suc khoe tam tri PHQ-9. Day la cong cu rat huu ich - ban cung thu nhe!');
+    const text = encodeURIComponent('Tôi vừa hoàn thành đánh giá sức khỏe tâm trí PHQ-9. Đây là công cụ rất hữu ích - bạn cũng thử nhé!');
     window.open('https://www.facebook.com/sharer/sharer.php?u=' + url + '&quote=' + text, '_blank');
 }
 function shareZalo() {
@@ -850,7 +810,7 @@ function shareZalo() {
 }
 function copyLink() {
     navigator.clipboard.writeText(window.location.href)
-        .then(() => alert('Da copy link!'));
+        .then(() => alert('Đã sao chép đường dẫn!'));
 }
 </script>
 </body>
