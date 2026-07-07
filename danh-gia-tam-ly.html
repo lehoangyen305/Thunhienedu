@@ -229,6 +229,7 @@
         .card:nth-child(6) { animation-delay:0.30s; }
         .card:nth-child(7) { animation-delay:0.35s; }
         .card:nth-child(8) { animation-delay:0.40s; }
+        .card:nth-child(9) { animation-delay:0.45s; }
 
         @media (max-width:640px) {
             .hero { padding:3.5rem 1.25rem 3rem; }
@@ -261,7 +262,7 @@
     <h1 class="hero-title">Hiểu Rõ Bản Thân &<br><span>Gia Đình Của Bạn</span></h1>
     <p class="hero-desc">8 bài kiểm tra tâm lý được xây dựng dựa trên tiêu chuẩn quốc tế — từ sức khỏe gia đình đến đánh giá lâm sàng DSM-5. Hoàn toàn miễn phí, kết quả ngay lập tức.</p>
     <div class="hero-stats">
-        <div class="hero-stat"><span class="hero-stat-num">8</span><span class="hero-stat-label">Bài kiểm tra</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">9</span><span class="hero-stat-label">Bài kiểm tra</span></div>
         <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Miễn phí</span></div>
         <div class="hero-stat"><span class="hero-stat-num">DSM-5</span><span class="hero-stat-label">Tiêu chuẩn quốc tế</span></div>
         <div class="hero-stat"><span class="hero-stat-num">24h</span><span class="hero-stat-label">Tư vấn phản hồi</span></div>
@@ -278,12 +279,13 @@
         <button class="filter-btn" onclick="filterCards('ca-nhan', this)">👤 Cá nhân</button>
         <button class="filter-btn" onclick="filterCards('teen', this)">🧑‍🎓 Tuổi teen</button>
         <button class="filter-btn" onclick="filterCards('lam-sang', this)">🏥 Lâm sàng</button>
+        <button class="filter-btn" onclick="filterCards('lo-au', this)">🌊 Lo âu</button>
     </div>
 </div>
 
 <!-- GRID -->
 <div class="grid-section">
-    <div class="section-label">8 bài kiểm tra có sẵn</div>
+    <div class="section-label">9 bài kiểm tra có sẵn</div>
     <div class="cards-grid" id="cardsGrid">
 
         <!-- Card 1 -->
@@ -486,6 +488,32 @@
                     <span class="card-meta-item">📝 30 câu hỏi</span>
                     <span class="card-meta-item">⏱ ~8 phút</span>
                     <span class="card-meta-item">📊 3 nhóm đánh giá</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="card-audience">🧑 Dành cho người lớn</span>
+                <span class="card-btn">Làm ngay →</span>
+            </div>
+        </a>
+
+        <!-- Card 9 -->
+        <a class="card" href="https://thunhienedu.vercel.app/lo-au-cang-thang.html" target="_blank"
+           data-category="ca-nhan lam-sang lo-au"
+           style="--card-color:#2e7d8c; --card-tag-bg:#f0f8fa;">
+            <div class="card-banner"></div>
+            <div class="card-body">
+                <div class="card-tags">
+                    <span class="card-tag">Lo âu</span>
+                    <span class="card-tag">Cá nhân</span>
+                    <span class="card-tag-free">Miễn phí</span>
+                </div>
+                <div class="card-icon">🌊</div>
+                <div class="card-title">Kiểm Tra Lo Âu & Căng Thẳng</div>
+                <div class="card-desc">30 câu hỏi đánh giá toàn diện mức độ lo âu qua 3 nhóm: Triệu chứng Cơ thể, Nhận thức và Hành vi & Cảm xúc.</div>
+                <div class="card-meta">
+                    <span class="card-meta-item">📝 30 câu hỏi</span>
+                    <span class="card-meta-item">⏱ ~8 phút</span>
+                    <span class="card-meta-item">📊 3 nhóm triệu chứng</span>
                 </div>
             </div>
             <div class="card-footer">
